@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{146B6AE0-65C8-423D-969A-4EF6F94345A3}"
+	ProjectSection(SolutionItems) = preProject
+		..\Build - Debug - Any CPU.bat = ..\Build - Debug - Any CPU.bat
+		..\Build - Release - Any CPU.bat = ..\Build - Release - Any CPU.bat
+		..\LICENSE = ..\LICENSE
+		..\NAnt.xml = ..\NAnt.xml
+		..\README = ..\README
+		..\ReSharper 5.1 Code Styles.xml = ..\ReSharper 5.1 Code Styles.xml
+		..\ReSharper 6.0 Code Styles.xml = ..\ReSharper 6.0 Code Styles.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared Files", "Shared Files", "{A283B25B-07B4-42E4-A94D-31BF2EA95F2F}"
+	ProjectSection(SolutionItems) = preProject
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		Text Adventure.ico = Text Adventure.ico
+		Text Adventure.snk = Text Adventure.snk
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{8D094DEF-8897-4533-899F-E43CFEE2D948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C6A8C277-E126-47F4-A7E7-11D87E32882D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGameContent", "WindowsGameContent\WindowsGameContent.contentproj", "{C30AC555-1FF6-4F13-A91A-C28A51402019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGame", "WindowsGame\WindowsGame.csproj", "{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWorld", "SampleWorld\SampleWorld.csproj", "{BF2466D3-F97A-4F3C-8941-96D58A698124}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Release|x86.Build.0 = Release|Any CPU
+		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Debug|x86.Build.0 = Debug|Any CPU
+		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Release|x86.ActiveCfg = Release|Any CPU
+		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Debug|x86.Build.0 = Debug|Any CPU
+		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Release|x86.ActiveCfg = Release|Any CPU
+		{C30AC555-1FF6-4F13-A91A-C28A51402019}.Debug|x86.ActiveCfg = Debug|x86
+		{C30AC555-1FF6-4F13-A91A-C28A51402019}.Release|x86.ActiveCfg = Release|x86
+		{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}.Debug|x86.ActiveCfg = Debug|x86
+		{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}.Debug|x86.Build.0 = Debug|x86
+		{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}.Release|x86.ActiveCfg = Release|x86
+		{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}.Release|x86.Build.0 = Release|x86
+		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A283B25B-07B4-42E4-A94D-31BF2EA95F2F} = {146B6AE0-65C8-423D-969A-4EF6F94345A3}
+	EndGlobalSection
+EndGlobal

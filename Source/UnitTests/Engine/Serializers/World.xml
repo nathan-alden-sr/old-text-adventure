@@ -1,0 +1,43 @@
+﻿<world id="9846b8bf-6312-4dd0-a70b-022d1ea2d65e">
+	<startingPlayer id="e64d573a-20e2-4f26-9367-3687b250917b" boardId="be68b2a8-8b40-440f-a93f-6c5986a000bc" coordinate="10,10">
+		<character symbol="2" foregroundColor="0.5,0.7,0.9,1" backgroundColor="0,0,0,0" />
+		<actorInstanceTouchedPlayerEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceTouchedPlayerEventHandler, TextAdventure.UnitTests" />
+	</startingPlayer>
+	<board id="be68b2a8-8b40-440f-a93f-6c5986a000bc" size="12,34">
+		<backgroundLayer size="12,34">
+			<sprite coordinate="1,0">
+				<character symbol="66" foregroundColor="0.8,0.9,1,0.01" backgroundColor="0.02,0.03,0.04,0.05" />
+			</sprite>
+			<sprite coordinate="10,4">
+				<character symbol="65" foregroundColor="0,0.1,0.2,0.3" backgroundColor="0.4,0.5,0.6,0.7" />
+			</sprite>
+		</backgroundLayer>
+		<foregroundLayer size="12,34">
+			<sprite coordinate="5,6">
+				<character symbol="70" foregroundColor="0.9,0.8,0.7,0.6" backgroundColor="0.5,0.4,0.3,0.2" />
+			</sprite>
+			<sprite coordinate="10,30">
+				<character symbol="71" foregroundColor="0.2,0.4,0.6,0.8" backgroundColor="0.8,0.6,0.4,0.2" />
+			</sprite>
+		</foregroundLayer>
+		<actorInstanceLayer size="12,34">
+			<actorInstance id="f5ef050a-cf2a-4d83-b320-75478c77af4f" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,31">
+				<character symbol="68" foregroundColor="0.15,0.16,0.17,0.18" backgroundColor="0.2,0.21,0.22,0.23" />
+				<actorInstanceCreatedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceCreatedEventHandler, TextAdventure.UnitTests" />
+				<actorInstanceDestroyedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceDestroyedEventHandler, TextAdventure.UnitTests" />
+				<actorInstanceTouchedActorInstanceEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceTouchedActorInstanceEventHandler, TextAdventure.UnitTests" />
+				<playerTouchedActorInstanceEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+PlayerTouchedActorInstanceEventHandler, TextAdventure.UnitTests" />
+				<actorInstanceMovedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceMovedEventHandler, TextAdventure.UnitTests" />
+			</actorInstance>
+			<actorInstance id="706da31e-31b1-40be-9eab-648f5a574acc" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,33">
+				<character symbol="67" foregroundColor="0.06,0.07,0.08,0.09" backgroundColor="0.11,0.12,0.13,0.14" />
+			</actorInstance>
+		</actorInstanceLayer>
+		<boardExit coordinate="0,0" direction="Up" destinationBoardId="be68b2a8-8b40-440f-a93f-6c5986a000bc" destinationCoordinate="2,3" />
+		<boardEnteredEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+BoardEnteredEventHandler, TextAdventure.UnitTests" />
+		<boardExitedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+BoardExitedEventHandler, TextAdventure.UnitTests" />
+	</board>
+	<actor id="677ae75c-117c-4992-8dec-ffa645308f82" allowPlayerOverlap="true">
+		<character symbol="2" foregroundColor="0.2,0.3,0.7,0.8" backgroundColor="1,1,1,1" />
+	</actor>
+</world>

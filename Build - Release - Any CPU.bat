@@ -1,0 +1,1 @@
+Binaries\NAnt\NAnt.exe -buildfile:NAnt.xml Build -D:BuildConfiguration=Release -D:"Platform=x86"

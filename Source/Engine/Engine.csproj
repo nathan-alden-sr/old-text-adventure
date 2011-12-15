@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8D094DEF-8897-4533-899F-E43CFEE2D948}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextAdventure.Engine</RootNamespace>
+    <AssemblyName>TextAdventure.Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BuildOutput\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BuildOutput\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Text Adventure.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Common\Color.cs" />
+    <Compile Include="Common\Coordinate.cs" />
+    <Compile Include="Common\IColor.cs" />
+    <Compile Include="Common\ICoordinate.cs" />
+    <Compile Include="Common\ISize.cs" />
+    <Compile Include="Game\Commands\ActorInstanceRandomMoveCommand.cs" />
+    <Compile Include="Game\Commands\ChainedCommand.cs" />
+    <Compile Include="Game\Commands\BoardChangeCommand.cs" />
+    <Compile Include="Game\Commands\CommandContext.cs" />
+    <Compile Include="Game\Commands\Commands.cs" />
+    <Compile Include="Game\Commands\CommandStatus.cs" />
+    <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
+    <Compile Include="Game\Commands\DelayCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceDestroyCommand.cs" />
+    <Compile Include="Game\Commands\LogCommand.cs" />
+    <Compile Include="Game\Commands\MoveCommand.cs" />
+    <Compile Include="Game\Commands\PlayerResumeInputCommand.cs" />
+    <Compile Include="Game\Commands\PlayerSuspendInputCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Game\Commands\MaximumAttempts.cs" />
+    <Compile Include="Game\Commands\PlayerTransportCommand.cs" />
+    <Compile Include="Game\Commands\RandomDelayCommand.cs" />
+    <Compile Include="Game\Commands\RandomMoveDirection.cs" />
+    <Compile Include="Game\Commands\RepeatCommand.cs" />
+    <Compile Include="Game\Commands\RetryCommand.cs" />
+    <Compile Include="Game\Commands\TotalRepeats.cs" />
+    <Compile Include="Game\Events\ActorInstanceDestroyedEvent.cs" />
+    <Compile Include="Game\Events\ActorInstanceTouchedActorInstanceEvent.cs" />
+    <Compile Include="Game\Events\ActorInstanceTouchedPlayerEvent.cs" />
+    <Compile Include="Game\Events\ActorInstanceCreatedEvent.cs" />
+    <Compile Include="Game\Events\ActorInstanceMovedEvent.cs" />
+    <Compile Include="Game\Events\BoardExitedEvent.cs" />
+    <Compile Include="Game\Events\BoardEnteredEvent.cs" />
+    <Compile Include="Game\Events\Event.cs" />
+    <Compile Include="Game\Events\EventHandler.cs" />
+    <Compile Include="Game\Events\IEventHandler.cs" />
+    <Compile Include="Game\Events\PlayerTouchedActorInstanceEvent.cs" />
+    <Compile Include="Game\Events\EventContext.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveDownCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveLeftCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveRightCommand.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveUpCommand.cs" />
+    <Compile Include="Game\Commands\NextAction.cs" />
+    <Compile Include="Game\Commands\Command.cs" />
+    <Compile Include="Game\Commands\CommandResult.cs" />
+    <Compile Include="Game\Commands\PlayerMoveCommand.cs" />
+    <Compile Include="Game\Commands\PlayerMoveRightCommand.cs" />
+    <Compile Include="Game\Commands\PlayerMoveLeftCommand.cs" />
+    <Compile Include="Game\Commands\PlayerMoveUpCommand.cs" />
+    <Compile Include="Game\Commands\TouchDirection.cs" />
+    <Compile Include="Game\Events\TargetedEvent.cs" />
+    <Compile Include="Game\ILoggable.cs" />
+    <Compile Include="Game\Commands\CommandList.cs" />
+    <Compile Include="Game\Commands\PlayerMoveDownCommand.cs" />
+    <Compile Include="Game\Context.cs" />
+    <Compile Include="Game\World\EventResult.cs" />
+    <Compile Include="Game\World\IWorldTime.cs" />
+    <Compile Include="Game\World\IWorldObserver.cs" />
+    <Compile Include="Game\World\PlayerInput.cs" />
+    <Compile Include="Game\Commands\CommandQueue.cs" />
+    <Compile Include="Objects\Actor.cs" />
+    <Compile Include="Objects\ActorInstance.cs" />
+    <Compile Include="Objects\ActorInstanceLayer.cs" />
+    <Compile Include="Objects\BoardExit.cs" />
+    <Compile Include="Objects\BoardExitDirection.cs" />
+    <Compile Include="Objects\ILayer.cs" />
+    <Compile Include="Objects\Tile.cs" />
+    <Compile Include="Objects\Layer.cs" />
+    <Compile Include="Serializers\ActorSerializer.cs" />
+    <Compile Include="Serializers\ActorInstanceSerializer.cs" />
+    <Compile Include="Serializers\BoardExitDirectionSerializer.cs" />
+    <Compile Include="Serializers\BoardExitSerializer.cs" />
+    <Compile Include="Serializers\EventHandlerSerializer.cs" />
+    <Compile Include="Serializers\SpriteLayerSerializer.cs" />
+    <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\World.cs" />
+    <Compile Include="IUnique.cs" />
+    <Compile Include="Objects\Character.cs" />
+    <Compile Include="Objects\SpriteLayer.cs" />
+    <Compile Include="Objects\Sprite.cs" />
+    <Compile Include="Common\Size.cs" />
+    <Compile Include="Objects\Board.cs" />
+    <Compile Include="Game\World\WorldInstance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializers\BoardSerializer.cs" />
+    <Compile Include="Serializers\CharacterSerializer.cs" />
+    <Compile Include="Serializers\ColorSerializer.cs" />
+    <Compile Include="Serializers\CoordinateSerializer.cs" />
+    <Compile Include="Serializers\PlayerSerializer.cs" />
+    <Compile Include="Serializers\ActorInstanceLayerSerializer.cs" />
+    <Compile Include="Serializers\SizeSerializer.cs" />
+    <Compile Include="Serializers\SpriteSerializer.cs" />
+    <Compile Include="Serializers\WorldSerializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Text Adventure.snk">
+      <Link>Text Adventure.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Junior.Common">
+      <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerCollections">
+      <HintPath>..\..\Binaries\Power Collections\PowerCollections.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
