@@ -65,7 +65,6 @@
     <Compile Include="Game\Commands\DelayCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceDestroyCommand.cs" />
     <Compile Include="Game\Commands\LogCommand.cs" />
-    <Compile Include="Game\Commands\MessageCommand.cs" />
     <Compile Include="Game\Commands\MoveCommand.cs" />
     <Compile Include="Game\Commands\PlayerResumeInputCommand.cs" />
     <Compile Include="Game\Commands\PlayerSuspendInputCommand.cs">
