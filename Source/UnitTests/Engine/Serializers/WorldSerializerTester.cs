@@ -77,6 +77,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			private static void AssertWorld(World world)
 			{
 				Assert.That(world.Id, Is.EqualTo(Guid.Parse("9846b8bf-6312-4dd0-a70b-022d1ea2d65e")));
+				Assert.That(world.Version, Is.EqualTo(1));
 				Assert.That(world.Boards.Count(), Is.EqualTo(1));
 			}
 
@@ -175,6 +176,50 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(boardExit.DestinationCoordinate, Is.EqualTo(new Coordinate(2, 3)));
 			}
 
+			private static void AssertMessage(Message message)
+			{
+				Assert.That(message.Id, Is.EqualTo(Guid.Parse("fee40b1a-1aa8-467d-9c8d-49b39a1641a9")));
+
+				IMessagePart[] messageParts = message.Parts.ToArray();
+
+				Assert.That(messageParts.Length, Is.EqualTo(5));
+
+				var messageClear = messageParts[0] as MessageClear;
+				var messageColor = messageParts[1] as MessageColor;
+				var messageText = messageParts[2] as MessageText;
+				var messageLineBreak = messageParts[3] as MessageLineBreak;
+				var messageQuestion = messageParts[4] as MessageQuestion;
+
+				Assert.That(messageClear, Is.Not.Null);
+
+				Assert.That(messageColor, Is.Not.Null);
+				Assert.That(messageColor.Color, Is.EqualTo(Color.Cyan));
+
+				Assert.That(messageText, Is.Not.Null);
+				Assert.That(messageText.Text, Is.EqualTo("Lorem ipsum"));
+
+				Assert.That(messageLineBreak, Is.Not.Null);
+
+				Assert.That(messageQuestion, Is.Not.Null);
+
+				MessageAnswer[] messageAnswers = messageQuestion.Answers.ToArray();
+
+				Assert.That(messageAnswers.Length, Is.EqualTo(2));
+
+				Assert.That(messageAnswers[0].Id, Is.EqualTo(Guid.Parse("bf61ef08-2bd2-4273-a1f4-641e22415047")));
+				Assert.That(messageAnswers[0].Text, Is.EqualTo("Yes"));
+
+				IMessagePart[] messageAnswerParts = messageAnswers[0].Parts.ToArray();
+
+				Assert.That(messageAnswerParts[0], Is.InstanceOf<MessageClear>());
+				Assert.That(messageAnswerParts[1], Is.InstanceOf<MessageColor>());
+				Assert.That(messageAnswerParts[2], Is.InstanceOf<MessageText>());
+				Assert.That(messageAnswerParts[3], Is.InstanceOf<MessageLineBreak>());
+
+				Assert.That(messageAnswers[1].Id, Is.EqualTo(Guid.Parse("bc7cdc46-27f7-4d6b-8fbd-25ea6053a551")));
+				Assert.That(messageAnswers[1].Text, Is.EqualTo("No"));
+			}
+
 			private static void AssertWorldElement(XElement worldElement)
 			{
 				string xml = SerializeXElement(worldElement);
@@ -216,6 +261,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Player startingPlayer = world.StartingPlayer;
 				Board board = world.Boards.Single();
 				Actor actor = world.Actors.Single();
+				Message message = world.Messages.Single();
 
 				AssertStartingPlayer(board, startingPlayer);
 				AssertBoard(board);
@@ -224,6 +270,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				AssertForegroundLayer(board);
 				AssertActorInstanceLayer(board);
 				AssertExit(board);
+				AssertMessage(message);
 
 				XElement serializedWorldElement = WorldSerializer.Instance.Serialize(world);
 

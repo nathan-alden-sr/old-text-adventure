@@ -18,7 +18,7 @@ namespace TextAdventure.SampleWorld
 		private static readonly Size _size = new Size(20, 20);
 
 		public SampleWorld()
-			: base(Guid.Parse("b4320172-092e-4388-b876-99eb6b0b7960"), GetStartingPlayer(), GetBoards().ToArray(), GetActors().ToArray())
+			: base(Guid.Parse("b4320172-092e-4388-b876-99eb6b0b7960"), GetStartingPlayer(), GetBoards().ToArray(), GetActors().ToArray(), GetMessages().ToArray())
 		{
 		}
 
@@ -103,6 +103,11 @@ namespace TextAdventure.SampleWorld
 		}
 
 		private static IEnumerable<ActorInstance> GetActorInstanceLayerActorInstances()
+		{
+			yield break;
+		}
+
+		private static IEnumerable<Message> GetMessages()
 		{
 			yield break;
 		}

@@ -26,7 +26,9 @@ namespace TextAdventure.Engine.Serializers
 				PlayerSerializer.Instance.Serialize(world.StartingPlayer, "startingPlayer"),
 				world.Boards.Select(arg => BoardSerializer.Instance.Serialize(arg)),
 				world.Actors.Select(arg => ActorSerializer.Instance.Serialize(arg)),
-				new XAttribute("id", world.Id));
+				world.Messages.Select(arg => MessageSerializer.Instance.Serialize(arg)),
+				new XAttribute("id", world.Id),
+				new XAttribute("version", world.Version));
 		}
 
 		public World Deserialize(XElement worldElement)
@@ -34,10 +36,12 @@ namespace TextAdventure.Engine.Serializers
 			worldElement.ThrowIfNull("worldElement");
 
 			return new World(
-				Guid.Parse(worldElement.Attribute("id").Value),
+				(Guid)worldElement.Attribute("id"),
+				(int)worldElement.Attribute("version"),
 				PlayerSerializer.Instance.Deserialize(worldElement.Element("startingPlayer")),
 				worldElement.Elements("board").Select(BoardSerializer.Instance.Deserialize),
-				worldElement.Elements("actor").Select(ActorSerializer.Instance.Deserialize));
+				worldElement.Elements("actor").Select(ActorSerializer.Instance.Deserialize),
+				worldElement.Elements("message").Select(MessageSerializer.Instance.Deserialize));
 		}
 	}
 }

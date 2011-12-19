@@ -10,24 +10,29 @@ namespace TextAdventure.Engine.Objects
 		private readonly Dictionary<Guid, Actor> _actorsById = new Dictionary<Guid, Actor>();
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
-		private IEnumerable<Actor> _actors;
-
+		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
 		private Player _startingPlayer;
+		private int _version;
 
 		public World(
 			Guid id,
+			int version,
 			Player startingPlayer,
 			IEnumerable<Board> boards,
-			IEnumerable<Actor> actors)
+			IEnumerable<Actor> actors,
+			IEnumerable<Message> messages)
 		{
 			startingPlayer.ThrowIfNull("startingPlayer");
 			boards.ThrowIfNull("boards");
 			actors.ThrowIfNull("actors");
+			messages.ThrowIfNull("messages");
 
 			_id = id;
+			Version = version;
 			StartingPlayer = startingPlayer;
 			Boards = boards;
 			Actors = actors;
+			Messages = messages;
 		}
 
 		public Guid Id
@@ -35,6 +40,23 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _id;
+			}
+		}
+
+		public int Version
+		{
+			get
+			{
+				return _version;
+			}
+			set
+			{
+				if (value < 1)
+				{
+					throw new ArgumentOutOfRangeException("value", "Version must be at least 1.");
+				}
+
+				_version = value;
 			}
 		}
 
@@ -74,7 +96,7 @@ namespace TextAdventure.Engine.Objects
 		{
 			get
 			{
-				return _actors;
+				return _actorsById.Values;
 			}
 			set
 			{
@@ -85,7 +107,22 @@ namespace TextAdventure.Engine.Objects
 				{
 					_actorsById.Add(actor.Id, actor);
 				}
-				_actors = value;
+			}
+		}
+
+		public IEnumerable<Message> Messages
+		{
+			get
+			{
+				return _messagesById.Values;
+			}
+			set
+			{
+				_messagesById.Clear();
+				foreach (Message message in value)
+				{
+					_messagesById.Add(message.Id, message);
+				}
 			}
 		}
 
@@ -97,6 +134,11 @@ namespace TextAdventure.Engine.Objects
 		public Actor GetActorById(Guid id)
 		{
 			return _actorsById[id];
+		}
+
+		public Message GetMessageById(Guid id)
+		{
+			return _messagesById[id];
 		}
 	}
 }

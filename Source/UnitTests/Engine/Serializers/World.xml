@@ -1,4 +1,4 @@
-﻿<world id="9846b8bf-6312-4dd0-a70b-022d1ea2d65e">
+﻿<world id="9846b8bf-6312-4dd0-a70b-022d1ea2d65e" version="1">
 	<startingPlayer id="e64d573a-20e2-4f26-9367-3687b250917b" boardId="be68b2a8-8b40-440f-a93f-6c5986a000bc" coordinate="10,10">
 		<character symbol="2" foregroundColor="0.5,0.7,0.9,1" backgroundColor="0,0,0,0" />
 		<actorInstanceTouchedPlayerEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceTouchedPlayerEventHandler, TextAdventure.UnitTests" />
@@ -40,4 +40,19 @@
 	<actor id="677ae75c-117c-4992-8dec-ffa645308f82" allowPlayerOverlap="true">
 		<character symbol="2" foregroundColor="0.2,0.3,0.7,0.8" backgroundColor="1,1,1,1" />
 	</actor>
+	<message id="fee40b1a-1aa8-467d-9c8d-49b39a1641a9">
+		<clear />
+		<color color="0,1,1,1" />
+		<text>Lorem ipsum</text>
+		<lineBreak />
+		<question>
+			<answer id="bf61ef08-2bd2-4273-a1f4-641e22415047" text="Yes">
+				<clear />
+				<color color="1,0,1,1" />
+				<text>Yes</text>
+				<lineBreak />
+			</answer>
+			<answer id="bc7cdc46-27f7-4d6b-8fbd-25ea6053a551" text="No" />
+		</question>
+	</message>
 </world>
