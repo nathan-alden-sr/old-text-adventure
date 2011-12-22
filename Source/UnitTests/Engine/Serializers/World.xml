@@ -41,13 +41,11 @@
 		<character symbol="2" foregroundColor="0.2,0.3,0.7,0.8" backgroundColor="1,1,1,1" />
 	</actor>
 	<message id="fee40b1a-1aa8-467d-9c8d-49b39a1641a9">
-		<clear />
 		<color color="0,1,1,1" />
 		<text>Lorem ipsum</text>
 		<lineBreak />
 		<question>
 			<answer id="bf61ef08-2bd2-4273-a1f4-641e22415047" text="Yes">
-				<clear />
 				<color color="1,0,1,1" />
 				<text>Yes</text>
 				<lineBreak />

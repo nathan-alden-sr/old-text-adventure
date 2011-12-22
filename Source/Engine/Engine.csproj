@@ -121,7 +121,6 @@
     <Compile Include="Objects\IMessagePart.cs" />
     <Compile Include="Objects\Message.cs" />
     <Compile Include="Objects\MessageAnswer.cs" />
-    <Compile Include="Objects\MessageClear.cs" />
     <Compile Include="Objects\MessageColor.cs" />
     <Compile Include="Objects\MessageLineBreak.cs" />
     <Compile Include="Objects\MessageQuestion.cs" />
@@ -135,7 +134,6 @@
     <Compile Include="Serializers\MessageAnswerSerializer.cs" />
     <Compile Include="Serializers\MessagePartSerializer.cs" />
     <Compile Include="Serializers\MessageQuestionSerializer.cs" />
-    <Compile Include="Serializers\MessageClearSerializer.cs" />
     <Compile Include="Serializers\MessageTextSerializer.cs" />
     <Compile Include="Serializers\MessageLineBreakSerializer.cs" />
     <Compile Include="Serializers\EventHandlerSerializer.cs" />

@@ -21,10 +21,6 @@ namespace TextAdventure.Engine.Serializers
 
 			foreach (IMessagePart part in parts)
 			{
-				if (part is MessageClear)
-				{
-					yield return MessageClearSerializer.Instance.Serialize((MessageClear)part);
-				}
 				if (part is MessageColor)
 				{
 					yield return MessageColorSerializer.Instance.Serialize((MessageColor)part);
@@ -52,9 +48,6 @@ namespace TextAdventure.Engine.Serializers
 			{
 				switch (partElement.Name.LocalName)
 				{
-					case "clear":
-						yield return MessageClearSerializer.Instance.Deserialize(partElement);
-						break;
 					case "color":
 						yield return MessageColorSerializer.Instance.Deserialize(partElement);
 						break;

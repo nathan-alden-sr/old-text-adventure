@@ -18,7 +18,7 @@ namespace TextAdventure.SampleWorld
 		private static readonly Size _size = new Size(20, 20);
 
 		public SampleWorld()
-			: base(Guid.Parse("b4320172-092e-4388-b876-99eb6b0b7960"), GetStartingPlayer(), GetBoards().ToArray(), GetActors().ToArray(), GetMessages().ToArray())
+			: base(Guid.Parse("b4320172-092e-4388-b876-99eb6b0b7960"), 1, GetStartingPlayer(), GetBoards().ToArray(), GetActors().ToArray(), GetMessages().ToArray())
 		{
 		}
 

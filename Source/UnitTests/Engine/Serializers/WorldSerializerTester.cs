@@ -182,15 +182,12 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 				IMessagePart[] messageParts = message.Parts.ToArray();
 
-				Assert.That(messageParts.Length, Is.EqualTo(5));
+				Assert.That(messageParts.Length, Is.EqualTo(4));
 
-				var messageClear = messageParts[0] as MessageClear;
-				var messageColor = messageParts[1] as MessageColor;
-				var messageText = messageParts[2] as MessageText;
-				var messageLineBreak = messageParts[3] as MessageLineBreak;
-				var messageQuestion = messageParts[4] as MessageQuestion;
-
-				Assert.That(messageClear, Is.Not.Null);
+				var messageColor = messageParts[0] as MessageColor;
+				var messageText = messageParts[1] as MessageText;
+				var messageLineBreak = messageParts[2] as MessageLineBreak;
+				var messageQuestion = messageParts[3] as MessageQuestion;
 
 				Assert.That(messageColor, Is.Not.Null);
 				Assert.That(messageColor.Color, Is.EqualTo(Color.Cyan));
@@ -211,10 +208,11 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 				IMessagePart[] messageAnswerParts = messageAnswers[0].Parts.ToArray();
 
-				Assert.That(messageAnswerParts[0], Is.InstanceOf<MessageClear>());
-				Assert.That(messageAnswerParts[1], Is.InstanceOf<MessageColor>());
-				Assert.That(messageAnswerParts[2], Is.InstanceOf<MessageText>());
-				Assert.That(messageAnswerParts[3], Is.InstanceOf<MessageLineBreak>());
+				Assert.That(messageAnswerParts.Length, Is.EqualTo(3));
+
+				Assert.That(messageAnswerParts[0], Is.InstanceOf<MessageColor>());
+				Assert.That(messageAnswerParts[1], Is.InstanceOf<MessageText>());
+				Assert.That(messageAnswerParts[2], Is.InstanceOf<MessageLineBreak>());
 
 				Assert.That(messageAnswers[1].Id, Is.EqualTo(Guid.Parse("bc7cdc46-27f7-4d6b-8fbd-25ea6053a551")));
 				Assert.That(messageAnswers[1].Text, Is.EqualTo("No"));
