@@ -3,32 +3,24 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.Engine.Common;
-
-using Color = Microsoft.Xna.Framework.Color;
-
 namespace TextAdventure.WindowsGame.Helpers
 {
 	public class WindowBorderDrawingHelper
 	{
-		private static readonly Size _borderSize = new Size(DrawingConstants.Window.TextureSpriteWidth, DrawingConstants.Window.TextureSpriteHeight);
-		private static readonly Size _borderSizeTwice = new Size(DrawingConstants.Window.TextureSpriteWidth * 2, DrawingConstants.Window.TextureSpriteHeight * 2);
-		private Rectangle _destinationBottomLeftCornerRectangle;
-		private Rectangle _destinationBottomRectangle;
-		private Rectangle _destinationBottomRightCornerRectangle;
-		private Rectangle _destinationLeftRectangle;
-		private Rectangle _destinationRightRectangle;
-		private Rectangle _destinationTopLeftCornerRectangle;
-		private Rectangle _destinationTopRectangle;
-		private Rectangle _destinationTopRightCornerRectangle;
-		private Rectangle _windowRectangle;
+		private readonly Vector2 _borderSize;
+		private readonly WindowTexture _windowTexture;
+		private float _alpha = 1f;
 
-		public WindowBorderDrawingHelper()
+		public WindowBorderDrawingHelper(WindowTexture windowTexture, bool beginAndEndSpriteBatch = true)
 		{
+			windowTexture.ThrowIfNull("windowTexture");
+
+			_windowTexture = windowTexture;
+			_borderSize = new Vector2(windowTexture.SpriteWidth, windowTexture.SpriteHeight);
 			BorderColor = Color.White;
 		}
 
-		public static Size BorderSize
+		public Vector2 BorderSize
 		{
 			get
 			{
@@ -36,71 +28,22 @@ namespace TextAdventure.WindowsGame.Helpers
 			}
 		}
 
-		public static Size BorderSizeTwice
-		{
-			get
-			{
-				return _borderSizeTwice;
-			}
-		}
-
-		public Rectangle WindowRectangle
-		{
-			get
-			{
-				return _windowRectangle;
-			}
-			set
-			{
-				_destinationTopLeftCornerRectangle = new Rectangle(
-					value.X,
-					value.Y,
-					DrawingConstants.Window.TextureSpriteWidth,
-					DrawingConstants.Window.TextureSpriteHeight);
-				_destinationTopRightCornerRectangle = new Rectangle(
-					value.Right - DrawingConstants.Window.TextureSpriteWidth,
-					value.Y,
-					DrawingConstants.Window.TextureSpriteWidth,
-					DrawingConstants.Window.TextureSpriteHeight);
-				_destinationBottomLeftCornerRectangle = new Rectangle(
-					value.X,
-					value.Bottom - DrawingConstants.Window.TextureSpriteHeight,
-					DrawingConstants.Window.TextureSpriteWidth,
-					DrawingConstants.Window.TextureSpriteHeight);
-				_destinationBottomRightCornerRectangle = new Rectangle(
-					value.Right - DrawingConstants.Window.TextureSpriteWidth,
-					value.Bottom - DrawingConstants.Window.TextureSpriteHeight,
-					DrawingConstants.Window.TextureSpriteWidth,
-					DrawingConstants.Window.TextureSpriteHeight);
-				_destinationLeftRectangle = new Rectangle(
-					value.X,
-					value.Y + DrawingConstants.Window.TextureSpriteHeight,
-					DrawingConstants.Window.TextureSpriteWidth,
-					value.Height - (DrawingConstants.Window.TextureSpriteHeight * 2));
-				_destinationRightRectangle = new Rectangle(
-					value.Right - DrawingConstants.Window.TextureSpriteWidth,
-					value.Y + DrawingConstants.Window.TextureSpriteHeight,
-					DrawingConstants.Window.TextureSpriteWidth,
-					value.Height - (DrawingConstants.Window.TextureSpriteHeight * 2));
-				_destinationTopRectangle = new Rectangle(
-					value.X + DrawingConstants.Window.TextureSpriteWidth,
-					value.Y,
-					value.Width - (DrawingConstants.Window.TextureSpriteWidth * 2),
-					DrawingConstants.Window.TextureSpriteHeight);
-				_destinationBottomRectangle = new Rectangle(
-					value.X + DrawingConstants.Window.TextureSpriteWidth,
-					value.Bottom - DrawingConstants.Window.TextureSpriteHeight,
-					value.Width - (DrawingConstants.Window.TextureSpriteWidth * 2),
-					DrawingConstants.Window.TextureSpriteHeight);
-
-				_windowRectangle = value;
-			}
-		}
-
-		public Texture2D WindowTexture
+		public Window Window
 		{
 			get;
 			set;
+		}
+
+		public float Alpha
+		{
+			get
+			{
+				return _alpha;
+			}
+			set
+			{
+				_alpha = MathHelper.Clamp(value, 0f, 1f);
+			}
 		}
 
 		public Color BorderColor
@@ -111,23 +54,21 @@ namespace TextAdventure.WindowsGame.Helpers
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if (WindowTexture == null)
-			{
-				return;
-			}
-
 			spriteBatch.ThrowIfNull("spriteBatch");
 
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+			spriteBatch.Begin();
+			spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
-			spriteBatch.Draw(WindowTexture, _destinationTopLeftCornerRectangle, DrawingConstants.Window.BorderTextureTopLeftRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationTopRightCornerRectangle, DrawingConstants.Window.BorderTextureTopRightRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationBottomLeftCornerRectangle, DrawingConstants.Window.BorderTextureBottomLeftRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationBottomRightCornerRectangle, DrawingConstants.Window.BorderTextureBottomRightRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationLeftRectangle, DrawingConstants.Window.BorderTextureLeftRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationRightRectangle, DrawingConstants.Window.BorderTextureRightRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationTopRectangle, DrawingConstants.Window.BorderTextureTopRectangle, BorderColor);
-			spriteBatch.Draw(WindowTexture, _destinationBottomRectangle, DrawingConstants.Window.BorderTextureBottomRectangle, BorderColor);
+			Color borderColor = BorderColor * _alpha;
+
+			spriteBatch.Draw(_windowTexture.Texture, Window.TopLeftCornerRectangle, _windowTexture.BorderTopLeftRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.TopRightCornerRectangle, _windowTexture.BorderTopRightRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.BottomLeftCornerRectangle, _windowTexture.BorderBottomLeftRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.BottomRightCornerRectangle, _windowTexture.BorderBottomRightRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.LeftRectangle, _windowTexture.BorderTextureLeftRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.RightRectangle, _windowTexture.BorderRightRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.TopRectangle, _windowTexture.BorderTopRectangle, borderColor);
+			spriteBatch.Draw(_windowTexture.Texture, Window.BottomRectangle, _windowTexture.BorderBottomRectangle, borderColor);
 
 			spriteBatch.End();
 		}

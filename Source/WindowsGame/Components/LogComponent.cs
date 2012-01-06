@@ -14,6 +14,7 @@ using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.WindowsGame.Configuration;
+using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
 
@@ -139,22 +140,22 @@ namespace TextAdventure.WindowsGame.Components
 		{
 			base.Draw(gameTime);
 
-			SpriteFont spriteFont = FontContent.Calibri;
-			Vector2 textVector = ClientRectangle.Location.ToVector2();
+			SpriteFont spriteFont = FontContent.Calibri10pt;
+			Vector2 textVector = Window.AbsoluteClientRectangle.Location.ToVector2();
 			int lineCount = 0;
 
 			SpriteBatch.Begin();
 
 			foreach (LogEntry logEntry in _logEntries)
 			{
-				Color textColor = _textColors[logEntry.EntryType];
-				Color shadowColor = _shadowColors[logEntry.EntryType];
+				Color textColor = _textColors[logEntry.EntryType] * logEntry.FadeHelper.Alpha;
+				Color shadowColor = _shadowColors[logEntry.EntryType] * logEntry.FadeHelper.Alpha;
 
 				logEntry.FadeHelper.Update(gameTime.TotalGameTime);
 
 				string titleText = _showTimestamps ? String.Format(LineFormatString, logEntry.LoggedTotalGameTime, logEntry.Title) : logEntry.Title;
 
-				SpriteBatch.DrawStringWithShadow(spriteFont, titleText, textVector, textColor * logEntry.FadeHelper.Alpha, shadowColor * logEntry.FadeHelper.Alpha, Vector2.One);
+				SpriteBatch.DrawStringWithShadow(spriteFont, titleText, textVector, textColor, shadowColor, Vector2.One);
 
 				if (++lineCount >= _maximumVisibleLogLines)
 				{
@@ -166,7 +167,7 @@ namespace TextAdventure.WindowsGame.Components
 
 				foreach (string detail in logEntry.Details)
 				{
-					SpriteBatch.DrawStringWithShadow(spriteFont, detail, textVector, textColor * logEntry.FadeHelper.Alpha, shadowColor * logEntry.FadeHelper.Alpha, Vector2.One);
+					SpriteBatch.DrawStringWithShadow(spriteFont, detail, textVector, textColor, shadowColor, Vector2.One);
 
 					if (++lineCount >= _maximumVisibleLogLines)
 					{
@@ -223,7 +224,7 @@ namespace TextAdventure.WindowsGame.Components
 			int clientWidth = Math.Max(_minimumWindowWidth ?? 0, Math.Max(maximumTitleTextWidth, maximumDetailTextWidth));
 			int lineCount = Math.Min(_maximumVisibleLogLines, _logEntries.Sum(arg => arg.LineCount));
 
-			SetWindowRectangleUsingClientSize(Alignment.TopLeft, clientWidth, FontContent.Calibri.LineSpacing * lineCount);
+			SetWindowRectangleUsingClientSize(Alignment.TopLeft, clientWidth, FontContent.Calibri10pt.LineSpacing * lineCount, new Padding(2));
 		}
 
 		private int MeasureLineWidth(TimeSpan loggedTotalGameTime, string text, int indent, bool showTimestamps)
@@ -233,7 +234,7 @@ namespace TextAdventure.WindowsGame.Components
 				text = String.Format(LineFormatString, loggedTotalGameTime, text);
 			}
 
-			return (int)Math.Ceiling(FontContent.Calibri.MeasureString(text).X + indent);
+			return FontContent.Calibri10pt.MeasureString(text).X.Round() + indent;
 		}
 
 		private void KeyDown(KeyboardState keyboardState, Keys keys)
@@ -256,7 +257,7 @@ namespace TextAdventure.WindowsGame.Components
 				_entryType = entryType;
 				_title = loggable.Title;
 				_details = loggable.Details.ToArray();
-				_fadeHelper = new FadeHelper(FadeDirection.Out, loggedTotalGameTime + logEntryLifetime - _fadeDuration, _fadeDuration);
+				_fadeHelper = new FadeHelper(loggedTotalGameTime + logEntryLifetime - _fadeDuration, _fadeDuration, 1f, 0f);
 			}
 
 			public string Title

@@ -35,6 +35,6 @@ namespace TextAdventure.Engine.Game.Events
 	public abstract class EventHandler<TEvent> : EventHandler, IEventHandler<TEvent>
 		where TEvent : Event
 	{
-		public abstract void HandleEvent(EventContext context, TEvent @event);
+		public abstract void HandleEvent(IEventContext context, TEvent @event);
 	}
 }

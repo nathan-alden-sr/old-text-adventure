@@ -10,6 +10,8 @@ namespace TextAdventure.WindowsGame.Components
 		public const int Fps = Int32.MaxValue;
 		public const int Log = Int32.MaxValue;
 		public const int Player = 20;
+		public const int Message = 30;
+		public const int MessageText = 40;
 		public const int WorldTime = Int32.MaxValue;
 	}
 }

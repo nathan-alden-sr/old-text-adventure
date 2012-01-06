@@ -3,7 +3,7 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TextAdventure.WindowsGame
+namespace TextAdventure.WindowsGame.Extensions
 {
 	public static class SpriteBatchExtensions
 	{

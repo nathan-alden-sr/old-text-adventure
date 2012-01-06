@@ -7,12 +7,12 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public class ActorInstanceTouchedActorInstanceEvent : TargetedEvent<ActorInstance>
+	public class ActorInstanceTouchedActorInstanceEvent : TargetedEvent<IActorInstance>
 	{
-		private readonly ActorInstance _source;
+		private readonly IActorInstance _source;
 		private readonly TouchDirection _touchDirection;
 
-		public ActorInstanceTouchedActorInstanceEvent(ActorInstance source, ActorInstance target, TouchDirection touchDirection)
+		public ActorInstanceTouchedActorInstanceEvent(IActorInstance source, IActorInstance target, TouchDirection touchDirection)
 			: base(target)
 		{
 			source.ThrowIfNull("source");
@@ -21,7 +21,7 @@ namespace TextAdventure.Engine.Game.Events
 			_touchDirection = touchDirection;
 		}
 
-		public ActorInstance Source
+		public IActorInstance Source
 		{
 			get
 			{

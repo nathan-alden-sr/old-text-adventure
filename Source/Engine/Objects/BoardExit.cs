@@ -4,7 +4,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class BoardExit
+	public class BoardExit : IBoardExit
 	{
 		public BoardExit(Coordinate coordinate, BoardExitDirection direction, Guid destinationBoardId, Coordinate destinationCoordinate)
 		{

@@ -4,6 +4,7 @@ using System.Xml.Linq;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers
@@ -27,6 +28,7 @@ namespace TextAdventure.Engine.Serializers
 				world.Boards.Select(arg => BoardSerializer.Instance.Serialize(arg)),
 				world.Actors.Select(arg => ActorSerializer.Instance.Serialize(arg)),
 				world.Messages.Select(arg => MessageSerializer.Instance.Serialize(arg)),
+				world.AnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer<AnswerSelectedEvent>.Instance.Serialize(arg, "answerSelectedEventHandler")),
 				new XAttribute("id", world.Id),
 				new XAttribute("version", world.Version));
 		}
@@ -41,7 +43,8 @@ namespace TextAdventure.Engine.Serializers
 				PlayerSerializer.Instance.Deserialize(worldElement.Element("startingPlayer")),
 				worldElement.Elements("board").Select(BoardSerializer.Instance.Deserialize),
 				worldElement.Elements("actor").Select(ActorSerializer.Instance.Deserialize),
-				worldElement.Elements("message").Select(MessageSerializer.Instance.Deserialize));
+				worldElement.Elements("message").Select(MessageSerializer.Instance.Deserialize),
+				worldElement.Element("answerSelectedEventHandler").IfNotNull(EventHandlerSerializer<AnswerSelectedEvent>.Instance.Deserialize));
 		}
 	}
 }

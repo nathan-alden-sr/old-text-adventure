@@ -14,7 +14,7 @@ namespace TextAdventure.WindowsGame.Managers
 		{
 			get
 			{
-				return _inputFocusStack.Peek();
+				return _inputFocusStack.Count > 0 ? _inputFocusStack.Peek() : null;
 			}
 		}
 
@@ -22,14 +22,18 @@ namespace TextAdventure.WindowsGame.Managers
 		{
 			gameComponent.ThrowIfNull("gameComponent");
 
-			_inputFocusStack.Push(gameComponent);
+			if (_inputFocusStack.Count == 0 || _inputFocusStack.Peek() != gameComponent)
+			{
+				_inputFocusStack.Push(gameComponent);
+			}
 		}
 
-		public void RelinquishFocus(IGameComponent gameComponent)
+		public void RelinquishFocus()
 		{
-			gameComponent.ThrowIfNull("gameComponent");
-
-			_inputFocusStack.Pop();
+			if (_inputFocusStack.Count > 0)
+			{
+				_inputFocusStack.Pop();
+			}
 		}
 	}
 }

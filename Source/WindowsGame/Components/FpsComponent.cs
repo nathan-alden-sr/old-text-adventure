@@ -1,4 +1,3 @@
-using System;
 using System.Configuration;
 
 using Microsoft.Xna.Framework;
@@ -6,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.WindowsGame.Configuration;
+using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
 
@@ -30,7 +30,7 @@ namespace TextAdventure.WindowsGame.Components
 
 			_visible = configurationSection.Visible;
 
-			SetWindowRectangleUsingClientSize(Alignment.BottomLeft, (int)Math.Ceiling(FontContent.Calibri.MeasureString("000 fps").X), FontContent.Calibri.LineSpacing);
+			SetWindowRectangleUsingClientSize(Alignment.BottomLeft, FontContent.Calibri10pt.MeasureString("000 fps").X.Round(), FontContent.Calibri10pt.LineSpacing, new Padding(2));
 
 			DrawOrder = ComponentDrawOrder.Fps;
 			UpdateOrder = ComponentUpdateOrder.Fps;
@@ -59,14 +59,14 @@ namespace TextAdventure.WindowsGame.Components
 			}
 
 			string text = _frameCount + " fps";
-			SpriteFont spriteFont = FontContent.Calibri;
+			SpriteFont spriteFont = FontContent.Calibri10pt;
 
 			SpriteBatch.Begin();
 
 			SpriteBatch.DrawStringWithShadow(
 				spriteFont,
 				text,
-				ClientRectangle.Location.ToVector2(),
+				Window.AbsoluteClientRectangle.Location.ToVector2(),
 				Color.White,
 				Color.Black,
 				Vector2.One);

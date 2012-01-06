@@ -1,6 +1,6 @@
 ﻿namespace TextAdventure.Engine.Objects
 {
-	public class MessageLineBreak : IMessagePart
+	public class MessageLineBreak : IMessageLineBreak
 	{
 	}
 }

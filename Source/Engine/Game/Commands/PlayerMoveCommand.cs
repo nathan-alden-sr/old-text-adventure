@@ -28,7 +28,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected abstract Coordinate ModifyCoordinate(int x, int y);
 
-		private CommandResult ProcessNewCoordinate(CommandContext context, Board board, Coordinate newCoordinate)
+		private CommandResult ProcessNewCoordinate(Context context, Board board, Coordinate newCoordinate)
 		{
 			Coordinate currentCoordinate = context.Player.Coordinate;
 			BoardExitDirection boardExitDirection = GetBoardExitDirection(currentCoordinate, newCoordinate);

@@ -28,6 +28,32 @@ namespace TextAdventure.UnitTests.Engine.Common
 		}
 
 		[TestFixture]
+		public class When_constructing_instance_with_existing_color_and_byte_alpha
+		{
+			[Test]
+			public void Must_apply_alpha()
+			{
+				var color = new Color(0.25f, 0.5f, 0.75f, 0.1f);
+				var systemUnderTest = new Color(color, 112);
+
+				Assert.That(systemUnderTest.A, Is.EqualTo(112 / 255f));
+			}
+		}
+
+		[TestFixture]
+		public class When_constructing_instance_with_existing_color_and_float_alpha
+		{
+			[Test]
+			public void Must_apply_alpha()
+			{
+				var color = new Color(0.25f, 0.5f, 0.75f, 0.1f);
+				var systemUnderTest = new Color(color, 0.9f);
+
+				Assert.That(systemUnderTest.A, Is.EqualTo(0.9f));
+			}
+		}
+
+		[TestFixture]
 		public class When_constructing_instance_with_float_values
 		{
 			[Test]

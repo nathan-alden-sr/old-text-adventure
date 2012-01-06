@@ -4,6 +4,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
+using Junior.Common;
+
 using NUnit.Framework;
 
 using TextAdventure.Engine.Common;
@@ -17,56 +19,63 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 	{
 		public class ActorInstanceCreatedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceCreatedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceCreatedEvent @event)
+			public override void HandleEvent(IEventContext context, ActorInstanceCreatedEvent @event)
 			{
 			}
 		}
 
 		public class ActorInstanceDestroyedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceDestroyedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceDestroyedEvent @event)
+			public override void HandleEvent(IEventContext context, ActorInstanceDestroyedEvent @event)
 			{
 			}
 		}
 
 		public class ActorInstanceMovedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceMovedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceMovedEvent @event)
+			public override void HandleEvent(IEventContext context, ActorInstanceMovedEvent @event)
 			{
 			}
 		}
 
 		public class ActorInstanceTouchedActorInstanceEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
+			public override void HandleEvent(IEventContext context, ActorInstanceTouchedActorInstanceEvent @event)
 			{
 			}
 		}
 
 		public class ActorInstanceTouchedPlayerEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceTouchedPlayerEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceTouchedPlayerEvent @event)
+			public override void HandleEvent(IEventContext context, ActorInstanceTouchedPlayerEvent @event)
+			{
+			}
+		}
+
+		public class AnswerSelectedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<AnswerSelectedEvent>
+		{
+			public override void HandleEvent(IEventContext context, AnswerSelectedEvent @event)
 			{
 			}
 		}
 
 		public class BoardEnteredEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardEnteredEvent>
 		{
-			public override void HandleEvent(EventContext context, BoardEnteredEvent @event)
+			public override void HandleEvent(IEventContext context, BoardEnteredEvent @event)
 			{
 			}
 		}
 
 		public class BoardExitedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardExitedEvent>
 		{
-			public override void HandleEvent(EventContext context, BoardExitedEvent @event)
+			public override void HandleEvent(IEventContext context, BoardExitedEvent @event)
 			{
 			}
 		}
 
 		public class PlayerTouchedActorInstanceEventHandler : TextAdventure.Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override void HandleEvent(IEventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 			}
 		}
@@ -78,10 +87,13 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			{
 				Assert.That(world.Id, Is.EqualTo(Guid.Parse("9846b8bf-6312-4dd0-a70b-022d1ea2d65e")));
 				Assert.That(world.Version, Is.EqualTo(1));
-				Assert.That(world.Boards.Count(), Is.EqualTo(1));
+				Assert.That(world.Boards.CountEqual(1), Is.True);
+				Assert.That(world.Actors.CountEqual(1), Is.True);
+				Assert.That(world.Messages.CountEqual(1), Is.True);
+				Assert.That(world.AnswerSelectedEventHandler, Is.Not.Null);
 			}
 
-			private static void AssertBoard(Board board)
+			private static void AssertBoard(IBoard board)
 			{
 				Assert.That(board.Id, Is.EqualTo(Guid.Parse("be68b2a8-8b40-440f-a93f-6c5986a000bc")));
 				Assert.That(board.Size, Is.EqualTo(new Size(12, 34)));
@@ -89,7 +101,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(board.BoardExitedEventHandler, Is.Not.Null);
 			}
 
-			private static void AssertActor(Actor actor)
+			private static void AssertActor(IActor actor)
 			{
 				Assert.That(actor.Id, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
 				Assert.That(actor.AllowPlayerOverlap, Is.EqualTo(true));
@@ -98,7 +110,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(actor.Character.BackgroundColor, Is.EqualTo(new Color(1f, 1f, 1f)));
 			}
 
-			private static void AssertStartingPlayer(Board board, Player startingPlayer)
+			private static void AssertStartingPlayer(IBoard board, IPlayer startingPlayer)
 			{
 				Assert.That(startingPlayer.Id, Is.EqualTo(Guid.Parse("e64d573a-20e2-4f26-9367-3687b250917b")));
 				Assert.That(startingPlayer.BoardId, Is.EqualTo(board.Id));
@@ -111,30 +123,30 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 			private static void AssertBackgroundLayer(Board board)
 			{
-				SpriteLayer backgroundLayer = board.BackgroundLayer;
-				Sprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 4);
+				ISpriteLayer backgroundLayer = board.BackgroundLayer;
+				ISprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 4);
 
 				Assert.That(sprite1.Character.Symbol, Is.EqualTo(65));
 				Assert.That(sprite1.Character.ForegroundColor, Is.EqualTo(new Color(0f, 0.1f, 0.2f, 0.3f)));
 				Assert.That(sprite1.Character.BackgroundColor, Is.EqualTo(new Color(0.4f, 0.5f, 0.6f, 0.7f)));
 
-				Sprite sprite2 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 1 && arg.Coordinate.Y == 0);
+				ISprite sprite2 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 1 && arg.Coordinate.Y == 0);
 
 				Assert.That(sprite2.Character.Symbol, Is.EqualTo(66));
-				Assert.That(sprite2.Character.ForegroundColor, Is.EqualTo(new Color(0.8f, 0.9f, 1.0f, 0.01f)));
+				Assert.That(sprite2.Character.ForegroundColor, Is.EqualTo(new Color(0.8f, 0.9f, 1f, 0.01f)));
 				Assert.That(sprite2.Character.BackgroundColor, Is.EqualTo(new Color(0.02f, 0.03f, 0.04f, 0.05f)));
 			}
 
 			private static void AssertForegroundLayer(Board board)
 			{
-				SpriteLayer backgroundLayer = board.ForegroundLayer;
-				Sprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 5 && arg.Coordinate.Y == 6);
+				ISpriteLayer backgroundLayer = board.ForegroundLayer;
+				ISprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 5 && arg.Coordinate.Y == 6);
 
 				Assert.That(sprite1.Character.Symbol, Is.EqualTo(70));
 				Assert.That(sprite1.Character.ForegroundColor, Is.EqualTo(new Color(0.9f, 0.8f, 0.7f, 0.6f)));
 				Assert.That(sprite1.Character.BackgroundColor, Is.EqualTo(new Color(0.5f, 0.4f, 0.3f, 0.2f)));
 
-				Sprite sprite2 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 30);
+				ISprite sprite2 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 30);
 
 				Assert.That(sprite2.Character.Symbol, Is.EqualTo(71));
 				Assert.That(sprite2.Character.ForegroundColor, Is.EqualTo(new Color(0.2f, 0.4f, 0.6f, 0.8f)));
@@ -143,8 +155,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 			private static void AssertActorInstanceLayer(Board board)
 			{
-				ActorInstanceLayer actorInstanceLayer = board.ActorInstanceLayer;
-				ActorInstance actor1 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 31);
+				IActorInstanceLayer actorInstanceLayer = board.ActorInstanceLayer;
+				IActorInstance actor1 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 31);
 
 				Assert.That(actor1.Id, Is.EqualTo(Guid.Parse("f5ef050a-cf2a-4d83-b320-75478c77af4f")));
 				Assert.That(actor1.ActorId, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
@@ -157,7 +169,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(actor1.PlayerTouchedActorInstanceEventHandler, Is.Not.Null);
 				Assert.That(actor1.ActorInstanceMovedEventHandler, Is.Not.Null);
 
-				ActorInstance actor2 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 33);
+				IActorInstance actor2 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 33);
 
 				Assert.That(actor2.Id, Is.EqualTo(Guid.Parse("706da31e-31b1-40be-9eab-648f5a574acc")));
 				Assert.That(actor2.ActorId, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
@@ -168,7 +180,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 			private static void AssertExit(Board board)
 			{
-				BoardExit boardExit = board.Exits.Single();
+				IBoardExit boardExit = board.Exits.Single();
 
 				Assert.That(boardExit.Coordinate, Is.EqualTo(new Coordinate(0, 0)));
 				Assert.That(boardExit.Direction, Is.EqualTo(BoardExitDirection.Up));
@@ -176,30 +188,36 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(boardExit.DestinationCoordinate, Is.EqualTo(new Coordinate(2, 3)));
 			}
 
-			private static void AssertMessage(Message message)
+			private static void AssertMessage(IMessageWithBackgroundColor message)
 			{
 				Assert.That(message.Id, Is.EqualTo(Guid.Parse("fee40b1a-1aa8-467d-9c8d-49b39a1641a9")));
+				Assert.That(message.BackgroundColor, Is.EqualTo(new Color(0f, 0f, 0.5f)));
 
 				IMessagePart[] messageParts = message.Parts.ToArray();
 
 				Assert.That(messageParts.Length, Is.EqualTo(4));
 
-				var messageColor = messageParts[0] as MessageColor;
-				var messageText = messageParts[1] as MessageText;
-				var messageLineBreak = messageParts[2] as MessageLineBreak;
-				var messageQuestion = messageParts[3] as MessageQuestion;
+				var color = messageParts[0] as MessageColor;
+				var text = messageParts[1] as MessageText;
+				var lineBreak = messageParts[2] as MessageLineBreak;
+				var question = messageParts[3] as MessageQuestion;
 
-				Assert.That(messageColor, Is.Not.Null);
-				Assert.That(messageColor.Color, Is.EqualTo(Color.Cyan));
+				Assert.That(color, Is.Not.Null);
+				Assert.That(color.Color, Is.EqualTo(Color.Cyan));
 
-				Assert.That(messageText, Is.Not.Null);
-				Assert.That(messageText.Text, Is.EqualTo("Lorem ipsum"));
+				Assert.That(text, Is.Not.Null);
+				Assert.That(text.Text, Is.EqualTo("Lorem ipsum"));
 
-				Assert.That(messageLineBreak, Is.Not.Null);
+				Assert.That(lineBreak, Is.Not.Null);
 
-				Assert.That(messageQuestion, Is.Not.Null);
+				Assert.That(question, Is.Not.Null);
+				Assert.That(question.QuestionForegroundColor, Is.EqualTo(new Color(0.1f, 0.2f, 0.3f, 0.4f)));
+				Assert.That(question.UnselectedAnswerForegroundColor, Is.EqualTo(new Color(0.4f, 0.5f, 0.6f, 0.7f)));
+				Assert.That(question.SelectedAnswerForegroundColor, Is.EqualTo(new Color(0.5f, 0.2f, 0.9f)));
+				Assert.That(question.SelectedAnswerBackgroundColor, Is.EqualTo(new Color(0.2f, 0.3f, 0.1f, 0.05f)));
+				Assert.That(question.Prompt, Is.EqualTo("prompt"));
 
-				MessageAnswer[] messageAnswers = messageQuestion.Answers.ToArray();
+				MessageAnswer[] messageAnswers = question.Answers.ToArray();
 
 				Assert.That(messageAnswers.Length, Is.EqualTo(2));
 

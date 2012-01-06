@@ -9,9 +9,9 @@ namespace TextAdventure.WindowsGame.Components
 {
 	public class WorldInstanceComponent : TextAdventureGameComponent
 	{
-		private readonly WorldInstance _worldInstance;
+		private readonly IWorldInstance _worldInstance;
 
-		public WorldInstanceComponent(GameManager gameManager, WorldInstance worldInstance)
+		public WorldInstanceComponent(GameManager gameManager, IWorldInstance worldInstance)
 			: base(gameManager)
 		{
 			worldInstance.ThrowIfNull("worldInstance");

@@ -9,7 +9,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Board
+	public class Board : IBoard
 	{
 		private static readonly Random _random = new Random();
 		private readonly Guid _id;
@@ -40,20 +40,6 @@ namespace TextAdventure.Engine.Objects
 			Exits = exits;
 			BoardEnteredEventHandler = boardEnteredEventHandler;
 			BoardExitedEventHandler = boardExitedEventHandler;
-		}
-
-		public Guid Id
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
-		public Size Size
-		{
-			get;
-			set;
 		}
 
 		public SpriteLayer BackgroundLayer
@@ -102,6 +88,52 @@ namespace TextAdventure.Engine.Objects
 		{
 			get;
 			set;
+		}
+
+		public Guid Id
+		{
+			get
+			{
+				return _id;
+			}
+		}
+
+		public Size Size
+		{
+			get;
+			set;
+		}
+
+		ISpriteLayer IBoard.BackgroundLayer
+		{
+			get
+			{
+				return BackgroundLayer;
+			}
+		}
+
+		ISpriteLayer IBoard.ForegroundLayer
+		{
+			get
+			{
+				return ForegroundLayer;
+			}
+		}
+
+		IActorInstanceLayer IBoard.ActorInstanceLayer
+		{
+			get
+			{
+				return ActorInstanceLayer;
+			}
+		}
+
+		IEnumerable<IBoardExit> IBoard.Exits
+		{
+			get
+			{
+				return Exits;
+			}
 		}
 
 		public IEventHandler<BoardEnteredEvent> BoardEnteredEventHandler

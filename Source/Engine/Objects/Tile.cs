@@ -4,7 +4,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Tile
+	public class Tile : ITile
 	{
 		private Character _character;
 

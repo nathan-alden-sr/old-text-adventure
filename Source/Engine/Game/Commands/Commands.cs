@@ -111,6 +111,11 @@ namespace TextAdventure.Engine.Game.Commands
 			return new LogCommand(message);
 		}
 
+		public static MessageCommand Message(Message message)
+		{
+			return new MessageCommand(message);
+		}
+
 		public static DelayCommand Delay(TimeSpan delay)
 		{
 			return new DelayCommand(delay);

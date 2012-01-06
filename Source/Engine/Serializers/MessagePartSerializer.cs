@@ -21,21 +21,26 @@ namespace TextAdventure.Engine.Serializers
 
 			foreach (IMessagePart part in parts)
 			{
-				if (part is MessageColor)
+				var messageColor = part as MessageColor;
+				var messageLineBreak = part as MessageLineBreak;
+				var messageQuestion = part as MessageQuestion;
+				var messageText = part as MessageText;
+
+				if (messageColor != null)
 				{
-					yield return MessageColorSerializer.Instance.Serialize((MessageColor)part);
+					yield return MessageColorSerializer.Instance.Serialize(messageColor);
 				}
-				if (part is MessageLineBreak)
+				if (messageLineBreak != null)
 				{
-					yield return MessageLineBreakSerializer.Instance.Serialize((MessageLineBreak)part);
+					yield return MessageLineBreakSerializer.Instance.Serialize(messageLineBreak);
 				}
-				if (part is MessageQuestion)
+				if (messageQuestion != null)
 				{
-					yield return MessageQuestionSerializer.Instance.Serialize((MessageQuestion)part);
+					yield return MessageQuestionSerializer.Instance.Serialize(messageQuestion);
 				}
-				if (part is MessageText)
+				if (messageText != null)
 				{
-					yield return MessageTextSerializer.Instance.Serialize((MessageText)part);
+					yield return MessageTextSerializer.Instance.Serialize(messageText);
 				}
 			}
 		}

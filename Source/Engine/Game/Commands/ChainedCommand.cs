@@ -12,7 +12,6 @@ namespace TextAdventure.Engine.Game.Commands
 		private readonly List<Command> _originalCommands = new List<Command>();
 		private int _executedCommandTotal;
 		private bool _executingNestedCommand;
-		private int _originalCommandTotal;
 
 		public ChainedCommand(Command command)
 		{
@@ -76,7 +75,6 @@ namespace TextAdventure.Engine.Game.Commands
 		private void AddCommand(Command command)
 		{
 			_originalCommands.Add(command);
-			_originalCommandTotal++;
 		}
 
 		private void NestedCommandExecuted(CommandResult result)

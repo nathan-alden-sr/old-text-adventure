@@ -1,6 +1,6 @@
 ﻿namespace TextAdventure.Engine.Objects
 {
-	public class MessageText : IMessagePart
+	public class MessageText : IMessageText
 	{
 		private readonly string _text;
 

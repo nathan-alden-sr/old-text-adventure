@@ -2,7 +2,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Character
+	public class Character : ICharacter
 	{
 		public Character(
 			byte symbol,

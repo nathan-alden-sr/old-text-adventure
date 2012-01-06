@@ -9,28 +9,30 @@ namespace TextAdventure.WindowsGame.Components
 {
 	public abstract class WindowComponent : TextAdventureDrawableGameComponent
 	{
+		private float _alpha = 1f;
+
 		protected WindowComponent(GameManager gameManager)
 			: base(gameManager)
 		{
 			BackgroundColor = Color.Transparent;
 		}
 
-		protected Rectangle WindowRectangle
+		protected Window Window
 		{
 			get;
 			private set;
 		}
 
-		protected Rectangle ClientRectangle
+		protected float Alpha
 		{
-			get;
-			private set;
-		}
-
-		public int Padding
-		{
-			get;
-			private set;
+			get
+			{
+				return _alpha;
+			}
+			set
+			{
+				_alpha = MathHelper.Clamp(value, 0f, 1f);
+			}
 		}
 
 		protected Color BackgroundColor
@@ -43,75 +45,78 @@ namespace TextAdventure.WindowsGame.Components
 		{
 			SpriteBatch.Begin();
 
-			SpriteBatch.Draw(TextureContent.Pixel, WindowRectangle, BackgroundColor);
+			SpriteBatch.Draw(TextureContent.Pixel, Window.WindowRectangle, BackgroundColor * _alpha);
 
 			SpriteBatch.End();
 
 			base.Draw(gameTime);
 		}
 
-		public void SetWindowRectangleUsingWindowSize(int x, int y, int windowWidth, int windowHeight, int padding = DrawingConstants.Window.Padding)
+		public void SetWindowRectangle(Rectangle windowRectangle, Padding padding)
 		{
-			WindowRectangle = new Rectangle(x, y, windowWidth, windowHeight);
-
-			Rectangle newClientRectangle = WindowRectangle;
-
-			newClientRectangle.Inflate(-padding, -padding);
-
-			ClientRectangle = newClientRectangle;
-			Padding = padding;
+			Window = new Window(windowRectangle, padding);
 		}
 
-		public void SetWindowRectangleUsingClientSize(int x, int y, int clientWidth, int clientHeight, int padding = DrawingConstants.Window.Padding)
+		public void SetWindowRectangle(int x, int y, int width, int height, Padding padding)
 		{
-			SetWindowRectangleUsingWindowSize(x, y, clientWidth + (padding * 2), clientHeight + (padding * 2));
+			Window = new Window(new Rectangle(x, y, width, height), padding);
 		}
 
-		public void SetWindowRectangleUsingWindowSize(Alignment alignment, int windowWidth, int windowHeight, int padding = DrawingConstants.Window.Padding)
+		public void SetWindowRectangleUsingWindowLocationAndClientSize(int windowX, int windowY, int clientWidth, int clientHeight, Padding padding)
+		{
+			Window = new Window(new Rectangle(windowX, windowY, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom), padding);
+		}
+
+		public void SetWindowRectangleUsingClientLocationAndClientSize(int clientX, int clientY, int clientWidth, int clientHeight, Padding padding)
+		{
+			Window = new Window(new Rectangle(clientX - padding.Left, clientY - padding.Top, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom), padding);
+		}
+
+		public void SetWindowRectangleUsingWindowSize(Alignment alignment, int windowWidth, int windowHeight, Padding padding)
 		{
 			Rectangle windowDestinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
 			Point windowCenterPoint = windowDestinationRectangle.Center;
-			Rectangle newWindowRectangle;
+			Rectangle rectangle;
 
 			switch (alignment)
 			{
 				case Alignment.TopLeft:
-					newWindowRectangle = new Rectangle(0, 0, windowWidth, windowHeight);
+					rectangle = new Rectangle(0, 0, windowWidth, windowHeight);
 					break;
 				case Alignment.TopCenter:
-					newWindowRectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), 0, windowWidth, windowHeight);
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), 0, windowWidth, windowHeight);
 					break;
 				case Alignment.TopRight:
-					newWindowRectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, 0, windowWidth, windowHeight);
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, 0, windowWidth, windowHeight);
 					break;
 				case Alignment.RightCenter:
-					newWindowRectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
 					break;
 				case Alignment.BottomRight:
-					newWindowRectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
 					break;
 				case Alignment.BottomCenter:
-					newWindowRectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
 					break;
 				case Alignment.BottomLeft:
-					newWindowRectangle = new Rectangle(0, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					rectangle = new Rectangle(0, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
 					break;
 				case Alignment.LeftCenter:
-					newWindowRectangle = new Rectangle(0, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					rectangle = new Rectangle(0, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
 					break;
 				case Alignment.Center:
-					newWindowRectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("alignment");
 			}
 
-			SetWindowRectangleUsingWindowSize(newWindowRectangle.X, newWindowRectangle.Y, newWindowRectangle.Width, newWindowRectangle.Height);
+			Window = new Window(rectangle, padding);
 		}
 
-		public void SetWindowRectangleUsingClientSize(Alignment alignment, int clientWidth, int clientHeight, int padding = DrawingConstants.Window.Padding)
+		public void SetWindowRectangleUsingClientSize(Alignment alignment, int clientWidth, int clientHeight, Padding padding)
 		{
-			SetWindowRectangleUsingWindowSize(alignment, clientWidth + (padding * 2), clientHeight + (padding * 2), padding);
+			SetWindowRectangleUsingWindowSize(alignment, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom, padding);
 		}
 	}
 }

@@ -5,12 +5,13 @@ using Junior.Common;
 
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.Messages;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game
 {
-	public abstract class Context
+	public abstract class Context : IContext
 	{
 		private readonly CommandQueue _commandQueue;
 		private readonly WorldInstance _worldInstance;
@@ -32,6 +33,14 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
+		public IEnumerable<Message> Messages
+		{
+			get
+			{
+				return _worldInstance.World.Messages;
+			}
+		}
+
 		public Board CurrentBoard
 		{
 			get
@@ -48,6 +57,46 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
+		public PlayerInput PlayerInput
+		{
+			get
+			{
+				return _worldInstance.PlayerInput;
+			}
+		}
+
+		IEnumerable<IMessage> IContext.Messages
+		{
+			get
+			{
+				return Messages;
+			}
+		}
+
+		IBoard IContext.CurrentBoard
+		{
+			get
+			{
+				return CurrentBoard;
+			}
+		}
+
+		IPlayer IContext.Player
+		{
+			get
+			{
+				return Player;
+			}
+		}
+
+		IEnumerable<IActor> IContext.Actors
+		{
+			get
+			{
+				return Actors;
+			}
+		}
+
 		public IWorldTime WorldTime
 		{
 			get
@@ -56,11 +105,11 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
-		public PlayerInput PlayerInput
+		IPlayerInput IContext.PlayerInput
 		{
 			get
 			{
-				return _worldInstance.PlayerInput;
+				return PlayerInput;
 			}
 		}
 
@@ -72,24 +121,24 @@ namespace TextAdventure.Engine.Game
 			return _worldInstance.RaiseEvent(eventHandler, @event);
 		}
 
-		public Board GetBoardById(Guid id)
+		IBoard IContext.GetBoardById(Guid id)
 		{
-			return _worldInstance.World.GetBoardById(id);
+			return GetBoardById(id);
 		}
 
-		public Actor GetActorById(Guid id)
+		IActor IContext.GetActorById(Guid id)
 		{
-			return _worldInstance.World.GetActorById(id);
+			return GetActorById(id);
 		}
 
-		public ActorInstance GetActorInstanceById(Guid id)
+		IActorInstance IContext.GetActorInstanceById(Guid id)
 		{
-			return CurrentBoard.ActorInstanceLayer.GetActorInstanceById(id);
+			return GetActorInstanceById(id);
 		}
 
-		public IEnumerable<ActorInstance> GetActorInstancesByActorId(Guid actorId)
+		IEnumerable<IActorInstance> IContext.GetActorInstancesByActorId(Guid actorId)
 		{
-			return CurrentBoard.ActorInstanceLayer.GetActorInstancesByActorId(actorId);
+			return GetActorInstancesByActorId(actorId);
 		}
 
 		public void EnqueueCommand(Command command, Action<CommandResult> commandExecutedDelegate = null)
@@ -142,6 +191,31 @@ namespace TextAdventure.Engine.Game
 		public bool CommandQueued(Guid commandId)
 		{
 			return _commandQueue.CommandQueued(commandId);
+		}
+
+		public Board GetBoardById(Guid id)
+		{
+			return _worldInstance.World.GetBoardById(id);
+		}
+
+		public Actor GetActorById(Guid id)
+		{
+			return _worldInstance.World.GetActorById(id);
+		}
+
+		public ActorInstance GetActorInstanceById(Guid id)
+		{
+			return CurrentBoard.ActorInstanceLayer.GetActorInstanceById(id);
+		}
+
+		public IEnumerable<ActorInstance> GetActorInstancesByActorId(Guid actorId)
+		{
+			return CurrentBoard.ActorInstanceLayer.GetActorInstancesByActorId(actorId);
+		}
+
+		public void EnqueueMessage(Message message, MessageQueuePosition position)
+		{
+			_worldInstance.MessageQueue.EnqueueMessage(message, position);
 		}
 	}
 }

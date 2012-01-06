@@ -2,7 +2,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Sprite : Tile
+	public class Sprite : Tile, ISprite
 	{
 		public Sprite(
 			Coordinate coordinate,

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
+
 namespace TextAdventure.Engine.Objects
 {
-	public class World
+	public class World : IWorld
 	{
 		private readonly Dictionary<Guid, Actor> _actorsById = new Dictionary<Guid, Actor>();
+		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
 		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
@@ -20,7 +23,8 @@ namespace TextAdventure.Engine.Objects
 			Player startingPlayer,
 			IEnumerable<Board> boards,
 			IEnumerable<Actor> actors,
-			IEnumerable<Message> messages)
+			IEnumerable<Message> messages,
+			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			startingPlayer.ThrowIfNull("startingPlayer");
 			boards.ThrowIfNull("boards");
@@ -28,36 +32,12 @@ namespace TextAdventure.Engine.Objects
 			messages.ThrowIfNull("messages");
 
 			_id = id;
+			_answerSelectedEventHandler = answerSelectedEventHandler;
 			Version = version;
 			StartingPlayer = startingPlayer;
 			Boards = boards;
 			Actors = actors;
 			Messages = messages;
-		}
-
-		public Guid Id
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
-		public int Version
-		{
-			get
-			{
-				return _version;
-			}
-			set
-			{
-				if (value < 1)
-				{
-					throw new ArgumentOutOfRangeException("value", "Version must be at least 1.");
-				}
-
-				_version = value;
-			}
 		}
 
 		public Player StartingPlayer
@@ -124,6 +104,86 @@ namespace TextAdventure.Engine.Objects
 					_messagesById.Add(message.Id, message);
 				}
 			}
+		}
+
+		public Guid Id
+		{
+			get
+			{
+				return _id;
+			}
+		}
+
+		public int Version
+		{
+			get
+			{
+				return _version;
+			}
+			set
+			{
+				if (value < 1)
+				{
+					throw new ArgumentOutOfRangeException("value", "Version must be at least 1.");
+				}
+
+				_version = value;
+			}
+		}
+
+		IPlayer IWorld.StartingPlayer
+		{
+			get
+			{
+				return _startingPlayer;
+			}
+		}
+
+		IEnumerable<IBoard> IWorld.Boards
+		{
+			get
+			{
+				return Boards;
+			}
+		}
+
+		IEnumerable<IActor> IWorld.Actors
+		{
+			get
+			{
+				return Actors;
+			}
+		}
+
+		IEnumerable<IMessage> IWorld.Messages
+		{
+			get
+			{
+				return Messages;
+			}
+		}
+
+		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
+		{
+			get
+			{
+				return _answerSelectedEventHandler;
+			}
+		}
+
+		IActor IWorld.GetActorById(Guid id)
+		{
+			return GetActorById(id);
+		}
+
+		IMessage IWorld.GetMessageById(Guid id)
+		{
+			return GetMessageById(id);
+		}
+
+		IBoard IWorld.GetBoardById(Guid id)
+		{
+			return GetBoardById(id);
 		}
 
 		public Board GetBoardById(Guid id)

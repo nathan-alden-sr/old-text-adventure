@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace TextAdventure.WindowsGame
+namespace TextAdventure.WindowsGame.Extensions
 {
 	public static class PointExtensions
 	{

@@ -8,7 +8,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class ActorInstanceLayer : Layer<ActorInstance>
+	public class ActorInstanceLayer : Layer<ActorInstance>, IActorInstanceLayer
 	{
 		private readonly Dictionary<Guid, ActorInstance> _actorInstancesById = new Dictionary<Guid, ActorInstance>();
 
@@ -39,11 +39,45 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public ActorInstance this[Guid actorInstanceId]
+		IEnumerable<IActorInstance> IActorInstanceLayer.ActorInstances
 		{
 			get
 			{
-				return GetActorInstanceById(actorInstanceId);
+				return ActorInstances;
+			}
+		}
+
+		IEnumerable<IActorInstance> IActorInstanceLayer.GetActorInstancesByActorId(Guid actorId)
+		{
+			return GetActorInstancesByActorId(actorId);
+		}
+
+		IActorInstance IActorInstanceLayer.GetActorInstanceById(Guid id)
+		{
+			return GetActorInstanceById(id);
+		}
+
+		IEnumerable<ITile> ILayer.Tiles
+		{
+			get
+			{
+				return ActorInstances;
+			}
+		}
+
+		IActorInstance ILayer<IActorInstance>.this[int x, int y]
+		{
+			get
+			{
+				return this[x, y];
+			}
+		}
+
+		IActorInstance ILayer<IActorInstance>.this[Coordinate coordinate]
+		{
+			get
+			{
+				return this[coordinate];
 			}
 		}
 

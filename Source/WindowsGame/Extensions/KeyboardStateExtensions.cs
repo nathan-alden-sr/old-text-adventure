@@ -4,7 +4,7 @@ using Junior.Common;
 
 using Microsoft.Xna.Framework.Input;
 
-namespace TextAdventure.WindowsGame
+namespace TextAdventure.WindowsGame.Extensions
 {
 	public static class KeyboardStateExtensions
 	{

@@ -79,28 +79,28 @@
             <summary>
             Implicitly converts from a <see cref="T:Junior.Common.BinaryGuid"/> to a <see cref="T:System.Guid"/>.
             </summary>
-            <param name="binaryGuid">A <see cref="T:Junior.Common.BinaryGuid"/>.</param>
+            <param name="value">A <see cref="T:Junior.Common.BinaryGuid"/>.</param>
             <returns>A <see cref="T:System.Guid"/> representing the specified <see cref="T:Junior.Common.BinaryGuid"/>.</returns>
         </member>
         <member name="M:Junior.Common.BinaryGuid.op_Implicit(Junior.Common.BinaryGuid)~System.Byte[]">
             <summary>
             Implicitly converts from a <see cref="T:Junior.Common.BinaryGuid"/> to an <see cref="T:System.Array"/> of <see cref="T:System.Byte"/>.
             </summary>
-            <param name="binaryGuid">A <see cref="T:Junior.Common.BinaryGuid"/>.</param>
+            <param name="value">A <see cref="T:Junior.Common.BinaryGuid"/>.</param>
             <returns>An <see cref="T:System.Array"/> of <see cref="T:System.Byte"/> representing the specified <see cref="T:Junior.Common.BinaryGuid"/>.</returns>
         </member>
         <member name="M:Junior.Common.BinaryGuid.op_Implicit(System.Guid)~Junior.Common.BinaryGuid">
             <summary>
             Implicitly converts from a <see cref="T:System.Guid"/> to a <see cref="T:Junior.Common.BinaryGuid"/>.
             </summary>
-            <param name="guid">A <see cref="T:System.Guid"/>.</param>
+            <param name="value">A <see cref="T:System.Guid"/>.</param>
             <returns>A <see cref="T:Junior.Common.BinaryGuid"/> representing the specified <see cref="T:System.Guid"/>.</returns>
         </member>
         <member name="M:Junior.Common.BinaryGuid.op_Implicit(System.Byte[])~Junior.Common.BinaryGuid">
             <summary>
             Implicitly converts from an <see cref="T:System.Array"/> of <see cref="T:System.Byte"/> to a <see cref="T:Junior.Common.BinaryGuid"/>.
             </summary>
-            <param name="guidBytes">An <see cref="T:System.Array"/> of <see cref="T:System.Byte"/>.</param>
+            <param name="value">An <see cref="T:System.Array"/> of <see cref="T:System.Byte"/>.</param>
             <returns>A <see cref="T:Junior.Common.BinaryGuid"/> representing the specified <see cref="T:System.Array"/> of <see cref="T:System.Byte"/>.</returns>
         </member>
         <member name="M:Junior.Common.BinaryGuid.Equals(System.Object)">
@@ -145,6 +145,129 @@
             A <see cref="T:System.String"/> containing a fully qualified type name.
             </returns>
             <filterpriority>2</filterpriority>
+        </member>
+        <member name="T:Junior.Common.DoubleToLong">
+            <summary>
+            Safely converts a <see cref="T:System.Double"/> to an <see cref="T:System.Int64"/> for floating-point comparisons.
+            </summary>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.#ctor(System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Junior.Common.DoubleToLong"/> class.
+            </summary>
+            <param name="doubleValue">The <see cref="T:System.Double"/> value to be converted to an <see cref="T:System.Int64"/>.</param>
+        </member>
+        <member name="F:Junior.Common.DoubleToLong.LongValue">
+            <summary>
+            Gets the floating-point value as an integer.
+            </summary>
+        </member>
+        <member name="F:Junior.Common.DoubleToLong.DoubleValue">
+            <summary>
+            Gets the floating-point value.
+            </summary>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.Equals(Junior.Common.DoubleToLong)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.Equals(System.Double)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.Equals(System.Int64)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.CompareTo(Junior.Common.DoubleToLong)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.CompareTo(System.Double)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.CompareTo(System.Int64)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.op_Implicit(Junior.Common.DoubleToLong)~System.Int64">
+            <summary>
+            Implicitly converts from a <see cref="T:Junior.Common.DoubleToLong"/> to an <see cref="T:System.Int64"/>.
+            </summary>
+            <param name="value">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <returns>An integer representation of the floating-point value.</returns>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.op_Implicit(Junior.Common.DoubleToLong)~System.Double">
+            <summary>
+            Implicitly converts from a <see cref="T:Junior.Common.DoubleToLong"/> to a <see cref="T:System.Double"/>.
+            </summary>
+            <param name="value">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <returns>The floating-point value.</returns>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.op_Equality(Junior.Common.DoubleToLong,Junior.Common.DoubleToLong)">
+            <summary>
+            Determines if two <see cref="T:Junior.Common.DoubleToLong"/> instances have the same integer representation.
+            </summary>
+            <param name="left">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <param name="right">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <returns>true if the two <see cref="T:Junior.Common.DoubleToLong"/> have the same integer representation; otherwise, false.</returns>
+        </member>
+        <member name="M:Junior.Common.DoubleToLong.op_Inequality(Junior.Common.DoubleToLong,Junior.Common.DoubleToLong)">
+            <summary>
+            Determines if two <see cref="T:Junior.Common.DoubleToLong"/> instances have different integer representations.
+            </summary>
+            <param name="left">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <param name="right">A <see cref="T:Junior.Common.DoubleToLong"/>.</param>
+            <returns>true if the two <see cref="T:Junior.Common.DoubleToLong"/> have different integer representations; otherwise, false.</returns>
         </member>
         <member name="T:Junior.Common.DelegateDictionary`2">
             <summary>
@@ -300,6 +423,129 @@
             <param name="key">A key.</param>
             <param name="delegate">A <see cref="T:System.Func`1"/>.</param>
             <returns>The result returneds by <paramref name="delegate"/>.</returns>
+        </member>
+        <member name="T:Junior.Common.FloatToInt">
+            <summary>
+            Safely converts a <see cref="T:System.Single"/> to an <see cref="T:System.Int32"/> for floating-point comparisons.
+            </summary>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.#ctor(System.Single)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Junior.Common.FloatToInt"/> class.
+            </summary>
+            <param name="floatValue">The <see cref="T:System.Single"/> value to be converted to an <see cref="T:System.Int32"/>.</param>
+        </member>
+        <member name="F:Junior.Common.FloatToInt.IntValue">
+            <summary>
+            Gets the floating-point value as an integer.
+            </summary>
+        </member>
+        <member name="F:Junior.Common.FloatToInt.FloatValue">
+            <summary>
+            Gets the floating-point value.
+            </summary>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.Equals(Junior.Common.FloatToInt)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.Equals(System.Single)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.Equals(System.Int32)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+            true if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.CompareTo(Junior.Common.FloatToInt)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.CompareTo(System.Single)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.CompareTo(System.Int32)">
+            <summary>
+            Compares the current object with another object of the same type.
+            </summary>
+            <returns>
+            A value that indicates the relative order of the objects being compared. The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other"/> parameter.Zero This object is equal to <paramref name="other"/>. Greater than zero This object is greater than <paramref name="other"/>. 
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+            <param name="obj">Another object to compare to. </param><filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.op_Implicit(Junior.Common.FloatToInt)~System.Int32">
+            <summary>
+            Implicitly converts from a <see cref="T:Junior.Common.FloatToInt"/> to an <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="value">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <returns>An integer representation of the floating-point value.</returns>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.op_Implicit(Junior.Common.FloatToInt)~System.Single">
+            <summary>
+            Implicitly converts from a <see cref="T:Junior.Common.FloatToInt"/> to a <see cref="T:System.Single"/>.
+            </summary>
+            <param name="value">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <returns>The floating-point value.</returns>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.op_Equality(Junior.Common.FloatToInt,Junior.Common.FloatToInt)">
+            <summary>
+            Determines if two <see cref="T:Junior.Common.FloatToInt"/> instances have the same integer representation.
+            </summary>
+            <param name="left">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <param name="right">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <returns>true if the two <see cref="T:Junior.Common.FloatToInt"/> have the same integer representation; otherwise, false.</returns>
+        </member>
+        <member name="M:Junior.Common.FloatToInt.op_Inequality(Junior.Common.FloatToInt,Junior.Common.FloatToInt)">
+            <summary>
+            Determines if two <see cref="T:Junior.Common.FloatToInt"/> instances have different integer representations.
+            </summary>
+            <param name="left">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <param name="right">A <see cref="T:Junior.Common.FloatToInt"/>.</param>
+            <returns>true if the two <see cref="T:Junior.Common.FloatToInt"/> have different integer representations; otherwise, false.</returns>
         </member>
         <member name="T:Junior.Common.StopwatchContext">
             <summary>
@@ -1867,21 +2113,21 @@
             <summary>
             Implicitly converts from a <see cref="T:Junior.Common.PreciseDateTime"/> to a <see cref="T:System.Int64"/>.
             </summary>
-            <param name="preciseDateTime">A <see cref="T:Junior.Common.PreciseDateTime"/>.</param>
+            <param name="value">A <see cref="T:Junior.Common.PreciseDateTime"/>.</param>
             <returns>A <see cref="T:System.Int64"/> representing the specified <see cref="T:Junior.Common.PreciseDateTime"/>.</returns>
         </member>
         <member name="M:Junior.Common.PreciseDateTime.op_Implicit(Junior.Common.PreciseDateTime)~System.DateTime">
             <summary>
             Implicitly converts from a <see cref="T:Junior.Common.PreciseDateTime"/> to a <see cref="T:System.DateTime"/>.
             </summary>
-            <param name="preciseDateTime">A <see cref="T:Junior.Common.PreciseDateTime"/>.</param>
+            <param name="value">A <see cref="T:Junior.Common.PreciseDateTime"/>.</param>
             <returns>A <see cref="T:System.DateTime"/> representing the specified <see cref="T:Junior.Common.PreciseDateTime"/>.</returns>
         </member>
         <member name="M:Junior.Common.PreciseDateTime.op_Implicit(System.DateTime)~Junior.Common.PreciseDateTime">
             <summary>
             Implicitly converts from a <see cref="T:System.DateTime"/> to a <see cref="T:Junior.Common.PreciseDateTime"/>.
             </summary>
-            <param name="dateTime">A <see cref="T:System.DateTime"/>.</param>
+            <param name="value">A <see cref="T:System.DateTime"/>.</param>
             <returns>A <see cref="T:Junior.Common.PreciseDateTime"/> representing the specified <see cref="T:System.DateTime"/>.</returns>
         </member>
         <member name="M:Junior.Common.PreciseDateTime.Equals(System.Object)">
@@ -1968,7 +2214,7 @@
         </member>
         <member name="T:Junior.Common.StringExtensions">
             <summary>
-            Extensions for the <see cref="T:System.String"/> class.
+            Extensions for the <see cref="T:System.String"/> type.
             </summary>
         </member>
         <member name="M:Junior.Common.StringExtensions.ToMd5HexString(System.String)">
@@ -2342,7 +2588,7 @@
         </member>
         <member name="T:Junior.Common.XContainerExtensions">
             <summary>
-            Extensions for the <see cref="T:System.Xml.Linq.XContainer"/> class.
+            Extensions for the <see cref="T:System.Xml.Linq.XContainer"/> type.
             </summary>
         </member>
         <member name="M:Junior.Common.XContainerExtensions.ElementValue``1(System.Xml.Linq.XContainer,System.String,``0)">

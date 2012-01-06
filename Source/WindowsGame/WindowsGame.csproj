@@ -94,18 +94,31 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ColorExtensions.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Components\LogComponent.cs" />
     <Compile Include="Components\FpsComponent.cs" />
     <Compile Include="Components\GameBackgroundComponent.cs" />
     <Compile Include="Components\BoardComponent.cs" />
     <Compile Include="Components\BorderedWindowComponent.cs" />
+    <Compile Include="Components\MessageComponent.cs" />
+    <Compile Include="Components\MessageTextAlignment.cs" />
+    <Compile Include="Components\MessageTextAnswer.cs" />
+    <Compile Include="Components\MessageTextComponent.cs" />
+    <Compile Include="Components\MessageTextFormatter.cs" />
     <Compile Include="Components\WindowComponent.cs" />
+    <Compile Include="Components\MessageTextWord.cs" />
     <Compile Include="Configuration\FpsConfigurationSection.cs" />
     <Compile Include="Configuration\TimeConfigurationSection.cs" />
     <Compile Include="Configuration\LogConfigurationSection.cs" />
+    <Compile Include="Extensions\FloatExtensions.cs" />
     <Compile Include="FontContent.cs" />
-    <Compile Include="KeyboardStateExtensions.cs" />
+    <Compile Include="Helpers\TimerHelper.cs" />
+    <Compile Include="Extensions\KeyboardStateExtensions.cs" />
+    <Compile Include="Managers\MessageAnswerSelectionManager.cs" />
+    <Compile Include="Padding.cs" />
+    <Compile Include="Extensions\Vector2Extensions.cs" />
+    <Compile Include="Window.cs" />
+    <Compile Include="WindowTexture.cs" />
     <Compile Include="WorldAssemblyLoader.cs" />
     <Compile Include="Helpers\BoardDrawingHelper.cs" />
     <Compile Include="Components\ComponentUpdateOrder.cs" />
@@ -113,7 +126,6 @@
     <Compile Include="Helpers\Alignment.cs" />
     <Compile Include="Helpers\WindowBackgroundDrawingHelper.cs" />
     <Compile Include="Helpers\WindowBorderDrawingHelper.cs" />
-    <Compile Include="Helpers\FadeDirection.cs" />
     <Compile Include="Helpers\FadeHelper.cs" />
     <Compile Include="Helpers\KeyboardRepeatHelper.cs" />
     <Compile Include="Helpers\TextDrawingHelper.cs" />
@@ -127,10 +139,10 @@
     <Compile Include="DrawingConstants.cs" />
     <Compile Include="Managers\InputFocusManager.cs" />
     <Compile Include="Helpers\KeyboardStateHelper.cs" />
-    <Compile Include="PointExtensions.cs" />
+    <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="SpriteBatchExtensions.cs" />
+    <Compile Include="Extensions\SpriteBatchExtensions.cs" />
     <Compile Include="TextAdventureGame.cs" />
     <Compile Include="TextureContent.cs" />
   </ItemGroup>

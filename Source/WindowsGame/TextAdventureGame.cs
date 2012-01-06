@@ -26,6 +26,7 @@ namespace TextAdventure.WindowsGame
 			_player = player;
 			_graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+			IsFixedTimeStep = false;
 		}
 
 		protected override void Initialize()
@@ -65,6 +66,7 @@ namespace TextAdventure.WindowsGame
 			Components.Add(new WorldInstanceComponent(_gameManager, _worldInstance));
 			Components.Add(new GameBackgroundComponent(_gameManager));
 			Components.Add(new BoardComponent(_gameManager, _worldInstance));
+			Components.Add(new MessageComponent(_gameManager, _worldInstance));
 			Components.Add(new FpsComponent(_gameManager));
 		}
 	}

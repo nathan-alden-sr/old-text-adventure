@@ -53,46 +53,6 @@ namespace TextAdventure.WindowsGame
 		public static class Window
 		{
 			public const int Padding = 2;
-			public const int TextureSpriteHeight = 8;
-			public const int TextureSpriteWidth = 8;
-			public static readonly Rectangle BackgroundTextureBottomLeftRectangle;
-			public static readonly Rectangle BackgroundTextureBottomRectangle;
-			public static readonly Rectangle BackgroundTextureBottomRightRectangle;
-			public static readonly Rectangle BackgroundTextureCenterRectangle;
-			public static readonly Rectangle BackgroundTextureLeftRectangle;
-			public static readonly Rectangle BackgroundTextureRightRectangle;
-			public static readonly Rectangle BackgroundTextureTopLeftRectangle;
-			public static readonly Rectangle BackgroundTextureTopRectangle;
-			public static readonly Rectangle BackgroundTextureTopRightRectangle;
-			public static readonly Rectangle BorderTextureBottomLeftRectangle;
-			public static readonly Rectangle BorderTextureBottomRectangle;
-			public static readonly Rectangle BorderTextureBottomRightRectangle;
-			public static readonly Rectangle BorderTextureLeftRectangle;
-			public static readonly Rectangle BorderTextureRightRectangle;
-			public static readonly Rectangle BorderTextureTopLeftRectangle;
-			public static readonly Rectangle BorderTextureTopRectangle;
-			public static readonly Rectangle BorderTextureTopRightRectangle;
-
-			static Window()
-			{
-				BackgroundTextureTopLeftRectangle = new Rectangle(0, TextureSpriteHeight * 3, TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureTopRectangle = new Rectangle(TextureSpriteWidth, TextureSpriteHeight * 3, TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureTopRightRectangle = new Rectangle(TextureSpriteWidth * 2, TextureSpriteHeight * 3, TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureRightRectangle = new Rectangle(TextureSpriteWidth * 2, TextureSpriteHeight + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureBottomRightRectangle = new Rectangle(TextureSpriteWidth * 2, (TextureSpriteHeight * 2) + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureBottomRectangle = new Rectangle(TextureSpriteWidth, (TextureSpriteHeight * 2) + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureBottomLeftRectangle = new Rectangle(0, (TextureSpriteHeight * 2) + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureLeftRectangle = new Rectangle(0, TextureSpriteHeight + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BackgroundTextureCenterRectangle = new Rectangle(TextureSpriteWidth, TextureSpriteHeight + (TextureSpriteHeight * 3), TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureTopLeftRectangle = new Rectangle(0, 0, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureTopRectangle = new Rectangle(TextureSpriteWidth, 0, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureTopRightRectangle = new Rectangle(TextureSpriteWidth * 2, 0, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureRightRectangle = new Rectangle(TextureSpriteWidth * 2, TextureSpriteHeight, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureBottomRightRectangle = new Rectangle(TextureSpriteWidth * 2, TextureSpriteHeight * 2, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureBottomRectangle = new Rectangle(TextureSpriteWidth, TextureSpriteHeight * 2, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureBottomLeftRectangle = new Rectangle(0, TextureSpriteHeight * 2, TextureSpriteWidth, TextureSpriteHeight);
-				BorderTextureLeftRectangle = new Rectangle(0, TextureSpriteHeight, TextureSpriteWidth, TextureSpriteHeight);
-			}
 		}
 	}
 }

@@ -6,15 +6,13 @@ using Junior.Common;
 
 using TextAdventure.Engine.Game.World;
 
-using Wintellect.PowerCollections;
-
 namespace TextAdventure.Engine.Game.Commands
 {
 	public class CommandList
 	{
-		private readonly Set<CommandListEntry> _commands = new Set<CommandListEntry>();
+		private readonly List<CommandListEntry> _commands = new List<CommandListEntry>();
 		private readonly CommandContext _context;
-		private readonly Set<CommandListEntry> _deferredCommands = new Set<CommandListEntry>();
+		private readonly List<CommandListEntry> _deferredCommands = new List<CommandListEntry>();
 		private readonly IWorldObserver _worldObserver;
 
 		public CommandList(IWorldObserver worldObserver, CommandContext context)

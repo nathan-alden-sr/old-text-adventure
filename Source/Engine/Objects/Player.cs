@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Player : IUnique
+	public class Player : IPlayer
 	{
 		private readonly IEventHandler<ActorInstanceTouchedPlayerEvent> _actorInstanceTouchedPlayerEventHandler;
 		private readonly Guid _id;
@@ -62,6 +62,7 @@ namespace TextAdventure.Engine.Objects
 				return _actorInstanceTouchedPlayerEventHandler;
 			}
 		}
+
 		public Guid Id
 		{
 			get
@@ -70,7 +71,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		protected internal bool ChangeLocation(Board board, Coordinate newCoordinate)
+		public bool ChangeLocation(Board board, Coordinate newCoordinate)
 		{
 			board.ThrowIfNull("board");
 

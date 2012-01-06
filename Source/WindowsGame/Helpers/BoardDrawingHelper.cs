@@ -16,8 +16,8 @@ namespace TextAdventure.WindowsGame.Helpers
 		}
 
 		public void GetDrawingParameters(
-			Board board,
-			Player player,
+			IBoard board,
+			IPlayer player,
 			out Point topLeftPoint,
 			out Coordinate topLeftLayerCoordinate,
 			out Coordinate bottomRightCoordinate)

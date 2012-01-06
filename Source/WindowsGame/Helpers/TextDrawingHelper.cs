@@ -5,6 +5,8 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.Extensions;
+
 namespace TextAdventure.WindowsGame.Helpers
 {
 	public class TextDrawingHelper
@@ -34,21 +36,21 @@ namespace TextAdventure.WindowsGame.Helpers
 				case Alignment.TopLeft:
 					return new Point(destinationRectangle.X, destinationRectangle.Y);
 				case Alignment.TopCenter:
-					return new Point((int)(destinationRectangle.Center.X - (textSize.X / 2)), destinationRectangle.Y);
+					return new Point((destinationRectangle.Center.X - (textSize.X / 2)).Round(), destinationRectangle.Y);
 				case Alignment.TopRight:
-					return new Point((int)(destinationRectangle.Right - textSize.X), destinationRectangle.Y);
+					return new Point((destinationRectangle.Right - textSize.X).Round(), destinationRectangle.Y);
 				case Alignment.RightCenter:
-					return new Point((int)(destinationRectangle.Right - textSize.X), (int)(destinationRectangle.Center.Y - (textSize.Y / 2)));
+					return new Point((destinationRectangle.Right - textSize.X).Round(), (destinationRectangle.Center.Y - (textSize.Y / 2)).Round());
 				case Alignment.BottomRight:
-					return new Point((int)(destinationRectangle.Right - textSize.X), (int)(destinationRectangle.Bottom - textSize.Y));
+					return new Point((destinationRectangle.Right - textSize.X).Round(), (destinationRectangle.Bottom - textSize.Y).Round());
 				case Alignment.BottomCenter:
-					return new Point((int)(destinationRectangle.Center.X - (textSize.X / 2)), (int)(destinationRectangle.Bottom - textSize.Y));
+					return new Point((destinationRectangle.Center.X - (textSize.X / 2)).Round(), (destinationRectangle.Bottom - textSize.Y).Round());
 				case Alignment.BottomLeft:
-					return new Point(destinationRectangle.X, (int)(destinationRectangle.Bottom - textSize.Y));
+					return new Point(destinationRectangle.X, (destinationRectangle.Bottom - textSize.Y).Round());
 				case Alignment.LeftCenter:
-					return new Point(destinationRectangle.X, (int)(destinationRectangle.Center.Y - (textSize.Y / 2)));
+					return new Point(destinationRectangle.X, (destinationRectangle.Center.Y - (textSize.Y / 2)).Round());
 				case Alignment.Center:
-					return new Point((int)(destinationRectangle.Center.X - (textSize.X / 2)), (int)(destinationRectangle.Center.Y - (textSize.Y / 2)));
+					return new Point((destinationRectangle.Center.X - (textSize.X / 2)).Round(), (destinationRectangle.Center.Y - (textSize.Y / 2)).Round());
 				default:
 					throw new ArgumentOutOfRangeException("alignment");
 			}

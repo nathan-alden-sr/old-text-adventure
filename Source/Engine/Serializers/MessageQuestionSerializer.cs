@@ -22,7 +22,12 @@ namespace TextAdventure.Engine.Serializers
 
 			return new XElement(
 				elementName,
-				messageQuestion.Answers.Select(arg => MessageAnswerSerializer.Instance.Serialize(arg)));
+				messageQuestion.Answers.Select(arg => MessageAnswerSerializer.Instance.Serialize(arg)),
+				new XAttribute("prompt", messageQuestion.Prompt),
+				new XAttribute("questionForegroundColor", ColorSerializer.Instance.Serialize(messageQuestion.QuestionForegroundColor)),
+				new XAttribute("unselectedAnswerForegroundColor", ColorSerializer.Instance.Serialize(messageQuestion.UnselectedAnswerForegroundColor)),
+				new XAttribute("selectedAnswerForegroundColor", ColorSerializer.Instance.Serialize(messageQuestion.SelectedAnswerForegroundColor)),
+				new XAttribute("selectedAnswerBackgroundColor", ColorSerializer.Instance.Serialize(messageQuestion.SelectedAnswerBackgroundColor)));
 		}
 
 		public MessageQuestion Deserialize(XElement questionElement)
@@ -30,6 +35,11 @@ namespace TextAdventure.Engine.Serializers
 			questionElement.ThrowIfNull("questionElement");
 
 			return new MessageQuestion(
+				(string)questionElement.Attribute("prompt"),
+				ColorSerializer.Instance.Deserialize((string)questionElement.Attribute("questionForegroundColor")),
+				ColorSerializer.Instance.Deserialize((string)questionElement.Attribute("unselectedAnswerForegroundColor")),
+				ColorSerializer.Instance.Deserialize((string)questionElement.Attribute("selectedAnswerForegroundColor")),
+				ColorSerializer.Instance.Deserialize((string)questionElement.Attribute("selectedAnswerBackgroundColor")),
 				questionElement.Elements("answer").Select(MessageAnswerSerializer.Instance.Deserialize));
 		}
 	}

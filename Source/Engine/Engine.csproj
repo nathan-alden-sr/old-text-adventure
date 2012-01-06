@@ -64,7 +64,10 @@
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
     <Compile Include="Game\Commands\DelayCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceDestroyCommand.cs" />
+    <Compile Include="Game\Commands\ICommandContext.cs" />
+    <Compile Include="Game\Commands\ICommandQueue.cs" />
     <Compile Include="Game\Commands\LogCommand.cs" />
+    <Compile Include="Game\Commands\MessageCommand.cs" />
     <Compile Include="Game\Commands\MoveCommand.cs" />
     <Compile Include="Game\Commands\PlayerResumeInputCommand.cs" />
     <Compile Include="Game\Commands\PlayerSuspendInputCommand.cs">
@@ -82,10 +85,12 @@
     <Compile Include="Game\Events\ActorInstanceTouchedPlayerEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceCreatedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceMovedEvent.cs" />
+    <Compile Include="Game\Events\AnswerSelectedEvent.cs" />
     <Compile Include="Game\Events\BoardExitedEvent.cs" />
     <Compile Include="Game\Events\BoardEnteredEvent.cs" />
     <Compile Include="Game\Events\Event.cs" />
     <Compile Include="Game\Events\EventHandler.cs" />
+    <Compile Include="Game\Events\IEventContext.cs" />
     <Compile Include="Game\Events\IEventHandler.cs" />
     <Compile Include="Game\Events\PlayerTouchedActorInstanceEvent.cs" />
     <Compile Include="Game\Events\EventContext.cs" />
@@ -103,22 +108,48 @@
     <Compile Include="Game\Commands\PlayerMoveUpCommand.cs" />
     <Compile Include="Game\Commands\TouchDirection.cs" />
     <Compile Include="Game\Events\TargetedEvent.cs" />
+    <Compile Include="Game\IContext.cs" />
     <Compile Include="Game\ILoggable.cs" />
     <Compile Include="Game\Commands\CommandList.cs" />
     <Compile Include="Game\Commands\PlayerMoveDownCommand.cs" />
     <Compile Include="Game\Context.cs" />
+    <Compile Include="Game\Messages\IMessageQueue.cs" />
+    <Compile Include="Game\Messages\MessageQueue.cs" />
+    <Compile Include="Game\Messages\MessageQueuePosition.cs" />
     <Compile Include="Game\World\EventResult.cs" />
+    <Compile Include="Game\World\IPlayerInput.cs" />
+    <Compile Include="Game\World\IWorldInstance.cs" />
     <Compile Include="Game\World\IWorldTime.cs" />
     <Compile Include="Game\World\IWorldObserver.cs" />
     <Compile Include="Game\World\PlayerInput.cs" />
     <Compile Include="Game\Commands\CommandQueue.cs" />
+    <Compile Include="Game\Messages\MessageAnswerBuilder.cs" />
+    <Compile Include="Game\Messages\MessageBuilder.cs" />
     <Compile Include="Objects\Actor.cs" />
     <Compile Include="Objects\ActorInstance.cs" />
     <Compile Include="Objects\ActorInstanceLayer.cs" />
     <Compile Include="Objects\BoardExit.cs" />
     <Compile Include="Objects\BoardExitDirection.cs" />
+    <Compile Include="Objects\IActor.cs" />
+    <Compile Include="Objects\IActorInstance.cs" />
+    <Compile Include="Objects\IActorInstanceLayer.cs" />
+    <Compile Include="Objects\IBoard.cs" />
+    <Compile Include="Objects\IBoardExit.cs" />
+    <Compile Include="Objects\ICharacter.cs" />
     <Compile Include="Objects\ILayer.cs" />
+    <Compile Include="Objects\IMessage.cs" />
+    <Compile Include="Objects\IMessageAnswer.cs" />
+    <Compile Include="Objects\IMessageColor.cs" />
+    <Compile Include="Objects\IMessageLineBreak.cs" />
+    <Compile Include="Objects\IMessageQuestion.cs" />
+    <Compile Include="Objects\IMessageText.cs" />
+    <Compile Include="Objects\IMessageWithBackgroundColor.cs" />
     <Compile Include="Objects\IMessagePart.cs" />
+    <Compile Include="Objects\IPlayer.cs" />
+    <Compile Include="Objects\ISprite.cs" />
+    <Compile Include="Objects\ISpriteLayer.cs" />
+    <Compile Include="Objects\ITile.cs" />
+    <Compile Include="Objects\IWorld.cs" />
     <Compile Include="Objects\Message.cs" />
     <Compile Include="Objects\MessageAnswer.cs" />
     <Compile Include="Objects\MessageColor.cs" />
@@ -168,9 +199,6 @@
   <ItemGroup>
     <Reference Include="Junior.Common">
       <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="PowerCollections">
-      <HintPath>..\..\Binaries\Power Collections\PowerCollections.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

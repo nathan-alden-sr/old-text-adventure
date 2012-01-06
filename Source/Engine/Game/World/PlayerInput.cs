@@ -2,7 +2,7 @@ using System;
 
 namespace TextAdventure.Engine.Game.World
 {
-	public class PlayerInput
+	public class PlayerInput : IPlayerInput
 	{
 		private int _suspendCount;
 

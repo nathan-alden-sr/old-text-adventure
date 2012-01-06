@@ -77,15 +77,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Calibri.spritefont">
-      <Name>Calibri</Name>
+    <Compile Include="Fonts\Calibri 10pt.spritefont">
+      <Name>Calibri 10pt</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Lucida Console.spritefont">
-      <Name>Lucida Console</Name>
+    <Compile Include="Fonts\Lucida Console 8pt.spritefont">
+      <Name>Lucida Console 8pt</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -98,10 +98,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\Calibri Bold.spritefont">
-      <Name>Calibri Bold</Name>
+    <Compile Include="Fonts\Calibri 10pt Bold.spritefont">
+      <Name>Calibri 10pt Bold</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\Calibri 12pt.spritefont">
+      <Name>Calibri 12pt</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Windows\Glow 1.png">
+      <Name>Glow 1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

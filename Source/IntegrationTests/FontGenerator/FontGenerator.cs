@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
@@ -26,7 +27,7 @@ namespace TextAdventure.IntegrationTests.FontGenerator
 
 			using (Graphics graphics = Graphics.FromImage(measureImage))
 			{
-				characterSize = TextRenderer.MeasureText(graphics, '\u2588'.ToString(), font, Size.Empty, TextFormatFlags.NoPadding);
+				characterSize = TextRenderer.MeasureText(graphics, '\u2588'.ToString(CultureInfo.InvariantCulture), font, Size.Empty, TextFormatFlags.NoPadding);
 			}
 
 			measureImage.Dispose();
@@ -45,7 +46,7 @@ namespace TextAdventure.IntegrationTests.FontGenerator
 					{
 						graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
-						string character = _characters[index].ToString();
+						string character = _characters[index].ToString(CultureInfo.InvariantCulture);
 						Size size = TextRenderer.MeasureText(graphics, character, font, characterSize, TextFormatFlags.NoPadding);
 
 						if (size.Width == 0 || size.Height == 0)

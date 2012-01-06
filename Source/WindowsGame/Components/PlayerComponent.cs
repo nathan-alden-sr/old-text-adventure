@@ -16,10 +16,10 @@ namespace TextAdventure.WindowsGame.Components
 	{
 		private readonly KeyboardRepeatHelper _keyboardRepeatHelper = new KeyboardRepeatHelper();
 		private readonly KeyboardStateHelper _keyboardStateHelper;
-		private readonly WorldInstance _worldInstance;
+		private readonly IWorldInstance _worldInstance;
 		private TimeSpan _lastKeyDownTotalWorldTime = TimeSpan.Zero;
 
-		public PlayerComponent(GameManager gameManager, WorldInstance worldInstance)
+		public PlayerComponent(GameManager gameManager, IWorldInstance worldInstance)
 			: base(gameManager)
 		{
 			worldInstance.ThrowIfNull("worldInstance");

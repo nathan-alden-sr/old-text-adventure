@@ -17,7 +17,7 @@ namespace TextAdventure.Engine.Common
 		public static readonly Color White = new Color(1f, 1f, 1f);
 		public static readonly Color Yellow = new Color(1f, 1f, 0f);
 
-		public Color(float r, float g, float b, float a = 1.0f)
+		public Color(float r, float g, float b, float a = 1f)
 			: this()
 		{
 			if (r < 0 || r > 1)
@@ -49,12 +49,22 @@ namespace TextAdventure.Engine.Common
 		}
 
 		public Color(byte r, byte g, byte b, byte a = (byte)255)
-			: this(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f)
+			: this(r / 255f, g / 255f, b / 255f, a / 255f)
 		{
 		}
 
 		public Color(byte a)
 			: this(0, 0, 0, a)
+		{
+		}
+
+		public Color(Color color, float a)
+			: this(color.R, color.G, color.B, a)
+		{
+		}
+
+		public Color(Color color, byte a)
+			: this(color.R, color.G, color.B, a / 255f)
 		{
 		}
 

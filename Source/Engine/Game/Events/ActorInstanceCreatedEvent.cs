@@ -4,9 +4,9 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public class ActorInstanceCreatedEvent : TargetedEvent<ActorInstance>
+	public class ActorInstanceCreatedEvent : TargetedEvent<IActorInstance>
 	{
-		public ActorInstanceCreatedEvent(ActorInstance target)
+		public ActorInstanceCreatedEvent(IActorInstance target)
 			: base(target)
 		{
 		}

@@ -7,40 +7,50 @@ namespace TextAdventure.WindowsGame
 {
 	public class FontContent
 	{
-		private readonly SpriteFont _calibri;
-		private readonly SpriteFont _calibriBold;
-		private readonly SpriteFont _lucidaConsole;
+		private readonly SpriteFont _calibri10pt;
+		private readonly SpriteFont _calibri10ptBold;
+		private readonly SpriteFont _calibri12pt;
+		private readonly SpriteFont _lucidaConsole8pt;
 
 		public FontContent(ContentManager contentManager)
 		{
 			contentManager.ThrowIfNull("contentManager");
 
-			_calibri = contentManager.Load<SpriteFont>(@"Fonts\Calibri");
-			_calibriBold = contentManager.Load<SpriteFont>(@"Fonts\Calibri Bold");
-			_lucidaConsole = contentManager.Load<SpriteFont>(@"Fonts\Lucida Console");
+			_calibri10pt = contentManager.Load<SpriteFont>(@"Fonts\Calibri 10pt");
+			_calibri10ptBold = contentManager.Load<SpriteFont>(@"Fonts\Calibri 10pt Bold");
+			_calibri12pt = contentManager.Load<SpriteFont>(@"Fonts\Calibri 12pt");
+			_lucidaConsole8pt = contentManager.Load<SpriteFont>(@"Fonts\Lucida Console 8pt");
 		}
 
-		public SpriteFont Calibri
+		public SpriteFont Calibri10pt
 		{
 			get
 			{
-				return _calibri;
+				return _calibri10pt;
 			}
 		}
 
-		public SpriteFont CalibriBold
+		public SpriteFont Calibri10ptBold
 		{
 			get
 			{
-				return _calibriBold;
+				return _calibri10ptBold;
 			}
 		}
 
-		public SpriteFont LucidaConsole
+		public SpriteFont Calibri12pt
 		{
 			get
 			{
-				return _lucidaConsole;
+				return _calibri12pt;
+			}
+		}
+
+		public SpriteFont LucidaConsole8pt
+		{
+			get
+			{
+				return _lucidaConsole8pt;
 			}
 		}
 	}

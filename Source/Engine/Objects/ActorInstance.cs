@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class ActorInstance : Sprite, IUnique
+	public class ActorInstance : Sprite, IActorInstance
 	{
 		private readonly Guid _id;
 
@@ -67,6 +67,7 @@ namespace TextAdventure.Engine.Objects
 			get;
 			set;
 		}
+
 		public Guid Id
 		{
 			get

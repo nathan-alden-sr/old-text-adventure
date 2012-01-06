@@ -45,7 +45,7 @@ namespace TextAdventure.WindowsGame
 			{
 				throw new TypeLoadException(String.Format("World type '{0}' in file '{1}' must be declared as a public instance class.", worldTypeName, assemblyPath));
 			}
-			if (!worldType.GetConstructors(BindingFlags.Public | BindingFlags.Instance).Any(arg => !arg.GetParameters().Any()))
+			if (worldType.GetConstructors(BindingFlags.Public | BindingFlags.Instance).All(arg => arg.GetParameters().Any()))
 			{
 				throw new TypeLoadException(String.Format("World type '{0}' in file '{1}' must have a public instance constructor that takes no parameters.", worldTypeName, assemblyPath));
 			}

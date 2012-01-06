@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Messages;
+
 namespace TextAdventure.Engine.Objects
 {
-	public class MessageAnswer : IUnique
+	public class MessageAnswer : IMessageAnswer
 	{
 		private readonly Guid _id;
 		private readonly IEnumerable<IMessagePart> _parts;
@@ -46,6 +48,16 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _id;
 			}
+		}
+
+		public static MessageAnswerBuilder Build(string text)
+		{
+			return new MessageAnswerBuilder(text);
+		}
+
+		public static MessageAnswerBuilder Build(Guid id, string text)
+		{
+			return new MessageAnswerBuilder(id, text);
 		}
 	}
 }

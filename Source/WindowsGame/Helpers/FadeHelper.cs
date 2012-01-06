@@ -6,26 +6,18 @@ namespace TextAdventure.WindowsGame.Helpers
 {
 	public class FadeHelper
 	{
-		private readonly FadeDirection _direction;
 		private readonly TimeSpan _duration;
+		private readonly float _endAlpha;
+		private readonly float _startAlpha;
 		private readonly TimeSpan _startTotalGameTime;
 
-		public FadeHelper(FadeDirection direction, TimeSpan startTotalGameTime, TimeSpan duration)
+		public FadeHelper(TimeSpan startTotalGameTime, TimeSpan duration, float startAlpha, float endAlpha)
 		{
-			switch (direction)
-			{
-				case FadeDirection.In:
-					Alpha = 0;
-					break;
-				case FadeDirection.Out:
-					Alpha = 1;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException("direction");
-			}
-			_direction = direction;
 			_startTotalGameTime = startTotalGameTime;
 			_duration = duration;
+			_startAlpha = MathHelper.Clamp(startAlpha, 0f, 1f);
+			_endAlpha = MathHelper.Clamp(endAlpha, 0f, 1f);
+			Alpha = _startAlpha;
 		}
 
 		public float Alpha
@@ -43,12 +35,7 @@ namespace TextAdventure.WindowsGame.Helpers
 
 			var fadeFactor = (float)((totalGameTime - _startTotalGameTime).TotalSeconds / _duration.TotalSeconds);
 
-			if (_direction == FadeDirection.Out)
-			{
-				fadeFactor = 1 - fadeFactor;
-			}
-
-			Alpha = MathHelper.Clamp(fadeFactor, 0, 1);
+			Alpha = MathHelper.Clamp(MathHelper.Lerp(_startAlpha, _endAlpha, fadeFactor), 0f, 1f);
 		}
 	}
 }

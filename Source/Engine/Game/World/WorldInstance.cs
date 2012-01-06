@@ -5,14 +5,16 @@ using Junior.Common;
 
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.Messages;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.World
 {
-	public class WorldInstance
+	public class WorldInstance : IWorldInstance
 	{
 		private readonly DelegateDictionary<Guid, Board> _boardsById = new DelegateDictionary<Guid, Board>();
 		private readonly Dictionary<Board, CommandQueue> _commandQueuesByBoard = new Dictionary<Board, CommandQueue>();
+		private readonly MessageQueue _messageQueue = new MessageQueue();
 		private readonly Player _player;
 		private readonly PlayerInput _playerInput = new PlayerInput();
 		private readonly Objects.World _world;
@@ -50,6 +52,46 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
+		public Board CurrentBoard
+		{
+			get
+			{
+				return _boardsById[_player.BoardId, boardId => _world.GetBoardById(boardId)];
+			}
+		}
+
+		public PlayerInput PlayerInput
+		{
+			get
+			{
+				return _playerInput;
+			}
+		}
+
+		public MessageQueue MessageQueue
+		{
+			get
+			{
+				return _messageQueue;
+			}
+		}
+
+		IWorld IWorldInstance.World
+		{
+			get
+			{
+				return World;
+			}
+		}
+
+		IPlayer IWorldInstance.Player
+		{
+			get
+			{
+				return Player;
+			}
+		}
+
 		public IWorldTime WorldTime
 		{
 			get
@@ -58,11 +100,11 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
-		public Board CurrentBoard
+		IBoard IWorldInstance.CurrentBoard
 		{
 			get
 			{
-				return _boardsById[_player.BoardId, boardId => _world.GetBoardById(boardId)];
+				return CurrentBoard;
 			}
 		}
 
@@ -74,11 +116,19 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
-		public PlayerInput PlayerInput
+		IPlayerInput IWorldInstance.PlayerInput
 		{
 			get
 			{
-				return _playerInput;
+				return PlayerInput;
+			}
+		}
+
+		IMessageQueue IWorldInstance.MessageQueue
+		{
+			get
+			{
+				return MessageQueue;
 			}
 		}
 

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
+using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
 
@@ -19,9 +20,9 @@ namespace TextAdventure.WindowsGame.Components
 {
 	public class BoardComponent : TextAdventureDrawableGameComponent
 	{
-		private readonly WorldInstance _worldInstance;
+		private readonly IWorldInstance _worldInstance;
 
-		public BoardComponent(GameManager gameManager, WorldInstance worldInstance)
+		public BoardComponent(GameManager gameManager, IWorldInstance worldInstance)
 			: base(gameManager)
 		{
 			worldInstance.ThrowIfNull("worldInstance");
@@ -33,7 +34,7 @@ namespace TextAdventure.WindowsGame.Components
 
 		public override void Draw(GameTime gameTime)
 		{
-			Board board = _worldInstance.CurrentBoard;
+			IBoard board = _worldInstance.CurrentBoard;
 			IEnumerable<ILayer> layers = new ILayer[]
 			                             	{
 			                             		board.BackgroundLayer,
@@ -55,10 +56,10 @@ namespace TextAdventure.WindowsGame.Components
 
 			foreach (ILayer layer in layers)
 			{
-				foreach (Tile tile in layer.Tiles.Where(arg => arg.Coordinate.X >= topLeftCoordinate.X &&
-				                                               arg.Coordinate.X <= bottomRightCoordinate.X &&
-				                                               arg.Coordinate.Y >= topLeftCoordinate.Y &&
-				                                               arg.Coordinate.Y <= bottomRightCoordinate.Y))
+				foreach (ITile tile in layer.Tiles.Where(arg => arg.Coordinate.X >= topLeftCoordinate.X &&
+				                                                arg.Coordinate.X <= bottomRightCoordinate.X &&
+				                                                arg.Coordinate.Y >= topLeftCoordinate.Y &&
+				                                                arg.Coordinate.Y <= bottomRightCoordinate.Y))
 				{
 					Rectangle destinationRectangle = BoardDrawingHelper.Instance.GetTileDestinationRectangle(topLeftPoint, topLeftCoordinate, tile.Coordinate);
 
@@ -70,9 +71,9 @@ namespace TextAdventure.WindowsGame.Components
 				}
 			}
 
-			SpriteBatch.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
-			foreach (BoardExit boardExit in board.Exits)
+			foreach (IBoardExit boardExit in board.Exits)
 			{
 				Coordinate coordinate = boardExit.Coordinate;
 				byte symbol;

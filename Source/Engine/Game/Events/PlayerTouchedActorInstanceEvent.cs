@@ -5,11 +5,11 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public class PlayerTouchedActorInstanceEvent : TargetedEvent<ActorInstance>
+	public class PlayerTouchedActorInstanceEvent : TargetedEvent<IActorInstance>
 	{
 		private readonly TouchDirection _touchDirection;
 
-		public PlayerTouchedActorInstanceEvent(ActorInstance target, TouchDirection touchDirection)
+		public PlayerTouchedActorInstanceEvent(IActorInstance target, TouchDirection touchDirection)
 			: base(target)
 		{
 			_touchDirection = touchDirection;
