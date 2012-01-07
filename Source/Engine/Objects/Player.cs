@@ -16,8 +16,8 @@ namespace TextAdventure.Engine.Objects
 		public Player(
 			Guid id,
 			Guid boardId,
-			Character character,
 			Coordinate coordinate,
+			Character character,
 			IEventHandler<ActorInstanceTouchedPlayerEvent> actorInstanceTouchedPlayerEventHandler = null)
 		{
 			character.ThrowIfNull("character");
@@ -35,6 +35,12 @@ namespace TextAdventure.Engine.Objects
 			private set;
 		}
 
+		public Coordinate Coordinate
+		{
+			get;
+			private set;
+		}
+
 		public Character Character
 		{
 			get
@@ -47,12 +53,6 @@ namespace TextAdventure.Engine.Objects
 
 				_character = value;
 			}
-		}
-
-		public Coordinate Coordinate
-		{
-			get;
-			private set;
 		}
 
 		public IEventHandler<ActorInstanceTouchedPlayerEvent> ActorInstanceTouchedPlayerEventHandler

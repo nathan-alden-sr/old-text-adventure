@@ -37,8 +37,8 @@ namespace TextAdventure.Engine.Serializers
 			return new Player(
 				(Guid)playerElement.Attribute("id"),
 				(Guid)playerElement.Attribute("boardId"),
-				CharacterSerializer.Instance.Deserialize(playerElement.Element("character")),
 				CoordinateSerializer.Instance.Deserialize((string)playerElement.Attribute("coordinate")),
+				CharacterSerializer.Instance.Deserialize(playerElement.Element("character")),
 				playerElement.Element("actorInstanceTouchedPlayerEventHandler").IfNotNull(EventHandlerSerializer<ActorInstanceTouchedPlayerEvent>.Instance.Deserialize));
 		}
 	}

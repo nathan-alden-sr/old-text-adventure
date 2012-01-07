@@ -43,10 +43,10 @@ namespace TextAdventure.SampleWorld
 
 		private static Player GetStartingPlayer()
 		{
-			var character = new Character(0x2, Color.White, Color.Blue);
 			var coordinate = new Coordinate(_size.Width / 2, _size.Height / 2);
+			var character = new Character(0x2, Color.White, Color.Blue);
 
-			return new Player(_playerId, _boardIds[0], character, coordinate);
+			return new Player(_playerId, _boardIds[0], coordinate, character);
 		}
 
 		private static IEnumerable<Board> GetBoards()
