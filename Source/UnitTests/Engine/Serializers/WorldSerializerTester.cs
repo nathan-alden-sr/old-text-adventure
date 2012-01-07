@@ -104,7 +104,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			private static void AssertActor(IActor actor)
 			{
 				Assert.That(actor.Id, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
-				Assert.That(actor.AllowPlayerOverlap, Is.EqualTo(true));
 				Assert.That(actor.Character.Symbol, Is.EqualTo(2));
 				Assert.That(actor.Character.ForegroundColor, Is.EqualTo(new Color(0.2f, 0.3f, 0.7f, 0.8f)));
 				Assert.That(actor.Character.BackgroundColor, Is.EqualTo(new Color(1f, 1f, 1f)));

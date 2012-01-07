@@ -37,7 +37,7 @@
 		<boardEnteredEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+BoardEnteredEventHandler, TextAdventure.UnitTests" />
 		<boardExitedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+BoardExitedEventHandler, TextAdventure.UnitTests" />
 	</board>
-	<actor id="677ae75c-117c-4992-8dec-ffa645308f82" allowPlayerOverlap="true">
+	<actor id="677ae75c-117c-4992-8dec-ffa645308f82">
 		<character symbol="2" foregroundColor="0.2,0.3,0.7,0.8" backgroundColor="1,1,1,1" />
 	</actor>
 	<message id="fee40b1a-1aa8-467d-9c8d-49b39a1641a9" backgroundColor="0,0,0.5,1">

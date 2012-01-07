@@ -6,9 +6,5 @@ namespace TextAdventure.Engine.Objects
 		{
 			get;
 		}
-		bool AllowPlayerOverlap
-		{
-			get;
-		}
 	}
 }

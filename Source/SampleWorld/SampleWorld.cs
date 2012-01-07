@@ -75,7 +75,7 @@ namespace TextAdventure.SampleWorld
 
 		private static IEnumerable<Actor> GetActors()
 		{
-			yield return new Actor(_actorIds[0], new Character(2, Color.Yellow, Color.TransparentBlack), false);
+			yield return new Actor(_actorIds[0], new Character(2, Color.Yellow, Color.TransparentBlack));
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)

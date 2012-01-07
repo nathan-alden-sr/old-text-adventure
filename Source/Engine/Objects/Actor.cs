@@ -11,14 +11,12 @@ namespace TextAdventure.Engine.Objects
 
 		public Actor(
 			Guid id,
-			Character character,
-			bool allowPlayerOverlap)
+			Character character)
 		{
 			character.ThrowIfNull("character");
 
 			_id = id;
 			Character = character;
-			AllowPlayerOverlap = allowPlayerOverlap;
 		}
 
 		public Character Character
@@ -33,12 +31,6 @@ namespace TextAdventure.Engine.Objects
 
 				_character = value;
 			}
-		}
-
-		public bool AllowPlayerOverlap
-		{
-			get;
-			set;
 		}
 
 		public Guid Id

@@ -23,8 +23,7 @@ namespace TextAdventure.Engine.Serializers
 			return new XElement(
 				elementName,
 				CharacterSerializer.Instance.Serialize(actor.Character),
-				new XAttribute("id", actor.Id),
-				new XAttribute("allowPlayerOverlap", actor.AllowPlayerOverlap));
+				new XAttribute("id", actor.Id));
 		}
 
 		public Actor Deserialize(XElement actorElement)
@@ -33,8 +32,7 @@ namespace TextAdventure.Engine.Serializers
 
 			return new Actor(
 				(Guid)actorElement.Attribute("id"),
-				CharacterSerializer.Instance.Deserialize(actorElement.Element("character")),
-				(bool)actorElement.Attribute("allowPlayerOverlap"));
+				CharacterSerializer.Instance.Deserialize(actorElement.Element("character")));
 		}
 	}
 }

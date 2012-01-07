@@ -4,11 +4,11 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Tile : ITile
+	public abstract class Tile : ITile
 	{
 		private Character _character;
 
-		public Tile(
+		protected Tile(
 			Coordinate coordinate,
 			Character character)
 		{
