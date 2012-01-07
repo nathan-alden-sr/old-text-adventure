@@ -58,7 +58,6 @@ namespace TextAdventure.Engine.Game.Messages
 			string prompt,
 			Color questionForegroundColor,
 			Color unselectedAnswerForegroundColor,
-			Color unselectedAnswerBackgroundColor,
 			Color selectedAnswerForegroundColor,
 			Color selectedAnswerBackgroundColor,
 			params MessageAnswer[] answers)

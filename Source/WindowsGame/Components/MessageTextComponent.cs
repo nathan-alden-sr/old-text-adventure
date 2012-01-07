@@ -176,11 +176,9 @@ namespace TextAdventure.WindowsGame.Components
 		{
 			answers = answers.ToArray();
 
-			const int answerPadding = 5;
-			const int answerTextPadding = 5;
 			int answerCount = answers.Count();
-			int totalAnswerPadding = ((answerCount - 1) * answerPadding);
-			float lineWidth = answers.Sum(arg => arg.Size.X + (_selectedAnswerWindowTexture.SpriteWidth * 2) + (answerTextPadding * 2)) + totalAnswerPadding;
+			int totalAnswerPadding = ((answerCount - 1) * DrawingConstants.Message.AnswerPadding);
+			float lineWidth = answers.Sum(arg => arg.Size.X + (_selectedAnswerWindowTexture.SpriteWidth * 2) + (DrawingConstants.Message.AnswerTextPadding * 2)) + totalAnswerPadding;
 			float lineHeight = answers.Max(arg => arg.Size.Y);
 			position.X += (Window.WindowRectangle.Width - lineWidth) / 2;
 
@@ -190,7 +188,7 @@ namespace TextAdventure.WindowsGame.Components
 					new Rectangle(
 						position.X.Round(),
 						position.Y.Round(),
-						(answer.Size.X + (_selectedAnswerWindowTexture.SpriteWidth * 2) + (answerTextPadding * 2)).Round(),
+						(answer.Size.X + (_selectedAnswerWindowTexture.SpriteWidth * 2) + (DrawingConstants.Message.AnswerTextPadding * 2)).Round(),
 						(lineHeight + (_selectedAnswerWindowTexture.SpriteHeight * 2)).Round()),
 					new Padding(_selectedAnswerWindowTexture.SpriteWidth, _selectedAnswerWindowTexture.SpriteHeight));
 
@@ -228,7 +226,7 @@ namespace TextAdventure.WindowsGame.Components
 
 				SpriteBatch.End();
 
-				position.X += window.WindowRectangle.Width + answerPadding;
+				position.X += window.WindowRectangle.Width + DrawingConstants.Message.AnswerPadding;
 			}
 		}
 	}

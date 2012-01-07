@@ -154,7 +154,7 @@ namespace TextAdventure.WindowsGame.Components
 		private void ProcessLineBreak(ref int lineIndex)
 		{
 			lineIndex++;
-			_lineSizesByLine[lineIndex] = Vector2.Zero;
+			_lineSizesByLine[lineIndex] = new Vector2(0, _spaceWord.Size.Y);
 			_wordsByLine[lineIndex] = new List<MessageTextWord>();
 			_alignmentsByLine[lineIndex] = MessageTextAlignment.Left;
 		}
@@ -227,15 +227,18 @@ namespace TextAdventure.WindowsGame.Components
 
 			_answers = question.Answers;
 
-			_colorsByWordCoordinate.Add(new Coordinate(0, lineIndex), question.QuestionForegroundColor);
+			_colorsByWordCoordinate[new Coordinate(0, lineIndex)] = question.QuestionForegroundColor;
 
 			ProcessText(question.Prompt, MessageTextAlignment.Center, ref lineIndex);
 			ProcessLineBreak(ref lineIndex);
 
 			MessageTextAnswer[] answers = question.Answers.Select(arg => GetMessageTextAnswer(question, arg)).ToArray();
 
-			int paddingX = _selectedAnswerWindowTexture.SpriteWidth * 2 * answers.Length;
-			float lineWidth = answers.Sum(arg => arg.Size.X) + paddingX;
+			float lineWidth =
+				(_selectedAnswerWindowTexture.SpriteWidth * 2 * answers.Length) +
+				(DrawingConstants.Message.AnswerPadding * (answers.Length - 1)) +
+				(DrawingConstants.Message.AnswerTextPadding * 2 * answers.Length) +
+				answers.Sum(arg => arg.Size.X);
 			float lineHeight = (_selectedAnswerWindowTexture.SpriteHeight * 2) + answers.Max(arg => arg.Size.Y);
 
 			_lineSizesByLine[lineIndex] = new Vector2(lineWidth, lineHeight);

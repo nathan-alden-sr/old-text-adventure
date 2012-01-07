@@ -15,7 +15,10 @@ namespace TextAdventure.Engine.Objects
 		private readonly Guid _id;
 		private readonly IEnumerable<IMessagePart> _parts;
 
-		public Message(Guid id, Color backgroundColor, IEnumerable<IMessagePart> parts)
+		public Message(
+			Guid id,
+			Color backgroundColor,
+			IEnumerable<IMessagePart> parts)
 		{
 			parts.ThrowIfNull("parts");
 

@@ -28,6 +28,12 @@ namespace TextAdventure.WindowsGame
 			}
 		}
 
+		public static class Message
+		{
+			public const int AnswerPadding = 5;
+			public const int AnswerTextPadding = 5;
+		}
+
 		public static class Player
 		{
 			public static readonly Rectangle DestinationRectangle;
