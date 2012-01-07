@@ -31,7 +31,7 @@ namespace TextAdventure.WindowsGame.Components
 		private const Keys End = Keys.End;
 		private const Keys PageUp = Keys.PageUp;
 		private const Keys PageDown = Keys.PageDown;
-		private const float MaximumLineWidth = 0.75f;
+		private const float MaximumLineWidthFactor = 0.75f;
 		private const int VerticalOffset = 30;
 		private const int VerticalPadding = 10;
 		private const int ArrowPadding = 2;
@@ -179,16 +179,22 @@ namespace TextAdventure.WindowsGame.Components
 			}
 
 			Rectangle destinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
-			float maximumLineWidth = destinationRectangle.Width * MaximumLineWidth;
+			float maximumLineWidth = destinationRectangle.Width * MaximumLineWidthFactor;
 			float maximumClientHeight = destinationRectangle.Height - (destinationRectangle.Center.Y + VerticalOffset) - (VerticalPadding * 2) - (TextureContent.Windows.InnerBevel1.SpriteHeight * 2);
 
 			_messageTextComponent = new MessageTextComponent(GameManager, message, maximumLineWidth);
 
-			int clientWidth = _messageTextComponent.MaximumLineWidthAfterFormatting.Round() + TextureContent.Windows.InnerBevel1.SpriteWidth + ArrowPadding;
+			int padding = ArrowPadding + TextureContent.Windows.InnerBevel1.SpriteWidth;
+			int clientWidth = _messageTextComponent.MaximumLineWidthAfterFormatting.Round() + (padding * 2);
 			int clientHeight = Math.Min(maximumClientHeight, _messageTextComponent.TotalHeightAfterFormatting).Round();
 
 			SetWindowRectangleUsingWindowYAndClientSize(WindowHorizontalAlignment.Center, destinationRectangle.Center.Y + 30, clientWidth, clientHeight);
-			_messageTextComponent.SetWindowRectangle(Window.AbsoluteClientRectangle);
+
+			Rectangle messageTextComponentWindowRectangle = Window.AbsoluteClientRectangle;
+
+			messageTextComponentWindowRectangle.Inflate(-padding, 0);
+
+			_messageTextComponent.SetWindowRectangle(messageTextComponentWindowRectangle);
 
 			Game.Components.Add(_messageTextComponent);
 		}

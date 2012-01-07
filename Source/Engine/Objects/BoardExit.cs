@@ -6,7 +6,11 @@ namespace TextAdventure.Engine.Objects
 {
 	public class BoardExit : IBoardExit
 	{
-		public BoardExit(Coordinate coordinate, BoardExitDirection direction, Guid destinationBoardId, Coordinate destinationCoordinate)
+		public BoardExit(
+			Coordinate coordinate,
+			BoardExitDirection direction,
+			Guid destinationBoardId,
+			Coordinate destinationCoordinate)
 		{
 			Coordinate = coordinate;
 			Direction = direction;
