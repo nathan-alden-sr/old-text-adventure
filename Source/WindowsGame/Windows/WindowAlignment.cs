@@ -1,6 +1,6 @@
-namespace TextAdventure.WindowsGame.Helpers
+namespace TextAdventure.WindowsGame.Windows
 {
-	public enum Alignment
+	public enum WindowAlignment
 	{
 		TopLeft,
 		TopCenter,

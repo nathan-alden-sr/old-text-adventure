@@ -17,10 +17,11 @@ using TextAdventure.WindowsGame.Configuration;
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.Windows;
 
 namespace TextAdventure.WindowsGame.Components
 {
-	public class LogComponent : WindowComponent
+	public class LogComponent : BorderedWindowComponent
 	{
 		private const int DetailIndent = 10;
 		private const string LineFormatString = @"({0:h\:mm\:ss\.f})  {1}";
@@ -144,7 +145,7 @@ namespace TextAdventure.WindowsGame.Components
 			Vector2 textVector = Window.AbsoluteClientRectangle.Location.ToVector2();
 			int lineCount = 0;
 
-			SpriteBatch.Begin();
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			foreach (LogEntry logEntry in _logEntries)
 			{
@@ -224,7 +225,7 @@ namespace TextAdventure.WindowsGame.Components
 			int clientWidth = Math.Max(_minimumWindowWidth ?? 0, Math.Max(maximumTitleTextWidth, maximumDetailTextWidth));
 			int lineCount = Math.Min(_maximumVisibleLogLines, _logEntries.Sum(arg => arg.LineCount));
 
-			SetWindowRectangleUsingClientSize(Alignment.TopLeft, clientWidth, FontContent.Calibri10pt.LineSpacing * lineCount, new Padding(2));
+			SetWindowRectangleUsingClientSize(WindowAlignment.TopLeft, clientWidth, FontContent.Calibri10pt.LineSpacing * lineCount, new Padding(2));
 		}
 
 		private int MeasureLineWidth(TimeSpan loggedTotalGameTime, string text, int indent, bool showTimestamps)

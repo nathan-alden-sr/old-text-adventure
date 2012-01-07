@@ -11,6 +11,8 @@ using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.States;
+using TextAdventure.WindowsGame.Windows;
 
 using Color = Microsoft.Xna.Framework.Color;
 
@@ -25,6 +27,8 @@ namespace TextAdventure.WindowsGame.Components
 		private readonly WindowTexture _selectedAnswerWindowTexture;
 		private readonly WindowBackgroundDrawingHelper _windowBackgroundDrawingHelper;
 		private readonly WindowBorderDrawingHelper _windowBorderDrawingHelper;
+		private float _scrollPosition;
+		private Matrix _translationMatrix;
 
 		public MessageTextComponent(GameManager gameManager, IMessage message, float maximumLineWidth)
 			: base(gameManager)
@@ -37,6 +41,7 @@ namespace TextAdventure.WindowsGame.Components
 			_windowBackgroundDrawingHelper = new WindowBackgroundDrawingHelper(_selectedAnswerWindowTexture);
 			_windowBorderDrawingHelper = new WindowBorderDrawingHelper(_selectedAnswerWindowTexture);
 			_answerSelectionManager = _formatter.Answers.Any() ? new MessageAnswerSelectionManager(_formatter.Answers) : null;
+			ScrollPosition = 0f;
 
 			DrawOrder = ComponentDrawOrder.MessageText;
 		}
@@ -49,11 +54,40 @@ namespace TextAdventure.WindowsGame.Components
 			}
 		}
 
+		public int VisibleHeight
+		{
+			get
+			{
+				return Window.WindowRectangle.Height;
+			}
+		}
+
 		public float TotalHeightAfterFormatting
 		{
 			get
 			{
 				return _formatter.TotalHeightAfterFormatting;
+			}
+		}
+
+		public float ScrollPosition
+		{
+			get
+			{
+				return _scrollPosition;
+			}
+			set
+			{
+				_scrollPosition = MathHelper.Clamp(value, 0f, MaximumScrollPosition);
+				_translationMatrix = Matrix.CreateTranslation(0f, -_scrollPosition, 0f);
+			}
+		}
+
+		public float MaximumScrollPosition
+		{
+			get
+			{
+				return TotalHeightAfterFormatting - Window.WindowRectangle.Height;
 			}
 		}
 
@@ -68,6 +102,12 @@ namespace TextAdventure.WindowsGame.Components
 		public void SetAlpha(float alpha)
 		{
 			Alpha = alpha;
+		}
+
+		public new void SetWindowRectangle(Rectangle windowRectangle)
+		{
+			base.SetWindowRectangle(windowRectangle);
+			ScrollPosition = _scrollPosition;
 		}
 
 		public override void Draw(GameTime gameTime)
@@ -96,7 +136,9 @@ namespace TextAdventure.WindowsGame.Components
 
 		private void ProcessWords(int lineIndex, IList<MessageTextWord> words, Color shadowColor, ref Vector2 position, ref Color textColor)
 		{
-			SpriteBatch.Begin();
+			var rasterizerState = new ScissoringRasterizerState(Window.WindowRectangle);
+
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, rasterizerState, null, _translationMatrix);
 
 			MessageTextAlignment alignment = _formatter.GetAlignmentByLine(lineIndex);
 			Vector2 lineSize = _formatter.GetLineSizeByLine(lineIndex);
@@ -144,7 +186,7 @@ namespace TextAdventure.WindowsGame.Components
 
 			foreach (MessageTextAnswer answer in answers)
 			{
-				var window = new Window(
+				var window = new BorderedWindow(
 					new Rectangle(
 						position.X.Round(),
 						position.Y.Round(),
@@ -157,19 +199,22 @@ namespace TextAdventure.WindowsGame.Components
 					_windowBackgroundDrawingHelper.Alpha = answer.SelectedAnswerBackgroundColor.A * Alpha;
 					_windowBackgroundDrawingHelper.BackgroundColor = answer.SelectedAnswerBackgroundColor.ToXnaColor();
 					_windowBackgroundDrawingHelper.Window = window;
-					_windowBackgroundDrawingHelper.Draw(SpriteBatch);
+					_windowBackgroundDrawingHelper.Draw(SpriteBatch, Window.WindowRectangle, _translationMatrix);
 
 					_windowBorderDrawingHelper.Alpha = answer.SelectedAnswerBackgroundColor.A * Alpha;
 					_windowBorderDrawingHelper.BorderColor = answer.SelectedAnswerBackgroundColor.ToXnaColor();
 					_windowBorderDrawingHelper.Window = window;
-					_windowBorderDrawingHelper.Draw(SpriteBatch);
+					_windowBorderDrawingHelper.Draw(SpriteBatch, Window.WindowRectangle, _translationMatrix);
 				}
 
 				var textPosition = new Vector2(
 					window.AbsoluteClientRectangle.X + ((window.AbsoluteClientRectangle.Width - answer.Size.X) / 2),
 					window.AbsoluteClientRectangle.Y + ((window.AbsoluteClientRectangle.Height - lineHeight) / 2));
+				var rasterizerState = new ScissoringRasterizerState(Window.WindowRectangle);
 
-				SpriteBatch.Begin();
+				SpriteBatch.GraphicsDevice.ScissorRectangle = Window.WindowRectangle;
+
+				SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, rasterizerState, null, _translationMatrix);
 
 				Color textColor = answer.Answer == _answerSelectionManager.SelectedAnswer ? answer.SelectedAnswerForegroundColor.ToXnaColor() : answer.UnselectedAnswerForegroundColor.ToXnaColor();
 

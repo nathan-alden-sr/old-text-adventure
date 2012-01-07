@@ -20,9 +20,9 @@ namespace TextAdventure.WindowsGame.Helpers
 			}
 			set
 			{
-				if (value <= TimeSpan.Zero)
+				if (value < TimeSpan.Zero)
 				{
-					throw new ArgumentOutOfRangeException("value", "Initial interval must be greater than 0.");
+					throw new ArgumentOutOfRangeException("value", "Initial interval must be at least 0.");
 				}
 
 				_initialInterval = value;
@@ -37,9 +37,9 @@ namespace TextAdventure.WindowsGame.Helpers
 			}
 			set
 			{
-				if (value <= TimeSpan.Zero)
+				if (value < TimeSpan.Zero)
 				{
-					throw new ArgumentOutOfRangeException("value", "Repeating interval must be greater than 0.");
+					throw new ArgumentOutOfRangeException("value", "Repeating interval must be at least 0.");
 				}
 
 				_repeatingInterval = value;

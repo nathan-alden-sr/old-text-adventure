@@ -3,6 +3,9 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.States;
+using TextAdventure.WindowsGame.Windows;
+
 namespace TextAdventure.WindowsGame.Helpers
 {
 	public class WindowBackgroundDrawingHelper
@@ -16,7 +19,7 @@ namespace TextAdventure.WindowsGame.Helpers
 			BackgroundColor = Color.White;
 		}
 
-		public Window Window
+		public BorderedWindow Window
 		{
 			get;
 			set;
@@ -40,7 +43,7 @@ namespace TextAdventure.WindowsGame.Helpers
 			set;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch, Rectangle? scissorRectangle = null, Matrix? translationMatrix = null)
 		{
 			spriteBatch.ThrowIfNull("spriteBatch");
 
@@ -49,8 +52,19 @@ namespace TextAdventure.WindowsGame.Helpers
 				return;
 			}
 
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-			spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+			RasterizerState rasterizerState = scissorRectangle != null ? new ScissoringRasterizerState(Window.WindowRectangle) : RasterizerState.CullNone;
+
+			if (scissorRectangle != null)
+			{
+				spriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle.Value;
+			}
+
+			if (scissorRectangle != null)
+			{
+				spriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle.Value;
+			}
+
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, rasterizerState, null, translationMatrix ?? Matrix.Identity);
 
 			Color backgroundColor = BackgroundColor * _alpha;
 

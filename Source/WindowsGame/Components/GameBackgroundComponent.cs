@@ -15,13 +15,7 @@ namespace TextAdventure.WindowsGame.Components
 
 		public override void Draw(GameTime gameTime)
 		{
-			SpriteBatch.Begin();
-
-			GraphicsDevice.SamplerStates[0] = new SamplerState
-			                                  	{
-			                                  		AddressU = TextureAddressMode.Wrap,
-			                                  		AddressV = TextureAddressMode.Wrap
-			                                  	};
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
 
 			SpriteBatch.Draw(TextureContent.GameBackground, DrawingConstants.GameWindow.DestinationRectangle, Color.White);
 

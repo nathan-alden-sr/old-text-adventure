@@ -1,169 +1,149 @@
 using System;
 
-using Junior.Common;
-
 using Microsoft.Xna.Framework;
 
-using TextAdventure.WindowsGame.Extensions;
-using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.Windows;
 
 namespace TextAdventure.WindowsGame.Components
 {
-	public abstract class BorderedWindowComponent : TextAdventureDrawableGameComponent
+	public abstract class BorderedWindowComponent : WindowComponentBase
 	{
-		private readonly int _textureSpriteHeight;
-		private readonly int _textureSpriteWidth;
-		private readonly WindowBackgroundDrawingHelper _windowBackgroundDrawingHelper;
-		private readonly WindowBorderDrawingHelper _windowBorderDrawingHelper;
-		private float _alpha = 1f;
-		private Color _backgroundColor;
-		private Color _borderColor;
-
-		protected BorderedWindowComponent(GameManager gameManager, Func<TextureContent, WindowTexture> windowTextureDelegate)
+		protected BorderedWindowComponent(GameManager gameManager)
 			: base(gameManager)
 		{
-			windowTextureDelegate.ThrowIfNull("windowTextureDelegate");
-
-			WindowTexture windowTexture = windowTextureDelegate(TextureContent);
-
-			if (windowTexture == null)
-			{
-				throw new ArgumentException("Must provide a WindowTexture instance.", "windowTextureDelegate");
-			}
-
-			_textureSpriteWidth = windowTexture.SpriteWidth;
-			_textureSpriteHeight = windowTexture.SpriteHeight;
-			_windowBackgroundDrawingHelper = new WindowBackgroundDrawingHelper(windowTexture);
-			_windowBorderDrawingHelper = new WindowBorderDrawingHelper(windowTexture);
-			BackgroundColor = Color.Transparent;
-			BorderColor = Color.White;
+			Window = new BorderedWindow(Rectangle.Empty, Padding.None);
 		}
 
-		protected Window Window
+		protected BorderedWindow Window
 		{
 			get;
 			private set;
 		}
 
-		protected float Alpha
+		protected void SetWindowRectangle(Rectangle windowRectangle, Padding padding)
 		{
-			get
+			Window = new BorderedWindow(windowRectangle, padding);
+		}
+
+		protected void SetWindowRectangle(int x, int y, int width, int height, Padding padding)
+		{
+			Window = new BorderedWindow(new Rectangle(x, y, width, height), padding);
+		}
+
+		protected void SetWindowRectangleUsingWindowLocationAndClientSize(int windowX, int windowY, int clientWidth, int clientHeight, Padding padding)
+		{
+			Window = new BorderedWindow(new Rectangle(windowX, windowY, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom), padding);
+		}
+
+		protected void SetWindowRectangleUsingClientLocationAndClientSize(int clientX, int clientY, int clientWidth, int clientHeight, Padding padding)
+		{
+			Window = new BorderedWindow(new Rectangle(clientX - padding.Left, clientY - padding.Top, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom), padding);
+		}
+
+		protected void SetWindowRectangle(WindowAlignment alignment, int windowWidth, int windowHeight, Padding padding)
+		{
+			Rectangle windowDestinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
+			Point windowCenterPoint = windowDestinationRectangle.Center;
+			Rectangle rectangle;
+
+			switch (alignment)
 			{
-				return _alpha;
+				case WindowAlignment.TopLeft:
+					rectangle = new Rectangle(0, 0, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.TopCenter:
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), 0, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.TopRight:
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, 0, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.RightCenter:
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					break;
+				case WindowAlignment.BottomRight:
+					rectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.BottomCenter:
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.BottomLeft:
+					rectangle = new Rectangle(0, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					break;
+				case WindowAlignment.LeftCenter:
+					rectangle = new Rectangle(0, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					break;
+				case WindowAlignment.Center:
+					rectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("alignment");
 			}
-			set
-			{
-				_alpha = MathHelper.Clamp(value, 0f, 1f);
-			}
+
+			Window = new BorderedWindow(rectangle, padding);
 		}
 
-		protected Color BackgroundColor
+		protected void SetWindowRectangleUsingClientSize(WindowAlignment alignment, int clientWidth, int clientHeight, Padding padding)
 		{
-			get
-			{
-				return _backgroundColor;
-			}
-			set
-			{
-				_windowBackgroundDrawingHelper.BackgroundColor = value;
-				_backgroundColor = value;
-			}
+			SetWindowRectangle(alignment, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom, padding);
 		}
 
-		protected Color BorderColor
+		protected void SetWindowRectangleUsingWindowYAndWindowSize(WindowHorizontalAlignment alignment, int windowY, int windowWidth, int windowHeight, Padding padding)
 		{
-			get
-			{
-				return _borderColor;
-			}
-			set
-			{
-				_windowBorderDrawingHelper.BorderColor = value;
-				_borderColor = value;
-			}
-		}
-
-		public override void Draw(GameTime gameTime)
-		{
-			_windowBackgroundDrawingHelper.Draw(SpriteBatch);
-			_windowBorderDrawingHelper.Draw(SpriteBatch);
-
-			base.Draw(gameTime);
-		}
-
-		public override void Update(GameTime gameTime)
-		{
-			_windowBackgroundDrawingHelper.Alpha = _alpha;
-			_windowBorderDrawingHelper.Alpha = _alpha;
-
-			base.Update(gameTime);
-		}
-
-		public void SetWindowRectangle(int x, int y, int width, int height)
-		{
-			Window = new Window(new Rectangle(x, y, width, height), new Padding(_textureSpriteWidth, _textureSpriteHeight));
-			_windowBackgroundDrawingHelper.Window = Window;
-			_windowBorderDrawingHelper.Window = Window;
-		}
-
-		public void SetWindowRectangleUsingClientSize(int x, int y, int clientWidth, int clientHeight)
-		{
-			float width = clientWidth + (_windowBorderDrawingHelper.BorderSize.X * 2);
-			float height = clientHeight + (_windowBorderDrawingHelper.BorderSize.Y * 2);
-
-			SetWindowRectangle(x, y, width.Round(), height.Round());
-		}
-
-		public void SetWindowRectangle(Alignment alignment, int clientWidth, int clientHeight)
-		{
-			SetWindowRectangle(alignment, Point.Zero, clientWidth, clientHeight);
-		}
-
-		public void SetWindowRectangle(Alignment alignment, Point alignmentOffset, int clientWidth, int clientHeight)
-		{
-			float width = clientWidth + (_windowBorderDrawingHelper.BorderSize.X * 2);
-			float height = clientHeight + (_windowBorderDrawingHelper.BorderSize.Y * 2);
 			Rectangle windowDestinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
 			Point windowCenterPoint = windowDestinationRectangle.Center;
 			Rectangle windowRectangle;
 
 			switch (alignment)
 			{
-				case Alignment.TopLeft:
-					windowRectangle = new Rectangle(0, 0, width.Round(), height.Round());
+				case WindowHorizontalAlignment.Left:
+					windowRectangle = new Rectangle(0, windowY, windowWidth, windowHeight);
 					break;
-				case Alignment.TopCenter:
-					windowRectangle = new Rectangle((windowCenterPoint.X - (width / 2)).Round(), 0, width.Round(), height.Round());
+				case WindowHorizontalAlignment.Center:
+					windowRectangle = new Rectangle(windowCenterPoint.X - (windowWidth / 2), windowY, windowWidth, windowHeight);
 					break;
-				case Alignment.TopRight:
-					windowRectangle = new Rectangle((windowDestinationRectangle.Right - width).Round(), 0, width.Round(), height.Round());
-					break;
-				case Alignment.RightCenter:
-					windowRectangle = new Rectangle((windowDestinationRectangle.Right - width).Round(), (windowCenterPoint.Y - (height / 2)).Round(), width.Round(), height.Round());
-					break;
-				case Alignment.BottomRight:
-					windowRectangle = new Rectangle((windowDestinationRectangle.Right - width).Round(), (windowDestinationRectangle.Bottom - height).Round(), width.Round(), height.Round());
-					break;
-				case Alignment.BottomCenter:
-					windowRectangle = new Rectangle((windowCenterPoint.X - (width / 2)).Round(), (windowDestinationRectangle.Bottom - height).Round(), width.Round(), height.Round());
-					break;
-				case Alignment.BottomLeft:
-					windowRectangle = new Rectangle(0, (windowDestinationRectangle.Bottom - height).Round(), width.Round(), height.Round());
-					break;
-				case Alignment.LeftCenter:
-					windowRectangle = new Rectangle(0, (windowCenterPoint.Y - (height / 2)).Round(), width.Round(), height.Round());
-					break;
-				case Alignment.Center:
-					windowRectangle = new Rectangle((windowCenterPoint.X - (width / 2)).Round(), (windowCenterPoint.Y - (height / 2)).Round(), width.Round(), height.Round());
+				case WindowHorizontalAlignment.Right:
+					windowRectangle = new Rectangle(windowDestinationRectangle.Right - windowWidth, windowY, windowWidth, windowHeight);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("alignment");
 			}
 
-			windowRectangle.Offset(alignmentOffset);
+			Window = new BorderedWindow(windowRectangle, padding);
+		}
 
-			SetWindowRectangle(windowRectangle.X, windowRectangle.Y, windowRectangle.Width, windowRectangle.Height);
+		protected void SetWindowRectangleUsingWindowXAndWindowSize(WindowVerticalAlignment alignment, int windowX, int windowWidth, int windowHeight, Padding padding)
+		{
+			Rectangle windowDestinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
+			Point windowCenterPoint = windowDestinationRectangle.Center;
+			Rectangle windowRectangle;
+
+			switch (alignment)
+			{
+				case WindowVerticalAlignment.Top:
+					windowRectangle = new Rectangle(windowX, 0, windowWidth, windowHeight);
+					break;
+				case WindowVerticalAlignment.Center:
+					windowRectangle = new Rectangle(windowX, windowCenterPoint.Y - (windowHeight / 2), windowWidth, windowHeight);
+					break;
+				case WindowVerticalAlignment.Bottom:
+					windowRectangle = new Rectangle(windowX, windowDestinationRectangle.Bottom - windowHeight, windowWidth, windowHeight);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("alignment");
+			}
+
+			Window = new BorderedWindow(windowRectangle, padding);
+		}
+
+		protected void SetWindowRectangleUsingWindowYAndClientSize(WindowHorizontalAlignment alignment, int windowY, int clientWidth, int clientHeight, Padding padding)
+		{
+			SetWindowRectangleUsingWindowYAndWindowSize(alignment, windowY, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom, padding);
+		}
+
+		protected void SetWindowRectangleUsingWindowXAndClientSize(WindowVerticalAlignment alignment, int windowX, int clientWidth, int clientHeight, Padding padding)
+		{
+			SetWindowRectangleUsingWindowXAndWindowSize(alignment, windowX, clientWidth + padding.Left + padding.Right, clientHeight + padding.Top + padding.Bottom, padding);
 		}
 	}
 }

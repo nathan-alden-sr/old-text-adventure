@@ -24,9 +24,11 @@ namespace TextAdventure.WindowsGame
 		private readonly Rectangle _borderTopLeftRectangle;
 		private readonly Rectangle _borderTopRectangle;
 		private readonly Rectangle _borderTopRightRectangle;
+		private readonly Rectangle _downArrowRectangle;
 		private readonly int _spriteHeight;
 		private readonly int _spriteWidth;
 		private readonly Texture2D _texture;
+		private readonly Rectangle _upArrowRectangle;
 
 		public WindowTexture(Texture2D texture, int spriteWidth, int spriteHeight)
 		{
@@ -52,6 +54,8 @@ namespace TextAdventure.WindowsGame
 			_backgroundBottomLeftRectangle = new Rectangle(0, (spriteHeight * 2) + (spriteHeight * 3), spriteWidth, spriteHeight);
 			_backgroundLeftRectangle = new Rectangle(0, spriteHeight + (spriteHeight * 3), spriteWidth, spriteHeight);
 			_backgroundCenterRectangle = new Rectangle(spriteWidth, spriteHeight + (spriteHeight * 3), spriteWidth, spriteHeight);
+			_upArrowRectangle = new Rectangle(spriteWidth * 3, 0, spriteWidth, spriteHeight);
+			_downArrowRectangle = new Rectangle(spriteWidth * 3, spriteHeight, spriteWidth, spriteHeight);
 		}
 
 		public Texture2D Texture
@@ -211,6 +215,22 @@ namespace TextAdventure.WindowsGame
 			get
 			{
 				return _backgroundTopRightRectangle;
+			}
+		}
+
+		public Rectangle DownArrowRectangle
+		{
+			get
+			{
+				return _downArrowRectangle;
+			}
+		}
+
+		public Rectangle UpArrowRectangle
+		{
+			get
+			{
+				return _upArrowRectangle;
 			}
 		}
 	}

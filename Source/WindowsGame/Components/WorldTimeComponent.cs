@@ -4,6 +4,7 @@ using System.Configuration;
 using Junior.Common;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.Engine.Game.World;
@@ -11,10 +12,11 @@ using TextAdventure.WindowsGame.Configuration;
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.Windows;
 
 namespace TextAdventure.WindowsGame.Components
 {
-	public class WorldTimeComponent : WindowComponent, IWorldTime
+	public class WorldTimeComponent : BorderedWindowComponent, IWorldTime
 	{
 		private const float MaximumSpeed = 8;
 		private const float MinimumSpeed = 1 / 8f;
@@ -35,7 +37,7 @@ namespace TextAdventure.WindowsGame.Components
 
 			_visible = configurationSection.Visible;
 
-			SetWindowRectangleUsingClientSize(Alignment.TopRight, FontContent.Calibri10ptBold.MeasureString("Normal speed").X.Round(), FontContent.Calibri10pt.LineSpacing * 3, new Padding(2));
+			SetWindowRectangleUsingClientSize(WindowAlignment.TopRight, FontContent.Calibri10ptBold.MeasureString("Normal speed").X.Round(), FontContent.Calibri10pt.LineSpacing * 3, new Padding(2));
 
 			UpdateOrder = ComponentUpdateOrder.WorldTime;
 			DrawOrder = ComponentDrawOrder.WorldTime;
@@ -115,17 +117,17 @@ namespace TextAdventure.WindowsGame.Components
 				Total.Seconds,
 				Total.Milliseconds / 100);
 
-			SpriteBatch.Begin();
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			SpriteBatch.DrawStringWithShadow(
 				FontContent.Calibri10ptBold,
 				gameTimeText,
-				TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, gameTimeText, Window.AbsoluteClientRectangle, Alignment.TopRight).ToVector2(),
+				TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, gameTimeText, Window.AbsoluteClientRectangle, WindowAlignment.TopRight).ToVector2(),
 				Color.White,
 				Color.Black,
 				Vector2.One);
 
-			Vector2 worldTimePosition = TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, worldTimeText, Window.AbsoluteClientRectangle, Alignment.TopRight).ToVector2();
+			Vector2 worldTimePosition = TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, worldTimeText, Window.AbsoluteClientRectangle, WindowAlignment.TopRight).ToVector2();
 
 			worldTimePosition.Y += FontContent.Calibri10ptBold.LineSpacing;
 
@@ -159,7 +161,7 @@ namespace TextAdventure.WindowsGame.Components
 			SpriteBatch.DrawStringWithShadow(
 				FontContent.Calibri10ptBold,
 				speedText,
-				TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, speedText, Window.AbsoluteClientRectangle, Alignment.BottomRight).ToVector2(),
+				TextDrawingHelper.Instance.GetAlignedOrigin(FontContent.Calibri10ptBold, speedText, Window.AbsoluteClientRectangle, WindowAlignment.BottomRight).ToVector2(),
 				Paused ? Color.Yellow : Color.White,
 				Color.Black,
 				Vector2.One);

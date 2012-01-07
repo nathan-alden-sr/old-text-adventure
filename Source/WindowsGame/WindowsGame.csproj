@@ -94,6 +94,10 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Components\TexturedWindowComponent.cs" />
+    <Compile Include="Components\WindowComponentBase.cs" />
+    <Compile Include="States\ScissoringRasterizerState.cs" />
+    <Compile Include="Windows\BorderedWindow.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Components\LogComponent.cs" />
     <Compile Include="Components\FpsComponent.cs" />
@@ -117,13 +121,15 @@
     <Compile Include="Managers\MessageAnswerSelectionManager.cs" />
     <Compile Include="Padding.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
-    <Compile Include="Window.cs" />
+    <Compile Include="Windows\Window.cs" />
+    <Compile Include="Windows\WindowHorizontalAlignment.cs" />
+    <Compile Include="Windows\WindowVerticalAlignment.cs" />
     <Compile Include="WindowTexture.cs" />
     <Compile Include="WorldAssemblyLoader.cs" />
     <Compile Include="Helpers\BoardDrawingHelper.cs" />
     <Compile Include="Components\ComponentUpdateOrder.cs" />
     <Compile Include="Components\ComponentDrawOrder.cs" />
-    <Compile Include="Helpers\Alignment.cs" />
+    <Compile Include="Windows\WindowAlignment.cs" />
     <Compile Include="Helpers\WindowBackgroundDrawingHelper.cs" />
     <Compile Include="Helpers\WindowBorderDrawingHelper.cs" />
     <Compile Include="Helpers\FadeHelper.cs" />

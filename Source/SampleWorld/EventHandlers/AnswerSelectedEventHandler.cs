@@ -22,8 +22,8 @@ namespace TextAdventure.SampleWorld.EventHandlers
 			else if (@event.AnswerId == Guid.Parse("ab09f937-80f2-4b63-b379-b72ba670464b"))
 			{
 				MessageCommand command = Commands.Message(
-					Message.Build(Color.White)
-						.Color(Color.Black)
+					Message.Build(Color.Black)
+						.Color(Color.White)
 						.Text("No!"));
 
 				context.EnqueueCommand(command);

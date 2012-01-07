@@ -4,6 +4,7 @@ using System.Linq;
 using Junior.Common;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.Engine.Game.Events;
@@ -13,17 +14,33 @@ using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.Windows;
 
 namespace TextAdventure.WindowsGame.Components
 {
-	public class MessageComponent : BorderedWindowComponent
+	public class MessageComponent : TexturedWindowComponent
 	{
 		private const Keys AcceptKey = Keys.Enter;
 		private const Keys NextAnswerKey = Keys.Right;
 		private const Keys PreviousAnswerKey = Keys.Left;
+		private const Keys ScrollDown = Keys.Down;
+		private const int ScrollIntervalInMilliseconds = 0;
+		private const int ScrollStep = 5;
+		private const Keys ScrollUp = Keys.Up;
+		private const Keys Home = Keys.Home;
+		private const Keys End = Keys.End;
+		private const Keys PageUp = Keys.PageUp;
+		private const Keys PageDown = Keys.PageDown;
+		private const float MaximumLineWidth = 0.75f;
+		private const int VerticalOffset = 30;
+		private const int VerticalPadding = 10;
+		private const int ArrowPadding = 2;
+		private const float DisabledArrowAlpha = 0.5f;
 		private static readonly TimeSpan _fadeInDuration = TimeSpan.FromMilliseconds(60);
 		private static readonly TimeSpan _fadeOutDuration = TimeSpan.FromMilliseconds(30);
-		private readonly KeyboardStateHelper _keyboardStateHelper;
+		private readonly KeyboardStateHelper _answerKeyboardStateHelper;
+		private readonly KeyboardRepeatHelper _scrollKeyboardRepeatHelper = new KeyboardRepeatHelper();
+		private readonly KeyboardStateHelper _scrollKeyboardStateHelper;
 		private readonly IWorldInstance _worldInstance;
 		private bool _closing;
 		private FadeHelper _fadeInHelper;
@@ -38,7 +55,10 @@ namespace TextAdventure.WindowsGame.Components
 			worldInstance.ThrowIfNull("worldInstance");
 
 			_worldInstance = worldInstance;
-			_keyboardStateHelper = new KeyboardStateHelper(KeyDown, null, null, AcceptKey, NextAnswerKey, PreviousAnswerKey);
+			_answerKeyboardStateHelper = new KeyboardStateHelper(KeyDown, null, null, AcceptKey, NextAnswerKey, PreviousAnswerKey);
+			_scrollKeyboardStateHelper = new KeyboardStateHelper(_scrollKeyboardRepeatHelper, ScrollUp, ScrollDown, Home, End, PageUp, PageDown);
+			_scrollKeyboardRepeatHelper.InitialInterval = TimeSpan.FromMilliseconds(ScrollIntervalInMilliseconds);
+			_scrollKeyboardRepeatHelper.RepeatingInterval = TimeSpan.FromMilliseconds(ScrollIntervalInMilliseconds);
 			_visible = false;
 
 			DrawOrder = ComponentDrawOrder.Message;
@@ -62,29 +82,86 @@ namespace TextAdventure.WindowsGame.Components
 
 		public override void Update(GameTime gameTime)
 		{
-			_keyboardStateHelper.Update();
-			if (_timerHelper != null)
-			{
-				_timerHelper.Update(gameTime.TotalGameTime);
-			}
-
 			if (MessageAvailable)
 			{
 				OpenMessage(gameTime);
 			}
-			if (ClosingStarted)
-			{
-				TimeSpan fadeOutDuration = TimeSpan.FromMilliseconds(_fadeInHelper.Alpha * _fadeOutDuration.TotalMilliseconds);
 
-				_fadeOutHelper = new FadeHelper(gameTime.TotalGameTime, fadeOutDuration, _fadeInHelper.Alpha, 0f);
-				_fadeInHelper = null;
-				_timerHelper = new TimerHelper(fadeOutDuration, gameTime.TotalGameTime, MessageClosed);
+			if (_visible)
+			{
+				_answerKeyboardStateHelper.Update();
+				_scrollKeyboardStateHelper.Update();
+				if (_timerHelper != null)
+				{
+					_timerHelper.Update(gameTime.TotalGameTime);
+				}
+
+				if (ClosingStarted)
+				{
+					TimeSpan fadeOutDuration = TimeSpan.FromMilliseconds(_fadeInHelper.Alpha * _fadeOutDuration.TotalMilliseconds);
+
+					_fadeOutHelper = new FadeHelper(gameTime.TotalGameTime, fadeOutDuration, _fadeInHelper.Alpha, 0f);
+					_fadeInHelper = null;
+					_timerHelper = new TimerHelper(fadeOutDuration, gameTime.TotalGameTime, MessageClosed);
+				}
+				else if (_scrollKeyboardRepeatHelper.UpdateRequired(gameTime))
+				{
+					switch (_scrollKeyboardStateHelper.LastKeyDown)
+					{
+						case ScrollUp:
+							_messageTextComponent.ScrollPosition -= ScrollStep;
+							break;
+						case ScrollDown:
+							_messageTextComponent.ScrollPosition += ScrollStep;
+							break;
+						case Home:
+							_messageTextComponent.ScrollPosition = 0f;
+							break;
+						case End:
+							_messageTextComponent.ScrollPosition = Single.MaxValue;
+							break;
+						case PageUp:
+							_messageTextComponent.ScrollPosition -= _messageTextComponent.VisibleHeight;
+							break;
+						case PageDown:
+							_messageTextComponent.ScrollPosition += _messageTextComponent.VisibleHeight;
+							break;
+					}
+				}
+				UpdateAlpha(gameTime);
 			}
-			UpdateAlpha(gameTime);
 
 			Visible = _visible;
 
 			base.Update(gameTime);
+		}
+
+		public override void Draw(GameTime gameTime)
+		{
+			base.Draw(gameTime);
+
+			if (_messageTextComponent == null || (new FloatToInt(_messageTextComponent.ScrollPosition) == 0 && new FloatToInt(_messageTextComponent.MaximumScrollPosition) == 0))
+			{
+				return;
+			}
+
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null);
+
+			int x = Window.AbsoluteClientRectangle.Right - TextureContent.Windows.InnerBevel1.SpriteWidth;
+			var scrollPosition = new FloatToInt(_messageTextComponent.ScrollPosition);
+
+			SpriteBatch.Draw(
+				TextureContent.Windows.InnerBevel1.Texture,
+				new Vector2(x, Window.AbsoluteClientRectangle.Y),
+				TextureContent.Windows.InnerBevel1.UpArrowRectangle,
+				scrollPosition == 0 ? Color.White * DisabledArrowAlpha : Color.White);
+			SpriteBatch.Draw(
+				TextureContent.Windows.InnerBevel1.Texture,
+				new Vector2(x, Window.AbsoluteClientRectangle.Bottom - TextureContent.Windows.InnerBevel1.SpriteHeight),
+				TextureContent.Windows.InnerBevel1.DownArrowRectangle,
+				scrollPosition.FloatValue >= _messageTextComponent.MaximumScrollPosition ? Color.White * DisabledArrowAlpha : Color.White);
+
+			SpriteBatch.End();
 		}
 
 		private void OpenMessage(GameTime gameTime)
@@ -101,16 +178,17 @@ namespace TextAdventure.WindowsGame.Components
 				BackgroundColor = messageWithBackgroundColor.BackgroundColor.ToXnaColor();
 			}
 
-			float maximumClientWidth = Game.Window.ClientBounds.Width * 0.75f;
-			float maximumClientHeight = Game.Window.ClientBounds.Width * 0.75f;
+			Rectangle destinationRectangle = DrawingConstants.GameWindow.DestinationRectangle;
+			float maximumLineWidth = destinationRectangle.Width * MaximumLineWidth;
+			float maximumClientHeight = destinationRectangle.Height - (destinationRectangle.Center.Y + VerticalOffset) - (VerticalPadding * 2) - (TextureContent.Windows.InnerBevel1.SpriteHeight * 2);
 
-			_messageTextComponent = new MessageTextComponent(GameManager, message, maximumClientWidth);
+			_messageTextComponent = new MessageTextComponent(GameManager, message, maximumLineWidth);
 
-			int clientWidth = _messageTextComponent.MaximumLineWidthAfterFormatting.Round();
+			int clientWidth = _messageTextComponent.MaximumLineWidthAfterFormatting.Round() + TextureContent.Windows.InnerBevel1.SpriteWidth + ArrowPadding;
 			int clientHeight = Math.Min(maximumClientHeight, _messageTextComponent.TotalHeightAfterFormatting).Round();
 
-			SetWindowRectangle(Alignment.Center, clientWidth, clientHeight);
-			_messageTextComponent.SetWindowRectangle(Window.AbsoluteClientRectangle, Padding.None);
+			SetWindowRectangleUsingWindowYAndClientSize(WindowHorizontalAlignment.Center, destinationRectangle.Center.Y + 30, clientWidth, clientHeight);
+			_messageTextComponent.SetWindowRectangle(Window.AbsoluteClientRectangle);
 
 			Game.Components.Add(_messageTextComponent);
 		}

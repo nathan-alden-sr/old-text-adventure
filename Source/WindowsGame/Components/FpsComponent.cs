@@ -8,10 +8,11 @@ using TextAdventure.WindowsGame.Configuration;
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Managers;
+using TextAdventure.WindowsGame.Windows;
 
 namespace TextAdventure.WindowsGame.Components
 {
-	public class FpsComponent : WindowComponent
+	public class FpsComponent : BorderedWindowComponent
 	{
 		private const Keys VisibilityToggleKey = Keys.F;
 		private readonly KeyboardStateHelper _keyboardStateHelper;
@@ -30,7 +31,7 @@ namespace TextAdventure.WindowsGame.Components
 
 			_visible = configurationSection.Visible;
 
-			SetWindowRectangleUsingClientSize(Alignment.BottomLeft, FontContent.Calibri10pt.MeasureString("000 fps").X.Round(), FontContent.Calibri10pt.LineSpacing, new Padding(2));
+			SetWindowRectangleUsingClientSize(WindowAlignment.BottomLeft, FontContent.Calibri10pt.MeasureString("000 fps").X.Round(), FontContent.Calibri10pt.LineSpacing, new Padding(2));
 
 			DrawOrder = ComponentDrawOrder.Fps;
 			UpdateOrder = ComponentUpdateOrder.Fps;
@@ -61,7 +62,7 @@ namespace TextAdventure.WindowsGame.Components
 			string text = _frameCount + " fps";
 			SpriteFont spriteFont = FontContent.Calibri10pt;
 
-			SpriteBatch.Begin();
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			SpriteBatch.DrawStringWithShadow(
 				spriteFont,

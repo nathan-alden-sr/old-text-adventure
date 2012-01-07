@@ -52,7 +52,7 @@ namespace TextAdventure.WindowsGame.Components
 				out topLeftCoordinate,
 				out bottomRightCoordinate);
 
-			SpriteBatch.Begin();
+			SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
 			foreach (ILayer layer in layers)
 			{
@@ -70,8 +70,6 @@ namespace TextAdventure.WindowsGame.Components
 					SpriteBatch.Draw(TextureContent.Characters, destinationRectangle, sourceCharacterRectangle, tile.Character.ForegroundColor.ToXnaColor());
 				}
 			}
-
-			GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
 			foreach (IBoardExit boardExit in board.Exits)
 			{

@@ -3,6 +3,9 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.States;
+using TextAdventure.WindowsGame.Windows;
+
 namespace TextAdventure.WindowsGame.Helpers
 {
 	public class WindowBorderDrawingHelper
@@ -28,7 +31,7 @@ namespace TextAdventure.WindowsGame.Helpers
 			}
 		}
 
-		public Window Window
+		public BorderedWindow Window
 		{
 			get;
 			set;
@@ -52,12 +55,18 @@ namespace TextAdventure.WindowsGame.Helpers
 			set;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch, Rectangle? scissorRectangle = null, Matrix? translationMatrix = null)
 		{
 			spriteBatch.ThrowIfNull("spriteBatch");
 
-			spriteBatch.Begin();
-			spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
+			RasterizerState rasterizerState = scissorRectangle != null ? new ScissoringRasterizerState(Window.WindowRectangle) : RasterizerState.CullNone;
+
+			if (scissorRectangle != null)
+			{
+				spriteBatch.GraphicsDevice.ScissorRectangle = scissorRectangle.Value;
+			}
+
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, rasterizerState, null, translationMatrix ?? Matrix.Identity);
 
 			Color borderColor = BorderColor * _alpha;
 

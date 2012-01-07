@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 
-namespace TextAdventure.WindowsGame
+namespace TextAdventure.WindowsGame.Windows
 {
-	public struct Window
+	public class BorderedWindow : Window
 	{
 		private readonly Rectangle _absoluteClientRectangle;
 		private readonly Rectangle _bottomLeftCornerRectangle;
@@ -15,16 +15,11 @@ namespace TextAdventure.WindowsGame
 		private readonly Rectangle _topLeftCornerRectangle;
 		private readonly Rectangle _topRectangle;
 		private readonly Rectangle _topRightCornerRectangle;
-		private readonly Rectangle _windowRectangle;
 
-		public Window(Rectangle rectangle)
-			: this(rectangle, Padding.None)
+		public BorderedWindow(Rectangle windowRectangle, Padding padding)
+			: base(windowRectangle)
 		{
-		}
-
-		public Window(Rectangle rectangle, Padding padding)
-		{
-			Rectangle absoluteClientRectangle = rectangle;
+			Rectangle absoluteClientRectangle = windowRectangle;
 			int paddingX = padding.Left + padding.Right;
 			int paddingY = padding.Top + padding.Bottom;
 
@@ -34,48 +29,47 @@ namespace TextAdventure.WindowsGame
 			absoluteClientRectangle.Height -= paddingY;
 
 			_absoluteClientRectangle = absoluteClientRectangle;
-			_relativeClientRectangle = new Rectangle(padding.Left, padding.Top, rectangle.Width - paddingX, rectangle.Height - paddingY);
-			_windowRectangle = rectangle;
+			_relativeClientRectangle = new Rectangle(padding.Left, padding.Top, windowRectangle.Width - paddingX, windowRectangle.Height - paddingY);
 			_topLeftCornerRectangle = new Rectangle(
-				_windowRectangle.X,
-				_windowRectangle.Y,
+				WindowRectangle.X,
+				WindowRectangle.Y,
 				_relativeClientRectangle.X,
 				_relativeClientRectangle.Y);
 			_topRightCornerRectangle = new Rectangle(
 				_absoluteClientRectangle.Right,
-				_windowRectangle.Y,
-				_windowRectangle.Right - _absoluteClientRectangle.Right,
+				WindowRectangle.Y,
+				WindowRectangle.Right - _absoluteClientRectangle.Right,
 				_relativeClientRectangle.Y);
 			_bottomLeftCornerRectangle = new Rectangle(
-				_windowRectangle.X,
+				WindowRectangle.X,
 				_absoluteClientRectangle.Bottom,
 				_relativeClientRectangle.X,
-				_windowRectangle.Bottom - _absoluteClientRectangle.Bottom);
+				WindowRectangle.Bottom - _absoluteClientRectangle.Bottom);
 			_bottomRightCornerRectangle = new Rectangle(
 				_absoluteClientRectangle.Right,
 				_absoluteClientRectangle.Bottom,
-				_windowRectangle.Right - _absoluteClientRectangle.Right,
-				_windowRectangle.Bottom - _absoluteClientRectangle.Bottom);
+				WindowRectangle.Right - _absoluteClientRectangle.Right,
+				WindowRectangle.Bottom - _absoluteClientRectangle.Bottom);
 			_leftRectangle = new Rectangle(
-				_windowRectangle.X,
+				WindowRectangle.X,
 				_absoluteClientRectangle.Y,
 				_relativeClientRectangle.X,
 				_relativeClientRectangle.Height);
 			_rightRectangle = new Rectangle(
 				_absoluteClientRectangle.Right,
 				_absoluteClientRectangle.Y,
-				_windowRectangle.Right - _absoluteClientRectangle.Right,
+				WindowRectangle.Right - _absoluteClientRectangle.Right,
 				_relativeClientRectangle.Height);
 			_topRectangle = new Rectangle(
 				_absoluteClientRectangle.X,
-				_windowRectangle.Y,
+				WindowRectangle.Y,
 				_relativeClientRectangle.Width,
 				_relativeClientRectangle.Y);
 			_bottomRectangle = new Rectangle(
 				_absoluteClientRectangle.X,
 				_absoluteClientRectangle.Bottom,
 				_relativeClientRectangle.Width,
-				_windowRectangle.Bottom - _absoluteClientRectangle.Bottom);
+				WindowRectangle.Bottom - _absoluteClientRectangle.Bottom);
 			_centerRectangle = _absoluteClientRectangle;
 		}
 
@@ -92,14 +86,6 @@ namespace TextAdventure.WindowsGame
 			get
 			{
 				return _relativeClientRectangle;
-			}
-		}
-
-		public Rectangle WindowRectangle
-		{
-			get
-			{
-				return _windowRectangle;
 			}
 		}
 
