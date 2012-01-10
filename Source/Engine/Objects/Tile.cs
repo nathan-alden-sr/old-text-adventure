@@ -4,9 +4,9 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public abstract class Tile : ITile
+	public abstract class Tile
 	{
-		private Character _character;
+		private readonly Character _character;
 
 		protected Tile(
 			Coordinate coordinate,
@@ -15,7 +15,7 @@ namespace TextAdventure.Engine.Objects
 			character.ThrowIfNull("character");
 
 			Coordinate = coordinate;
-			Character = character;
+			_character = character;
 		}
 
 		public Coordinate Coordinate
@@ -29,12 +29,6 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _character;
-			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_character = value;
 			}
 		}
 	}

@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace TextAdventure.Engine.Common
 {
 	[DebuggerDisplay("X = {X}, Y = {Y}")]
-	public struct Coordinate : ICoordinate, IEquatable<Coordinate>
+	public struct Coordinate : IEquatable<Coordinate>
 	{
 		public static readonly Coordinate Zero = new Coordinate(0, 0);
 

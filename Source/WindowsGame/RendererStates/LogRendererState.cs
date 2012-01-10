@@ -64,6 +64,8 @@ namespace TextAdventure.WindowsGame.RendererStates
 
 		public void DequeueOldLogEntries(GameTime gameTime)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			while (_logEntries.Count + _logEntries.Sum(arg => arg.Details.Count()) > MaximumVisibleLogLines ||
 			       (_logEntries.Count + _logEntries.Sum(arg => arg.Details.Count()) > 0 && gameTime.TotalGameTime - _logEntries.Peek().LoggedTotalWorldTime > LogEntryLifetime))
 			{

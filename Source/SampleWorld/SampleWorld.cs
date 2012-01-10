@@ -85,7 +85,7 @@ namespace TextAdventure.SampleWorld
 
 		private static IEnumerable<Timer> GetTimers()
 		{
-			yield return new Timer(Guid.NewGuid(), TimeSpan.FromMilliseconds(500), new TimerElapsedEventHandler());
+			yield return new Timer(Guid.NewGuid(), TimeSpan.FromMilliseconds(2500), new TimerElapsedEventHandler());
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)

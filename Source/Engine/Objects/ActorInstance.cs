@@ -7,9 +7,15 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class ActorInstance : Sprite, IActorInstance
+	public class ActorInstance : Sprite, IUnique
 	{
+		private readonly Guid _actorId;
+		private readonly IEventHandler<ActorInstanceCreatedEvent> _actorInstanceCreatedEventHandler;
+		private readonly IEventHandler<ActorInstanceDestroyedEvent> _actorInstanceDestroyedEventHandler;
+		private readonly IEventHandler<ActorInstanceMovedEvent> _actorInstanceMovedEventHandler;
+		private readonly IEventHandler<ActorInstanceTouchedActorInstanceEvent> _actorInstanceTouchedActorInstanceEventHandler;
 		private readonly Guid _id;
+		private readonly IEventHandler<PlayerTouchedActorInstanceEvent> _playerTouchedActorInstanceEventHandler;
 
 		public ActorInstance(
 			Guid id,
@@ -24,48 +30,60 @@ namespace TextAdventure.Engine.Objects
 			: base(coordinate, character)
 		{
 			_id = id;
-			ActorId = actorId;
-			ActorInstanceCreatedEventHandler = actorInstanceCreatedEventHandler;
-			ActorInstanceDestroyedEventHandler = actorInstanceDestroyedEventHandler;
-			ActorInstanceTouchedActorInstanceEventHandler = actorInstanceTouchedActorInstanceEventHandler;
-			PlayerTouchedActorInstanceEventHandler = playerTouchedActorInstanceEventHandler;
-			ActorInstanceMovedEventHandler = actorInstanceMovedEventHandler;
+			_actorId = actorId;
+			_actorInstanceCreatedEventHandler = actorInstanceCreatedEventHandler;
+			_actorInstanceDestroyedEventHandler = actorInstanceDestroyedEventHandler;
+			_actorInstanceTouchedActorInstanceEventHandler = actorInstanceTouchedActorInstanceEventHandler;
+			_playerTouchedActorInstanceEventHandler = playerTouchedActorInstanceEventHandler;
+			_actorInstanceMovedEventHandler = actorInstanceMovedEventHandler;
 		}
 
 		public Guid ActorId
 		{
-			get;
-			set;
+			get
+			{
+				return _actorId;
+			}
 		}
 
 		public IEventHandler<ActorInstanceCreatedEvent> ActorInstanceCreatedEventHandler
 		{
-			get;
-			set;
+			get
+			{
+				return _actorInstanceCreatedEventHandler;
+			}
 		}
 
 		public IEventHandler<ActorInstanceDestroyedEvent> ActorInstanceDestroyedEventHandler
 		{
-			get;
-			set;
+			get
+			{
+				return _actorInstanceDestroyedEventHandler;
+			}
 		}
 
 		public IEventHandler<ActorInstanceTouchedActorInstanceEvent> ActorInstanceTouchedActorInstanceEventHandler
 		{
-			get;
-			set;
+			get
+			{
+				return _actorInstanceTouchedActorInstanceEventHandler;
+			}
 		}
 
 		public IEventHandler<PlayerTouchedActorInstanceEvent> PlayerTouchedActorInstanceEventHandler
 		{
-			get;
-			set;
+			get
+			{
+				return _playerTouchedActorInstanceEventHandler;
+			}
 		}
 
 		public IEventHandler<ActorInstanceMovedEvent> ActorInstanceMovedEventHandler
 		{
-			get;
-			set;
+			get
+			{
+				return _actorInstanceMovedEventHandler;
+			}
 		}
 
 		public Guid Id
@@ -76,7 +94,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public bool ChangeCoordinate(Board board, Player player, Coordinate newCoordinate)
+		protected internal bool ChangeCoordinate(Board board, Player player, Coordinate newCoordinate)
 		{
 			board.ThrowIfNull("board");
 			player.ThrowIfNull("player");

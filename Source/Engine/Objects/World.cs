@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class World : IWorld
+	public class World : IUnique
 	{
 		private readonly Dictionary<Guid, Actor> _actorsById = new Dictionary<Guid, Actor>();
 		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
@@ -126,22 +126,6 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		IEnumerable<ITimer> IWorld.Timers
-		{
-			get
-			{
-				return Timers;
-			}
-		}
-
-		public Guid Id
-		{
-			get
-			{
-				return _id;
-			}
-		}
-
 		public int Version
 		{
 			get
@@ -159,38 +143,6 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		IPlayer IWorld.StartingPlayer
-		{
-			get
-			{
-				return _startingPlayer;
-			}
-		}
-
-		IEnumerable<IBoard> IWorld.Boards
-		{
-			get
-			{
-				return Boards;
-			}
-		}
-
-		IEnumerable<IActor> IWorld.Actors
-		{
-			get
-			{
-				return Actors;
-			}
-		}
-
-		IEnumerable<IMessage> IWorld.Messages
-		{
-			get
-			{
-				return Messages;
-			}
-		}
-
 		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
 		{
 			get
@@ -199,24 +151,12 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		IBoard IWorld.GetBoardById(Guid id)
+		public Guid Id
 		{
-			return GetBoardById(id);
-		}
-
-		IActor IWorld.GetActorById(Guid id)
-		{
-			return GetActorById(id);
-		}
-
-		IMessage IWorld.GetMessageById(Guid id)
-		{
-			return GetMessageById(id);
-		}
-
-		ITimer IWorld.GetTimerById(Guid id)
-		{
-			return GetTimerById(id);
+			get
+			{
+				return _id;
+			}
 		}
 
 		public Board GetBoardById(Guid id)

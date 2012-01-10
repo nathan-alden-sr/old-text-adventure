@@ -4,9 +4,9 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public class TimerElapsedEvent : TargetedEvent<ITimer>
+	public class TimerElapsedEvent : TargetedEvent<Timer>
 	{
-		public TimerElapsedEvent(ITimer target)
+		public TimerElapsedEvent(Timer target)
 			: base(target)
 		{
 		}

@@ -8,8 +8,8 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public abstract class Layer<T> : ILayer<T>
-		where T : class, ITile
+	public abstract class Layer<T> : ILayer
+		where T : Tile
 	{
 		private readonly Size _size;
 		private readonly T[,] _tiles;
@@ -80,7 +80,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		IEnumerable<ITile> ILayer.Tiles
+		IEnumerable<Tile> ILayer.Tiles
 		{
 			get
 			{
@@ -88,7 +88,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		T ILayer<T>.this[int x, int y]
+		Tile ILayer.this[int x, int y]
 		{
 			get
 			{
@@ -96,7 +96,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		T ILayer<T>.this[Coordinate coordinate]
+		Tile ILayer.this[Coordinate coordinate]
 		{
 			get
 			{
@@ -109,14 +109,14 @@ namespace TextAdventure.Engine.Objects
 			return coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < _size.Width && coordinate.Y < _size.Height;
 		}
 
-		public void SetTile(Coordinate coordinate, T tile)
+		protected internal void SetTile(Coordinate coordinate, T tile)
 		{
 			tile.ThrowIfNull("tile");
 
 			_tiles[coordinate.Y, coordinate.X] = tile;
 		}
 
-		public void MoveTile(Coordinate fromCoordinate, Coordinate toCoordinate)
+		protected internal void MoveTile(Coordinate fromCoordinate, Coordinate toCoordinate)
 		{
 			if (_tiles[toCoordinate.Y, toCoordinate.X] != null)
 			{
@@ -127,7 +127,7 @@ namespace TextAdventure.Engine.Objects
 			_tiles[fromCoordinate.Y, fromCoordinate.X] = null;
 		}
 
-		public bool RemoveTile(T tile)
+		protected internal bool RemoveTile(T tile)
 		{
 			tile.ThrowIfNull("tile");
 
@@ -140,7 +140,7 @@ namespace TextAdventure.Engine.Objects
 			return true;
 		}
 
-		public bool RemoveTile(Coordinate coordinate)
+		protected internal bool RemoveTile(Coordinate coordinate)
 		{
 			if (_tiles[coordinate.Y, coordinate.X] == null)
 			{

@@ -4,12 +4,11 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Timer : ITimer
+	public class Timer : IUnique
 	{
 		private readonly Guid _id;
 		private readonly IEventHandler<TimerElapsedEvent> _timerElapsedEventHandler;
-
-		private TimeSpan _interval;
+		private readonly TimeSpan _interval;
 
 		public Timer(
 			Guid id,
@@ -32,9 +31,9 @@ namespace TextAdventure.Engine.Objects
 			}
 
 			_id = id;
-			Interval = interval;
+			_interval = interval;
 			State = state;
-			Elapsed = elapsed;
+			ElapsedTime = elapsed;
 			_timerElapsedEventHandler = timerElapsedEventHandler;
 		}
 
@@ -44,15 +43,6 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _interval;
 			}
-			set
-			{
-				if (value < TimeSpan.Zero)
-				{
-					throw new ArgumentException("Interval must be at least 0.", "value");
-				}
-
-				_interval = value;
-			}
 		}
 
 		public TimerState State
@@ -61,10 +51,18 @@ namespace TextAdventure.Engine.Objects
 			private set;
 		}
 
-		public TimeSpan Elapsed
+		public TimeSpan ElapsedTime
 		{
 			get;
 			private set;
+		}
+
+		public bool HasElapsed
+		{
+			get
+			{
+				return ElapsedTime >= Interval;
+			}
 		}
 
 		public IEventHandler<TimerElapsedEvent> TimerElapsedEventHandler
@@ -83,12 +81,12 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public void Start()
+		protected internal void Start()
 		{
 			switch (State)
 			{
 				case TimerState.Stopped:
-					Elapsed = TimeSpan.Zero;
+					ElapsedTime = TimeSpan.Zero;
 					break;
 				case TimerState.Running:
 					return;
@@ -96,13 +94,13 @@ namespace TextAdventure.Engine.Objects
 			State = TimerState.Running;
 		}
 
-		public void Restart()
+		protected internal void Restart()
 		{
-			Elapsed = TimeSpan.Zero;
+			ElapsedTime = TimeSpan.Zero;
 			State = TimerState.Running;
 		}
 
-		public void Pause()
+		protected internal void Pause()
 		{
 			if (State == TimerState.Stopped)
 			{
@@ -111,19 +109,19 @@ namespace TextAdventure.Engine.Objects
 			State = TimerState.Paused;
 		}
 
-		public void Reset()
+		protected internal void Reset()
 		{
-			Elapsed = TimeSpan.Zero;
+			ElapsedTime = TimeSpan.Zero;
 		}
 
-		public void Stop()
+		protected internal void Stop()
 		{
 			State = TimerState.Stopped;
 		}
 
-		public void Update(TimeSpan elapsedGameTime)
+		protected internal void Update(TimeSpan elapsedTime)
 		{
-			
+			ElapsedTime += elapsedTime;
 		}
 	}
 }

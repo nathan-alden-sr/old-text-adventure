@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace TextAdventure.Engine.Common
 {
 	[DebuggerDisplay("Width = {Width}, Height = {Height}")]
-	public struct Size : ISize, IEquatable<Size>
+	public struct Size : IEquatable<Size>
 	{
 		public static readonly Size Zero = new Size(0, 0);
 

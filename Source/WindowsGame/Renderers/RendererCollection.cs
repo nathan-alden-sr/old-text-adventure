@@ -27,6 +27,11 @@ namespace TextAdventure.WindowsGame.Renderers
 
 		public void Render(GraphicsDevice graphicsDevice, GameTime gameTime, FontContent fontContent, TextureContent textureContent)
 		{
+			graphicsDevice.ThrowIfNull("graphicsDevice");
+			gameTime.ThrowIfNull("gameTime");
+			fontContent.ThrowIfNull("fontContent");
+			textureContent.ThrowIfNull("textureContent");
+
 			foreach (IRenderer renderer in _renderers)
 			{
 				var parameters = new RenderParameters(gameTime, new SpriteBatch(graphicsDevice), fontContent, textureContent);

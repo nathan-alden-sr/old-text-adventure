@@ -28,7 +28,7 @@ namespace TextAdventure.Engine.Serializers
 				new XAttribute("id", timer.Id),
 				new XAttribute("interval", timer.Interval.ToString("c")),
 				new XAttribute("state", timer.State),
-				new XAttribute("elapsed", timer.Elapsed.ToString("c")));
+				new XAttribute("elapsed", timer.ElapsedTime.ToString("c")));
 		}
 
 		public Timer Deserialize(XElement timerElement)

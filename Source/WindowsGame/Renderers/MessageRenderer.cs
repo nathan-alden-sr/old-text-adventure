@@ -62,7 +62,10 @@ namespace TextAdventure.WindowsGame.Renderers
 					(windowWindowTexture.SpriteHeight * 2);
 
 				_formatter = new MessageFormatter(_state.Message, font, selectedAnswerWindowTexture, maximumLineWidth);
-				_answerSelectionManager = new MessageAnswerSelectionManager(_formatter.Answers);
+				if (_formatter.Answers.Any())
+				{
+					_answerSelectionManager = new MessageAnswerSelectionManager(_formatter.Answers);
+				}
 
 				int clientWidth = _formatter.MaximumLineWidthAfterFormatting.Round();
 				int clientHeight = Math.Min(maximumClientHeight, _formatter.TotalHeightAfterFormatting).Round();

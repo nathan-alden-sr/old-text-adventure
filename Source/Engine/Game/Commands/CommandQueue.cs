@@ -6,7 +6,7 @@ using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Game.Commands
 {
-	public class CommandQueue : ICommandQueue
+	public class CommandQueue
 	{
 		private readonly CommandList _commandList;
 		private readonly WorldInstance _worldInstance;

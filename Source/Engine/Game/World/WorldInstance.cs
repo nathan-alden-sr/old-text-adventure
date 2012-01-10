@@ -10,7 +10,7 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.World
 {
-	public class WorldInstance : IWorldInstance
+	public class WorldInstance
 	{
 		private readonly DelegateDictionary<Guid, Board> _boardsById = new DelegateDictionary<Guid, Board>();
 		private readonly Dictionary<Board, CommandQueue> _commandQueuesByBoard = new Dictionary<Board, CommandQueue>();
@@ -76,35 +76,11 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
-		IWorld IWorldInstance.World
-		{
-			get
-			{
-				return World;
-			}
-		}
-
-		IPlayer IWorldInstance.Player
-		{
-			get
-			{
-				return Player;
-			}
-		}
-
 		public IWorldTime WorldTime
 		{
 			get
 			{
 				return _worldTime;
-			}
-		}
-
-		IBoard IWorldInstance.CurrentBoard
-		{
-			get
-			{
-				return CurrentBoard;
 			}
 		}
 
@@ -116,25 +92,25 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
-		IPlayerInput IWorldInstance.PlayerInput
-		{
-			get
-			{
-				return PlayerInput;
-			}
-		}
-
-		IMessageQueue IWorldInstance.MessageQueue
-		{
-			get
-			{
-				return MessageQueue;
-			}
-		}
-
 		public void ProcessCommandQueue()
 		{
+			UpdateTimers();
+
 			_commandQueuesByBoard[CurrentBoard].ProcessQueue();
+		}
+
+		private void UpdateTimers()
+		{
+			foreach (Timer timer in _world.Timers)
+			{
+				timer.Update(_worldTime.Elapsed);
+
+				if (timer.State == TimerState.Running && timer.HasElapsed)
+				{
+					timer.Stop();
+					RaiseEvent(timer.TimerElapsedEventHandler, new TimerElapsedEvent(timer));
+				}
+			}
 		}
 
 		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)

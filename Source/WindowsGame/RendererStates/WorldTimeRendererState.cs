@@ -1,5 +1,7 @@
 using System;
 
+using Junior.Common;
+
 using Microsoft.Xna.Framework;
 
 namespace TextAdventure.WindowsGame.RendererStates
@@ -56,6 +58,8 @@ namespace TextAdventure.WindowsGame.RendererStates
 
 		public void UpdateWorldTimes(GameTime gameTime)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			if (Paused)
 			{
 				return;

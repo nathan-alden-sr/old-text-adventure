@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Junior.Common;
+
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Messages
 {
-	public class MessageQueue : IMessageQueue
+	public class MessageQueue
 	{
 		private readonly List<IMessage> _list = new List<IMessage>();
 
@@ -20,6 +22,8 @@ namespace TextAdventure.Engine.Game.Messages
 
 		public void EnqueueMessage(IMessage message, MessageQueuePosition position)
 		{
+			message.ThrowIfNull("message");
+
 			switch (position)
 			{
 				case MessageQueuePosition.First:

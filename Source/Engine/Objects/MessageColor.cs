@@ -2,7 +2,7 @@
 
 namespace TextAdventure.Engine.Objects
 {
-	public class MessageColor : IMessageColor
+	public class MessageColor : IMessagePart
 	{
 		private readonly Color _color;
 

@@ -9,13 +9,17 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Board : IBoard
+	public class Board : IUnique
 	{
 		private static readonly Random _random = new Random();
+		private readonly ActorInstanceLayer _actorInstanceLayer;
+		private readonly SpriteLayer _backgroundLayer;
+		private readonly IEventHandler<BoardEnteredEvent> _boardEnteredEventHandler;
+		private readonly IEventHandler<BoardExitedEvent> _boardExitedEventHandler;
+		private readonly IEnumerable<BoardExit> _exits;
+		private readonly SpriteLayer _foregroundLayer;
 		private readonly Guid _id;
-		private ActorInstanceLayer _actorInstanceLayer;
-		private SpriteLayer _backgroundLayer;
-		private SpriteLayer _foregroundLayer;
+		private readonly Size _size;
 
 		public Board(
 			Guid id,
@@ -33,13 +37,13 @@ namespace TextAdventure.Engine.Objects
 			exits.ThrowIfNull("exits");
 
 			_id = id;
-			Size = size;
-			BackgroundLayer = backgroundLayer;
-			ForegroundLayer = foregroundLayer;
-			ActorInstanceLayer = actorInstanceLayer;
-			Exits = exits;
-			BoardEnteredEventHandler = boardEnteredEventHandler;
-			BoardExitedEventHandler = boardExitedEventHandler;
+			_size = size;
+			_backgroundLayer = backgroundLayer;
+			_foregroundLayer = foregroundLayer;
+			_actorInstanceLayer = actorInstanceLayer;
+			_exits = exits;
+			_boardEnteredEventHandler = boardEnteredEventHandler;
+			_boardExitedEventHandler = boardExitedEventHandler;
 		}
 
 		public SpriteLayer BackgroundLayer
@@ -47,12 +51,6 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _backgroundLayer;
-			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_backgroundLayer = value;
 			}
 		}
 
@@ -62,12 +60,6 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _foregroundLayer;
 			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_foregroundLayer = value;
-			}
 		}
 
 		public ActorInstanceLayer ActorInstanceLayer
@@ -76,18 +68,38 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _actorInstanceLayer;
 			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_actorInstanceLayer = value;
-			}
 		}
 
 		public IEnumerable<BoardExit> Exits
 		{
-			get;
-			set;
+			get
+			{
+				return _exits;
+			}
+		}
+
+		public Size Size
+		{
+			get
+			{
+				return _size;
+			}
+		}
+
+		public IEventHandler<BoardEnteredEvent> BoardEnteredEventHandler
+		{
+			get
+			{
+				return _boardEnteredEventHandler;
+			}
+		}
+
+		public IEventHandler<BoardExitedEvent> BoardExitedEventHandler
+		{
+			get
+			{
+				return _boardExitedEventHandler;
+			}
 		}
 
 		public Guid Id
@@ -96,56 +108,6 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _id;
 			}
-		}
-
-		public Size Size
-		{
-			get;
-			set;
-		}
-
-		ISpriteLayer IBoard.BackgroundLayer
-		{
-			get
-			{
-				return BackgroundLayer;
-			}
-		}
-
-		ISpriteLayer IBoard.ForegroundLayer
-		{
-			get
-			{
-				return ForegroundLayer;
-			}
-		}
-
-		IActorInstanceLayer IBoard.ActorInstanceLayer
-		{
-			get
-			{
-				return ActorInstanceLayer;
-			}
-		}
-
-		IEnumerable<IBoardExit> IBoard.Exits
-		{
-			get
-			{
-				return Exits;
-			}
-		}
-
-		public IEventHandler<BoardEnteredEvent> BoardEnteredEventHandler
-		{
-			get;
-			set;
-		}
-
-		public IEventHandler<BoardExitedEvent> BoardExitedEventHandler
-		{
-			get;
-			set;
 		}
 
 		public bool CoordinateIntersects(Coordinate coordinate)

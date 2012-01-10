@@ -6,17 +6,17 @@ namespace TextAdventure.WindowsGame.RendererStates
 {
 	public class BoardRendererState : IBoardRendererState
 	{
-		private readonly IPlayer _player;
+		private readonly Player _player;
+		private Board _board;
 
-		public BoardRendererState(IPlayer player)
+		public BoardRendererState(Player player)
 		{
 			player.ThrowIfNull("player");
 
 			_player = player;
 		}
 
-		private IBoard _board;
-		public IBoard Board
+		public Board Board
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 			}
 		}
 
-		public IPlayer Player
+		public Player Player
 		{
 			get
 			{

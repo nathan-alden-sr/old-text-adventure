@@ -2,34 +2,44 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Character : ICharacter
+	public class Character
 	{
+		private readonly Color _backgroundColor;
+		private readonly Color _foregroundColor;
+		private readonly byte _symbol;
+
 		public Character(
 			byte symbol,
 			Color foregroundColor,
 			Color backgroundColor)
 		{
-			Symbol = symbol;
-			ForegroundColor = foregroundColor;
-			BackgroundColor = backgroundColor;
+			_symbol = symbol;
+			_foregroundColor = foregroundColor;
+			_backgroundColor = backgroundColor;
 		}
 
 		public byte Symbol
 		{
-			get;
-			set;
+			get
+			{
+				return _symbol;
+			}
 		}
 
 		public Color ForegroundColor
 		{
-			get;
-			set;
+			get
+			{
+				return _foregroundColor;
+			}
 		}
 
 		public Color BackgroundColor
 		{
-			get;
-			set;
+			get
+			{
+				return _backgroundColor;
+			}
 		}
 	}
 }

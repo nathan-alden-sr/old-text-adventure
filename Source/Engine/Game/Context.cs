@@ -11,7 +11,7 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game
 {
-	public abstract class Context : IContext
+	public abstract class Context
 	{
 		private readonly CommandQueue _commandQueue;
 		private readonly WorldInstance _worldInstance;
@@ -81,54 +81,6 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
-		IEnumerable<IActor> IContext.Actors
-		{
-			get
-			{
-				return Actors;
-			}
-		}
-
-		IEnumerable<IMessage> IContext.Messages
-		{
-			get
-			{
-				return Messages;
-			}
-		}
-
-		IEnumerable<ITimer> IContext.Timers
-		{
-			get
-			{
-				return Timers;
-			}
-		}
-
-		IPlayerInput IContext.PlayerInput
-		{
-			get
-			{
-				return PlayerInput;
-			}
-		}
-
-		IBoard IContext.CurrentBoard
-		{
-			get
-			{
-				return CurrentBoard;
-			}
-		}
-
-		IPlayer IContext.Player
-		{
-			get
-			{
-				return Player;
-			}
-		}
-
 		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)
 			where TEvent : Event
 		{
@@ -189,36 +141,6 @@ namespace TextAdventure.Engine.Game
 			return _commandQueue.CommandQueued(commandId);
 		}
 
-		IBoard IContext.GetBoardById(Guid id)
-		{
-			return GetBoardById(id);
-		}
-
-		IActor IContext.GetActorById(Guid id)
-		{
-			return GetActorById(id);
-		}
-
-		IActorInstance IContext.GetActorInstanceById(Guid id)
-		{
-			return GetActorInstanceById(id);
-		}
-
-		IEnumerable<IActorInstance> IContext.GetActorInstancesByActorId(Guid actorId)
-		{
-			return GetActorInstancesByActorId(actorId);
-		}
-
-		IMessage IContext.GetMessageById(Guid id)
-		{
-			return GetMessageById(id);
-		}
-
-		ITimer IContext.GetTimerById(Guid id)
-		{
-			return GetTimerById(id);
-		}
-
 		public Board GetBoardById(Guid id)
 		{
 			return _worldInstance.World.GetBoardById(id);
@@ -249,7 +171,7 @@ namespace TextAdventure.Engine.Game
 			return _worldInstance.World.GetTimerById(id);
 		}
 
-		public void EnqueueMessage(Message message, MessageQueuePosition position)
+		protected internal void EnqueueMessage(Message message, MessageQueuePosition position)
 		{
 			_worldInstance.MessageQueue.EnqueueMessage(message, position);
 		}

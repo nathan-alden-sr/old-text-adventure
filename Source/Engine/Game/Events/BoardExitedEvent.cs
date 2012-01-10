@@ -6,10 +6,10 @@ namespace TextAdventure.Engine.Game.Events
 {
 	public class BoardExitedEvent : Event
 	{
-		private readonly IBoard _currentBoard;
-		private readonly IBoard _newBoard;
+		private readonly Board _currentBoard;
+		private readonly Board _newBoard;
 
-		public BoardExitedEvent(IBoard currentBoard, IBoard newBoard)
+		public BoardExitedEvent(Board currentBoard, Board newBoard)
 		{
 			currentBoard.ThrowIfNull("currentBoard");
 			newBoard.ThrowIfNull("newBoard");
@@ -18,7 +18,7 @@ namespace TextAdventure.Engine.Game.Events
 			_newBoard = newBoard;
 		}
 
-		public IBoard CurrentBoard
+		public Board CurrentBoard
 		{
 			get
 			{
@@ -26,7 +26,7 @@ namespace TextAdventure.Engine.Game.Events
 			}
 		}
 
-		public IBoard NewBoard
+		public Board NewBoard
 		{
 			get
 			{

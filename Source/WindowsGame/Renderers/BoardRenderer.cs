@@ -50,13 +50,13 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			foreach (ILayer layer in layers)
 			{
-				IEnumerable<ITile> tiles = layer.Tiles.Where(
+				IEnumerable<Tile> tiles = layer.Tiles.Where(
 					arg => arg.Coordinate.X >= topLeftCoordinate.X &&
 					       arg.Coordinate.X <= bottomRightCoordinate.X &&
 					       arg.Coordinate.Y >= topLeftCoordinate.Y &&
 					       arg.Coordinate.Y <= bottomRightCoordinate.Y);
 
-				foreach (ITile tile in tiles)
+				foreach (Tile tile in tiles)
 				{
 					Rectangle destinationRectangle = GetTileDestinationRectangle(topLeftPoint, topLeftCoordinate, tile.Coordinate);
 
@@ -68,7 +68,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				}
 			}
 
-			foreach (IBoardExit boardExit in _state.Board.Exits)
+			foreach (BoardExit boardExit in _state.Board.Exits)
 			{
 				Coordinate coordinate = boardExit.Coordinate;
 				byte symbol;
@@ -105,8 +105,8 @@ namespace TextAdventure.WindowsGame.Renderers
 		}
 
 		private static void GetDrawingParameters(
-			IBoard board,
-			IPlayer player,
+			Board board,
+			Player player,
 			out Point topLeftPoint,
 			out Coordinate topLeftLayerCoordinate,
 			out Coordinate bottomRightCoordinate)

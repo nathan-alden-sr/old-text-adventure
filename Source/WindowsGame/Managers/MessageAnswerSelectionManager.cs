@@ -10,10 +10,10 @@ namespace TextAdventure.WindowsGame.Managers
 {
 	public class MessageAnswerSelectionManager
 	{
-		private readonly IMessageAnswer[] _answers;
-		private IMessageAnswer _selectedAnswer;
+		private readonly MessageAnswer[] _answers;
+		private MessageAnswer _selectedAnswer;
 
-		public MessageAnswerSelectionManager(IEnumerable<IMessageAnswer> answers)
+		public MessageAnswerSelectionManager(IEnumerable<MessageAnswer> answers)
 		{
 			answers.ThrowIfNull("answers");
 
@@ -27,7 +27,7 @@ namespace TextAdventure.WindowsGame.Managers
 			_selectedAnswer = _answers.First();
 		}
 
-		public IEnumerable<IMessageAnswer> Answers
+		public IEnumerable<MessageAnswer> Answers
 		{
 			get
 			{
@@ -35,7 +35,7 @@ namespace TextAdventure.WindowsGame.Managers
 			}
 		}
 
-		public IMessageAnswer SelectedAnswer
+		public MessageAnswer SelectedAnswer
 		{
 			get
 			{

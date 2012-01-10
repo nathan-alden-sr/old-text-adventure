@@ -27,6 +27,8 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 		public void Update(GameTime gameTime, Focus focus)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			foreach (IInputHandler inputHandler in _inputHandlers.ToArray())
 			{
 				inputHandler.Update(gameTime, focus);

@@ -10,13 +10,13 @@ namespace TextAdventure.WindowsGame.Renderers
 {
 	public class MessageTextAnswer : MessageTextWord
 	{
-		private readonly IMessageAnswer _answer;
+		private readonly MessageAnswer _answer;
 		private readonly Color _selectedAnswerBackgroundColor;
 		private readonly Color _selectedAnswerForegroundColor;
 		private readonly Color _unselectedAnswerForegroundColor;
 
 		public MessageTextAnswer(
-			IMessageAnswer answer,
+			MessageAnswer answer,
 			string text,
 			Vector2 size,
 			Color unselectedAnswerForegroundColor,
@@ -32,7 +32,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_selectedAnswerBackgroundColor = selectedAnswerBackgroundColor;
 		}
 
-		public IMessageAnswer Answer
+		public MessageAnswer Answer
 		{
 			get
 			{

@@ -8,7 +8,7 @@ using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class MessageQuestion : IMessageQuestion
+	public class MessageQuestion : IMessagePart
 	{
 		private readonly IEnumerable<MessageAnswer> _answers;
 		private readonly string _prompt;
@@ -86,14 +86,6 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _selectedAnswerBackgroundColor;
-			}
-		}
-
-		IEnumerable<IMessageAnswer> IMessageQuestion.Answers
-		{
-			get
-			{
-				return Answers;
 			}
 		}
 	}

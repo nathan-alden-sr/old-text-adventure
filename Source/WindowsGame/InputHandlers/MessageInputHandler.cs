@@ -22,13 +22,13 @@ namespace TextAdventure.WindowsGame.InputHandlers
 		private readonly MessageRendererState _messageRendererState;
 		private readonly KeyboardRepeatHelper _scrollKeyboardRepeatHelper = new KeyboardRepeatHelper();
 		private readonly KeyboardStateHelper _scrollKeyboardStateHelper;
-		private readonly IWorldInstance _worldInstance;
+		private readonly WorldInstance _worldInstance;
 		private bool _closing;
 		private FadeHelper _fadeInHelper;
 		private FadeHelper _fadeOutHelper;
 		private TimerHelper _timerHelper;
 
-		public MessageInputHandler(IWorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalGameTime, Action messageClosedDelegate)
+		public MessageInputHandler(WorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalGameTime, Action messageClosedDelegate)
 		{
 			worldInstance.ThrowIfNull("worldInstance");
 			messageRendererState.ThrowIfNull("messageRendererState");
@@ -83,6 +83,8 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 		public void Update(GameTime gameTime, Focus focus)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			if (focus != Focus.Message)
 			{
 				return;
@@ -132,6 +134,8 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 		private void UpdateAlpha(GameTime gameTime)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			if (_fadeInHelper != null)
 			{
 				_fadeInHelper.Update(gameTime.TotalGameTime);
@@ -151,14 +155,14 @@ namespace TextAdventure.WindowsGame.InputHandlers
 				return;
 			}
 
-			IMessageAnswer[] answers = _messageRendererState.AnswerSelectionManager.IfNotNull(arg => arg.Answers.ToArray()) ?? new IMessageAnswer[0];
+			MessageAnswer[] answers = _messageRendererState.AnswerSelectionManager.IfNotNull(arg => arg.Answers.ToArray()) ?? new MessageAnswer[0];
 
 			if (answers.Length > 0)
 			{
 				switch (keys)
 				{
 					case Constants.MessageRenderer.Input.AcceptKey:
-						IMessageAnswer selectedAnswer = _messageRendererState.AnswerSelectionManager.SelectedAnswer;
+						MessageAnswer selectedAnswer = _messageRendererState.AnswerSelectionManager.SelectedAnswer;
 
 						_worldInstance.RaiseEvent(_worldInstance.World.AnswerSelectedEventHandler, new AnswerSelectedEvent(selectedAnswer.Id));
 						if (selectedAnswer.Parts.Any())

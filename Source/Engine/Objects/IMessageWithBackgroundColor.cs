@@ -1,4 +1,4 @@
-using TextAdventure.Engine.Common;
+﻿using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Objects
 {

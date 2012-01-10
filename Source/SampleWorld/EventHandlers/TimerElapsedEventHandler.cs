@@ -7,7 +7,7 @@ namespace TextAdventure.SampleWorld.EventHandlers
 {
 	public class TimerElapsedEventHandler : EventHandler<TimerElapsedEvent>
 	{
-		public override void HandleEvent(IEventContext context, TimerElapsedEvent @event)
+		public override void HandleEvent(EventContext context, TimerElapsedEvent @event)
 		{
 			Message message = Message.Build(new Color(0f, 0f, 0.5f))
 				.Text("Timer!")

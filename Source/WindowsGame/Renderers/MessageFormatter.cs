@@ -38,7 +38,7 @@ namespace TextAdventure.WindowsGame.Renderers
 		                                                                       	{
 		                                                                       		{ 0, new List<MessageTextWord>() }
 		                                                                       	};
-		private IEnumerable<IMessageAnswer> _answers = Enumerable.Empty<IMessageAnswer>();
+		private IEnumerable<MessageAnswer> _answers = Enumerable.Empty<MessageAnswer>();
 
 		public MessageFormatter(IMessage message, SpriteFont font, WindowTexture selectedAnswerWindowTexture, float maximumLineWidth)
 		{
@@ -86,7 +86,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		public IEnumerable<IMessageAnswer> Answers
+		public IEnumerable<MessageAnswer> Answers
 		{
 			get
 			{
@@ -120,10 +120,10 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			foreach (IMessagePart part in message.Parts)
 			{
-				var messageColor = part as IMessageColor;
-				var messageLineBreak = part as IMessageLineBreak;
-				var messageText = part as IMessageText;
-				var messageQuestion = part as IMessageQuestion;
+				var messageColor = part as MessageColor;
+				var messageLineBreak = part as MessageLineBreak;
+				var messageText = part as MessageText;
+				var messageQuestion = part as MessageQuestion;
 
 				if (messageColor != null)
 				{
@@ -216,7 +216,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		private void ProcessQuestion(IMessageQuestion question, ref int lineIndex)
+		private void ProcessQuestion(MessageQuestion question, ref int lineIndex)
 		{
 			if (!question.Answers.Any())
 			{
@@ -248,7 +248,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_alignmentsByLine[lineIndex] = MessageTextAlignment.Center;
 		}
 
-		private MessageTextAnswer GetMessageTextAnswer(IMessageQuestion question, IMessageAnswer answer)
+		private MessageTextAnswer GetMessageTextAnswer(MessageQuestion question, MessageAnswer answer)
 		{
 			return new MessageTextAnswer(
 				answer,

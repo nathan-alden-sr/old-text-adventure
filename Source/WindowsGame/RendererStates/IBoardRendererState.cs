@@ -4,11 +4,11 @@ namespace TextAdventure.WindowsGame.RendererStates
 {
 	public interface IBoardRendererState
 	{
-		IBoard Board
+		Board Board
 		{
 			get;
 		}
-		IPlayer Player
+		Player Player
 		{
 			get;
 		}

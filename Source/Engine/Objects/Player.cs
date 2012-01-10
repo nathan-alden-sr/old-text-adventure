@@ -7,11 +7,11 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Player : IPlayer
+	public class Player : IUnique
 	{
 		private readonly IEventHandler<ActorInstanceTouchedPlayerEvent> _actorInstanceTouchedPlayerEventHandler;
+		private readonly Character _character;
 		private readonly Guid _id;
-		private Character _character;
 
 		public Player(
 			Guid id,
@@ -24,7 +24,7 @@ namespace TextAdventure.Engine.Objects
 
 			_id = id;
 			BoardId = boardId;
-			Character = character;
+			_character = character;
 			Coordinate = coordinate;
 			_actorInstanceTouchedPlayerEventHandler = actorInstanceTouchedPlayerEventHandler;
 		}
@@ -47,12 +47,6 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _character;
 			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_character = value;
-			}
 		}
 
 		public IEventHandler<ActorInstanceTouchedPlayerEvent> ActorInstanceTouchedPlayerEventHandler
@@ -71,7 +65,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public bool ChangeLocation(Board board, Coordinate newCoordinate)
+		protected internal bool ChangeLocation(Board board, Coordinate newCoordinate)
 		{
 			board.ThrowIfNull("board");
 

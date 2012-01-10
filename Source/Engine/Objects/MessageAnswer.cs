@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Messages;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class MessageAnswer : IMessageAnswer
+	public class MessageAnswer : IMessage
 	{
 		private readonly Guid _id;
 		private readonly IEnumerable<IMessagePart> _parts;

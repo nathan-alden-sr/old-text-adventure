@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace TextAdventure.Engine.Common
 {
 	[DebuggerDisplay("R = {R}, G = {G}, B = {B}, A = {A}")]
-	public struct Color : IEquatable<Color>, IColor
+	public struct Color : IEquatable<Color>
 	{
 		public static readonly Color Black = new Color(0f, 0f, 0f);
 		public static readonly Color Blue = new Color(0f, 0f, 1f);

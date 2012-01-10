@@ -14,10 +14,10 @@ namespace TextAdventure.WindowsGame.InputHandlers
 	{
 		private readonly KeyboardRepeatHelper _keyboardRepeatHelper = new KeyboardRepeatHelper();
 		private readonly KeyboardStateHelper _keyboardStateHelper;
-		private readonly IWorldInstance _worldInstance;
+		private readonly WorldInstance _worldInstance;
 		private TimeSpan _lastKeyDownTotalWorldTime = TimeSpan.Zero;
 
-		public PlayerInputHandler(IWorldInstance worldInstance)
+		public PlayerInputHandler(WorldInstance worldInstance)
 		{
 			worldInstance.ThrowIfNull("worldInstance");
 
@@ -32,6 +32,8 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 		public void Update(GameTime gameTime, Focus focus)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			if (_worldInstance.WorldTime.Paused || focus != Focus.Player)
 			{
 				return;

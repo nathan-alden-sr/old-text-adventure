@@ -5,11 +5,11 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public class ActorInstanceMovedEvent : TargetedEvent<IActorInstance>
+	public class ActorInstanceMovedEvent : TargetedEvent<ActorInstance>
 	{
 		private readonly Coordinate _newCoordinate;
 
-		public ActorInstanceMovedEvent(IActorInstance target, Coordinate newCoordinate)
+		public ActorInstanceMovedEvent(ActorInstance target, Coordinate newCoordinate)
 			: base(target)
 		{
 			_newCoordinate = newCoordinate;

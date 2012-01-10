@@ -6,31 +6,22 @@ namespace TextAdventure.Engine.Objects
 {
 	public interface ILayer
 	{
-		IEnumerable<ITile> Tiles
+		IEnumerable<Tile> Tiles
 		{
 			get;
 		}
-		IEnumerable<Coordinate> EmptyTiles
+
+		Tile this[int x, int y]
 		{
 			get;
 		}
+
+		Tile this[Coordinate coordinate]
+		{
+			get;
+		}
+
 		Size Size
-		{
-			get;
-		}
-
-		bool CoordinateIntersects(Coordinate coordinate);
-	}
-
-	public interface ILayer<out T> : ILayer
-		where T : class, ITile
-	{
-		T this[int x, int y]
-		{
-			get;
-		}
-
-		T this[Coordinate coordinate]
 		{
 			get;
 		}

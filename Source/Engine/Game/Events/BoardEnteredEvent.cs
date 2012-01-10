@@ -6,10 +6,10 @@ namespace TextAdventure.Engine.Game.Events
 {
 	public class BoardEnteredEvent : Event
 	{
-		private readonly IBoard _currentBoard;
-		private readonly IBoard _oldBoard;
+		private readonly Board _currentBoard;
+		private readonly Board _oldBoard;
 
-		public BoardEnteredEvent(IBoard currentBoard, IBoard oldBoard)
+		public BoardEnteredEvent(Board currentBoard, Board oldBoard)
 		{
 			currentBoard.ThrowIfNull("currentBoard");
 			oldBoard.ThrowIfNull("oldBoard");
@@ -18,7 +18,7 @@ namespace TextAdventure.Engine.Game.Events
 			_oldBoard = oldBoard;
 		}
 
-		public IBoard CurrentBoard
+		public Board CurrentBoard
 		{
 			get
 			{
@@ -26,7 +26,7 @@ namespace TextAdventure.Engine.Game.Events
 			}
 		}
 
-		public IBoard OldBoard
+		public Board OldBoard
 		{
 			get
 			{

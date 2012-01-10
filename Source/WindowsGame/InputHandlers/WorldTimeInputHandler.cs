@@ -36,6 +36,8 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 		public void Update(GameTime gameTime, Focus focus)
 		{
+			gameTime.ThrowIfNull("gameTime");
+
 			_keyboardStateHelper.Update();
 		}
 

@@ -4,7 +4,7 @@ using Junior.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Actor : IActor
+	public class Actor : IUnique
 	{
 		private readonly Guid _id;
 		private Character _character;
@@ -25,7 +25,7 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _character;
 			}
-			set
+			protected internal set
 			{
 				value.ThrowIfNull("value");
 
