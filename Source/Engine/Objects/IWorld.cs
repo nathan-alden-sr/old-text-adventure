@@ -31,6 +31,10 @@ namespace TextAdventure.Engine.Objects
 		{
 			get;
 		}
+		IEnumerable<ITimer> Timers
+		{
+			get;
+		}
 		IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
 		{
 			get;
@@ -39,5 +43,6 @@ namespace TextAdventure.Engine.Objects
 		IBoard GetBoardById(Guid id);
 		IActor GetActorById(Guid id);
 		IMessage GetMessageById(Guid id);
+		ITimer GetTimerById(Guid id);
 	}
 }

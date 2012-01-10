@@ -25,6 +25,7 @@ namespace TextAdventure.WindowsGame
 		private readonly Rectangle _borderTopRectangle;
 		private readonly Rectangle _borderTopRightRectangle;
 		private readonly Rectangle _downArrowRectangle;
+		private readonly Padding _padding;
 		private readonly int _spriteHeight;
 		private readonly int _spriteWidth;
 		private readonly Texture2D _texture;
@@ -37,6 +38,7 @@ namespace TextAdventure.WindowsGame
 			_texture = texture;
 			_spriteWidth = spriteWidth;
 			_spriteHeight = spriteHeight;
+			_padding = new Padding(spriteWidth, spriteHeight);
 			_borderTopLeftRectangle = new Rectangle(0, 0, spriteWidth, spriteHeight);
 			_borderTopRectangle = new Rectangle(spriteWidth, 0, spriteWidth, spriteHeight);
 			_borderTopRightRectangle = new Rectangle(spriteWidth * 2, 0, spriteWidth, spriteHeight);
@@ -79,6 +81,14 @@ namespace TextAdventure.WindowsGame
 			get
 			{
 				return _spriteHeight;
+			}
+		}
+
+		public Padding Padding
+		{
+			get
+			{
+				return _padding;
 			}
 		}
 

@@ -14,6 +14,7 @@ namespace TextAdventure.Engine.Objects
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
 		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
+		private readonly Dictionary<Guid, Timer> _timersById = new Dictionary<Guid, Timer>();
 		private Player _startingPlayer;
 		private int _version;
 
@@ -24,12 +25,14 @@ namespace TextAdventure.Engine.Objects
 			IEnumerable<Board> boards,
 			IEnumerable<Actor> actors,
 			IEnumerable<Message> messages,
+			IEnumerable<Timer> timers,
 			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			startingPlayer.ThrowIfNull("startingPlayer");
 			boards.ThrowIfNull("boards");
 			actors.ThrowIfNull("actors");
 			messages.ThrowIfNull("messages");
+			timers.ThrowIfNull("timers");
 
 			_id = id;
 			_answerSelectedEventHandler = answerSelectedEventHandler;
@@ -38,6 +41,7 @@ namespace TextAdventure.Engine.Objects
 			Boards = boards;
 			Actors = actors;
 			Messages = messages;
+			Timers = timers;
 		}
 
 		public Player StartingPlayer
@@ -106,6 +110,30 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
+		public IEnumerable<Timer> Timers
+		{
+			get
+			{
+				return _timersById.Values;
+			}
+			set
+			{
+				_timersById.Clear();
+				foreach (Timer timer in value)
+				{
+					_timersById.Add(timer.Id, timer);
+				}
+			}
+		}
+
+		IEnumerable<ITimer> IWorld.Timers
+		{
+			get
+			{
+				return Timers;
+			}
+		}
+
 		public Guid Id
 		{
 			get
@@ -171,6 +199,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
+		IBoard IWorld.GetBoardById(Guid id)
+		{
+			return GetBoardById(id);
+		}
+
 		IActor IWorld.GetActorById(Guid id)
 		{
 			return GetActorById(id);
@@ -181,9 +214,9 @@ namespace TextAdventure.Engine.Objects
 			return GetMessageById(id);
 		}
 
-		IBoard IWorld.GetBoardById(Guid id)
+		ITimer IWorld.GetTimerById(Guid id)
 		{
-			return GetBoardById(id);
+			return GetTimerById(id);
 		}
 
 		public Board GetBoardById(Guid id)
@@ -199,6 +232,11 @@ namespace TextAdventure.Engine.Objects
 		public Message GetMessageById(Guid id)
 		{
 			return _messagesById[id];
+		}
+
+		public Timer GetTimerById(Guid id)
+		{
+			return _timersById[id];
 		}
 	}
 }

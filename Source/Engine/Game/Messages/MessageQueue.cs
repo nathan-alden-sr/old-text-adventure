@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using TextAdventure.Engine.Objects;
 
@@ -34,7 +35,7 @@ namespace TextAdventure.Engine.Game.Messages
 
 		public IMessage DequeueMessage()
 		{
-			if (_list.Count > 0)
+			if (_list.Any())
 			{
 				IMessage message = _list[0];
 

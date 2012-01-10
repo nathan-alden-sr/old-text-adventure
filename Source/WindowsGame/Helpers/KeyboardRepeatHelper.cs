@@ -1,7 +1,5 @@
 using System;
 
-using Microsoft.Xna.Framework;
-
 namespace TextAdventure.WindowsGame.Helpers
 {
 	public class KeyboardRepeatHelper
@@ -10,7 +8,7 @@ namespace TextAdventure.WindowsGame.Helpers
 		private bool _initialUpdateProcessed;
 		private TimeSpan _repeatingInterval;
 		private bool _started;
-		private TimeSpan? _totalGameTime;
+		private TimeSpan? _totalTime;
 
 		public TimeSpan InitialInterval
 		{
@@ -55,35 +53,35 @@ namespace TextAdventure.WindowsGame.Helpers
 
 			_started = true;
 			_initialUpdateProcessed = false;
-			_totalGameTime = null;
+			_totalTime = null;
 		}
 
 		public void Stop()
 		{
 			_started = false;
 			_initialUpdateProcessed = false;
-			_totalGameTime = null;
+			_totalTime = null;
 		}
 
-		public bool UpdateRequired(GameTime gameTime)
+		public bool IntervalElapsed(TimeSpan totalTime)
 		{
 			if (!_started)
 			{
 				return false;
 			}
-			if (_totalGameTime == null)
+			if (_totalTime == null)
 			{
-				_totalGameTime = gameTime.TotalGameTime;
+				_totalTime = totalTime;
 				return true;
 			}
 
 			TimeSpan interval = !_initialUpdateProcessed ? _initialInterval : _repeatingInterval;
-			bool intervalElapsed = gameTime.TotalGameTime - _totalGameTime >= interval;
+			bool intervalElapsed = totalTime - _totalTime >= interval;
 
 			if (intervalElapsed)
 			{
 				_initialUpdateProcessed = true;
-				_totalGameTime = gameTime.TotalGameTime;
+				_totalTime = totalTime;
 				return true;
 			}
 

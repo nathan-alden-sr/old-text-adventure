@@ -15,12 +15,27 @@ namespace TextAdventure.WindowsGame.Helpers
 		private readonly IEnumerable<Keys> _keysToMonitor;
 		private KeyboardState _oldKeyboardState;
 
+		public KeyboardStateHelper(KeyboardRepeatHelper keyboardRepeatHelper, IEnumerable<Keys> keysToMonitor)
+			: this((keyboardState, keys) => keyboardRepeatHelper.Start(), null, keyboardRepeatHelper.Stop, keysToMonitor)
+		{
+		}
+
 		public KeyboardStateHelper(KeyboardRepeatHelper keyboardRepeatHelper, params Keys[] keysToMonitor)
 			: this((keyboardState, keys) => keyboardRepeatHelper.Start(), null, keyboardRepeatHelper.Stop, keysToMonitor)
 		{
 		}
 
-		public KeyboardStateHelper(Action<KeyboardState, Keys> keyDownDelegate = null, Action<KeyboardState, Keys> keyUpDelegate = null, Action allKeysUpDelegate = null, params Keys[] keysToMonitor)
+		public KeyboardStateHelper(KeyboardRepeatHelper keyboardRepeatHelper, IEnumerable<IEnumerable<Keys>> keysToMonitor)
+			: this((keyboardState, keys) => keyboardRepeatHelper.Start(), null, keyboardRepeatHelper.Stop, keysToMonitor)
+		{
+		}
+
+		public KeyboardStateHelper(KeyboardRepeatHelper keyboardRepeatHelper, params Keys[][] keysToMonitor)
+			: this((keyboardState, keys) => keyboardRepeatHelper.Start(), null, keyboardRepeatHelper.Stop, keysToMonitor)
+		{
+		}
+
+		public KeyboardStateHelper(Action<KeyboardState, Keys> keyDownDelegate, Action<KeyboardState, Keys> keyUpDelegate, Action allKeysUpDelegate, IEnumerable<Keys> keysToMonitor)
 		{
 			_allKeysUpDelegate = allKeysUpDelegate;
 			_keyDownDelegate = keyDownDelegate;
@@ -29,11 +44,26 @@ namespace TextAdventure.WindowsGame.Helpers
 			_oldKeyboardState = Keyboard.GetState();
 		}
 
+		public KeyboardStateHelper(Action<KeyboardState, Keys> keyDownDelegate = null, Action<KeyboardState, Keys> keyUpDelegate = null, Action allKeysUpDelegate = null, params Keys[] keysToMonitor)
+			: this(keyDownDelegate, keyUpDelegate, allKeysUpDelegate, (IEnumerable<Keys>)keysToMonitor)
+		{
+		}
+
+		public KeyboardStateHelper(Action<KeyboardState, Keys> keyDownDelegate, Action<KeyboardState, Keys> keyUpDelegate, Action allKeysUpDelegate, IEnumerable<IEnumerable<Keys>> keysToMonitor)
+			: this(keyDownDelegate, keyUpDelegate, allKeysUpDelegate, keysToMonitor.SelectMany(arg => arg).Distinct())
+		{
+		}
+
+		public KeyboardStateHelper(Action<KeyboardState, Keys> keyDownDelegate = null, Action<KeyboardState, Keys> keyUpDelegate = null, Action allKeysUpDelegate = null, params Keys[][] keysToMonitor)
+			: this(keyDownDelegate, keyUpDelegate, allKeysUpDelegate, keysToMonitor.SelectMany(arg => arg).Distinct())
+		{
+		}
+
 		public Keys LastKeyDown
 		{
 			get
 			{
-				return _keyStack.Count > 0 ? _keyStack[0] : Keys.None;
+				return _keyStack.Any() ? _keyStack[0] : Keys.None;
 			}
 		}
 

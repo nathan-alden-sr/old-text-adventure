@@ -18,6 +18,10 @@ namespace TextAdventure.Engine.Game
 		{
 			get;
 		}
+		IEnumerable<ITimer> Timers
+		{
+			get;
+		}
 		IBoard CurrentBoard
 		{
 			get;
@@ -42,6 +46,8 @@ namespace TextAdventure.Engine.Game
 		IActor GetActorById(Guid id);
 		IActorInstance GetActorInstanceById(Guid id);
 		IEnumerable<IActorInstance> GetActorInstancesByActorId(Guid actorId);
+		IMessage GetMessageById(Guid id);
+		ITimer GetTimerById(Guid id);
 		void EnqueueCommand(Command command, Action<CommandResult> commandExecutedDelegate = null);
 		void EnqueueCommandToExecuteAtTime(Command command, TimeSpan totalWorldTime, Action<CommandResult> commandExecutedDelegate = null);
 		void EnqueueCommandWithExecutionDelay(Command command, TimeSpan executionDelay, Action<CommandResult> commandExecutedDelegate = null);

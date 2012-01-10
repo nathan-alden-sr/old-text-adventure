@@ -8,21 +8,21 @@ namespace TextAdventure.WindowsGame.Helpers
 	{
 		private readonly Action _completedDelegate;
 		private readonly TimeSpan _duration;
-		private readonly TimeSpan _startTotalGameTime;
+		private readonly TimeSpan _startTotalTime;
 		private bool _complete;
 
-		public TimerHelper(TimeSpan duration, TimeSpan startTotalGameTime, Action completedDelegate)
+		public TimerHelper(TimeSpan duration, TimeSpan startTotalTime, Action completedDelegate)
 		{
 			completedDelegate.ThrowIfNull("completedDelegate");
 
 			_duration = duration;
-			_startTotalGameTime = startTotalGameTime;
+			_startTotalTime = startTotalTime;
 			_completedDelegate = completedDelegate;
 		}
 
-		public void Update(TimeSpan totalGameTime)
+		public void Update(TimeSpan totalTime)
 		{
-			bool timerRunning = _complete || totalGameTime - _startTotalGameTime < _duration;
+			bool timerRunning = _complete || totalTime - _startTotalTime < _duration;
 
 			if (timerRunning)
 			{

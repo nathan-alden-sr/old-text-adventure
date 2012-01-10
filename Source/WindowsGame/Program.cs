@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 
-using TextAdventure.Engine.Objects;
-
 namespace TextAdventure.WindowsGame
 {
 #if WINDOWS
@@ -10,7 +8,7 @@ namespace TextAdventure.WindowsGame
 	{
 		private static void Main(string[] args)
 		{
-			World world;
+			Engine.Objects.World world;
 
 			if (!args.Any())
 			{

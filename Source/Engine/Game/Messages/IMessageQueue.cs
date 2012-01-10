@@ -8,6 +8,7 @@ namespace TextAdventure.Engine.Game.Messages
 		{
 			get;
 		}
+
 		void EnqueueMessage(IMessage message, MessageQueuePosition position);
 		IMessage DequeueMessage();
 	}

@@ -20,16 +20,14 @@ namespace TextAdventure.WindowsGame.Windows
 			: base(windowRectangle)
 		{
 			Rectangle absoluteClientRectangle = windowRectangle;
-			int paddingX = padding.Left + padding.Right;
-			int paddingY = padding.Top + padding.Bottom;
 
 			absoluteClientRectangle.X += padding.Left;
 			absoluteClientRectangle.Y += padding.Top;
-			absoluteClientRectangle.Width -= paddingX;
-			absoluteClientRectangle.Height -= paddingY;
+			absoluteClientRectangle.Width -= padding.X;
+			absoluteClientRectangle.Height -= padding.Y;
 
 			_absoluteClientRectangle = absoluteClientRectangle;
-			_relativeClientRectangle = new Rectangle(padding.Left, padding.Top, windowRectangle.Width - paddingX, windowRectangle.Height - paddingY);
+			_relativeClientRectangle = new Rectangle(padding.Left, padding.Top, windowRectangle.Width - padding.X, windowRectangle.Height - padding.Y);
 			_topLeftCornerRectangle = new Rectangle(
 				WindowRectangle.X,
 				WindowRectangle.Y,

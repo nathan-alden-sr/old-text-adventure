@@ -5,13 +5,11 @@ using System.Reflection;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Objects;
-
 namespace TextAdventure.WindowsGame
 {
 	public static class WorldLoader
 	{
-		public static World FromAssembly(string assemblyFileName, string worldTypeName)
+		public static Engine.Objects.World FromAssembly(string assemblyFileName, string worldTypeName)
 		{
 			assemblyFileName.ThrowIfNull("assemblyFileName");
 			worldTypeName.ThrowIfNull("worldTypeName");
@@ -50,7 +48,7 @@ namespace TextAdventure.WindowsGame
 				throw new TypeLoadException(String.Format("World type '{0}' in file '{1}' must have a public instance constructor that takes no parameters.", worldTypeName, assemblyPath));
 			}
 
-			return (World)Activator.CreateInstance(worldType);
+			return (Engine.Objects.World)Activator.CreateInstance(worldType);
 		}
 	}
 }

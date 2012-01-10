@@ -16,7 +16,7 @@ namespace TextAdventure.Engine.Game.Events
 		{
 			get
 			{
-				yield return "Answer ID: " + _answerId;
+				yield return "ID: " + _answerId;
 			}
 		}
 

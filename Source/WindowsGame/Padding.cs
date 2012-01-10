@@ -58,5 +58,21 @@
 				return _bottom;
 			}
 		}
+
+		public int X
+		{
+			get
+			{
+				return _left + _right;
+			}
+		}
+
+		public int Y
+		{
+			get
+			{
+				return _top + _bottom;
+			}
+		}
 	}
 }

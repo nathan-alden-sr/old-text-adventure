@@ -37,7 +37,7 @@ namespace TextAdventure.SampleWorld
 				GetBoards().ToArray(),
 				GetActors().ToArray(),
 				GetMessages().ToArray(),
-				new AnswerSelectedEventHandler())
+				GetTimers().ToArray())
 		{
 		}
 
@@ -76,6 +76,16 @@ namespace TextAdventure.SampleWorld
 		private static IEnumerable<Actor> GetActors()
 		{
 			yield return new Actor(_actorIds[0], new Character(2, Color.Yellow, Color.TransparentBlack));
+		}
+
+		private static IEnumerable<Message> GetMessages()
+		{
+			yield break;
+		}
+
+		private static IEnumerable<Timer> GetTimers()
+		{
+			yield return new Timer(Guid.NewGuid(), TimeSpan.FromMilliseconds(500), new TimerElapsedEventHandler());
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)
@@ -148,11 +158,6 @@ namespace TextAdventure.SampleWorld
 					new Character(2, Color.Yellow, Color.TransparentBlack),
 					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler());
 			}
-		}
-
-		private static IEnumerable<Message> GetMessages()
-		{
-			yield break;
 		}
 	}
 }

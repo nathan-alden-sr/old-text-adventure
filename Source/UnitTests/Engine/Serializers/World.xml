@@ -53,5 +53,8 @@
 			<answer id="bc7cdc46-27f7-4d6b-8fbd-25ea6053a551" text="No" />
 		</question>
 	</message>
+	<timer id="9d18f5e7-8199-4160-bff8-646ca6586ddb" interval="00:00:15" state="Paused" elapsed="00:00:07">
+		<timerElapsedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+TimerElapsedEventHandler, TextAdventure.UnitTests" />
+	</timer>
 	<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+AnswerSelectedEventHandler, TextAdventure.UnitTests" />
 </world>

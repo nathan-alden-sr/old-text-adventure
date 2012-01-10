@@ -80,6 +80,13 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			}
 		}
 
+		public class TimerElapsedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<TimerElapsedEvent>
+		{
+			public override void HandleEvent(IEventContext context, TimerElapsedEvent @event)
+			{
+			}
+		}
+
 		[TestFixture]
 		public class When_serializing_and_deserializing_instance
 		{
@@ -120,7 +127,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(startingPlayer.ActorInstanceTouchedPlayerEventHandler, Is.Not.Null);
 			}
 
-			private static void AssertBackgroundLayer(Board board)
+			private static void AssertBackgroundLayer(IBoard board)
 			{
 				ISpriteLayer backgroundLayer = board.BackgroundLayer;
 				ISprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 4);
@@ -136,7 +143,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(sprite2.Character.BackgroundColor, Is.EqualTo(new Color(0.02f, 0.03f, 0.04f, 0.05f)));
 			}
 
-			private static void AssertForegroundLayer(Board board)
+			private static void AssertForegroundLayer(IBoard board)
 			{
 				ISpriteLayer backgroundLayer = board.ForegroundLayer;
 				ISprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 5 && arg.Coordinate.Y == 6);
@@ -152,7 +159,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(sprite2.Character.BackgroundColor, Is.EqualTo(new Color(0.8f, 0.6f, 0.4f, 0.2f)));
 			}
 
-			private static void AssertActorInstanceLayer(Board board)
+			private static void AssertActorInstanceLayer(IBoard board)
 			{
 				IActorInstanceLayer actorInstanceLayer = board.ActorInstanceLayer;
 				IActorInstance actor1 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 31);
@@ -177,7 +184,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(actor2.Character.BackgroundColor, Is.EqualTo(new Color(0.11f, 0.12f, 0.13f, 0.14f)));
 			}
 
-			private static void AssertExit(Board board)
+			private static void AssertExit(IBoard board)
 			{
 				IBoardExit boardExit = board.Exits.Single();
 
@@ -235,6 +242,15 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(messageAnswers[1].Text, Is.EqualTo("No"));
 			}
 
+			private static void AssertTimer(ITimer timer)
+			{
+				Assert.That(timer.Id, Is.EqualTo(Guid.Parse("9d18f5e7-8199-4160-bff8-646ca6586ddb")));
+				Assert.That(timer.Interval, Is.EqualTo(TimeSpan.FromSeconds(15)));
+				Assert.That(timer.TimerElapsedEventHandler, Is.Not.Null);
+				Assert.That(timer.State, Is.EqualTo(TimerState.Paused));
+				Assert.That(timer.Elapsed, Is.EqualTo(TimeSpan.FromSeconds(7)));
+			}
+
 			private static void AssertWorldElement(XElement worldElement)
 			{
 				string xml = SerializeXElement(worldElement);
@@ -277,6 +293,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Board board = world.Boards.Single();
 				Actor actor = world.Actors.Single();
 				Message message = world.Messages.Single();
+				Timer timer = world.Timers.Single();
 
 				AssertStartingPlayer(board, startingPlayer);
 				AssertBoard(board);
@@ -286,6 +303,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				AssertActorInstanceLayer(board);
 				AssertExit(board);
 				AssertMessage(message);
+				AssertTimer(timer);
 
 				XElement serializedWorldElement = WorldSerializer.Instance.Serialize(world);
 

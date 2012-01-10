@@ -116,6 +116,31 @@ namespace TextAdventure.Engine.Game.Commands
 			return new MessageCommand(message);
 		}
 
+		public static PauseTimerCommand PauseTimer(Timer timer)
+		{
+			return new PauseTimerCommand(timer);
+		}
+
+		public static ResetTimerCommand ResetTimer(Timer timer)
+		{
+			return new ResetTimerCommand(timer);
+		}
+
+		public static RestartTimerCommand RestartTimer(Timer timer)
+		{
+			return new RestartTimerCommand(timer);
+		}
+
+		public static StartTimerCommand StartTimer(Timer timer)
+		{
+			return new StartTimerCommand(timer);
+		}
+
+		public static StopTimerCommand StopTimer(Timer timer)
+		{
+			return new StopTimerCommand(timer);
+		}
+
 		public static DelayCommand Delay(TimeSpan delay)
 		{
 			return new DelayCommand(delay);

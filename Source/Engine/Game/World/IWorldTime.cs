@@ -15,7 +15,6 @@ namespace TextAdventure.Engine.Game.World
 		float Speed
 		{
 			get;
-			set;
 		}
 		bool Paused
 		{
