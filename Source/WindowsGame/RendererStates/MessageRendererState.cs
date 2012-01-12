@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Managers;
@@ -11,6 +12,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 	{
 		private float _alpha;
 		private float _maximumScrollPosition;
+		private float _scale;
 		private float _scrollPosition;
 		private int _visibleHeight;
 
@@ -35,6 +37,18 @@ namespace TextAdventure.WindowsGame.RendererStates
 			set
 			{
 				_alpha = MathHelper.Clamp(value, 0f, 1f);
+			}
+		}
+
+		public float Scale
+		{
+			get
+			{
+				return _scale;
+			}
+			set
+			{
+				_scale = MathHelper.Clamp(value, 0f, 1f);
 			}
 		}
 

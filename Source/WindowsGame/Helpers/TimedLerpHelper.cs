@@ -44,7 +44,7 @@ namespace TextAdventure.WindowsGame.Helpers
 
 			var fadeFactor = (float)((totalTime - _startTotalTime).TotalSeconds / _duration.TotalSeconds);
 
-			Value = MathHelper.Clamp(MathHelper.Lerp(_startValue, _endValue, fadeFactor), _startValue, _endValue);
+			Value = MathHelper.Clamp(MathHelper.Lerp(_startValue, _endValue, fadeFactor), Math.Min(_startValue, _endValue), Math.Max(_startValue, _endValue));
 		}
 	}
 }

@@ -25,6 +25,8 @@ namespace TextAdventure.WindowsGame.Renderers
 		private MessageAnswerSelectionManager _answerSelectionManager;
 		private MessageFormatter _formatter;
 		private bool _windowRectangleSet;
+		private Matrix _transformMatrix;
+		//private Texture2D _textTexture;
 
 		public MessageRenderer(IMessageRendererState state)
 			: base(textureContent => textureContent.Windows.InnerBevel1)
@@ -41,6 +43,8 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			base.BeforeRender(parameters);
 
+			WindowTexture windowWindowTexture = parameters.TextureContent.Windows.InnerBevel1;
+
 			if (!_windowRectangleSet)
 			{
 				var messageWithBackgroundColor = _state.Message as IMessageWithBackgroundColor;
@@ -50,7 +54,6 @@ namespace TextAdventure.WindowsGame.Renderers
 					BackgroundColor = messageWithBackgroundColor.BackgroundColor.ToXnaColor();
 				}
 
-				WindowTexture windowWindowTexture = parameters.TextureContent.Windows.InnerBevel1;
 				WindowTexture selectedAnswerWindowTexture = parameters.TextureContent.Windows.Glow1;
 				SpriteFont font = parameters.FontContent.Calibri12Pt;
 				Rectangle destinationRectangle = Constants.GameWindow.DestinationRectangle;
@@ -84,19 +87,23 @@ namespace TextAdventure.WindowsGame.Renderers
 
 				_windowRectangleSet = true;
 
+				//_textTexture = new Texture2D(_state.GraphicsDevice, clientWidth, clientHeight);
+
 				_state.AnswerSelectionManager = _answerSelectionManager;
 				_state.MaximumScrollPosition = _formatter.TotalHeightAfterFormatting - clientHeight;
 				_state.VisibleHeight = clientHeight;
 			}
 
 			Alpha = _state.Alpha;
+			_transformMatrix =
+				Matrix.CreateTranslation(new Vector3(-Window.WindowRectangle.Center.ToVector2(), 0f)) *
+				Matrix.CreateScale(_state.Scale, _state.Scale, 1f) *
+				Matrix.CreateTranslation(new Vector3(Window.WindowRectangle.Center.ToVector2(), 0f));
 		}
 
 		protected override void RenderContents(IRendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
-
-			base.RenderContents(parameters);
 
 			RenderMessage(parameters);
 			if (_formatter.TotalHeightAfterFormatting > Window.AbsoluteClientRectangle.Height)
@@ -105,12 +112,26 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
+		protected override void RenderBackground(IRendererParameters parameters)
+		{
+			parameters.TransformMatrix = _transformMatrix;
+
+			base.RenderBackground(parameters);
+		}
+
+		protected override void RenderBorder(IRendererParameters parameters)
+		{
+			parameters.TransformMatrix = _transformMatrix;
+
+			base.RenderBorder(parameters);
+		}
+
 		private void RenderMessage(IRendererParameters parameters)
 		{
 			Color textColor = Constants.MessageRenderer.TextColor * Alpha;
 			Color shadowColor = Constants.MessageRenderer.ShadowColor * Alpha;
 			var position = new Vector2(Window.AbsoluteClientRectangle.X, Window.AbsoluteClientRectangle.Y);
-			Matrix translationMatrix = Matrix.CreateTranslation(0f, -_state.ScrollPosition, 0f);
+			Matrix translationMatrix = Matrix.CreateTranslation(0f, -_state.ScrollPosition, 0f) * parameters.TransformMatrix;
 			SpriteFont font = parameters.FontContent.Calibri12Pt;
 			WindowTexture selectedAnswerWindowTexture = parameters.TextureContent.Windows.Glow1;
 
@@ -133,14 +154,14 @@ namespace TextAdventure.WindowsGame.Renderers
 		private void RenderWords(
 			IRendererParameters parameters,
 			SpriteFont font,
-			Matrix translationMatrix,
+			Matrix transformMatrix,
 			int lineIndex,
 			IList<MessageTextWord> words,
 			Color shadowColor,
 			ref Vector2 position,
 			ref Color textColor)
 		{
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, translationMatrix);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
 
 			MessageTextAlignment alignment = _formatter.GetAlignmentByLine(lineIndex);
 			Vector2 lineSize = _formatter.GetLineSizeByLine(lineIndex);
@@ -178,7 +199,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			IRendererParameters parameters,
 			WindowTexture selectedAnswerWindowTexture,
 			SpriteFont font,
-			Matrix translationMatrix,
+			Matrix transformMatrix,
 			IEnumerable<MessageTextAnswer> answers,
 			Color shadowColor,
 			Vector2 position)
@@ -210,7 +231,7 @@ namespace TextAdventure.WindowsGame.Renderers
 						answer.SelectedAnswerBackgroundColor.ToXnaColor(),
 						Alpha,
 						Window.AbsoluteClientRectangle,
-						translationMatrix);
+						transformMatrix);
 					_messageAnswerRenderer.Render(parameters);
 				}
 
@@ -219,8 +240,7 @@ namespace TextAdventure.WindowsGame.Renderers
 					window.AbsoluteClientRectangle.Y + ((window.AbsoluteClientRectangle.Height - lineHeight) / 2));
 				Color textColor = answer.Answer == _answerSelectionManager.SelectedAnswer ? answer.SelectedAnswerForegroundColor.ToXnaColor() : answer.UnselectedAnswerForegroundColor.ToXnaColor();
 
-
-				parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, translationMatrix);
+				parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
 
 				parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = Window.AbsoluteClientRectangle;
 

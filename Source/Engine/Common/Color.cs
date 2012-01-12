@@ -22,10 +22,10 @@ namespace TextAdventure.Engine.Common
 		public Color(float r, float g, float b, float a = 1f)
 			: this()
 		{
-			r = MathHelper.Clamp(r, 0f, 1f);
-			g = MathHelper.Clamp(g, 0f, 1f);
-			b = MathHelper.Clamp(b, 0f, 1f);
-			a = MathHelper.Clamp(a, 0f, 1f);
+			r = MathHelper.Instance.Clamp(r, 0f, 1f);
+			g = MathHelper.Instance.Clamp(g, 0f, 1f);
+			b = MathHelper.Instance.Clamp(b, 0f, 1f);
+			a = MathHelper.Instance.Clamp(a, 0f, 1f);
 
 			R = r;
 			G = g;

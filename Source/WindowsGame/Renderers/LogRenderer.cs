@@ -59,8 +59,6 @@ namespace TextAdventure.WindowsGame.Renderers
 				return;
 			}
 
-			base.RenderContents(parameters);
-
 			SpriteFont font = parameters.FontContent.Calibri10Pt;
 			Vector2 textVector = Window.AbsoluteClientRectangle.Location.ToVector2();
 			int lineCount = 0;

@@ -26,6 +26,16 @@ namespace TextAdventure.WindowsGame.Renderers
 			get;
 			set;
 		}
+		Vector2 Origin
+		{
+			get;
+			set;
+		}
+		Effect Effect
+		{
+			get;
+			set;
+		}
 		Matrix TransformMatrix
 		{
 			get;

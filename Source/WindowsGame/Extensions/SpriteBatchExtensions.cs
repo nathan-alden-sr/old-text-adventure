@@ -11,7 +11,9 @@ namespace TextAdventure.WindowsGame.Extensions
 		{
 			spriteBatch.ThrowIfNull("spriteBatch");
 
-			spriteBatch.DrawString(spriteFont, text, new Vector2(position.X + shadowOffset.X, position.Y + shadowOffset.Y), shadowColor);
+			var shadowPosition = new Vector2(position.X + shadowOffset.X, position.Y + shadowOffset.Y);
+
+			spriteBatch.DrawString(spriteFont, text, shadowPosition, shadowColor);
 			spriteBatch.DrawString(spriteFont, text, position, textColor);
 		}
 	}

@@ -2,9 +2,15 @@
 
 namespace TextAdventure.Engine.Helpers
 {
-	public static class MathHelper
+	public class MathHelper
 	{
-		public static float Clamp(float value, float minimum, float maximum)
+		public static readonly MathHelper Instance = new MathHelper();
+
+		private MathHelper()
+		{
+		}
+
+		public float Clamp(float value, float minimum, float maximum)
 		{
 			return Math.Max(minimum, Math.Min(value, maximum));
 		}

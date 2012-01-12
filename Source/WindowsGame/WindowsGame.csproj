@@ -94,7 +94,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Helpers\RectangleZoomHelper.cs" />
+    <Compile Include="Helpers\RectangleHelper.cs" />
     <Compile Include="InputHandlers\MessageInputHandler.cs" />
     <Compile Include="InputHandlers\WorldTimeInputHandler.cs" />
     <Compile Include="InputHandlers\Focus.cs" />

@@ -53,6 +53,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				_spriteBatch = spriteBatch;
 				_fontContent = fontContent;
 				_textureContent = textureContent;
+				Origin = Vector2.Zero;
 				TransformMatrix = Matrix.Identity;
 			}
 
@@ -89,6 +90,18 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 
 			public Rectangle? ScissorRectangle
+			{
+				get;
+				set;
+			}
+
+			public Vector2 Origin
+			{
+				get;
+				set;
+			}
+
+			public Effect Effect
 			{
 				get;
 				set;

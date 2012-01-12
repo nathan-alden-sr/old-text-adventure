@@ -18,6 +18,10 @@ namespace TextAdventure.WindowsGame.RendererStates
 		{
 			get;
 		}
+		float Scale
+		{
+			get;
+		}
 		float ScrollPosition
 		{
 			get;

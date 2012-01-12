@@ -56,8 +56,6 @@ namespace TextAdventure.WindowsGame.Renderers
 				return;
 			}
 
-			base.RenderContents(parameters);
-
 			SpriteFont font = parameters.FontContent.Calibri10Pt;
 			string text = _state.FrameCount + " fps";
 

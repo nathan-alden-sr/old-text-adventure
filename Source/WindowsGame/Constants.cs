@@ -162,8 +162,8 @@ namespace TextAdventure.WindowsGame
 			{
 				ArrowColor = Color.White;
 				DisabledArrowColor = Color.White * 0.25f;
-				FadeInDuration = TimeSpan.FromMilliseconds(60);
-				FadeOutDuration = TimeSpan.FromMilliseconds(30);
+				FadeInDuration = TimeSpan.FromMilliseconds(150);
+				FadeOutDuration = TimeSpan.FromMilliseconds(75);
 				ShadowColor = Color.Black;
 				ShadowOffset = Vector2.One;
 				TextColor = Color.White;

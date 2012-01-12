@@ -47,9 +47,11 @@ namespace TextAdventure.WindowsGame.Renderers
 		{
 			parameters.ThrowIfNull("parameters");
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, parameters.TransformMatrix);
+			Texture2D pixelTexture = parameters.TextureContent.Pixel;
 
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.WindowRectangle, BackgroundColor);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, parameters.Effect, parameters.TransformMatrix);
+
+			parameters.SpriteBatch.Draw(pixelTexture, Window.WindowRectangle, pixelTexture.Bounds, BackgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
 
 			parameters.SpriteBatch.End();
 		}
@@ -58,16 +60,18 @@ namespace TextAdventure.WindowsGame.Renderers
 		{
 			parameters.ThrowIfNull("parameters");
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, parameters.TransformMatrix);
+			Texture2D pixelTexture = parameters.TextureContent.Pixel;
 
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.TopLeftCornerRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.TopRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.TopRightCornerRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.RightRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.BottomRightCornerRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.BottomRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.BottomLeftCornerRectangle, BorderColor);
-			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.LeftRectangle, BorderColor);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, parameters.Effect, parameters.TransformMatrix);
+
+			parameters.SpriteBatch.Draw(pixelTexture, Window.TopLeftCornerRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.TopRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.TopRightCornerRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.RightRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.BottomRightCornerRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.BottomRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.BottomLeftCornerRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(pixelTexture, Window.LeftRectangle, pixelTexture.Bounds, BorderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
 
 			parameters.SpriteBatch.End();
 		}

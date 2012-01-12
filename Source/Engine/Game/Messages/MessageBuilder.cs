@@ -40,16 +40,19 @@ namespace TextAdventure.Engine.Game.Messages
 			return this;
 		}
 
-		public MessageBuilder Text(string text)
+		public MessageBuilder Text(string text, int numberOfLineBreaksAfterText = 0)
 		{
 			_parts.Add(new MessageText(text));
 
-			return this;
+			return LineBreak(numberOfLineBreaksAfterText);
 		}
 
-		public MessageBuilder LineBreak()
+		public MessageBuilder LineBreak(int numberOfLineBreaks = 1)
 		{
-			_parts.Add(new MessageLineBreak());
+			for (int i = 0; i < numberOfLineBreaks; i++)
+			{
+				_parts.Add(new MessageLineBreak());
+			}
 
 			return this;
 		}

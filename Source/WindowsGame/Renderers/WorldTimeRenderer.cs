@@ -59,8 +59,6 @@ namespace TextAdventure.WindowsGame.Renderers
 				return;
 			}
 
-			base.RenderContents(parameters);
-
 			SpriteFont font = parameters.FontContent.Calibri10PtBold;
 			string gameTimeText = String.Format(
 				TimeFormat,

@@ -1,7 +1,7 @@
-﻿using System.Linq;
-
+﻿using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.SampleWorld.EventHandlers
 {
@@ -9,9 +9,14 @@ namespace TextAdventure.SampleWorld.EventHandlers
 	{
 		public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 		{
-			StartTimerCommand command = Commands.StartTimer(context.Timers.Single());
+			Message message = Message.Build(new Color(0.5f, 0f, 0f))
+				.Text("Blah blah blah", 1)
+				.Text("Blah blah blah", 1)
+				.Text("Blah blah blah", 1)
+				.Text("Blah blah blah", 1)
+				.Text("Blah blah blah");
 
-			context.EnqueueCommand(command);
+			context.EnqueueCommand(Commands.Message(message));
 		}
 	}
 }
