@@ -95,14 +95,16 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Helpers\RectangleHelper.cs" />
-    <Compile Include="InputHandlers\MessageInputHandler.cs" />
-    <Compile Include="InputHandlers\WorldTimeInputHandler.cs" />
-    <Compile Include="InputHandlers\Focus.cs" />
-    <Compile Include="InputHandlers\FpsInputHandler.cs" />
-    <Compile Include="InputHandlers\IInputHandler.cs" />
-    <Compile Include="InputHandlers\InputHandlerCollection.cs" />
-    <Compile Include="InputHandlers\LogInputHandler.cs" />
-    <Compile Include="InputHandlers\PlayerInputHandler.cs" />
+    <Compile Include="Updaters\IUpdaterParameters.cs" />
+    <Compile Include="Updaters\MessageFadeOutAndScaleUpdater.cs" />
+    <Compile Include="Updaters\UpdaterCollection.cs" />
+    <Compile Include="Updaters\MessageFadeInAndScaleUpdater.cs" />
+    <Compile Include="Updaters\MessageInputHandler.cs" />
+    <Compile Include="Updaters\WorldTimeInputHandler.cs" />
+    <Compile Include="Updaters\Focus.cs" />
+    <Compile Include="Updaters\FpsInputHandler.cs" />
+    <Compile Include="Updaters\LogInputHandler.cs" />
+    <Compile Include="Updaters\PlayerInputHandler.cs" />
     <Compile Include="RendererStates\BoardRendererState.cs" />
     <Compile Include="RendererStates\IBoardRendererState.cs" />
     <Compile Include="RendererStates\IFpsRendererState.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Renderers\WorldTimeRenderer.cs" />
     <Compile Include="RendererStates\WorldTimeRendererState.cs" />
     <Compile Include="ScissoringRasterizerState.cs" />
+    <Compile Include="Updaters\IUpdater.cs" />
     <Compile Include="Windows\BorderedWindow.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Configuration\FpsConfigurationSection.cs" />

@@ -1,15 +1,14 @@
 ﻿using Junior.Common;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
 
-namespace TextAdventure.WindowsGame.InputHandlers
+namespace TextAdventure.WindowsGame.Updaters
 {
-	public class LogInputHandler : IInputHandler
+	public class LogInputHandler : IUpdater
 	{
 		private readonly KeyboardStateHelper _keyboardStateHelper;
 		private readonly LogRendererState _logRendererState;
@@ -22,9 +21,9 @@ namespace TextAdventure.WindowsGame.InputHandlers
 			_keyboardStateHelper = new KeyboardStateHelper(KeyDown, null, null, Constants.LogRenderer.Input.VisibilityToggleKeysSets);
 		}
 
-		public void Update(GameTime gameTime, Focus focus)
+		public void Update(IUpdaterParameters updaterParameters)
 		{
-			gameTime.ThrowIfNull("gameTime");
+			updaterParameters.ThrowIfNull("updaterParameters");
 
 			_keyboardStateHelper.Update();
 		}

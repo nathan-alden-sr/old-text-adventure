@@ -2,16 +2,15 @@
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
 
-namespace TextAdventure.WindowsGame.InputHandlers
+namespace TextAdventure.WindowsGame.Updaters
 {
-	public class WorldTimeInputHandler : IInputHandler
+	public class WorldTimeInputHandler : IUpdater
 	{
 		private readonly KeyboardStateHelper _keyboardStateHelper;
 		private readonly WorldTimeRendererState _worldTimeRendererState;
@@ -34,9 +33,9 @@ namespace TextAdventure.WindowsGame.InputHandlers
 						}));
 		}
 
-		public void Update(GameTime gameTime, Focus focus)
+		public void Update(IUpdaterParameters parameters)
 		{
-			gameTime.ThrowIfNull("gameTime");
+			parameters.ThrowIfNull("parameters");
 
 			_keyboardStateHelper.Update();
 		}

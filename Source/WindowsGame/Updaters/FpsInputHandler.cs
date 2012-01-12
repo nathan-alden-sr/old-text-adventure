@@ -1,15 +1,14 @@
 ﻿using Junior.Common;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
 
-namespace TextAdventure.WindowsGame.InputHandlers
+namespace TextAdventure.WindowsGame.Updaters
 {
-	public class FpsInputHandler : IInputHandler
+	public class FpsInputHandler : IUpdater
 	{
 		private readonly FpsRendererState _fpsRendererState;
 		private readonly KeyboardStateHelper _keyboardStateHelper;
@@ -22,8 +21,10 @@ namespace TextAdventure.WindowsGame.InputHandlers
 			_keyboardStateHelper = new KeyboardStateHelper(KeyDown, null, null, Constants.FpsRenderer.Input.VisibilityToggleKeysSets);
 		}
 
-		public void Update(GameTime gameTime, Focus focus)
+		public void Update(IUpdaterParameters parameters)
 		{
+			parameters.ThrowIfNull("parameters");
+
 			_keyboardStateHelper.Update();
 		}
 

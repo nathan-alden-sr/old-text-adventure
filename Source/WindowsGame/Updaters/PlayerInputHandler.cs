@@ -2,15 +2,13 @@
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
-
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.WindowsGame.Helpers;
 
-namespace TextAdventure.WindowsGame.InputHandlers
+namespace TextAdventure.WindowsGame.Updaters
 {
-	public class PlayerInputHandler : IInputHandler
+	public class PlayerInputHandler : IUpdater
 	{
 		private readonly KeyboardRepeatHelper _keyboardRepeatHelper = new KeyboardRepeatHelper();
 		private readonly KeyboardStateHelper _keyboardStateHelper;
@@ -30,11 +28,11 @@ namespace TextAdventure.WindowsGame.InputHandlers
 				Constants.PlayerRenderer.Input.MoveRightKey);
 		}
 
-		public void Update(GameTime gameTime, Focus focus)
+		public void Update(IUpdaterParameters parameters)
 		{
-			gameTime.ThrowIfNull("gameTime");
+			parameters.ThrowIfNull("parameters");
 
-			if (_worldInstance.WorldTime.Paused || focus != Focus.Player)
+			if (_worldInstance.WorldTime.Paused || parameters.Focus != Focus.Player)
 			{
 				return;
 			}

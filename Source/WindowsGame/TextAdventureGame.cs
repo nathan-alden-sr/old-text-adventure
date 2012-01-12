@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Configuration;
-using TextAdventure.WindowsGame.InputHandlers;
 using TextAdventure.WindowsGame.Managers;
 using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Renderers;
+using TextAdventure.WindowsGame.Updaters;
 using TextAdventure.WindowsGame.World;
 
 namespace TextAdventure.WindowsGame
@@ -22,15 +22,17 @@ namespace TextAdventure.WindowsGame
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
 		private static readonly TimeConfigurationSection _timeConfigurationSection = (TimeConfigurationSection)ConfigurationManager.GetSection("time");
 		private readonly GraphicsDeviceManager _graphics;
-		private readonly InputHandlerCollection _inputHandlerCollection = new InputHandlerCollection();
 		private readonly InputManager _inputManager = new InputManager();
 		private readonly Player _player;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
+		private readonly UpdaterCollection _updaterCollection = new UpdaterCollection();
 		private readonly Engine.Objects.World _world;
 		private BoardRendererState _boardRendererState;
 		private FontContent _fontContent;
 		private FpsRendererState _fpsRendererState;
 		private LogRendererState _logRendererState;
+		private MessageFadeInAndScaleUpdater _messageFadeInAndScaleUpdater;
+		private MessageFadeOutAndScaleUpdater _messageFadeOutAndScaleUpdater;
 		private MessageInputHandler _messageInputHandler;
 		private MessageRenderer _messageRenderer;
 		private MessageRendererState _messageRendererState;
@@ -55,7 +57,9 @@ namespace TextAdventure.WindowsGame
 			InitializeWindow();
 			CreateRendererStates();
 			AddRenderers();
-			AddInputHandlers();
+			AddUpdaters();
+
+			_inputManager.ClaimFocus(Focus.Player);
 
 			base.Initialize();
 		}
@@ -71,12 +75,14 @@ namespace TextAdventure.WindowsGame
 		protected override void Update(GameTime gameTime)
 		{
 			ProcessWorldInstanceCommandQueue();
-			UpdateInputHandlers(gameTime);
+
 			UpdateFpsRendererState(gameTime.ElapsedGameTime);
 			UpdateWorldTimeRendererState(gameTime);
 			UpdateLogRendererState(gameTime);
 			UpdateBoardRendererState();
 			ProcessMessage(gameTime.TotalGameTime);
+
+			_updaterCollection.Update(gameTime, _inputManager.Focus);
 
 			base.Update(gameTime);
 		}
@@ -135,19 +141,12 @@ namespace TextAdventure.WindowsGame
 			_rendererCollection.Add(new LogRenderer(_logRendererState));
 		}
 
-		private void AddInputHandlers()
+		private void AddUpdaters()
 		{
-			_inputHandlerCollection.Add(new FpsInputHandler(_fpsRendererState));
-			_inputHandlerCollection.Add(new LogInputHandler(_logRendererState));
-			_inputHandlerCollection.Add(new WorldTimeInputHandler(_worldTimeRendererState));
-			_inputHandlerCollection.Add(new PlayerInputHandler(_worldInstance));
-
-			_inputManager.ClaimFocus(Focus.Player);
-		}
-
-		private void UpdateInputHandlers(GameTime gameTime)
-		{
-			_inputHandlerCollection.Update(gameTime, _inputManager.Focus);
+			_updaterCollection.Add(new FpsInputHandler(_fpsRendererState));
+			_updaterCollection.Add(new LogInputHandler(_logRendererState));
+			_updaterCollection.Add(new WorldTimeInputHandler(_worldTimeRendererState));
+			_updaterCollection.Add(new PlayerInputHandler(_worldInstance));
 		}
 
 		private void ProcessWorldInstanceCommandQueue()
@@ -177,7 +176,7 @@ namespace TextAdventure.WindowsGame
 			_boardRendererState.Board = _worldInstance.CurrentBoard;
 		}
 
-		private void ProcessMessage(TimeSpan totalTime)
+		private void ProcessMessage(TimeSpan totalGameTime)
 		{
 			bool processingMessage = _messageRenderer != null;
 			bool messageAvailable = !_worldInstance.WorldTime.Paused && _worldInstance.MessageQueue.Count > 0;
@@ -192,20 +191,39 @@ namespace TextAdventure.WindowsGame
 			                        		Message = _worldInstance.MessageQueue.DequeueMessage()
 			                        	};
 			_messageRenderer = new MessageRenderer(_messageRendererState);
-			_messageInputHandler = new MessageInputHandler(_worldInstance, _messageRendererState, totalTime, CloseMessage);
+			_messageFadeInAndScaleUpdater = new MessageFadeInAndScaleUpdater(_messageRendererState, totalGameTime, MessageOpened);
 
 			_rendererCollection.Add(_messageRenderer);
-			_inputHandlerCollection.Add(_messageInputHandler);
+			_updaterCollection.Add(_messageFadeInAndScaleUpdater);
+
 			_inputManager.ClaimFocus(Focus.Message);
 		}
 
-		private void CloseMessage()
+		private void MessageOpened(GameTime gameTime)
 		{
-			_inputHandlerCollection.Remove(_messageInputHandler);
+			_updaterCollection.Remove(_messageFadeInAndScaleUpdater);
+			_messageFadeInAndScaleUpdater = null;
+
+			_messageInputHandler = new MessageInputHandler(_worldInstance, _messageRendererState, gameTime.TotalGameTime, MessageClosing);
+			_updaterCollection.Add(_messageInputHandler);
+		}
+
+		private void MessageClosing(GameTime gameTime)
+		{
+			_updaterCollection.Remove(_messageInputHandler);
+			_messageInputHandler = null;
+
+			_messageFadeOutAndScaleUpdater = new MessageFadeOutAndScaleUpdater(_messageRendererState, gameTime.TotalGameTime, MessageClosed);
+			_updaterCollection.Add(_messageFadeOutAndScaleUpdater);
+		}
+
+		private void MessageClosed()
+		{
+			_updaterCollection.Remove(_messageFadeOutAndScaleUpdater);
 			_rendererCollection.Remove(_messageRenderer);
+			_messageFadeOutAndScaleUpdater = null;
 			_messageRenderer = null;
 			_messageRendererState = null;
-			_messageInputHandler = null;
 
 			_inputManager.RelinquishFocus();
 		}

@@ -1,4 +1,4 @@
-﻿namespace TextAdventure.WindowsGame.InputHandlers
+﻿namespace TextAdventure.WindowsGame.Updaters
 {
 	public enum Focus
 	{

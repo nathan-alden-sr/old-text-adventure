@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using TextAdventure.WindowsGame.InputHandlers;
+using TextAdventure.WindowsGame.Updaters;
 
 namespace TextAdventure.WindowsGame.Managers
 {
