@@ -69,10 +69,10 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			foreach (LogEntry logEntry in _state.LogEntries)
 			{
-				Color textColor = Constants.LogRenderer.TextColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.InterpolationHelper.Value;
-				Color shadowColor = Constants.LogRenderer.ShadowColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.InterpolationHelper.Value;
+				Color textColor = Constants.LogRenderer.TextColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.TimedLerpHelper.Value;
+				Color shadowColor = Constants.LogRenderer.ShadowColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.TimedLerpHelper.Value;
 
-				logEntry.InterpolationHelper.Update(parameters.GameTime.TotalGameTime);
+				logEntry.TimedLerpHelper.Update(parameters.GameTime.TotalGameTime);
 
 				string titleText = _state.ShowTimestamps ? String.Format(LineFormatString, logEntry.LoggedTotalWorldTime, logEntry.Title) : logEntry.Title;
 

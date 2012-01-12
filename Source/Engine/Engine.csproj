@@ -121,6 +121,7 @@
     <Compile Include="Game\Commands\CommandQueue.cs" />
     <Compile Include="Game\Messages\MessageAnswerBuilder.cs" />
     <Compile Include="Game\Messages\MessageBuilder.cs" />
+    <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Objects\Actor.cs" />
     <Compile Include="Objects\ActorInstance.cs" />
     <Compile Include="Objects\ActorInstanceLayer.cs" />

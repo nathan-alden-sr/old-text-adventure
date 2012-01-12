@@ -162,7 +162,7 @@
     <Compile Include="WindowTexture.cs" />
     <Compile Include="WorldAssemblyLoader.cs" />
     <Compile Include="Windows\WindowAlignment.cs" />
-    <Compile Include="Helpers\InterpolationHelper.cs" />
+    <Compile Include="Helpers\TimedLerpHelper.cs" />
     <Compile Include="Helpers\KeyboardRepeatHelper.cs" />
     <Compile Include="Helpers\TextDrawingHelper.cs" />
     <Compile Include="Constants.cs" />

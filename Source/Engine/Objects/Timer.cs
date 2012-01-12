@@ -27,7 +27,7 @@ namespace TextAdventure.Engine.Objects
 		{
 			if (interval < TimeSpan.Zero)
 			{
-				throw new ArgumentException("Interval must be at least 0.", "interval");
+				throw new ArgumentOutOfRangeException("interval");
 			}
 
 			_id = id;
@@ -121,6 +121,11 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal void Update(TimeSpan elapsedTime)
 		{
+			if (elapsedTime < TimeSpan.Zero)
+			{
+				throw new ArgumentOutOfRangeException("elapsedTime");
+			}
+
 			ElapsedTime += elapsedTime;
 		}
 	}

@@ -116,6 +116,8 @@ namespace TextAdventure.Engine.Game.World
 		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)
 			where TEvent : Event
 		{
+			@event.ThrowIfNull("event");
+
 			if (eventHandler == null)
 			{
 				return EventResult.Complete;

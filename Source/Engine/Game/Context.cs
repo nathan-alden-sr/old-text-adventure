@@ -99,6 +99,10 @@ namespace TextAdventure.Engine.Game
 		public void EnqueueCommandToExecuteAtTime(Command command, TimeSpan totalWorldTime, Action<CommandResult> commandExecutedDelegate = null)
 		{
 			command.ThrowIfNull("command");
+			if (totalWorldTime < TimeSpan.Zero)
+			{
+				throw new ArgumentOutOfRangeException("totalWorldTime");
+			}
 
 			_commandQueue.EnqueueCommandToExecuteAtTime(command, totalWorldTime, commandExecutedDelegate);
 		}
@@ -106,6 +110,10 @@ namespace TextAdventure.Engine.Game
 		public void EnqueueCommandWithExecutionDelay(Command command, TimeSpan executionDelay, Action<CommandResult> commandExecutedDelegate = null)
 		{
 			command.ThrowIfNull("command");
+			if (executionDelay < TimeSpan.Zero)
+			{
+				throw new ArgumentOutOfRangeException("executionDelay");
+			}
 
 			_commandQueue.EnqueueCommandWithExecutionDelay(command, executionDelay, commandExecutedDelegate);
 		}
@@ -173,6 +181,8 @@ namespace TextAdventure.Engine.Game
 
 		protected internal void EnqueueMessage(Message message, MessageQueuePosition position)
 		{
+			message.ThrowIfNull("message");
+
 			_worldInstance.MessageQueue.EnqueueMessage(message, position);
 		}
 	}

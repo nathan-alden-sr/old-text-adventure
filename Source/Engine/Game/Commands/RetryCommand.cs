@@ -80,7 +80,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			if (retryDelay < TimeSpan.Zero)
 			{
-				throw new ArgumentOutOfRangeException("retryDelay", "Retry delay must be at least TimeSpan.Zero.");
+				throw new ArgumentOutOfRangeException("retryDelay");
 			}
 			_retryDelay = retryDelay;
 

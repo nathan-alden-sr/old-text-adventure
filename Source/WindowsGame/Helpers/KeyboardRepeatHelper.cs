@@ -20,7 +20,7 @@ namespace TextAdventure.WindowsGame.Helpers
 			{
 				if (value < TimeSpan.Zero)
 				{
-					throw new ArgumentOutOfRangeException("value", "Initial interval must be at least 0.");
+					throw new ArgumentOutOfRangeException("value");
 				}
 
 				_initialInterval = value;
@@ -37,7 +37,7 @@ namespace TextAdventure.WindowsGame.Helpers
 			{
 				if (value < TimeSpan.Zero)
 				{
-					throw new ArgumentOutOfRangeException("value", "Repeating interval must be at least 0.");
+					throw new ArgumentOutOfRangeException("value");
 				}
 
 				_repeatingInterval = value;
@@ -65,6 +65,11 @@ namespace TextAdventure.WindowsGame.Helpers
 
 		public bool IntervalElapsed(TimeSpan totalTime)
 		{
+			if (totalTime < TimeSpan.Zero)
+			{
+				throw new ArgumentOutOfRangeException("totalTime");
+			}
+
 			if (!_started)
 			{
 				return false;

@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
 
+using TextAdventure.Engine.Helpers;
+
 namespace TextAdventure.Engine.Common
 {
 	[DebuggerDisplay("R = {R}, G = {G}, B = {B}, A = {A}")]
@@ -20,22 +22,10 @@ namespace TextAdventure.Engine.Common
 		public Color(float r, float g, float b, float a = 1f)
 			: this()
 		{
-			if (r < 0 || r > 1)
-			{
-				throw new ArgumentOutOfRangeException("r", "r must be between 0.0 and 1.0 inclusive.", "r");
-			}
-			if (g < 0 || g > 1)
-			{
-				throw new ArgumentOutOfRangeException("g", "g must be between 0.0 and 1.0 inclusive.", "g");
-			}
-			if (b < 0 || b > 1)
-			{
-				throw new ArgumentOutOfRangeException("b", "b must be between 0.0 and 1.0 inclusive.", "b");
-			}
-			if (a < 0 || a > 1)
-			{
-				throw new ArgumentOutOfRangeException("a", "a must be between 0.0 and 1.0 inclusive.", "a");
-			}
+			r = MathHelper.Clamp(r, 0f, 1f);
+			g = MathHelper.Clamp(g, 0f, 1f);
+			b = MathHelper.Clamp(b, 0f, 1f);
+			a = MathHelper.Clamp(a, 0f, 1f);
 
 			R = r;
 			G = g;

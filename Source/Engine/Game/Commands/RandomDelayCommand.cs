@@ -14,11 +14,11 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			if (minimumDelay < TimeSpan.Zero)
 			{
-				throw new ArgumentOutOfRangeException("minimumDelay", "Minimum delay must be at least 0.");
+				throw new ArgumentOutOfRangeException("minimumDelay");
 			}
 			if (maximumDelay < minimumDelay)
 			{
-				throw new ArgumentOutOfRangeException("maximumDelay", "Maximum delay must be at least the minimum delay.");
+				throw new ArgumentOutOfRangeException("maximumDelay");
 			}
 
 			_minimumDelay = minimumDelay;

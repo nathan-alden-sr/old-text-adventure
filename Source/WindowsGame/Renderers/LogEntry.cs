@@ -11,7 +11,7 @@ namespace TextAdventure.WindowsGame.Renderers
 	{
 		private readonly IEnumerable<string> _details;
 		private readonly LogEntryType _entryType;
-		private readonly InterpolationHelper _fadeHelper;
+		private readonly TimedLerpHelper _fadeHelper;
 		private readonly TimeSpan _loggedTotalWorldTime;
 		private readonly string _title;
 
@@ -21,7 +21,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_entryType = entryType;
 			_title = loggable.Title;
 			_details = loggable.Details.ToArray();
-			_fadeHelper = new InterpolationHelper(loggedTotalWorldTime + logEntryLifetime - Constants.LogRenderer.FadeDuration, Constants.LogRenderer.FadeDuration, 1f, 0f);
+			_fadeHelper = new TimedLerpHelper(loggedTotalWorldTime + logEntryLifetime - Constants.LogRenderer.FadeDuration, Constants.LogRenderer.FadeDuration, 1f, 0f);
 		}
 
 		public string Title
@@ -64,7 +64,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		public InterpolationHelper InterpolationHelper
+		public TimedLerpHelper TimedLerpHelper
 		{
 			get
 			{
