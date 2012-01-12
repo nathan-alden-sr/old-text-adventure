@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 using TextAdventure.Engine.Objects;
 
-namespace TextAdventure.Engine.Serializers
+namespace TextAdventure.Engine.Serializers.Xml
 {
 	public class BoardExitSerializer
 	{

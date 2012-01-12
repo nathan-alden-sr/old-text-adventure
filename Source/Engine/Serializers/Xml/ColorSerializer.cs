@@ -5,7 +5,7 @@ using Junior.Common;
 
 using TextAdventure.Engine.Common;
 
-namespace TextAdventure.Engine.Serializers
+namespace TextAdventure.Engine.Serializers.Xml
 {
 	public class ColorSerializer
 	{

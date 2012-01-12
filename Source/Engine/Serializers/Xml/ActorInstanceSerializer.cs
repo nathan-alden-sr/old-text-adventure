@@ -6,7 +6,7 @@ using Junior.Common;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
-namespace TextAdventure.Engine.Serializers
+namespace TextAdventure.Engine.Serializers.Xml
 {
 	public class ActorInstanceSerializer
 	{

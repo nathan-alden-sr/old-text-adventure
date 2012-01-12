@@ -7,7 +7,7 @@ using Junior.Common;
 
 using TextAdventure.Engine.Game.Events;
 
-namespace TextAdventure.Engine.Serializers
+namespace TextAdventure.Engine.Serializers.Xml
 {
 	public class EventHandlerSerializer<TEvent>
 		where TEvent : Event

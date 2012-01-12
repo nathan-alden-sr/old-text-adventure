@@ -13,6 +13,7 @@ using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Engine.Serializers;
+using TextAdventure.Engine.Serializers.Xml;
 
 namespace TextAdventure.UnitTests.Engine.Serializers
 {
