@@ -75,7 +75,12 @@ namespace TextAdventure.WindowsGame.Renderers
 					clientWidth += Constants.MessageRenderer.ArrowHorizontalPadding + windowWindowTexture.SpriteWidth;
 				}
 
-				SetWindowRectangleUsingWindowYAndClientSize(WindowHorizontalAlignment.Center, destinationRectangle.Center.Y + 30, clientWidth, clientHeight, windowWindowTexture.Padding);
+				SetWindowRectangleUsingWindowYAndClientSize(
+					WindowHorizontalAlignment.Center,
+					destinationRectangle.Center.Y + Constants.Tile.TileHeight * 2,
+					clientWidth,
+					clientHeight,
+					windowWindowTexture.Padding);
 
 				_windowRectangleSet = true;
 

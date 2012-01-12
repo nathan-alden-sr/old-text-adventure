@@ -68,6 +68,26 @@ namespace TextAdventure.WindowsGame
 			base.LoadContent();
 		}
 
+		protected override void Update(GameTime gameTime)
+		{
+			ProcessWorldInstanceCommandQueue();
+			UpdateInputHandlers(gameTime);
+			UpdateFpsRendererState(gameTime.ElapsedGameTime);
+			UpdateWorldTimeRendererState(gameTime);
+			UpdateLogRendererState(gameTime);
+			UpdateBoardRendererState();
+			ProcessMessage(gameTime.TotalGameTime);
+
+			base.Update(gameTime);
+		}
+
+		protected override void Draw(GameTime gameTime)
+		{
+			_rendererCollection.Render(GraphicsDevice, gameTime, _fontContent, _textureContent);
+
+			base.Draw(gameTime);
+		}
+
 		private void InitializeWindow()
 		{
 			Window.Title = "Text Adventure";
@@ -123,26 +143,6 @@ namespace TextAdventure.WindowsGame
 			_inputHandlerCollection.Add(new PlayerInputHandler(_worldInstance));
 
 			_inputManager.ClaimFocus(Focus.Player);
-		}
-
-		protected override void Update(GameTime gameTime)
-		{
-			ProcessWorldInstanceCommandQueue();
-			UpdateInputHandlers(gameTime);
-			UpdateFpsRendererState(gameTime.ElapsedGameTime);
-			UpdateWorldTimeRendererState(gameTime);
-			UpdateLogRendererState(gameTime);
-			UpdateBoardRendererState();
-			ProcessMessage(gameTime.TotalGameTime);
-
-			base.Update(gameTime);
-		}
-
-		protected override void Draw(GameTime gameTime)
-		{
-			_rendererCollection.Render(GraphicsDevice, gameTime, _fontContent, _textureContent);
-
-			base.Draw(gameTime);
 		}
 
 		private void UpdateInputHandlers(GameTime gameTime)
