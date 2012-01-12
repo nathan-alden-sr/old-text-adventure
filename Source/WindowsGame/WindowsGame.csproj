@@ -94,6 +94,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Helpers\RectangleZoomHelper.cs" />
     <Compile Include="InputHandlers\MessageInputHandler.cs" />
     <Compile Include="InputHandlers\WorldTimeInputHandler.cs" />
     <Compile Include="InputHandlers\Focus.cs" />
@@ -161,7 +162,7 @@
     <Compile Include="WindowTexture.cs" />
     <Compile Include="WorldAssemblyLoader.cs" />
     <Compile Include="Windows\WindowAlignment.cs" />
-    <Compile Include="Helpers\FadeHelper.cs" />
+    <Compile Include="Helpers\InterpolationHelper.cs" />
     <Compile Include="Helpers\KeyboardRepeatHelper.cs" />
     <Compile Include="Helpers\TextDrawingHelper.cs" />
     <Compile Include="Constants.cs" />

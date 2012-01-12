@@ -24,11 +24,11 @@ namespace TextAdventure.WindowsGame.InputHandlers
 		private readonly KeyboardStateHelper _scrollKeyboardStateHelper;
 		private readonly WorldInstance _worldInstance;
 		private bool _closing;
-		private FadeHelper _fadeInHelper;
-		private FadeHelper _fadeOutHelper;
+		private InterpolationHelper _fadeInHelper;
+		private InterpolationHelper _fadeOutHelper;
 		private TimerHelper _timerHelper;
 
-		public MessageInputHandler(WorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalGameTime, Action messageClosedDelegate)
+		public MessageInputHandler(WorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalTime, Action messageClosedDelegate)
 		{
 			worldInstance.ThrowIfNull("worldInstance");
 			messageRendererState.ThrowIfNull("messageRendererState");
@@ -54,14 +54,14 @@ namespace TextAdventure.WindowsGame.InputHandlers
 				Constants.MessageRenderer.Input.PageDownKey);
 			_scrollKeyboardRepeatHelper.InitialInterval = Constants.MessageRenderer.Input.ScrollKeyboardInterval;
 			_scrollKeyboardRepeatHelper.RepeatingInterval = Constants.MessageRenderer.Input.ScrollKeyboardInterval;
-			_fadeInHelper = new FadeHelper(totalGameTime, Constants.MessageRenderer.FadeInDuration, 0f, 1f);
+			_fadeInHelper = new InterpolationHelper(totalTime, Constants.MessageRenderer.FadeInDuration, 0f, 1f);
 		}
 
 		private bool Opening
 		{
 			get
 			{
-				return _fadeInHelper != null && _fadeInHelper.Alpha < 1f;
+				return _fadeInHelper != null && _fadeInHelper.Value < 1f;
 			}
 		}
 
@@ -100,9 +100,9 @@ namespace TextAdventure.WindowsGame.InputHandlers
 
 			if (ClosingStarted)
 			{
-				TimeSpan fadeOutDuration = TimeSpan.FromMilliseconds(_fadeInHelper.Alpha * Constants.MessageRenderer.FadeOutDuration.TotalMilliseconds);
+				TimeSpan fadeOutDuration = TimeSpan.FromMilliseconds(_fadeInHelper.Value * Constants.MessageRenderer.FadeOutDuration.TotalMilliseconds);
 
-				_fadeOutHelper = new FadeHelper(gameTime.TotalGameTime, fadeOutDuration, _fadeInHelper.Alpha, 0f);
+				_fadeOutHelper = new InterpolationHelper(gameTime.TotalGameTime, fadeOutDuration, _fadeInHelper.Value, 0f);
 				_fadeInHelper = null;
 				_timerHelper = new TimerHelper(fadeOutDuration, gameTime.TotalGameTime, _messageClosedDelegate);
 			}
@@ -139,12 +139,12 @@ namespace TextAdventure.WindowsGame.InputHandlers
 			if (_fadeInHelper != null)
 			{
 				_fadeInHelper.Update(gameTime.TotalGameTime);
-				_messageRendererState.Alpha = _fadeInHelper.Alpha;
+				_messageRendererState.Alpha = _fadeInHelper.Value;
 			}
 			if (_fadeOutHelper != null)
 			{
 				_fadeOutHelper.Update(gameTime.TotalGameTime);
-				_messageRendererState.Alpha = _fadeOutHelper.Alpha;
+				_messageRendererState.Alpha = _fadeOutHelper.Value;
 			}
 		}
 

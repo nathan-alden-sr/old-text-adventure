@@ -69,10 +69,10 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			foreach (LogEntry logEntry in _state.LogEntries)
 			{
-				Color textColor = Constants.LogRenderer.TextColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.FadeHelper.Alpha;
-				Color shadowColor = Constants.LogRenderer.ShadowColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.FadeHelper.Alpha;
+				Color textColor = Constants.LogRenderer.TextColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.InterpolationHelper.Value;
+				Color shadowColor = Constants.LogRenderer.ShadowColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.InterpolationHelper.Value;
 
-				logEntry.FadeHelper.Update(parameters.GameTime.TotalGameTime);
+				logEntry.InterpolationHelper.Update(parameters.GameTime.TotalGameTime);
 
 				string titleText = _state.ShowTimestamps ? String.Format(LineFormatString, logEntry.LoggedTotalWorldTime, logEntry.Title) : logEntry.Title;
 
@@ -109,11 +109,11 @@ namespace TextAdventure.WindowsGame.Renderers
 			parameters.SpriteBatch.End();
 		}
 
-		private static int MeasureLineWidth(SpriteFont font, TimeSpan loggedTotalGameTime, string text, int indent, bool showTimestamps)
+		private static int MeasureLineWidth(SpriteFont font, TimeSpan loggedTotalTime, string text, int indent, bool showTimestamps)
 		{
 			if (showTimestamps)
 			{
-				text = String.Format(LineFormatString, loggedTotalGameTime, text);
+				text = String.Format(LineFormatString, loggedTotalTime, text);
 			}
 
 			return (font.MeasureString(text).X + Constants.LogRenderer.ShadowOffset.X + indent).Round();

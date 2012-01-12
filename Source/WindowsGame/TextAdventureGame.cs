@@ -177,7 +177,7 @@ namespace TextAdventure.WindowsGame
 			_boardRendererState.Board = _worldInstance.CurrentBoard;
 		}
 
-		private void ProcessMessage(TimeSpan totalGameTime)
+		private void ProcessMessage(TimeSpan totalTime)
 		{
 			bool processingMessage = _messageRenderer != null;
 			bool messageAvailable = !_worldInstance.WorldTime.Paused && _worldInstance.MessageQueue.Count > 0;
@@ -192,7 +192,7 @@ namespace TextAdventure.WindowsGame
 			                        		Message = _worldInstance.MessageQueue.DequeueMessage()
 			                        	};
 			_messageRenderer = new MessageRenderer(_messageRendererState);
-			_messageInputHandler = new MessageInputHandler(_worldInstance, _messageRendererState, totalGameTime, CloseMessage);
+			_messageInputHandler = new MessageInputHandler(_worldInstance, _messageRendererState, totalTime, CloseMessage);
 
 			_rendererCollection.Add(_messageRenderer);
 			_inputHandlerCollection.Add(_messageInputHandler);
