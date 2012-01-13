@@ -97,6 +97,7 @@
     <Compile Include="Configuration\IFpsConfiguration.cs" />
     <Compile Include="Configuration\ILogConfiguration.cs" />
     <Compile Include="Configuration\IWorldTimeConfiguration.cs" />
+    <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="TextAdventureGame.cs" />
     <Compile Include="Helpers\RectangleHelper.cs" />
     <Compile Include="Forms\GameForm.cs">
@@ -171,7 +172,7 @@
     <Compile Include="Windows\WindowHorizontalAlignment.cs" />
     <Compile Include="Windows\WindowVerticalAlignment.cs" />
     <Compile Include="WindowTexture.cs" />
-    <Compile Include="WorldAssemblyLoader.cs" />
+    <Compile Include="WorldLoader.cs" />
     <Compile Include="Windows\WindowAlignment.cs" />
     <Compile Include="Helpers\TimedLerpHelper.cs" />
     <Compile Include="Helpers\KeyboardRepeatHelper.cs" />
@@ -199,9 +200,9 @@
       <Project>{8D094DEF-8897-4533-899F-E43CFEE2D948}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SampleWorld\SampleWorld.csproj">
+    <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{BF2466D3-F97A-4F3C-8941-96D58A698124}</Project>
-      <Name>SampleWorld</Name>
+      <Name>Samples</Name>
     </ProjectReference>
     <ProjectReference Include="..\WindowsGameContent\WindowsGameContent.contentproj">
       <Name>WindowsGameContent</Name>

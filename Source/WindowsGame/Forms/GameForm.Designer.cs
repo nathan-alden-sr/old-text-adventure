@@ -32,7 +32,7 @@ namespace TextAdventure.WindowsGame.Forms
 		{
 			System.Windows.Forms.MenuStrip menuStrip;
 			System.Windows.Forms.ToolStripMenuItem worldToolStripMenuItem;
-			System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+			System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 			System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
 			System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 			System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -43,9 +43,10 @@ namespace TextAdventure.WindowsGame.Forms
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,28 +71,30 @@ namespace TextAdventure.WindowsGame.Forms
 			// worldToolStripMenuItem
 			// 
 			worldToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            loadToolStripMenuItem,
+            openToolStripMenuItem,
             toolStripMenuItem1,
             exitToolStripMenuItem});
 			worldToolStripMenuItem.Name = "worldToolStripMenuItem";
 			worldToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
 			worldToolStripMenuItem.Text = "&World";
 			// 
-			// loadToolStripMenuItem
+			// openToolStripMenuItem
 			// 
-			loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-			loadToolStripMenuItem.Text = "&Load...";
+			openToolStripMenuItem.Name = "openToolStripMenuItem";
+			openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			openToolStripMenuItem.Text = "&Open...";
+			openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemOnClick);
 			// 
 			// toolStripMenuItem1
 			// 
 			toolStripMenuItem1.Name = "toolStripMenuItem1";
-			toolStripMenuItem1.Size = new System.Drawing.Size(106, 6);
+			toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
 			exitToolStripMenuItem.Text = "E&xit";
 			exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemOnClick);
 			// 
@@ -156,6 +159,11 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Text = "xnaControl1";
 			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.Filter = "World Assemblies (*.dll)|*.dll|All Files (*.*)|*.*";
+			this.openFileDialog.Title = "Open World";
+			// 
 			// GameForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +189,7 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.ToolStripMenuItem fpsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem worldTimeToolStripMenuItem;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
 
 
 	}

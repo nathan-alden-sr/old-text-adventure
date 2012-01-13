@@ -7,6 +7,7 @@ using Junior.Common;
 
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Configuration;
+using TextAdventure.WindowsGame.Helpers;
 
 namespace TextAdventure.WindowsGame.Forms
 {
@@ -30,13 +31,19 @@ namespace TextAdventure.WindowsGame.Forms
 			logToolStripMenuItem.Checked = _logConfigurationSection.Visible;
 			worldTimeToolStripMenuItem.Checked = _worldTimeConfigurationSection.Visible;
 
-			Game = new TextAdventureGame(xnaControl.GraphicsDevice, world, startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection);
+			LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, world, startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), world);
 		}
 
 		public bool CloseRequested
 		{
 			get;
 			private set;
+		}
+
+		public bool GameChanged
+		{
+			get;
+			set;
 		}
 
 		public TextAdventureGame Game
@@ -56,6 +63,7 @@ namespace TextAdventure.WindowsGame.Forms
 		protected override void OnFormClosing(FormClosingEventArgs e)
 		{
 			CloseRequested = true;
+			GameChanged = false;
 			e.Cancel = true;
 
 			base.OnFormClosing(e);
@@ -82,6 +90,27 @@ namespace TextAdventure.WindowsGame.Forms
 				Height + (Constants.GameWindow.PreferredBackBufferHeight - xnaControl.Size.Height));
 		}
 
+		private void OpenGame(string path)
+		{
+			try
+			{
+				Engine.Objects.World world = WorldLoader.Instance.FromAssembly(path);
+
+				LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, world, world.StartingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), world);
+				GameChanged = true;
+			}
+			catch (Exception exception)
+			{
+				MessageBoxHelper.Instance.ShowError(this, String.Format("Error opening game:{0}{0}{1}", Environment.NewLine, exception.Message));
+			}
+		}
+
+		private void LoadGame(TextAdventureGame game, Engine.Objects.World world)
+		{
+			Text = world.Title + " - Text Adventure";
+			Game = game;
+		}
+
 		private void ExitToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			Close();
@@ -105,6 +134,20 @@ namespace TextAdventure.WindowsGame.Forms
 		private void WorldTimeToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			_worldTimeConfigurationSection.Visible = worldTimeToolStripMenuItem.Checked;
+		}
+
+		private void OpenToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			Game.Pause();
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				OpenGame(openFileDialog.FileName);
+			}
+			else
+			{
+				Game.Unpause();
+			}
 		}
 
 		private void MenuStripOnMenuActivate(object sender, EventArgs e)

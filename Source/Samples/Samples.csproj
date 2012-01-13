@@ -8,8 +8,8 @@
     <ProjectGuid>{BF2466D3-F97A-4F3C-8941-96D58A698124}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TextAdventure.SampleWorld</RootNamespace>
-    <AssemblyName>TextAdventure.SampleWorld</AssemblyName>
+    <RootNamespace>TextAdventure.Samples</RootNamespace>
+    <AssemblyName>TextAdventure.Samples</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
@@ -50,9 +50,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="EventHandlers\PlayerTouchedActorInstanceEventHandler.cs" />
+    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleWorld.cs" />
+    <Compile Include="Introduction\IntroductionWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

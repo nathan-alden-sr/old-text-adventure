@@ -152,7 +152,7 @@ namespace TextAdventure.WindowsGame.Renderers
 		private void ProcessLineBreak(ref int lineIndex)
 		{
 			lineIndex++;
-			_lineSizesByLine[lineIndex] = new Vector2(0, _spaceWord.Size.Y);
+			_lineSizesByLine[lineIndex] = new Vector2(0, _spaceWord.Size.Y / 2);
 			_wordsByLine[lineIndex] = new List<MessageTextWord>();
 			_alignmentsByLine[lineIndex] = MessageTextAlignment.Left;
 		}

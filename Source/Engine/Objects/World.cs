@@ -14,13 +14,15 @@ namespace TextAdventure.Engine.Objects
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
 		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
+		private readonly Player _startingPlayer;
 		private readonly Dictionary<Guid, Timer> _timersById = new Dictionary<Guid, Timer>();
-		private Player _startingPlayer;
-		private int _version;
+		private readonly string _title;
+		private readonly int _version;
 
 		public World(
 			Guid id,
 			int version,
+			string title,
 			Player startingPlayer,
 			IEnumerable<Board> boards,
 			IEnumerable<Actor> actors,
@@ -28,101 +30,37 @@ namespace TextAdventure.Engine.Objects
 			IEnumerable<Timer> timers,
 			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
+			title.ThrowIfNull("title");
 			startingPlayer.ThrowIfNull("startingPlayer");
 			boards.ThrowIfNull("boards");
 			actors.ThrowIfNull("actors");
 			messages.ThrowIfNull("messages");
 			timers.ThrowIfNull("timers");
+			if (version < 1)
+			{
+				throw new ArgumentOutOfRangeException("version", "Version must be at least 1.");
+			}
 
 			_id = id;
+			_version = version;
+			_title = title;
 			_answerSelectedEventHandler = answerSelectedEventHandler;
-			Version = version;
-			StartingPlayer = startingPlayer;
-			Boards = boards;
-			Actors = actors;
-			Messages = messages;
-			Timers = timers;
-		}
-
-		public Player StartingPlayer
-		{
-			get
+			_startingPlayer = startingPlayer;
+			foreach (Board board in boards)
 			{
-				return _startingPlayer;
+				_boardsById.Add(board.Id, board);
 			}
-			set
+			foreach (Actor actor in actors)
 			{
-				value.ThrowIfNull("value");
-
-				_startingPlayer = value;
+				_actorsById.Add(actor.Id, actor);
 			}
-		}
-
-		public IEnumerable<Board> Boards
-		{
-			get
+			foreach (Message message in messages)
 			{
-				return _boardsById.Values;
+				_messagesById.Add(message.Id, message);
 			}
-			set
+			foreach (Timer timer in timers)
 			{
-				value.ThrowIfNull("value");
-
-				_boardsById.Clear();
-				foreach (Board board in value)
-				{
-					_boardsById.Add(board.Id, board);
-				}
-			}
-		}
-
-		public IEnumerable<Actor> Actors
-		{
-			get
-			{
-				return _actorsById.Values;
-			}
-			set
-			{
-				value.ThrowIfNull("value");
-
-				_actorsById.Clear();
-				foreach (Actor actor in value)
-				{
-					_actorsById.Add(actor.Id, actor);
-				}
-			}
-		}
-
-		public IEnumerable<Message> Messages
-		{
-			get
-			{
-				return _messagesById.Values;
-			}
-			set
-			{
-				_messagesById.Clear();
-				foreach (Message message in value)
-				{
-					_messagesById.Add(message.Id, message);
-				}
-			}
-		}
-
-		public IEnumerable<Timer> Timers
-		{
-			get
-			{
-				return _timersById.Values;
-			}
-			set
-			{
-				_timersById.Clear();
-				foreach (Timer timer in value)
-				{
-					_timersById.Add(timer.Id, timer);
-				}
+				_timersById.Add(timer.Id, timer);
 			}
 		}
 
@@ -132,14 +70,53 @@ namespace TextAdventure.Engine.Objects
 			{
 				return _version;
 			}
-			set
-			{
-				if (value < 1)
-				{
-					throw new ArgumentOutOfRangeException("value", "Version must be at least 1.");
-				}
+		}
 
-				_version = value;
+		public string Title
+		{
+			get
+			{
+				return _title;
+			}
+		}
+
+		public Player StartingPlayer
+		{
+			get
+			{
+				return _startingPlayer;
+			}
+		}
+
+		public IEnumerable<Board> Boards
+		{
+			get
+			{
+				return _boardsById.Values;
+			}
+		}
+
+		public IEnumerable<Actor> Actors
+		{
+			get
+			{
+				return _actorsById.Values;
+			}
+		}
+
+		public IEnumerable<Message> Messages
+		{
+			get
+			{
+				return _messagesById.Values;
+			}
+		}
+
+		public IEnumerable<Timer> Timers
+		{
+			get
+			{
+				return _timersById.Values;
 			}
 		}
 

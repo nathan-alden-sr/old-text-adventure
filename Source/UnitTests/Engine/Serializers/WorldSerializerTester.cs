@@ -12,7 +12,6 @@ using TextAdventure.Engine;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
-using TextAdventure.Engine.Serializers;
 using TextAdventure.Engine.Serializers.Xml;
 
 namespace TextAdventure.UnitTests.Engine.Serializers
@@ -96,6 +95,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			{
 				Assert.That(world.Id, Is.EqualTo(Guid.Parse("9846b8bf-6312-4dd0-a70b-022d1ea2d65e")));
 				Assert.That(world.Version, Is.EqualTo(1));
+				Assert.That(world.Title, Is.EqualTo("Title"));
 				Assert.That(world.Boards.CountEqual(1), Is.True);
 				Assert.That(world.Actors.CountEqual(1), Is.True);
 				Assert.That(world.Messages.CountEqual(1), Is.True);

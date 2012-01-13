@@ -31,7 +31,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 				world.Timers.Select(arg => TimerSerializer.Instance.Serialize(arg)),
 				world.AnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer<AnswerSelectedEvent>.Instance.Serialize(arg, "answerSelectedEventHandler")),
 				new XAttribute("id", world.Id),
-				new XAttribute("version", world.Version));
+				new XAttribute("version", world.Version),
+				new XAttribute("title", world.Title));
 		}
 
 		public World Deserialize(XElement worldElement)
@@ -41,6 +42,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new World(
 				(Guid)worldElement.Attribute("id"),
 				(int)worldElement.Attribute("version"),
+				(string)worldElement.Attribute("title"),
 				PlayerSerializer.Instance.Deserialize(worldElement.Element("startingPlayer")),
 				worldElement.Elements("board").Select(BoardSerializer.Instance.Deserialize),
 				worldElement.Elements("actor").Select(ActorSerializer.Instance.Deserialize),
