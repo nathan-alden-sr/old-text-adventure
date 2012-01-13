@@ -1,9 +1,9 @@
 using System;
-using System.Configuration;
 
 using Junior.Common;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
@@ -13,20 +13,20 @@ using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Renderers;
 using TextAdventure.WindowsGame.Updaters;
 using TextAdventure.WindowsGame.World;
+using TextAdventure.WindowsGame.Xna;
 
 namespace TextAdventure.WindowsGame
 {
-	public class TextAdventureGame : Game
+	public class TextAdventureGame : XnaGame
 	{
-		private static readonly FpsConfigurationSection _fpsConfigurationSection = (FpsConfigurationSection)ConfigurationManager.GetSection("fps");
-		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
-		private static readonly TimeConfigurationSection _timeConfigurationSection = (TimeConfigurationSection)ConfigurationManager.GetSection("time");
-		private readonly GraphicsDeviceManager _graphics;
+		private readonly IFpsConfiguration _fpsConfiguration;
 		private readonly InputManager _inputManager = new InputManager();
+		private readonly ILogConfiguration _logConfiguration;
 		private readonly Player _player;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
 		private readonly UpdaterCollection _updaterCollection = new UpdaterCollection();
 		private readonly Engine.Objects.World _world;
+		private readonly IWorldTimeConfiguration _worldTimeConfiguration;
 		private BoardRendererState _boardRendererState;
 		private FontContent _fontContent;
 		private FpsRendererState _fpsRendererState;
@@ -40,21 +40,30 @@ namespace TextAdventure.WindowsGame
 		private WorldInstance _worldInstance;
 		private WorldTimeRendererState _worldTimeRendererState;
 
-		public TextAdventureGame(Engine.Objects.World world, Player player)
+		public TextAdventureGame(
+			GraphicsDevice graphicsDevice,
+			Engine.Objects.World world,
+			Player player,
+			IFpsConfiguration fpsConfiguration,
+			ILogConfiguration logConfiguration,
+			IWorldTimeConfiguration worldTimeConfiguration)
+			: base(graphicsDevice)
 		{
 			world.ThrowIfNull("world");
 			player.ThrowIfNull("player");
+			fpsConfiguration.ThrowIfNull("fpsConfiguration");
+			logConfiguration.ThrowIfNull("logConfiguration");
+			worldTimeConfiguration.ThrowIfNull("worldTimeConfiguration");
 
 			_world = world;
 			_player = player;
-			_graphics = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
-			IsFixedTimeStep = false;
+			_fpsConfiguration = fpsConfiguration;
+			_logConfiguration = logConfiguration;
+			_worldTimeConfiguration = worldTimeConfiguration;
 		}
 
 		protected override void Initialize()
 		{
-			InitializeWindow();
 			CreateRendererStates();
 			AddRenderers();
 			AddUpdaters();
@@ -94,29 +103,19 @@ namespace TextAdventure.WindowsGame
 			base.Draw(gameTime);
 		}
 
-		private void InitializeWindow()
-		{
-			Window.Title = "Text Adventure";
-
-			_graphics.PreferredBackBufferWidth = Constants.GameWindow.PreferredBackBufferWidth;
-			_graphics.PreferredBackBufferHeight = Constants.GameWindow.PreferredBackBufferHeight;
-			_graphics.IsFullScreen = false;
-			_graphics.ApplyChanges();
-		}
-
 		private void CreateRendererStates()
 		{
 			_logRendererState = new LogRendererState
 			                    	{
-			                    		Visible = _logConfigurationSection.Visible,
-			                    		MaximumVisibleLogLines = _logConfigurationSection.MaximumVisibleLogLines,
-			                    		MinimumWindowWidth = _logConfigurationSection.MinimumWindowWidth,
-			                    		LogEntryLifetime = _logConfigurationSection.LogEntryLifetime,
-			                    		ShowTimestamps = _logConfigurationSection.ShowTimestamps
+			                    		Visible = _logConfiguration.Visible,
+			                    		MaximumVisibleLogLines = _logConfiguration.MaximumVisibleLogLines,
+			                    		MinimumWindowWidth = _logConfiguration.MinimumWindowWidth,
+			                    		LogEntryLifetime = _logConfiguration.LogEntryLifetime,
+			                    		ShowTimestamps = _logConfiguration.ShowTimestamps
 			                    	};
 			_worldTimeRendererState = new WorldTimeRendererState
 			                          	{
-			                          		Visible = _timeConfigurationSection.Visible
+			                          		Visible = _worldTimeConfiguration.Visible
 			                          	};
 
 			var worldTime = new WorldTime(_worldTimeRendererState);
@@ -127,7 +126,7 @@ namespace TextAdventure.WindowsGame
 			_boardRendererState = new BoardRendererState(_worldInstance.Player);
 			_fpsRendererState = new FpsRendererState
 			                    	{
-			                    		Visible = _fpsConfigurationSection.Visible
+			                    		Visible = _fpsConfiguration.Visible
 			                    	};
 		}
 
@@ -143,8 +142,6 @@ namespace TextAdventure.WindowsGame
 
 		private void AddUpdaters()
 		{
-			_updaterCollection.Add(new FpsInputHandler(_fpsRendererState));
-			_updaterCollection.Add(new LogInputHandler(_logRendererState));
 			_updaterCollection.Add(new WorldTimeInputHandler(_worldTimeRendererState));
 			_updaterCollection.Add(new PlayerInputHandler(_worldInstance));
 		}
@@ -154,8 +151,11 @@ namespace TextAdventure.WindowsGame
 			_worldInstance.ProcessCommandQueue();
 		}
 
+		#region Update states
+
 		private void UpdateFpsRendererState(TimeSpan elapsedGameTime)
 		{
+			_fpsRendererState.Visible = _fpsConfiguration.Visible;
 			_fpsRendererState.FrameRendered();
 			_fpsRendererState.UpdateElapsedGameTime(elapsedGameTime);
 			_fpsRendererState.UpdateFrameCount();
@@ -163,11 +163,13 @@ namespace TextAdventure.WindowsGame
 
 		private void UpdateWorldTimeRendererState(GameTime gameTime)
 		{
+			_worldTimeRendererState.Visible = _worldTimeConfiguration.Visible;
 			_worldTimeRendererState.UpdateWorldTimes(gameTime);
 		}
 
 		private void UpdateLogRendererState(GameTime gameTime)
 		{
+			_logRendererState.Visible = _logConfiguration.Visible;
 			_logRendererState.DequeueOldLogEntries(gameTime);
 		}
 
@@ -175,6 +177,10 @@ namespace TextAdventure.WindowsGame
 		{
 			_boardRendererState.Board = _worldInstance.CurrentBoard;
 		}
+
+		#endregion
+
+		#region Messages
 
 		private void ProcessMessage(TimeSpan totalGameTime)
 		{
@@ -227,5 +233,7 @@ namespace TextAdventure.WindowsGame
 
 			_inputManager.RelinquishFocus();
 		}
+
+		#endregion
 	}
 }

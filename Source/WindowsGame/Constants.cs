@@ -44,20 +44,6 @@ namespace TextAdventure.WindowsGame
 				ShadowOffset = Vector2.One;
 				TextColor = Color.White;
 			}
-
-			public static class Input
-			{
-				public static readonly IEnumerable<IEnumerable<Keys>> VisibilityToggleKeysSets;
-
-				static Input()
-				{
-					VisibilityToggleKeysSets = new[]
-					                           	{
-					                           		new[] { Keys.LeftControl, Keys.F },
-					                           		new[] { Keys.RightControl, Keys.F }
-					                           	};
-				}
-			}
 		}
 
 		public static class GameBackgroundRenderer
@@ -124,20 +110,6 @@ namespace TextAdventure.WindowsGame
 				             		{ LogEntryType.EventCanceled, Color.PaleVioletRed },
 				             		{ LogEntryType.EventHandled, Color.LightBlue }
 				             	};
-			}
-
-			public static class Input
-			{
-				public static readonly IEnumerable<IEnumerable<Keys>> VisibilityToggleKeysSets;
-
-				static Input()
-				{
-					VisibilityToggleKeysSets = new[]
-					                           	{
-					                           		new[] { Keys.LeftControl, Keys.L },
-					                           		new[] { Keys.RightControl, Keys.L }
-					                           	};
-				}
 			}
 		}
 
@@ -255,16 +227,6 @@ namespace TextAdventure.WindowsGame
 				public const Keys FasterKey = Keys.Add;
 				public const Keys PauseKey = Keys.Pause;
 				public const Keys SlowerKey = Keys.Subtract;
-				public static readonly IEnumerable<IEnumerable<Keys>> VisibilityToggleKeysSets;
-
-				static Input()
-				{
-					VisibilityToggleKeysSets = new[]
-					                           	{
-					                           		new[] { Keys.LeftControl, Keys.T },
-					                           		new[] { Keys.RightControl, Keys.T }
-					                           	};
-				}
 			}
 		}
 	}

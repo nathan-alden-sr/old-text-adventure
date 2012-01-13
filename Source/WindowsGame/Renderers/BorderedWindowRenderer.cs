@@ -13,8 +13,8 @@ namespace TextAdventure.WindowsGame.Renderers
 	{
 		public BorderedWindowRenderer()
 		{
-			Window = new BorderedWindow(Rectangle.Empty, Padding.None);
 			BorderColor = Color.Transparent;
+			Window = new BorderedWindow(Rectangle.Empty, Padding.None);
 		}
 
 		protected BorderedWindow Window
@@ -29,9 +29,22 @@ namespace TextAdventure.WindowsGame.Renderers
 			set;
 		}
 
+		protected virtual bool Visible
+		{
+			get
+			{
+				return true;
+			}
+		}
+
 		public override sealed void Render(IRendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
+
+			if (!Visible)
+			{
+				return;
+			}
 
 			BeforeRender(parameters);
 			RenderBackground(parameters);

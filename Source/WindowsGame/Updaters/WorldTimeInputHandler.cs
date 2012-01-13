@@ -1,10 +1,7 @@
-﻿using System.Linq;
-
-using Junior.Common;
+﻿using Junior.Common;
 
 using Microsoft.Xna.Framework.Input;
 
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
 
@@ -24,13 +21,9 @@ namespace TextAdventure.WindowsGame.Updaters
 				KeyDown,
 				null,
 				null,
-				Constants.WorldTimeRenderer.Input.VisibilityToggleKeysSets.Concat(
-					new[]
-						{
-							new[] { Constants.WorldTimeRenderer.Input.PauseKey },
-							new[] { Constants.WorldTimeRenderer.Input.FasterKey },
-							new[] { Constants.WorldTimeRenderer.Input.SlowerKey }
-						}));
+				Constants.WorldTimeRenderer.Input.PauseKey,
+				Constants.WorldTimeRenderer.Input.FasterKey,
+				Constants.WorldTimeRenderer.Input.SlowerKey);
 		}
 
 		public void Update(IUpdaterParameters parameters)
@@ -42,49 +35,42 @@ namespace TextAdventure.WindowsGame.Updaters
 
 		private void KeyDown(KeyboardState keyboardState, Keys keys)
 		{
-			if (keyboardState.IsSetOfKeysDown(Constants.WorldTimeRenderer.Input.VisibilityToggleKeysSets))
+			switch (keys)
 			{
-				_worldTimeRendererState.Visible = !_worldTimeRendererState.Visible;
-			}
-			else
-			{
-				switch (keys)
-				{
-					case Constants.WorldTimeRenderer.Input.PauseKey:
-						if (_worldTimeRendererState.Paused)
-						{
-							_worldTimeRendererState.Unpause();
-						}
-						else
-						{
-							_worldTimeRendererState.Pause();
-						}
-						break;
-					case Constants.WorldTimeRenderer.Input.FasterKey:
-						if (_worldTimeRendererState.Paused)
-						{
-							_worldTimeRendererState.Unpause();
-						}
-						else
-						{
-							_worldTimeRendererState.Speed *= 2;
-						}
-						break;
-					case Constants.WorldTimeRenderer.Input.SlowerKey:
-						if (_worldTimeRendererState.Paused)
-						{
-							_worldTimeRendererState.Unpause();
-						}
-						else if (new FloatToInt(_worldTimeRendererState.Speed) == new FloatToInt(Constants.WorldTimeRenderer.MinimumSpeedFactor))
-						{
-							_worldTimeRendererState.Pause();
-						}
-						else
-						{
-							_worldTimeRendererState.Speed /= 2;
-						}
-						break;
-				}
+				case Constants.WorldTimeRenderer.Input.PauseKey:
+					if (_worldTimeRendererState.Paused)
+					{
+						_worldTimeRendererState.Unpause();
+					}
+					else
+					{
+						_worldTimeRendererState.Pause();
+					}
+					break;
+				case Constants.WorldTimeRenderer.Input.FasterKey:
+					if (_worldTimeRendererState.Paused)
+					{
+						_worldTimeRendererState.Unpause();
+					}
+					else
+					{
+						_worldTimeRendererState.Speed *= 2;
+					}
+					break;
+				case Constants.WorldTimeRenderer.Input.SlowerKey:
+					if (_worldTimeRendererState.Paused)
+					{
+						_worldTimeRendererState.Unpause();
+					}
+					else if (new FloatToInt(_worldTimeRendererState.Speed) == new FloatToInt(Constants.WorldTimeRenderer.MinimumSpeedFactor))
+					{
+						_worldTimeRendererState.Pause();
+					}
+					else
+					{
+						_worldTimeRendererState.Speed /= 2;
+					}
+					break;
 			}
 		}
 	}

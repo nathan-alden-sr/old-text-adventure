@@ -21,14 +21,17 @@ namespace TextAdventure.WindowsGame.Renderers
 			BackgroundColor = Constants.FpsRenderer.BackgroundColor;
 		}
 
+		protected override bool Visible
+		{
+			get
+			{
+				return _state.Visible;
+			}
+		}
+
 		protected override void BeforeRender(IRendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
-
-			if (!_state.Visible)
-			{
-				return;
-			}
 
 			base.BeforeRender(parameters);
 
@@ -50,11 +53,6 @@ namespace TextAdventure.WindowsGame.Renderers
 		protected override void RenderContents(IRendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
-
-			if (!_state.Visible)
-			{
-				return;
-			}
 
 			SpriteFont font = parameters.FontContent.Calibri10Pt;
 			string text = _state.FrameCount + " fps";

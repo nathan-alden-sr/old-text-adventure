@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace TextAdventure.WindowsGame.Configuration
 {
-	public class LogConfigurationSection : ConfigurationSection
+	public class LogConfigurationSection : ConfigurationSection, ILogConfiguration
 	{
 		[ConfigurationProperty("visible", IsRequired = false, DefaultValue = false)]
 		public bool Visible
@@ -11,6 +11,10 @@ namespace TextAdventure.WindowsGame.Configuration
 			get
 			{
 				return (bool)this["visible"];
+			}
+			set
+			{
+				this["visible"] = value;
 			}
 		}
 
@@ -52,6 +56,11 @@ namespace TextAdventure.WindowsGame.Configuration
 			{
 				return (bool)this["showTimestamps"];
 			}
+		}
+
+		public override bool IsReadOnly()
+		{
+			return false;
 		}
 	}
 }
