@@ -61,6 +61,20 @@ namespace TextAdventure.WindowsGame.Forms
 			base.OnFormClosing(e);
 		}
 
+		protected override void OnResizeBegin(EventArgs e)
+		{
+			Game.Pause();
+
+			base.OnResizeBegin(e);
+		}
+
+		protected override void OnResizeEnd(EventArgs e)
+		{
+			Game.Unpause();
+
+			base.OnResizeEnd(e);
+		}
+
 		private void SetNormalViewSize()
 		{
 			Size = new Size(
