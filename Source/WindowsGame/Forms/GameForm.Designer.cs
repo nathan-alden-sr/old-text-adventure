@@ -64,6 +64,8 @@ namespace TextAdventure.WindowsGame.Forms
 			menuStrip.Size = new System.Drawing.Size(284, 24);
 			menuStrip.TabIndex = 0;
 			menuStrip.Text = "menuStrip1";
+			menuStrip.MenuActivate += new System.EventHandler(this.MenuStripOnMenuActivate);
+			menuStrip.MenuDeactivate += new System.EventHandler(this.MenuStripOnMenuDeactivate);
 			// 
 			// worldToolStripMenuItem
 			// 

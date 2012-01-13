@@ -190,6 +190,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Xna\XnaGame.cs" />
+    <Compile Include="Xna\XnaGameHost.cs" />
+    <Compile Include="Xna\XnaGameTime.cs" />
     <Compile Include="Xna\XnaServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -250,11 +252,6 @@
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Binaries\XNA\Microsoft.Xna.Framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Binaries\XNA\Microsoft.Xna.Framework.Game.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">

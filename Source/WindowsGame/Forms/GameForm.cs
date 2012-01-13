@@ -3,8 +3,9 @@ using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Microsoft.Xna.Framework.Graphics;
+using Junior.Common;
 
+using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Configuration;
 
 namespace TextAdventure.WindowsGame.Forms
@@ -15,23 +16,33 @@ namespace TextAdventure.WindowsGame.Forms
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
 		private static readonly WorldTimeConfigurationSection _worldTimeConfigurationSection = (WorldTimeConfigurationSection)ConfigurationManager.GetSection("worldTime");
 
-		public GameForm()
+		public GameForm(Engine.Objects.World world, Player startingPlayer)
 		{
-			InitializeComponent();
+			world.ThrowIfNull("world");
+			startingPlayer.ThrowIfNull("startingPlayer");
 
+			InitializeComponent();
 			SetNormalViewSize();
+
+			xnaControl.CreateGraphicsDevice();
 
 			fpsToolStripMenuItem.Checked = _fpsConfigurationSection.Visible;
 			logToolStripMenuItem.Checked = _logConfigurationSection.Visible;
 			worldTimeToolStripMenuItem.Checked = _worldTimeConfigurationSection.Visible;
+
+			Game = new TextAdventureGame(xnaControl.GraphicsDevice, world, startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection);
 		}
 
-		public GraphicsDevice GraphicsDevice
+		public bool CloseRequested
 		{
-			get
-			{
-				return xnaControl.GraphicsDevice;
-			}
+			get;
+			private set;
+		}
+
+		public TextAdventureGame Game
+		{
+			get;
+			private set;
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -40,6 +51,14 @@ namespace TextAdventure.WindowsGame.Forms
 			xnaControl.CreateGraphicsDevice();
 
 			base.OnShown(e);
+		}
+
+		protected override void OnFormClosing(FormClosingEventArgs e)
+		{
+			CloseRequested = true;
+			e.Cancel = true;
+
+			base.OnFormClosing(e);
 		}
 
 		private void SetNormalViewSize()
@@ -72,6 +91,16 @@ namespace TextAdventure.WindowsGame.Forms
 		private void WorldTimeToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			_worldTimeConfigurationSection.Visible = worldTimeToolStripMenuItem.Checked;
+		}
+
+		private void MenuStripOnMenuActivate(object sender, EventArgs e)
+		{
+			Game.Pause();
+		}
+
+		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
+		{
+			Game.Unpause();
 		}
 	}
 }

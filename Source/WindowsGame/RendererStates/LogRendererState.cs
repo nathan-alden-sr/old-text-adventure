@@ -4,12 +4,11 @@ using System.Linq;
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
-
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.WindowsGame.Renderers;
+using TextAdventure.WindowsGame.Xna;
 
 namespace TextAdventure.WindowsGame.RendererStates
 {
@@ -62,7 +61,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 			}
 		}
 
-		public void DequeueOldLogEntries(GameTime gameTime)
+		public void DequeueOldLogEntries(XnaGameTime gameTime)
 		{
 			gameTime.ThrowIfNull("gameTime");
 

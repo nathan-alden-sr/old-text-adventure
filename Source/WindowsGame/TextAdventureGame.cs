@@ -2,7 +2,6 @@ using System;
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Engine.Game.World;
@@ -81,7 +80,7 @@ namespace TextAdventure.WindowsGame
 			base.LoadContent();
 		}
 
-		protected override void Update(GameTime gameTime)
+		protected override void Update(XnaGameTime gameTime)
 		{
 			ProcessWorldInstanceCommandQueue();
 
@@ -96,7 +95,7 @@ namespace TextAdventure.WindowsGame
 			base.Update(gameTime);
 		}
 
-		protected override void Draw(GameTime gameTime)
+		protected override void Draw(XnaGameTime gameTime)
 		{
 			_rendererCollection.Render(GraphicsDevice, gameTime, _fontContent, _textureContent);
 
@@ -161,13 +160,13 @@ namespace TextAdventure.WindowsGame
 			_fpsRendererState.UpdateFrameCount();
 		}
 
-		private void UpdateWorldTimeRendererState(GameTime gameTime)
+		private void UpdateWorldTimeRendererState(XnaGameTime gameTime)
 		{
 			_worldTimeRendererState.Visible = _worldTimeConfiguration.Visible;
 			_worldTimeRendererState.UpdateWorldTimes(gameTime);
 		}
 
-		private void UpdateLogRendererState(GameTime gameTime)
+		private void UpdateLogRendererState(XnaGameTime gameTime)
 		{
 			_logRendererState.Visible = _logConfiguration.Visible;
 			_logRendererState.DequeueOldLogEntries(gameTime);
@@ -205,7 +204,7 @@ namespace TextAdventure.WindowsGame
 			_inputManager.ClaimFocus(Focus.Message);
 		}
 
-		private void MessageOpened(GameTime gameTime)
+		private void MessageOpened(XnaGameTime gameTime)
 		{
 			_updaterCollection.Remove(_messageFadeInAndScaleUpdater);
 			_messageFadeInAndScaleUpdater = null;
@@ -214,7 +213,7 @@ namespace TextAdventure.WindowsGame
 			_updaterCollection.Add(_messageInputHandler);
 		}
 
-		private void MessageClosing(GameTime gameTime)
+		private void MessageClosing(XnaGameTime gameTime)
 		{
 			_updaterCollection.Remove(_messageInputHandler);
 			_messageInputHandler = null;

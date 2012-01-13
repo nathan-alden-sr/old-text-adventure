@@ -5,6 +5,8 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.Xna;
+
 namespace TextAdventure.WindowsGame.Renderers
 {
 	public class RendererCollection
@@ -25,7 +27,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_renderers.Remove(renderer);
 		}
 
-		public void Render(GraphicsDevice graphicsDevice, GameTime gameTime, FontContent fontContent, TextureContent textureContent)
+		public void Render(GraphicsDevice graphicsDevice, XnaGameTime gameTime, FontContent fontContent, TextureContent textureContent)
 		{
 			graphicsDevice.ThrowIfNull("graphicsDevice");
 			gameTime.ThrowIfNull("gameTime");
@@ -43,11 +45,11 @@ namespace TextAdventure.WindowsGame.Renderers
 		private class RenderParameters : IRendererParameters
 		{
 			private readonly FontContent _fontContent;
-			private readonly GameTime _gameTime;
+			private readonly XnaGameTime _gameTime;
 			private readonly SpriteBatch _spriteBatch;
 			private readonly TextureContent _textureContent;
 
-			public RenderParameters(GameTime gameTime, SpriteBatch spriteBatch, FontContent fontContent, TextureContent textureContent)
+			public RenderParameters(XnaGameTime gameTime, SpriteBatch spriteBatch, FontContent fontContent, TextureContent textureContent)
 			{
 				_gameTime = gameTime;
 				_spriteBatch = spriteBatch;
@@ -57,7 +59,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				TransformMatrix = Matrix.Identity;
 			}
 
-			public GameTime GameTime
+			public XnaGameTime GameTime
 			{
 				get
 				{

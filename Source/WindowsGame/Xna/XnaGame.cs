@@ -13,8 +13,11 @@ namespace TextAdventure.WindowsGame.Xna
 	{
 		private readonly ContentManager _content;
 		private readonly Stopwatch _elapsedGameTimeStopwatch = new Stopwatch();
+		private readonly XnaGameTime _gameTime = new XnaGameTime();
 		private readonly GraphicsDevice _graphicsDevice;
 		private readonly Stopwatch _totalGameTimeStopwatch = new Stopwatch();
+		private bool _paused;
+		private bool _running;
 
 		public XnaGame(GraphicsDevice graphicsDevice)
 		{
@@ -27,7 +30,7 @@ namespace TextAdventure.WindowsGame.Xna
 			           	};
 		}
 
-		public GraphicsDevice GraphicsDevice
+		protected GraphicsDevice GraphicsDevice
 		{
 			get
 			{
@@ -35,7 +38,7 @@ namespace TextAdventure.WindowsGame.Xna
 			}
 		}
 
-		public ContentManager Content
+		protected ContentManager Content
 		{
 			get
 			{
@@ -49,8 +52,15 @@ namespace TextAdventure.WindowsGame.Xna
 			GC.SuppressFinalize(this);
 		}
 
-		public void Start()
+		public void Run()
 		{
+			if (_running)
+			{
+				throw new InvalidOperationException("Game is already running.");
+			}
+
+			_running = true;
+
 			Initialize();
 			LoadContent();
 
@@ -58,17 +68,54 @@ namespace TextAdventure.WindowsGame.Xna
 			_elapsedGameTimeStopwatch.Start();
 		}
 
+		public void Pause()
+		{
+			if (!_running)
+			{
+				throw new InvalidOperationException("Game is not running.");
+			}
+
+			_paused = true;
+			_totalGameTimeStopwatch.Stop();
+			_elapsedGameTimeStopwatch.Stop();
+		}
+
+		public void Unpause()
+		{
+			if (!_running)
+			{
+				throw new InvalidOperationException("Game is not running.");
+			}
+
+			_paused = false;
+			_totalGameTimeStopwatch.Start();
+			_elapsedGameTimeStopwatch.Start();
+		}
+
 		public void Tick()
 		{
+			if (!_running)
+			{
+				throw new InvalidOperationException("Game is not running.");
+			}
+			if (_paused)
+			{
+				return;
+			}
+
 			TimeSpan totalGameTime = _totalGameTimeStopwatch.Elapsed;
 			TimeSpan elapsedGameTime = _elapsedGameTimeStopwatch.Elapsed;
 
 			_elapsedGameTimeStopwatch.Restart();
 
-			var gameTime = new GameTime(totalGameTime, elapsedGameTime, false);
+			_gameTime.TotalGameTime = totalGameTime;
+			_gameTime.ElapsedGameTime = elapsedGameTime;
 
-			Update(gameTime);
-			Draw(gameTime);
+			Update(_gameTime);
+
+			_graphicsDevice.Clear(Color.Black);
+			Draw(_gameTime);
+			_graphicsDevice.Present();
 		}
 
 		~XnaGame()
@@ -84,11 +131,11 @@ namespace TextAdventure.WindowsGame.Xna
 		{
 		}
 
-		protected virtual void Update(GameTime gameTime)
+		protected virtual void Update(XnaGameTime gameTime)
 		{
 		}
 
-		protected virtual void Draw(GameTime gameTime)
+		protected virtual void Draw(XnaGameTime gameTime)
 		{
 		}
 
