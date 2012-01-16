@@ -166,7 +166,7 @@
     <Compile Include="Helpers\TimerHelper.cs" />
     <Compile Include="Extensions\KeyboardStateExtensions.cs" />
     <Compile Include="Managers\MessageAnswerSelectionManager.cs" />
-    <Compile Include="Padding.cs" />
+    <Compile Include="Windows\Padding.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
     <Compile Include="Windows\Window.cs" />
     <Compile Include="Windows\WindowHorizontalAlignment.cs" />

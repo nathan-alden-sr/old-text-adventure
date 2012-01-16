@@ -1,4 +1,4 @@
-﻿namespace TextAdventure.WindowsGame
+﻿namespace TextAdventure.WindowsGame.Windows
 {
 	public struct Padding
 	{

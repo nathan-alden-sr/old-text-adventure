@@ -3,6 +3,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.Windows;
+
 namespace TextAdventure.WindowsGame
 {
 	public class WindowTexture
