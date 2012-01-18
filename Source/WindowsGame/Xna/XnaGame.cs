@@ -111,6 +111,7 @@ namespace TextAdventure.WindowsGame.Xna
 			_gameTime.TotalGameTime = totalGameTime;
 			_gameTime.ElapsedGameTime = elapsedGameTime;
 
+			FrameworkDispatcher.Update();
 			Update(_gameTime);
 
 			_graphicsDevice.Clear(Color.Black);

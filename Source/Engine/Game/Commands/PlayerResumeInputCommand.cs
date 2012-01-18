@@ -6,7 +6,7 @@ namespace TextAdventure.Engine.Game.Commands
 	{
 		protected override CommandResult OnExecute(CommandContext context)
 		{
-			context.ThrowIfNull("worldInstance");
+			context.ThrowIfNull("context");
 
 			context.PlayerInput.Resume();
 

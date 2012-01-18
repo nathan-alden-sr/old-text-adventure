@@ -42,8 +42,8 @@ namespace TextAdventure.WindowsGame.Forms
 			this.fpsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -149,6 +149,11 @@ namespace TextAdventure.WindowsGame.Forms
 			this.worldTimeToolStripMenuItem.Text = "&World Time";
 			this.worldTimeToolStripMenuItem.Click += new System.EventHandler(this.WorldTimeToolStripMenuItemOnClick);
 			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.Filter = "World Assemblies (*.dll)|*.dll|All Files (*.*)|*.*";
+			this.openFileDialog.Title = "Open World";
+			// 
 			// xnaControl
 			// 
 			this.xnaControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -158,11 +163,6 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabIndex = 1;
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Text = "xnaControl1";
-			// 
-			// openFileDialog
-			// 
-			this.openFileDialog.Filter = "World Assemblies (*.dll)|*.dll|All Files (*.*)|*.*";
-			this.openFileDialog.Title = "Open World";
 			// 
 			// GameForm
 			// 

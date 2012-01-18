@@ -21,6 +21,7 @@ namespace TextAdventure.WindowsGame
 		private readonly IFpsConfiguration _fpsConfiguration;
 		private readonly InputManager _inputManager = new InputManager();
 		private readonly ILogConfiguration _logConfiguration;
+		private readonly MultimediaPlayer _multimediaPlayer = new MultimediaPlayer();
 		private readonly Player _player;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
 		private readonly UpdaterCollection _updaterCollection = new UpdaterCollection();
@@ -97,9 +98,23 @@ namespace TextAdventure.WindowsGame
 
 		protected override void Draw(XnaGameTime gameTime)
 		{
-			_rendererCollection.Render(GraphicsDevice, gameTime, _fontContent, _textureContent);
+			var spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			_rendererCollection.Render(spriteBatch, gameTime, _fontContent, _textureContent);
+
+			spriteBatch.Dispose();
 
 			base.Draw(gameTime);
+		}
+
+		protected override void OnDispose(bool disposing)
+		{
+			if (disposing)
+			{
+				_multimediaPlayer.Dispose();
+			}
+
+			base.OnDispose(disposing);
 		}
 
 		private void CreateRendererStates()
@@ -120,7 +135,7 @@ namespace TextAdventure.WindowsGame
 			var worldTime = new WorldTime(_worldTimeRendererState);
 			var worldObserver = new WorldObserver(worldTime, _logRendererState);
 
-			_worldInstance = new WorldInstance(_world, _player, worldTime, worldObserver);
+			_worldInstance = new WorldInstance(_world, _player, worldTime, worldObserver, _multimediaPlayer);
 
 			_boardRendererState = new BoardRendererState(_worldInstance.Player);
 			_fpsRendererState = new FpsRendererState

@@ -59,6 +59,7 @@
     <Compile Include="Game\Commands\CommandStatus.cs" />
     <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
+    <Compile Include="Game\Commands\PlaySoundEffectCommand.cs" />
     <Compile Include="Game\Commands\RestartTimerCommand.cs" />
     <Compile Include="Game\Commands\StopTimerCommand.cs" />
     <Compile Include="Game\Commands\DelayCommand.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Game\Messages\MessageQueue.cs" />
     <Compile Include="Game\Messages\MessageQueuePosition.cs" />
     <Compile Include="Game\World\EventResult.cs" />
+    <Compile Include="Game\World\IMultimediaPlayer.cs" />
     <Compile Include="Game\World\IWorldTime.cs" />
     <Compile Include="Game\World\IWorldObserver.cs" />
     <Compile Include="Game\World\PlayerInput.cs" />
@@ -137,12 +139,14 @@
     <Compile Include="Objects\MessageLineBreak.cs" />
     <Compile Include="Objects\MessageQuestion.cs" />
     <Compile Include="Objects\MessageText.cs" />
+    <Compile Include="Objects\SoundEffect.cs" />
     <Compile Include="Objects\Tile.cs" />
     <Compile Include="Objects\Layer.cs" />
     <Compile Include="Objects\Timer.cs" />
     <Compile Include="Objects\TimerState.cs" />
     <Compile Include="Serializers\Xml\ActorSerializer.cs" />
     <Compile Include="Serializers\Xml\ActorInstanceSerializer.cs" />
+    <Compile Include="Serializers\Xml\BinarySerializer.cs" />
     <Compile Include="Serializers\Xml\BoardExitDirectionSerializer.cs" />
     <Compile Include="Serializers\Xml\BoardExitSerializer.cs" />
     <Compile Include="Serializers\Xml\MessageAnswerSerializer.cs" />
@@ -153,6 +157,7 @@
     <Compile Include="Serializers\Xml\EventHandlerSerializer.cs" />
     <Compile Include="Serializers\Xml\MessageColorSerializer.cs" />
     <Compile Include="Serializers\Xml\MessageSerializer.cs" />
+    <Compile Include="Serializers\Xml\SoundEffectSerializer.cs" />
     <Compile Include="Serializers\Xml\SpriteLayerSerializer.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\World.cs" />

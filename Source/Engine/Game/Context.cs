@@ -81,6 +81,14 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
+		public IMultimediaPlayer MultimediaPlayer
+		{
+			get
+			{
+				return _worldInstance.MultimediaPlayer;
+			}
+		}
+
 		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)
 			where TEvent : Event
 		{
@@ -157,6 +165,11 @@ namespace TextAdventure.Engine.Game
 		public Actor GetActorById(Guid id)
 		{
 			return _worldInstance.World.GetActorById(id);
+		}
+
+		public SoundEffect GetSoundEffectById(Guid id)
+		{
+			return _worldInstance.World.GetSoundEffectById(id);
 		}
 
 		public ActorInstance GetActorInstanceById(Guid id)

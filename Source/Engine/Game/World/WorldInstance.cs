@@ -15,23 +15,26 @@ namespace TextAdventure.Engine.Game.World
 		private readonly DelegateDictionary<Guid, Board> _boardsById = new DelegateDictionary<Guid, Board>();
 		private readonly Dictionary<Board, CommandQueue> _commandQueuesByBoard = new Dictionary<Board, CommandQueue>();
 		private readonly MessageQueue _messageQueue = new MessageQueue();
+		private readonly IMultimediaPlayer _multimediaPlayer;
 		private readonly Player _player;
 		private readonly PlayerInput _playerInput = new PlayerInput();
 		private readonly Objects.World _world;
 		private readonly IWorldObserver _worldObserver;
 		private readonly IWorldTime _worldTime;
 
-		public WorldInstance(Objects.World world, Player player, IWorldTime worldTime, IWorldObserver worldObserver)
+		public WorldInstance(Objects.World world, Player player, IWorldTime worldTime, IWorldObserver worldObserver, IMultimediaPlayer multimediaPlayer)
 		{
 			world.ThrowIfNull("world");
 			player.ThrowIfNull("player");
 			worldTime.ThrowIfNull("worldTime");
 			worldObserver.ThrowIfNull("worldObserver");
+			multimediaPlayer.ThrowIfNull("multimediaPlayer");
 
 			_world = world;
 			_player = player;
 			_worldTime = worldTime;
 			_worldObserver = worldObserver;
+			_multimediaPlayer = multimediaPlayer;
 
 			PopulateCommandQueues(world, worldObserver);
 		}
@@ -89,6 +92,14 @@ namespace TextAdventure.Engine.Game.World
 			get
 			{
 				return _commandQueuesByBoard[CurrentBoard];
+			}
+		}
+
+		public IMultimediaPlayer MultimediaPlayer
+		{
+			get
+			{
+				return _multimediaPlayer;
 			}
 		}
 

@@ -60,6 +60,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			if (!_executingNestedCommand && _commandQueue.Any())
 			{
 				_executingNestedCommand = true;

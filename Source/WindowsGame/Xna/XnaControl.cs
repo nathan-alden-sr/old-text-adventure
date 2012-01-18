@@ -9,7 +9,6 @@ namespace TextAdventure.WindowsGame.Xna
 	{
 		public XnaControl()
 		{
-			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 			SetStyle(ControlStyles.DoubleBuffer, false);
 			SetStyle(ControlStyles.ResizeRedraw, true);
 			SetStyle(ControlStyles.UserPaint, true);
@@ -40,7 +39,8 @@ namespace TextAdventure.WindowsGame.Xna
 			                             		DepthStencilFormat = DepthFormat.Depth24Stencil8,
 			                             		DeviceWindowHandle = Handle,
 			                             		IsFullScreen = false,
-			                             		RenderTargetUsage = RenderTargetUsage.DiscardContents
+			                             		RenderTargetUsage = RenderTargetUsage.DiscardContents,
+			                             		PresentationInterval = PresentInterval.Immediate
 			                             	};
 
 			GraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, presentationParameters);

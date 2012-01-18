@@ -1,33 +1,42 @@
 using System;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Windows.Forms;
 
 using TextAdventure.WindowsGame.Forms;
-using TextAdventure.WindowsGame.Xna;
 
 namespace TextAdventure.WindowsGame
 {
 #if WINDOWS
 	internal static class Program
 	{
+		[return:MarshalAs(UnmanagedType.Bool)]
+		[SuppressUnmanagedCodeSecurity]
+		[DllImport("user32.dll", CharSet = CharSet.Auto)]
+		private static extern bool PeekMessage(out Message msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+
 		[STAThread]
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			Engine.Objects.World world = GetWorld();
-			var gameForm = new GameForm(world, world.StartingPlayer);
 
-			gameForm.Show();
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(true);
 
-			Application.DoEvents();
+			var _gameForm = new GameForm(world, world.StartingPlayer);
 
-			do
+			Application.Idle += (sender, args) => ApplicationOnIdle(_gameForm);
+			Application.Run(_gameForm);
+		}
+
+		private static void ApplicationOnIdle(GameForm gameForm)
+		{
+			Message message;
+
+			while (!PeekMessage(out message, IntPtr.Zero, 0, 0, 0))
 			{
-				gameForm.GameChanged = false;
-
-				using (var gameHost = new XnaGameHost(gameForm.Game, () => gameForm.CloseRequested || gameForm.GameChanged))
-				{
-					gameHost.Run();
-				}
-			} while (gameForm.GameChanged);
+				gameForm.Render();
+			}
 		}
 
 		private static Engine.Objects.World GetWorld()

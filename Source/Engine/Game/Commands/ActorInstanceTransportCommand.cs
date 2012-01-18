@@ -30,6 +30,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			return _actorInstance.ChangeCoordinate(context.CurrentBoard, context.Player, _coordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 		}
 	}

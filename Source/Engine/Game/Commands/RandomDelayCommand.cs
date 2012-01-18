@@ -1,5 +1,7 @@
 using System;
 
+using Junior.Common;
+
 namespace TextAdventure.Engine.Game.Commands
 {
 	public class RandomDelayCommand : Command
@@ -42,6 +44,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			if (_targetTotalWorldTime == null)
 			{
 				double percentage = _random.NextDouble();

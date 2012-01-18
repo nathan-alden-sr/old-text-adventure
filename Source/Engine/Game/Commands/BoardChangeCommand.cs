@@ -33,6 +33,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			Board oldBoard = context.CurrentBoard;
 
 			if (context.RaiseEvent(oldBoard.BoardExitedEventHandler, new BoardExitedEvent(oldBoard, _board)) == EventResult.Canceled)

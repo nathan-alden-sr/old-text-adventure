@@ -1,5 +1,7 @@
 using System;
 
+using Junior.Common;
+
 namespace TextAdventure.Engine.Game.Commands
 {
 	public class DelayCommand : Command
@@ -34,6 +36,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			if (_targetTotalWorldTime == null)
 			{
 				_targetTotalWorldTime = context.WorldTime.Total + _delay;

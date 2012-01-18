@@ -51,8 +51,14 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler.cs" />
+    <Compile Include="Introduction\SoundEffects\SoundEffects.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoundEffects.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Introduction\IntroductionWorld.cs" />
+    <Compile Include="UnmanagedMemoryStreamExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
@@ -68,7 +74,15 @@
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Introduction\SoundEffects\SoundEffects.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SoundEffects.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Introduction\SoundEffects\Windows Balloon.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

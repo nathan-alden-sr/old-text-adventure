@@ -30,6 +30,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			Coordinate actorCoordinate = _actorInstance.Coordinate;
 			Coordinate newCoordinate = ModifyCoordinate(actorCoordinate.X, actorCoordinate.Y);
 

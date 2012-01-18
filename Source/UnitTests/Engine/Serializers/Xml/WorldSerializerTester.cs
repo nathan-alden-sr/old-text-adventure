@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -14,7 +15,7 @@ using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Engine.Serializers.Xml;
 
-namespace TextAdventure.UnitTests.Engine.Serializers
+namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 {
 	public static class WorldSerializerTester
 	{
@@ -253,6 +254,12 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Assert.That(timer.ElapsedTime, Is.EqualTo(TimeSpan.FromSeconds(7)));
 			}
 
+			private static void AssertSoundEffect(SoundEffect soundEffect)
+			{
+				Assert.That(soundEffect.Id, Is.EqualTo(Guid.Parse("b98aaa37-100a-429c-b440-a0943e294a6c")));
+				Assert.That(soundEffect.Data, Is.EqualTo(Encoding.ASCII.GetBytes("test")));
+			}
+
 			private static void AssertWorldElement(XElement worldElement)
 			{
 				string xml = SerializeXElement(worldElement);
@@ -296,6 +303,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				Actor actor = world.Actors.Single();
 				Message message = world.Messages.Single();
 				Timer timer = world.Timers.Single();
+				SoundEffect soundEffect = world.SoundEffects.Single();
 
 				AssertStartingPlayer(board, startingPlayer);
 				AssertBoard(board);
@@ -306,6 +314,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 				AssertExit(board);
 				AssertMessage(message);
 				AssertTimer(timer);
+				AssertSoundEffect(soundEffect);
 
 				XElement serializedWorldElement = WorldSerializer.Instance.Serialize(world);
 

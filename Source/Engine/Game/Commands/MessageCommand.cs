@@ -28,6 +28,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			context.EnqueueMessage(_message, MessageQueuePosition.Last);
 
 			return CommandResult.Succeeded;

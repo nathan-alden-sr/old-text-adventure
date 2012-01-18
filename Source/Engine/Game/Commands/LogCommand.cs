@@ -22,6 +22,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			return CommandResult.Succeeded;
 		}
 	}

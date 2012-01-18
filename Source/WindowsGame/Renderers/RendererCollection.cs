@@ -27,16 +27,16 @@ namespace TextAdventure.WindowsGame.Renderers
 			_renderers.Remove(renderer);
 		}
 
-		public void Render(GraphicsDevice graphicsDevice, XnaGameTime gameTime, FontContent fontContent, TextureContent textureContent)
+		public void Render(SpriteBatch spriteBatch, XnaGameTime gameTime, FontContent fontContent, TextureContent textureContent)
 		{
-			graphicsDevice.ThrowIfNull("graphicsDevice");
+			spriteBatch.ThrowIfNull("spriteBatch");
 			gameTime.ThrowIfNull("gameTime");
 			fontContent.ThrowIfNull("fontContent");
 			textureContent.ThrowIfNull("textureContent");
 
 			foreach (IRenderer renderer in _renderers)
 			{
-				var parameters = new RenderParameters(gameTime, new SpriteBatch(graphicsDevice), fontContent, textureContent);
+				var parameters = new RenderParameters(gameTime, spriteBatch, fontContent, textureContent);
 
 				renderer.Render(parameters);
 			}

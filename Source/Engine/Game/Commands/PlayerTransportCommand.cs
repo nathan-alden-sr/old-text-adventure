@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+using Junior.Common;
+
 using TextAdventure.Engine.Common;
 
 namespace TextAdventure.Engine.Game.Commands
@@ -23,6 +25,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			return context.Player.ChangeLocation(context.CurrentBoard, _coordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 		}
 	}

@@ -32,6 +32,10 @@ namespace TextAdventure.Samples.Introduction
 		                                             	};
 		private static readonly Guid _playerId = Guid.Parse("bab8a3d6-8c1b-455c-b9ea-c12445270ac8");
 		private static readonly Size _size = new Size(19, 15);
+		private static readonly Guid[] _soundEffectIds = new[]
+		                                                 	{
+		                                                 		Guid.Parse("4f095264-d8bb-49da-b1bb-38c81e4a90a9")
+		                                                 	};
 
 		public IntroductionWorld()
 			: base(
@@ -42,7 +46,8 @@ namespace TextAdventure.Samples.Introduction
 				GetBoards().ToArray(),
 				GetActors().ToArray(),
 				GetMessages().ToArray(),
-				GetTimers().ToArray())
+				GetTimers().ToArray(),
+				GetSoundEffects().ToArray())
 		{
 		}
 
@@ -91,6 +96,11 @@ namespace TextAdventure.Samples.Introduction
 		private static IEnumerable<Timer> GetTimers()
 		{
 			yield break;
+		}
+
+		private static IEnumerable<SoundEffect> GetSoundEffects()
+		{
+			yield return new SoundEffect(_soundEffectIds[0], Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)

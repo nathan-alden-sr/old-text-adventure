@@ -141,6 +141,11 @@ namespace TextAdventure.Engine.Game.Commands
 			return new StopTimerCommand(timer);
 		}
 
+		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect)
+		{
+			return new PlaySoundEffectCommand(soundEffect);
+		}
+
 		public static DelayCommand Delay(TimeSpan delay)
 		{
 			return new DelayCommand(delay);

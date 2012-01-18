@@ -48,6 +48,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
+			context.ThrowIfNull("context");
+
 			ActorInstanceLayer actorInstanceLayer = context.CurrentBoard.ActorInstanceLayer;
 			Sprite foregroundSprite = context.CurrentBoard.ForegroundLayer[_coordinate];
 			ActorInstance existingActorInstance = actorInstanceLayer[_coordinate];

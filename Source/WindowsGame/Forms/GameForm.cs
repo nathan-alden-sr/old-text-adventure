@@ -16,71 +16,31 @@ namespace TextAdventure.WindowsGame.Forms
 		private static readonly FpsConfigurationSection _fpsConfigurationSection = (FpsConfigurationSection)ConfigurationManager.GetSection("fps");
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
 		private static readonly WorldTimeConfigurationSection _worldTimeConfigurationSection = (WorldTimeConfigurationSection)ConfigurationManager.GetSection("worldTime");
+		private TextAdventureGame _game;
+		private Player _startingPlayer;
+		private Engine.Objects.World _world;
 
 		public GameForm(Engine.Objects.World world, Player startingPlayer)
 		{
+			_world = world;
+			_startingPlayer = startingPlayer;
 			world.ThrowIfNull("world");
 			startingPlayer.ThrowIfNull("startingPlayer");
 
 			InitializeComponent();
 			SetNormalViewSize();
 
-			xnaControl.CreateGraphicsDevice();
-
 			fpsToolStripMenuItem.Checked = _fpsConfigurationSection.Visible;
 			logToolStripMenuItem.Checked = _logConfigurationSection.Visible;
 			worldTimeToolStripMenuItem.Checked = _worldTimeConfigurationSection.Visible;
-
-			LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, world, startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), world);
 		}
 
-		public bool CloseRequested
+		public void Render()
 		{
-			get;
-			private set;
-		}
-
-		public bool GameChanged
-		{
-			get;
-			set;
-		}
-
-		public TextAdventureGame Game
-		{
-			get;
-			private set;
-		}
-
-		protected override void OnShown(EventArgs e)
-		{
-			SetNormalViewSize();
-			xnaControl.CreateGraphicsDevice();
-
-			base.OnShown(e);
-		}
-
-		protected override void OnFormClosing(FormClosingEventArgs e)
-		{
-			CloseRequested = true;
-			GameChanged = false;
-			e.Cancel = true;
-
-			base.OnFormClosing(e);
-		}
-
-		protected override void OnResizeBegin(EventArgs e)
-		{
-			Game.Pause();
-
-			base.OnResizeBegin(e);
-		}
-
-		protected override void OnResizeEnd(EventArgs e)
-		{
-			Game.Unpause();
-
-			base.OnResizeEnd(e);
+			if (_game != null)
+			{
+				_game.Tick();
+			}
 		}
 
 		private void SetNormalViewSize()
@@ -97,7 +57,6 @@ namespace TextAdventure.WindowsGame.Forms
 				Engine.Objects.World world = WorldLoader.Instance.FromAssembly(path);
 
 				LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, world, world.StartingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), world);
-				GameChanged = true;
 			}
 			catch (Exception exception)
 			{
@@ -105,10 +64,56 @@ namespace TextAdventure.WindowsGame.Forms
 			}
 		}
 
+		private void CloseGame()
+		{
+			if (_game == null)
+			{
+				return;
+			}
+
+			_game.Dispose();
+			_game = null;
+		}
+
 		private void LoadGame(TextAdventureGame game, Engine.Objects.World world)
 		{
+			CloseGame();
+
 			Text = world.Title + " - Text Adventure";
-			Game = game;
+			_game = game;
+			_game.Run();
+		}
+
+		protected override void OnShown(EventArgs e)
+		{
+			SetNormalViewSize();
+			xnaControl.CreateGraphicsDevice();
+			LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, _world, _startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), _world);
+			_world = null;
+			_startingPlayer = null;
+
+			base.OnShown(e);
+		}
+
+		protected override void OnFormClosing(FormClosingEventArgs e)
+		{
+			CloseGame();
+
+			base.OnFormClosing(e);
+		}
+
+		protected override void OnResizeBegin(EventArgs e)
+		{
+			_game.Pause();
+
+			base.OnResizeBegin(e);
+		}
+
+		protected override void OnResizeEnd(EventArgs e)
+		{
+			_game.Unpause();
+
+			base.OnResizeEnd(e);
 		}
 
 		private void ExitToolStripMenuItemOnClick(object sender, EventArgs e)
@@ -138,7 +143,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void OpenToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
-			Game.Pause();
+			_game.Pause();
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
@@ -146,18 +151,28 @@ namespace TextAdventure.WindowsGame.Forms
 			}
 			else
 			{
-				Game.Unpause();
+				_game.Unpause();
 			}
 		}
 
 		private void MenuStripOnMenuActivate(object sender, EventArgs e)
 		{
-			Game.Pause();
+			if (_game != null)
+			{
+				_game.Pause();
+			}
+
+			fpsToolStripMenuItem.Enabled = _game != null;
+			logToolStripMenuItem.Enabled = _game != null;
+			worldTimeToolStripMenuItem.Enabled = _game != null;
 		}
 
 		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
 		{
-			Game.Unpause();
+			if (_game != null)
+			{
+				_game.Unpause();
+			}
 		}
 	}
 }

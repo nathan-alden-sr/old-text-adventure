@@ -51,12 +51,12 @@
     <Compile Include="Engine\Common\ColorTester.cs" />
     <Compile Include="Engine\Common\CoordinateTester.cs" />
     <Compile Include="Engine\Common\SizeTester.cs" />
-    <Compile Include="Engine\Serializers\SerializerResources.Designer.cs">
+    <Compile Include="Engine\Serializers\Xml\SerializerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SerializerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Engine\Serializers\WorldSerializerTester.cs" />
+    <Compile Include="Engine\Serializers\Xml\WorldSerializerTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,13 +83,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Engine\Serializers\SerializerResources.resx">
+    <EmbeddedResource Include="Engine\Serializers\Xml\SerializerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SerializerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Engine\Serializers\World.xml">
+    <Content Include="Engine\Serializers\Xml\World.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

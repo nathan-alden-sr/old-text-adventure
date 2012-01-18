@@ -70,9 +70,14 @@ namespace TextAdventure.UnitTests.Engine.Common
 			[TestCase(Single.MaxValue)]
 			[TestCase(-0.1f)]
 			[TestCase(1.1f)]
-			public void Must_not_allow_out_of_range_values(float value)
+			public void Must_clamp_out_of_range_values(float value)
 			{
-				Assert.Throws<ArgumentOutOfRangeException>(() => new Color(value, value, value, value));
+				var systemUnderTest = new Color(value, value, value, value);
+
+				Assert.That(systemUnderTest.R, Is.AtLeast(0f).And.AtMost(1.0f));
+				Assert.That(systemUnderTest.G, Is.AtLeast(0f).And.AtMost(1.0f));
+				Assert.That(systemUnderTest.B, Is.AtLeast(0f).And.AtMost(1.0f));
+				Assert.That(systemUnderTest.A, Is.AtLeast(0f).And.AtMost(1.0f));
 			}
 		}
 
