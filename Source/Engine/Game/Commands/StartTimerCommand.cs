@@ -21,7 +21,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				yield return "ID: " + _timer.Id;
+				yield return FormatNamedObjectDetailText("Timer", _timer);
 			}
 		}
 

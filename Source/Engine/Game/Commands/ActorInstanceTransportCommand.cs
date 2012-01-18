@@ -24,6 +24,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
+				yield return FormatNamedObjectDetailText("Actor instance", _actorInstance);
 				yield return "Coordinate: " + _coordinate;
 			}
 		}

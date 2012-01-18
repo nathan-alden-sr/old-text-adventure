@@ -4,7 +4,7 @@ using Junior.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Song : IUnique, INamedObject, IDescribedObject
+	public class Song : INamedObject, IDescribedObject
 	{
 		private readonly byte[] _data;
 		private readonly Guid _id;

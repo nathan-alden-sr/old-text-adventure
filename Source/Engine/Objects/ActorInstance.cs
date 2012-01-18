@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class ActorInstance : Sprite, IUnique, INamedObject, IDescribedObject
+	public class ActorInstance : Sprite, INamedObject, IDescribedObject
 	{
 		private readonly Guid _actorId;
 		private readonly IEventHandler<ActorInstanceCreatedEvent> _actorInstanceCreatedEventHandler;

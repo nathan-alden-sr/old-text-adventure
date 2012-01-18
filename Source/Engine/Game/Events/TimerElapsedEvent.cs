@@ -15,7 +15,7 @@ namespace TextAdventure.Engine.Game.Events
 		{
 			get
 			{
-				yield return "ID: " + Target.Id;
+				yield return FormatNamedObjectDetailText("Timer", Target);
 				yield return "Interval: " + Target.Interval.ToString("c");
 			}
 		}

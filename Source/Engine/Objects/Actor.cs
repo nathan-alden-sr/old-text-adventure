@@ -4,7 +4,7 @@ using Junior.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Actor : IUnique, INamedObject, IDescribedObject
+	public class Actor : INamedObject, IDescribedObject
 	{
 		private readonly Guid _id;
 		private Character _character;

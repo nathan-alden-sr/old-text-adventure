@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using TextAdventure.Engine.Game.Commands;
 using TextAdventure.WindowsGame.Fmod;
 
 namespace TextAdventure.WindowsGame.Managers
@@ -15,7 +16,7 @@ namespace TextAdventure.WindowsGame.Managers
 			GC.SuppressFinalize(this);
 		}
 
-		public void Play(Guid id, byte[] data)
+		public void Play(Guid id, byte[] data, SoundParameters parameters)
 		{
 			foreach (Sound existingSound in _soundsById.Values)
 			{
@@ -30,7 +31,7 @@ namespace TextAdventure.WindowsGame.Managers
 				_soundsById.Add(id, sound);
 			}
 
-			sound.Play();
+			sound.Play(parameters);
 		}
 
 		public void Stop()

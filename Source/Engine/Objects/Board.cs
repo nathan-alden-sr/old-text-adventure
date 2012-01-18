@@ -9,7 +9,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Board : IUnique, INamedObject, IDescribedObject
+	public class Board : INamedObject, IDescribedObject
 	{
 		private static readonly Random _random = new Random();
 		private readonly ActorInstanceLayer _actorInstanceLayer;

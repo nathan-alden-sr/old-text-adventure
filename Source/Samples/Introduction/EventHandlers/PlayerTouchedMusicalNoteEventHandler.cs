@@ -6,7 +6,7 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Samples.Introduction.EventHandlers
 {
-	public class PlayerTouchedActorInstanceEventHandler2 : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
+	public class PlayerTouchedMusicalNoteEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 	{
 		private bool _playing;
 
@@ -16,7 +16,7 @@ namespace TextAdventure.Samples.Introduction.EventHandlers
 			{
 				Song song = context.GetSongById(Guid.Parse("9c01844c-4786-4a93-8092-66036666bf2f"));
 
-				context.EnqueueCommand(Commands.PlaySong(song));
+				context.EnqueueCommand(Commands.PlaySong(song, new SoundParameters(0.3f)));
 			}
 			else
 			{

@@ -5,6 +5,8 @@ using FMOD;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Commands;
+
 namespace TextAdventure.WindowsGame.Fmod
 {
 	public class Sound : IDisposable
@@ -29,19 +31,27 @@ namespace TextAdventure.WindowsGame.Fmod
 
 			if (result != RESULT.OK)
 			{
-				throw new Exception("Failed to create FMOD sound.");
+				throw new Exception(GetExceptionMessage("Failed to create FMOD sound.", result));
 			}
 
 			_soundSystem = soundSystem;
 		}
 
-		public void Play()
+		public void Dispose()
 		{
-			RESULT result = _soundSystem.System.playSound(CHANNELINDEX.FREE, _sound, false, ref _channel);
+			_sound.release();
+		}
+
+		public void Play(SoundParameters parameters)
+		{
+			RESULT result = _soundSystem.System.playSound(CHANNELINDEX.FREE, _sound, true, ref _channel);
+
+			_channel.setVolume(parameters.Volume);
+			_channel.setPaused(false);
 
 			if (result != RESULT.OK)
 			{
-				throw new Exception("Failed to play sound.");
+				throw new Exception(GetExceptionMessage("Failed to play sound.", result));
 			}
 		}
 
@@ -53,9 +63,9 @@ namespace TextAdventure.WindowsGame.Fmod
 			}
 		}
 
-		public void Dispose()
+		private static string GetExceptionMessage(string message, RESULT result)
 		{
-			_sound.release();
+			return String.Format("{0}{1}{1}Error {2}", message, Environment.NewLine, result);
 		}
 	}
 }

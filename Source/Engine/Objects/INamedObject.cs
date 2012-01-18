@@ -1,6 +1,6 @@
 ﻿namespace TextAdventure.Engine.Objects
 {
-	public interface INamedObject
+	public interface INamedObject : IUnique
 	{
 		string Name
 		{

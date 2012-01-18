@@ -59,6 +59,7 @@
     <Compile Include="Game\Commands\CommandStatus.cs" />
     <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
+    <Compile Include="Game\Commands\SoundParameters.cs" />
     <Compile Include="Game\Commands\StopSongCommand.cs" />
     <Compile Include="Game\Commands\PlaySongCommand.cs" />
     <Compile Include="Game\Commands\PlaySoundEffectCommand.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Game\Commands\RetryCommand.cs" />
     <Compile Include="Game\Commands\StartTimerCommand.cs" />
     <Compile Include="Game\Commands\TotalRepeats.cs" />
+    <Compile Include="Game\Commands\Volume.cs" />
+    <Compile Include="Game\DetailTextFormatter.cs" />
     <Compile Include="Game\Events\ActorInstanceDestroyedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceTouchedActorInstanceEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceTouchedPlayerEvent.cs" />

@@ -17,8 +17,7 @@
     <XnaCrossPlatformGroupID>eb41dea5-b024-417f-a72f-3dcde654d65e</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Text Adventure.ico</ApplicationIcon>
-    <Thumbnail>
-    </Thumbnail>
+    <Thumbnail>Game Thumbnail.png</Thumbnail>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -38,8 +37,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://github.com/NathanAlden/TextAdventure</SupportUrl>
     <ProductName>Text Adventure</ProductName>
-    <PublisherName>Nathan Alden</PublisherName>
+    <PublisherName>Nathan Alden, Sr.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
@@ -96,7 +96,10 @@
     </Compile>
     <Compile Include="Configuration\IFpsConfiguration.cs" />
     <Compile Include="Configuration\ILogConfiguration.cs" />
+    <Compile Include="Configuration\IVolumeConfiguration.cs" />
     <Compile Include="Configuration\IWorldTimeConfiguration.cs" />
+    <Compile Include="Configuration\VolumeConfigurationSection.cs" />
+    <Compile Include="Configuration\VolumeTypeConverter.cs" />
     <Compile Include="Fmod\SoundSystem.cs" />
     <Compile Include="Fmod\fmod.cs" />
     <Compile Include="Fmod\fmod_dsp.cs" />
@@ -275,6 +278,11 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\Binaries\FMOD\fmodex.dll">
+      <Link>fmodex.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Game Thumbnail.png" />
     <Content Include="Text Adventure.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -290,7 +298,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)..\Binaries\FMOD\fmodex.dll" "$(TargetDir)fmodex.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 

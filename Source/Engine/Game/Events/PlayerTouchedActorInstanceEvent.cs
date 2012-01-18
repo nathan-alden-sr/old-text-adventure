@@ -27,8 +27,8 @@ namespace TextAdventure.Engine.Game.Events
 		{
 			get
 			{
-				yield return "ID: " + Target.Id;
-				yield return "Actor ID: " + Target.ActorId;
+				yield return FormatNamedObjectDetailText("Actor instance", Target);
+				yield return FormatIdDetailText("Actor", Target.ActorId);
 				yield return "Touch direction: " + _touchDirection;
 			}
 		}

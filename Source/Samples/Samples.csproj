@@ -50,8 +50,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler2.cs" />
-    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler1.cs" />
+    <Compile Include="Introduction\EventHandlers\PlayerTouchedMusicalNoteEventHandler.cs" />
+    <Compile Include="Introduction\EventHandlers\PlayerTouchedSmileyEventHandler2.cs" />
     <Compile Include="Introduction\Songs\Songs.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

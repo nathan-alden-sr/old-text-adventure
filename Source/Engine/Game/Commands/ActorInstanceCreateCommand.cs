@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using Junior.Common;
 
@@ -44,6 +45,15 @@ namespace TextAdventure.Engine.Game.Commands
 			_actorInstanceTouchedActorInstanceEventHandler = actorInstanceTouchedActorInstanceEventHandler;
 			_playerTouchedActorInstanceEventHandler = playerTouchedActorInstanceEventHandler;
 			_actorInstanceMovedEventHandler = actorInstanceMovedEventHandler;
+		}
+
+		public override IEnumerable<string> Details
+		{
+			get
+			{
+				yield return FormatIdDetailText("Actor instance", _actorInstanceId);
+				yield return FormatNamedObjectDetailText("Actor", _actor);
+			}
 		}
 
 		protected override CommandResult OnExecute(CommandContext context)

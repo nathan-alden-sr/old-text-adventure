@@ -40,6 +40,11 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
+				foreach (string detail in base.Details)
+				{
+					yield return detail;
+				}
+
 				string directions = String.Join(", ", _directions.Select(arg => arg.ToString()));
 
 				yield return "Possible directions: " + directions;

@@ -23,7 +23,8 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				yield return "Actor instance ID: " + _actorInstance.Id;
+				yield return FormatNamedObjectDetailText("Actor instance", _actorInstance);
+				yield return FormatIdDetailText("Actor", _actorInstance.ActorId);
 			}
 		}
 

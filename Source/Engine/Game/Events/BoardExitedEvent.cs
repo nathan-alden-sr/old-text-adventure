@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Junior.Common;
 
 using TextAdventure.Engine.Objects;
@@ -6,23 +8,23 @@ namespace TextAdventure.Engine.Game.Events
 {
 	public class BoardExitedEvent : Event
 	{
-		private readonly Board _currentBoard;
 		private readonly Board _newBoard;
+		private readonly Board _oldBoard;
 
-		public BoardExitedEvent(Board currentBoard, Board newBoard)
+		public BoardExitedEvent(Board oldBoard, Board newBoard)
 		{
-			currentBoard.ThrowIfNull("currentBoard");
+			oldBoard.ThrowIfNull("OldBoard");
 			newBoard.ThrowIfNull("newBoard");
 
-			_currentBoard = currentBoard;
+			_oldBoard = oldBoard;
 			_newBoard = newBoard;
 		}
 
-		public Board CurrentBoard
+		public Board OldBoard
 		{
 			get
 			{
-				return _currentBoard;
+				return _oldBoard;
 			}
 		}
 
@@ -31,6 +33,15 @@ namespace TextAdventure.Engine.Game.Events
 			get
 			{
 				return _newBoard;
+			}
+		}
+
+		public override IEnumerable<string> Details
+		{
+			get
+			{
+				yield return FormatNamedObjectDetailText("Old board:", OldBoard);
+				yield return FormatNamedObjectDetailText("New board:", NewBoard);
 			}
 		}
 	}

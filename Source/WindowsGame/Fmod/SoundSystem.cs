@@ -15,7 +15,7 @@ namespace TextAdventure.WindowsGame.Fmod
 
 			if (result != RESULT.OK)
 			{
-				throw new Exception("Failed to create FMOD system.");
+				throw new Exception(GetExceptionMessage("Failed to create FMOD system.", result));
 			}
 
 			uint version = 0;
@@ -24,14 +24,14 @@ namespace TextAdventure.WindowsGame.Fmod
 
 			if (result != RESULT.OK || version < VERSION.number)
 			{
-				throw new Exception("Failed to create FMOD system.");
+				throw new Exception(GetExceptionMessage("Failed to create FMOD system.", result));
 			}
 
 			result = System.init(32, INITFLAGS.NORMAL, IntPtr.Zero);
 
 			if (result != RESULT.OK)
 			{
-				throw new Exception("Failed to create FMOD system.");
+				throw new Exception(GetExceptionMessage("Failed to create FMOD system.", result));
 			}
 		}
 
@@ -46,6 +46,11 @@ namespace TextAdventure.WindowsGame.Fmod
 		public void Release()
 		{
 			_system.release();
+		}
+
+		private static string GetExceptionMessage(string message, RESULT result)
+		{
+			return String.Format("{0}{1}{1}Error {2}", message, Environment.NewLine, result);
 		}
 	}
 }

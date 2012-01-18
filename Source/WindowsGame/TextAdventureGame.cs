@@ -21,7 +21,7 @@ namespace TextAdventure.WindowsGame
 		private readonly IFpsConfiguration _fpsConfiguration;
 		private readonly InputManager _inputManager = new InputManager();
 		private readonly ILogConfiguration _logConfiguration;
-		private readonly MultimediaPlayer _multimediaPlayer = new MultimediaPlayer();
+		private readonly MultimediaPlayer _multimediaPlayer;
 		private readonly Player _player;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
 		private readonly UpdaterCollection _updaterCollection = new UpdaterCollection();
@@ -46,7 +46,8 @@ namespace TextAdventure.WindowsGame
 			Player player,
 			IFpsConfiguration fpsConfiguration,
 			ILogConfiguration logConfiguration,
-			IWorldTimeConfiguration worldTimeConfiguration)
+			IWorldTimeConfiguration worldTimeConfiguration,
+			IVolumeConfiguration volumeConfiguration)
 			: base(graphicsDevice)
 		{
 			world.ThrowIfNull("world");
@@ -54,12 +55,14 @@ namespace TextAdventure.WindowsGame
 			fpsConfiguration.ThrowIfNull("fpsConfiguration");
 			logConfiguration.ThrowIfNull("logConfiguration");
 			worldTimeConfiguration.ThrowIfNull("worldTimeConfiguration");
+			volumeConfiguration.ThrowIfNull("volumeConfiguration");
 
 			_world = world;
 			_player = player;
 			_fpsConfiguration = fpsConfiguration;
 			_logConfiguration = logConfiguration;
 			_worldTimeConfiguration = worldTimeConfiguration;
+			_multimediaPlayer = new MultimediaPlayer(volumeConfiguration);
 		}
 
 		protected override void Initialize()

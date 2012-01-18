@@ -26,7 +26,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				yield return "Changed to board ID: " + _board.Id;
+				yield return FormatNamedObjectDetailText("Changed to board", _board);
 				yield return "Player coordinate: " + _playerCoordinate;
 			}
 		}
@@ -44,7 +44,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 			CommandResult result = context.Player.ChangeLocation(_board, _playerCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 
-			context.RaiseEvent(_board.BoardEnteredEventHandler, new BoardEnteredEvent(_board, oldBoard));
+			context.RaiseEvent(_board.BoardEnteredEventHandler, new BoardEnteredEvent(oldBoard, _board));
 
 			return result;
 		}

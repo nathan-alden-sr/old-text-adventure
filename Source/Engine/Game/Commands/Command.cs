@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Objects;
+
 namespace TextAdventure.Engine.Game.Commands
 {
 	public abstract class Command : IUnique, ILoggable
@@ -179,6 +181,31 @@ namespace TextAdventure.Engine.Game.Commands
 			ContextId = context.IfNotNull(arg => (Guid?)arg.Id);
 
 			return this;
+		}
+
+		protected static string FormatIdDetailText(string prefix, Guid id)
+		{
+			prefix.ThrowIfNull("prefix");
+
+			return DetailTextFormatter.Instance.FormatId(prefix, id);
+		}
+
+		protected static string FormatUniqueDetailText(string prefix, IUnique unique)
+		{
+			prefix.ThrowIfNull("prefix");
+			unique.ThrowIfNull("unique");
+
+			return DetailTextFormatter.Instance.FormatUnique(prefix, unique);
+		}
+
+		protected static string FormatNamedObjectDetailText(string prefix, INamedObject namedObject)
+		{
+			prefix.ThrowIfNull("prefix");
+			namedObject.ThrowIfNull("namedObject");
+
+			return namedObject.Name.Length == 0
+				? DetailTextFormatter.Instance.FormatUnique(prefix, namedObject)
+				: DetailTextFormatter.Instance.FormatNamedObject(prefix, namedObject);
 		}
 
 		private static void SetPaused(Command command, bool paused)

@@ -41,10 +41,10 @@ namespace TextAdventure.Engine.Game.Events
 		{
 			get
 			{
-				yield return "Source ID: " + _source.Id;
-				yield return "Source actor ID: " + _source.ActorId;
-				yield return "Target ID: " + Target.Id;
-				yield return "Target actor ID: " + Target.ActorId;
+				yield return FormatNamedObjectDetailText("Source actor instance", _source);
+				yield return FormatIdDetailText("Source actor", _source.ActorId);
+				yield return FormatNamedObjectDetailText("Target actor instance", Target);
+				yield return FormatIdDetailText("Target actor", Target.ActorId);
 				yield return "Touch direction: " + _touchDirection;
 			}
 		}

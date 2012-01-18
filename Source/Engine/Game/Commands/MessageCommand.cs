@@ -22,7 +22,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				yield return "Message ID: " + _message.Id;
+				yield return FormatNamedObjectDetailText("Message", _message);
 			}
 		}
 

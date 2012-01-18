@@ -4,7 +4,7 @@ using Junior.Common;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class SoundEffect : IUnique, INamedObject, IDescribedObject
+	public class SoundEffect : INamedObject, IDescribedObject
 	{
 		private readonly byte[] _data;
 		private readonly Guid _id;

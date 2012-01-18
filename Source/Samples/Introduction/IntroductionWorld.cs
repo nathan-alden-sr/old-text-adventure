@@ -77,8 +77,8 @@ namespace TextAdventure.Samples.Introduction
 
 		private static IEnumerable<Actor> GetActors()
 		{
-			yield return new Actor(_actorIds[0], "", "", new Character(2, Color.Yellow, Color.TransparentBlack));
-			yield return new Actor(_actorIds[1], "", "", new Character(14, Color.Cyan, Color.TransparentBlack));
+			yield return new Actor(_actorIds[0], "Smiley", "", new Character(2, Color.Yellow, Color.TransparentBlack));
+			yield return new Actor(_actorIds[1], "Musical Note", "", new Character(14, Color.Cyan, Color.TransparentBlack));
 		}
 
 		private static IEnumerable<Message> GetMessages()
@@ -108,12 +108,12 @@ namespace TextAdventure.Samples.Introduction
 
 		private static IEnumerable<SoundEffect> GetSoundEffects()
 		{
-			yield return new SoundEffect(_soundEffectIds[0], "", "", Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
+			yield return new SoundEffect(_soundEffectIds[0], "Message Popup", "", Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
 		}
 
 		private static IEnumerable<Song> GetSongs()
 		{
-			yield return new Song(_songIds[0], "", "", Introduction.Songs.Songs.The_Experiment);
+			yield return new Song(_songIds[0], "The Experiment", "", Introduction.Songs.Songs.The_Experiment);
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)
@@ -161,20 +161,20 @@ namespace TextAdventure.Samples.Introduction
 			{
 				yield return new ActorInstance(
 					_actorInstanceIds[0],
-					"",
+					"Smiley",
 					"",
 					_actorIds[0],
 					new Coordinate((_size.Width / 2) - 1, (_size.Height / 2) - 3),
 					new Character(2, Color.Yellow, Color.TransparentBlack),
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler1());
+					playerTouchedActorInstanceEventHandler:new PlayerTouchedSmileyEventHandler2());
 				yield return new ActorInstance(
 					_actorInstanceIds[1],
-					"",
+					"Musical Note",
 					"",
 					_actorIds[1],
 					new Coordinate((_size.Width / 2) + 1, (_size.Height / 2) - 3),
 					new Character(14, Color.Cyan, Color.TransparentBlack),
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler2());
+					playerTouchedActorInstanceEventHandler:new PlayerTouchedMusicalNoteEventHandler());
 			}
 		}
 	}

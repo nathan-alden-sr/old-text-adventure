@@ -6,7 +6,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Timer : IUnique, INamedObject, IDescribedObject
+	public class Timer : INamedObject, IDescribedObject
 	{
 		private readonly Guid _id;
 		private readonly TimeSpan _interval;

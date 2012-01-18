@@ -15,6 +15,7 @@ namespace TextAdventure.WindowsGame.Forms
 	{
 		private static readonly FpsConfigurationSection _fpsConfigurationSection = (FpsConfigurationSection)ConfigurationManager.GetSection("fps");
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
+		private static readonly VolumeConfigurationSection _volumeConfigurationSection = (VolumeConfigurationSection)ConfigurationManager.GetSection("volume");
 		private static readonly WorldTimeConfigurationSection _worldTimeConfigurationSection = (WorldTimeConfigurationSection)ConfigurationManager.GetSection("worldTime");
 		private TextAdventureGame _game;
 		private Player _startingPlayer;
@@ -50,13 +51,25 @@ namespace TextAdventure.WindowsGame.Forms
 				Height + (Constants.GameWindow.PreferredBackBufferHeight - xnaControl.Size.Height));
 		}
 
+		private TextAdventureGame CreateGame(Engine.Objects.World world, Player startingPlayer)
+		{
+			return new TextAdventureGame(
+				xnaControl.GraphicsDevice,
+				world,
+				startingPlayer,
+				_fpsConfigurationSection,
+				_logConfigurationSection,
+				_worldTimeConfigurationSection,
+				_volumeConfigurationSection);
+		}
+
 		private void OpenGame(string path)
 		{
 			try
 			{
 				Engine.Objects.World world = WorldLoader.Instance.FromAssembly(path);
 
-				LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, world, world.StartingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), world);
+				LoadGame(CreateGame(world, world.StartingPlayer), world);
 			}
 			catch (Exception exception)
 			{
@@ -88,7 +101,7 @@ namespace TextAdventure.WindowsGame.Forms
 		{
 			SetNormalViewSize();
 			xnaControl.CreateGraphicsDevice();
-			LoadGame(new TextAdventureGame(xnaControl.GraphicsDevice, _world, _startingPlayer, _fpsConfigurationSection, _logConfigurationSection, _worldTimeConfigurationSection), _world);
+			LoadGame(CreateGame(_world, _startingPlayer), _world);
 			_world = null;
 			_startingPlayer = null;
 
