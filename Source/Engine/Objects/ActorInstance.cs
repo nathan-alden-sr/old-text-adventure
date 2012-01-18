@@ -55,34 +55,6 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_name = value;
-			}
-		}
-
-		public string Description
-		{
-			get
-			{
-				return _description;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_description = value;
-			}
-		}
-
 		public IEventHandler<ActorInstanceCreatedEvent> ActorInstanceCreatedEventHandler
 		{
 			get
@@ -120,6 +92,34 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _actorInstanceMovedEventHandler;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return _description;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_description = value;
+			}
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
 			}
 		}
 

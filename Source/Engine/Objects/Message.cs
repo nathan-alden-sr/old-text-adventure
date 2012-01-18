@@ -44,20 +44,6 @@ namespace TextAdventure.Engine.Objects
 			_parts = parts;
 		}
 
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_name = value;
-			}
-		}
-
 		public string Description
 		{
 			get
@@ -93,6 +79,20 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _id;
+			}
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
 			}
 		}
 

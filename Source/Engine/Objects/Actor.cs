@@ -27,17 +27,17 @@ namespace TextAdventure.Engine.Objects
 			Character = character;
 		}
 
-		public string Name
+		public Character Character
 		{
 			get
 			{
-				return _name;
+				return _character;
 			}
 			protected internal set
 			{
 				value.ThrowIfNull("value");
 
-				_name = value;
+				_character = value;
 			}
 		}
 
@@ -55,17 +55,17 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public Character Character
+		public string Name
 		{
 			get
 			{
-				return _character;
+				return _name;
 			}
 			protected internal set
 			{
 				value.ThrowIfNull("value");
 
-				_character = value;
+				_name = value;
 			}
 		}
 

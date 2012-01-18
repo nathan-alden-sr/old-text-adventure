@@ -27,17 +27,11 @@ namespace TextAdventure.Engine.Objects
 			_data = data;
 		}
 
-		public string Name
+		public byte[] Data
 		{
 			get
 			{
-				return _name;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_name = value;
+				return _data;
 			}
 		}
 
@@ -55,11 +49,17 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public byte[] Data
+		public string Name
 		{
 			get
 			{
-				return _data;
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
 			}
 		}
 

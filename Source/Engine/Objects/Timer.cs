@@ -49,34 +49,6 @@ namespace TextAdventure.Engine.Objects
 			_timerElapsedEventHandler = timerElapsedEventHandler;
 		}
 
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_name = value;
-			}
-		}
-
-		public string Description
-		{
-			get
-			{
-				return _description;
-			}
-			protected internal set
-			{
-				value.ThrowIfNull("value");
-
-				_description = value;
-			}
-		}
-
 		public TimeSpan Interval
 		{
 			get
@@ -110,6 +82,34 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _timerElapsedEventHandler;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return _description;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_description = value;
+			}
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
 			}
 		}
 
