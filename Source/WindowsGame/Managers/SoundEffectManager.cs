@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
-using Microsoft.Xna.Framework.Audio;
+using TextAdventure.WindowsGame.Fmod;
 
 namespace TextAdventure.WindowsGame.Managers
 {
 	public class SoundEffectManager : IDisposable
 	{
-		private readonly Dictionary<Guid, SoundEffectInstanceManager> _soundEffectInstanceManagersById = new Dictionary<Guid, SoundEffectInstanceManager>();
+		private readonly Dictionary<Guid, SoundManager> _soundManagersById = new Dictionary<Guid, SoundManager>();
 
 		public void Dispose()
 		{
@@ -18,63 +17,64 @@ namespace TextAdventure.WindowsGame.Managers
 
 		public void Play(Guid id, byte[] data)
 		{
-			SoundEffectInstanceManager manager;
+			SoundManager manager;
 
-			if (!_soundEffectInstanceManagersById.TryGetValue(id, out manager))
+			if (!_soundManagersById.TryGetValue(id, out manager))
 			{
-				manager = new SoundEffectInstanceManager(data);
-				_soundEffectInstanceManagersById.Add(id, manager);
+				manager = new SoundManager(data);
+				_soundManagersById.Add(id, manager);
 			}
 
-			SoundEffectInstance instance = manager.Next();
+			Sound sound = manager.Next();
 
-			instance.Play();
+			sound.Play();
 		}
 
 		protected virtual void OnDispose(bool disposing)
 		{
 			if (disposing)
 			{
-				foreach (SoundEffectInstanceManager manager in _soundEffectInstanceManagersById.Values)
+				foreach (SoundManager manager in _soundManagersById.Values)
 				{
 					manager.Dispose();
 				}
 			}
 		}
 
-		private class SoundEffectInstanceManager : IDisposable
+		private class SoundManager : IDisposable
 		{
 			private const int InstanceCount = 16;
-			private readonly SoundEffectInstance[] _instances = new SoundEffectInstance[InstanceCount];
-			private readonly SoundEffect _soundEffect;
+			private readonly Sound[] _sounds = new Sound[InstanceCount];
 			private int _index = -1;
 
-			public SoundEffectInstanceManager(byte[] data)
+			public SoundManager(byte[] data)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 				{
-					_soundEffect = SoundEffect.FromStream(new MemoryStream(data));
-					_instances[i] = _soundEffect.CreateInstance();
+					_sounds[i] = new Sound(SoundSystem.Instance, data);
 				}
 			}
 
 			public void Dispose()
 			{
-				_soundEffect.Dispose();
+				foreach (Sound sound in _sounds)
+				{
+					sound.Dispose();
+				}
 			}
 
-			public SoundEffectInstance Next()
+			public Sound Next()
 			{
 				if (++_index == InstanceCount)
 				{
 					_index = 0;
 				}
 
-				SoundEffectInstance instance = _instances[_index];
+				Sound sound = _sounds[_index];
 
-				instance.Stop();
+				sound.Stop();
 
-				return instance;
+				return sound;
 			}
 		}
 	}

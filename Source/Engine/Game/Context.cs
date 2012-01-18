@@ -167,11 +167,6 @@ namespace TextAdventure.Engine.Game
 			return _worldInstance.World.GetActorById(id);
 		}
 
-		public SoundEffect GetSoundEffectById(Guid id)
-		{
-			return _worldInstance.World.GetSoundEffectById(id);
-		}
-
 		public ActorInstance GetActorInstanceById(Guid id)
 		{
 			return CurrentBoard.ActorInstanceLayer.GetActorInstanceById(id);
@@ -190,6 +185,16 @@ namespace TextAdventure.Engine.Game
 		public Timer GetTimerById(Guid id)
 		{
 			return _worldInstance.World.GetTimerById(id);
+		}
+
+		public SoundEffect GetSoundEffectById(Guid id)
+		{
+			return _worldInstance.World.GetSoundEffectById(id);
+		}
+
+		public Song GetSongById(Guid id)
+		{
+			return _worldInstance.World.GetSongById(id);
 		}
 
 		protected internal void EnqueueMessage(Message message, MessageQueuePosition position)

@@ -50,7 +50,13 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler.cs" />
+    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler2.cs" />
+    <Compile Include="Introduction\EventHandlers\PlayerTouchedActorInstanceEventHandler1.cs" />
+    <Compile Include="Introduction\Songs\Songs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Songs.resx</DependentUpon>
+    </Compile>
     <Compile Include="Introduction\SoundEffects\SoundEffects.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,13 +81,18 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Introduction\Songs\Songs.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Songs.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Introduction\SoundEffects\SoundEffects.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SoundEffects.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Introduction\SoundEffects\Windows Balloon.wav" />
+    <None Include="Introduction\Songs\The Experiment.mp3" />
+    <None Include="Introduction\SoundEffects\Windows Balloon.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

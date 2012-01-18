@@ -274,6 +274,14 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				Assert.That(soundEffect.Data, Is.EqualTo(Encoding.ASCII.GetBytes("test")));
 			}
 
+			private static void AssertSong(Song song)
+			{
+				Assert.That(song.Id, Is.EqualTo(Guid.Parse("597a8458-a2be-4975-a6d5-69eebc701b9a")));
+				Assert.That(song.Name, Is.EqualTo("Song"));
+				Assert.That(song.Description, Is.EqualTo("Song description"));
+				Assert.That(song.Data, Is.EqualTo(Encoding.ASCII.GetBytes("test2")));
+			}
+
 			private static void AssertWorldElement(XElement worldElement)
 			{
 				string xml = SerializeXElement(worldElement);
@@ -318,6 +326,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				Message message = world.Messages.Single();
 				Timer timer = world.Timers.Single();
 				SoundEffect soundEffect = world.SoundEffects.Single();
+				Song song = world.Songs.Single();
 
 				AssertStartingPlayer(board, startingPlayer);
 				AssertBoard(board);
@@ -329,6 +338,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				AssertMessage(message);
 				AssertTimer(timer);
 				AssertSoundEffect(soundEffect);
+				AssertSong(song);
 
 				XElement serializedWorldElement = WorldSerializer.Instance.Serialize(world);
 

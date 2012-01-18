@@ -14,6 +14,7 @@ namespace TextAdventure.Engine.Objects
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
 		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
+		private readonly Dictionary<Guid, Song> _songsById = new Dictionary<Guid, Song>();
 		private readonly Dictionary<Guid, SoundEffect> _soundEffectsById = new Dictionary<Guid, SoundEffect>();
 		private readonly Player _startingPlayer;
 		private readonly Dictionary<Guid, Timer> _timersById = new Dictionary<Guid, Timer>();
@@ -30,6 +31,7 @@ namespace TextAdventure.Engine.Objects
 			IEnumerable<Message> messages,
 			IEnumerable<Timer> timers,
 			IEnumerable<SoundEffect> soundEffects,
+			IEnumerable<Song> songs,
 			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			title.ThrowIfNull("title");
@@ -39,6 +41,7 @@ namespace TextAdventure.Engine.Objects
 			messages.ThrowIfNull("messages");
 			timers.ThrowIfNull("timers");
 			soundEffects.ThrowIfNull("soundEffects");
+			songs.ThrowIfNull("songs");
 			if (version < 1)
 			{
 				throw new ArgumentOutOfRangeException("version", "Version must be at least 1.");
@@ -68,6 +71,10 @@ namespace TextAdventure.Engine.Objects
 			foreach (SoundEffect soundEffect in soundEffects)
 			{
 				_soundEffectsById.Add(soundEffect.Id, soundEffect);
+			}
+			foreach (Song song in songs)
+			{
+				_songsById.Add(song.Id, song);
 			}
 		}
 
@@ -135,6 +142,14 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
+		public IEnumerable<Song> Songs
+		{
+			get
+			{
+				return _songsById.Values;
+			}
+		}
+
 		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
 		{
 			get
@@ -174,6 +189,11 @@ namespace TextAdventure.Engine.Objects
 		public SoundEffect GetSoundEffectById(Guid id)
 		{
 			return _soundEffectsById[id];
+		}
+
+		public Song GetSongById(Guid id)
+		{
+			return _songsById[id];
 		}
 	}
 }

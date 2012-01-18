@@ -15,11 +15,13 @@ namespace TextAdventure.Samples.Introduction
 	{
 		private static readonly Guid[] _actorIds = new[]
 		                                           	{
-		                                           		Guid.Parse("ecb07aa8-ca78-4107-99fb-e067be640f50")
+		                                           		Guid.Parse("ecb07aa8-ca78-4107-99fb-e067be640f50"),
+		                                           		Guid.Parse("c06a51d4-f2e6-4066-80c3-bcfc6824072b")
 		                                           	};
 		private static readonly Guid[] _actorInstanceIds = new[]
 		                                                   	{
-		                                                   		Guid.Parse("a45dafc2-d36a-439f-be6c-dc0963d2324b")
+		                                                   		Guid.Parse("a45dafc2-d36a-439f-be6c-dc0963d2324b"),
+		                                                   		Guid.Parse("0dfc2f1d-8c91-453a-a87f-c6a7dd5786cd")
 		                                                   	};
 		private static readonly Guid[] _boardIds = new[]
 		                                           	{
@@ -32,6 +34,10 @@ namespace TextAdventure.Samples.Introduction
 		                                             	};
 		private static readonly Guid _playerId = Guid.Parse("bab8a3d6-8c1b-455c-b9ea-c12445270ac8");
 		private static readonly Size _size = new Size(19, 15);
+		private static readonly Guid[] _songIds = new[]
+		                                          	{
+		                                          		Guid.Parse("9c01844c-4786-4a93-8092-66036666bf2f")
+		                                          	};
 		private static readonly Guid[] _soundEffectIds = new[]
 		                                                 	{
 		                                                 		Guid.Parse("4f095264-d8bb-49da-b1bb-38c81e4a90a9")
@@ -47,7 +53,8 @@ namespace TextAdventure.Samples.Introduction
 				GetActors().ToArray(),
 				GetMessages().ToArray(),
 				GetTimers().ToArray(),
-				GetSoundEffects().ToArray())
+				GetSoundEffects().ToArray(),
+				GetSongs().ToArray())
 		{
 		}
 
@@ -71,6 +78,7 @@ namespace TextAdventure.Samples.Introduction
 		private static IEnumerable<Actor> GetActors()
 		{
 			yield return new Actor(_actorIds[0], "", "", new Character(2, Color.Yellow, Color.TransparentBlack));
+			yield return new Actor(_actorIds[1], "", "", new Character(14, Color.Cyan, Color.TransparentBlack));
 		}
 
 		private static IEnumerable<Message> GetMessages()
@@ -101,6 +109,11 @@ namespace TextAdventure.Samples.Introduction
 		private static IEnumerable<SoundEffect> GetSoundEffects()
 		{
 			yield return new SoundEffect(_soundEffectIds[0], "", "", Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
+		}
+
+		private static IEnumerable<Song> GetSongs()
+		{
+			yield return new Song(_songIds[0], "", "", Introduction.Songs.Songs.The_Experiment);
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)
@@ -151,9 +164,17 @@ namespace TextAdventure.Samples.Introduction
 					"",
 					"",
 					_actorIds[0],
-					new Coordinate(_size.Width / 2, (_size.Height / 2) - 3),
+					new Coordinate((_size.Width / 2) - 1, (_size.Height / 2) - 3),
 					new Character(2, Color.Yellow, Color.TransparentBlack),
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler());
+					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler1());
+				yield return new ActorInstance(
+					_actorInstanceIds[1],
+					"",
+					"",
+					_actorIds[1],
+					new Coordinate((_size.Width / 2) + 1, (_size.Height / 2) - 3),
+					new Character(14, Color.Cyan, Color.TransparentBlack),
+					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorInstanceEventHandler2());
 			}
 		}
 	}

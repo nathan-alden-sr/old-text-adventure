@@ -146,6 +146,16 @@ namespace TextAdventure.Engine.Game.Commands
 			return new PlaySoundEffectCommand(soundEffect);
 		}
 
+		public static PlaySongCommand PlaySong(Song song)
+		{
+			return new PlaySongCommand(song);
+		}
+
+		public static StopSongCommand StopSong()
+		{
+			return new StopSongCommand();
+		}
+
 		public static DelayCommand Delay(TimeSpan delay)
 		{
 			return new DelayCommand(delay);

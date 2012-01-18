@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
 
+using TextAdventure.WindowsGame.Fmod;
 using TextAdventure.WindowsGame.Forms;
 
 namespace TextAdventure.WindowsGame
@@ -27,6 +28,8 @@ namespace TextAdventure.WindowsGame
 
 			Application.Idle += (sender, args) => ApplicationOnIdle(_gameForm);
 			Application.Run(_gameForm);
+
+			SoundSystem.Instance.Release();
 		}
 
 		private static void ApplicationOnIdle(GameForm gameForm)

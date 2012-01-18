@@ -97,7 +97,14 @@
     <Compile Include="Configuration\IFpsConfiguration.cs" />
     <Compile Include="Configuration\ILogConfiguration.cs" />
     <Compile Include="Configuration\IWorldTimeConfiguration.cs" />
+    <Compile Include="Fmod\SoundSystem.cs" />
+    <Compile Include="Fmod\fmod.cs" />
+    <Compile Include="Fmod\fmod_dsp.cs" />
+    <Compile Include="Fmod\fmod_errors.cs" />
+    <Compile Include="Fmod\fmod_memoryinfo.cs" />
+    <Compile Include="Fmod\Sound.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
+    <Compile Include="Managers\SongManager.cs" />
     <Compile Include="Managers\SoundEffectManager.cs" />
     <Compile Include="TextAdventureGame.cs" />
     <Compile Include="Helpers\RectangleHelper.cs" />
@@ -281,6 +288,9 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(SolutionDir)..\Binaries\FMOD\fmodex.dll" "$(TargetDir)fmodex.dll"</PostBuildEvent>
   </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 

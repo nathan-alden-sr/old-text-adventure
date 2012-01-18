@@ -28,15 +28,15 @@ namespace TextAdventure.Engine.Serializers.Xml
 				new XAttribute("description", soundEffect.Description));
 		}
 
-		public SoundEffect Deserialize(XElement playerElement)
+		public SoundEffect Deserialize(XElement soundEffectElement)
 		{
-			playerElement.ThrowIfNull("playerElement");
+			soundEffectElement.ThrowIfNull("soundEffectElement");
 
 			return new SoundEffect(
-				(Guid)playerElement.Attribute("id"),
-				(string)playerElement.Attribute("name"),
-				(string)playerElement.Attribute("description"),
-				BinarySerializer.Instance.Deserialize((string)playerElement.Element("data")));
+				(Guid)soundEffectElement.Attribute("id"),
+				(string)soundEffectElement.Attribute("name"),
+				(string)soundEffectElement.Attribute("description"),
+				BinarySerializer.Instance.Deserialize((string)soundEffectElement.Element("data")));
 		}
 	}
 }

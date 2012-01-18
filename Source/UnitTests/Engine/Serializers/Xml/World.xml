@@ -59,5 +59,8 @@
 	<soundEffect id="b98aaa37-100a-429c-b440-a0943e294a6c" name="Sound effect" description="Sound effect description">
 		<data>dGVzdA==</data>
 	</soundEffect>
+	<song id="597a8458-a2be-4975-a6d5-69eebc701b9a" name="Song" description="Song description">
+		<data>dGVzdDI=</data>
+	</song>
 	<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+AnswerSelectedEventHandler, TextAdventure.UnitTests" />
 </world>

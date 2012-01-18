@@ -59,6 +59,8 @@
     <Compile Include="Game\Commands\CommandStatus.cs" />
     <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
+    <Compile Include="Game\Commands\StopSongCommand.cs" />
+    <Compile Include="Game\Commands\PlaySongCommand.cs" />
     <Compile Include="Game\Commands\PlaySoundEffectCommand.cs" />
     <Compile Include="Game\Commands\RestartTimerCommand.cs" />
     <Compile Include="Game\Commands\StopTimerCommand.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Objects\ActorInstanceLayer.cs" />
     <Compile Include="Objects\BoardExit.cs" />
     <Compile Include="Objects\BoardExitDirection.cs" />
+    <Compile Include="Objects\Song.cs" />
     <Compile Include="Objects\IDescribedObject.cs" />
     <Compile Include="Objects\ILayer.cs" />
     <Compile Include="Objects\IMessage.cs" />
@@ -151,6 +154,7 @@
     <Compile Include="Serializers\Xml\BinarySerializer.cs" />
     <Compile Include="Serializers\Xml\BoardExitDirectionSerializer.cs" />
     <Compile Include="Serializers\Xml\BoardExitSerializer.cs" />
+    <Compile Include="Serializers\Xml\SongSerializer.cs" />
     <Compile Include="Serializers\Xml\MessageAnswerSerializer.cs" />
     <Compile Include="Serializers\Xml\MessagePartSerializer.cs" />
     <Compile Include="Serializers\Xml\MessageQuestionSerializer.cs" />
