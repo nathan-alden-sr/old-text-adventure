@@ -1,6 +1,6 @@
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Windows.Forms;
 
 using TextAdventure.WindowsGame.Fmod;
@@ -11,10 +11,11 @@ namespace TextAdventure.WindowsGame
 #if WINDOWS
 	internal static class Program
 	{
+		private static readonly HandleRef _handleRef = default(HandleRef);
+
+		[DllImport("user32.dll")]
 		[return:MarshalAs(UnmanagedType.Bool)]
-		[SuppressUnmanagedCodeSecurity]
-		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		private static extern bool PeekMessage(out Message msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+		private static extern bool PeekMessage(out NativeMessage lpMsg, HandleRef hWnd, uint wMsgFilterMin, uint wMsgFilterMax, uint wRemoveMsg);
 
 		[STAThread]
 		private static void Main()
@@ -34,9 +35,9 @@ namespace TextAdventure.WindowsGame
 
 		private static void ApplicationOnIdle(GameForm gameForm)
 		{
-			Message message;
+			NativeMessage message;
 
-			while (!PeekMessage(out message, IntPtr.Zero, 0, 0, 0))
+			while (!PeekMessage(out message, _handleRef, 0, 0, 0))
 			{
 				gameForm.Render();
 			}
@@ -45,6 +46,17 @@ namespace TextAdventure.WindowsGame
 		private static Engine.Objects.World GetWorld()
 		{
 			return WorldLoader.Instance.FromAssembly("TextAdventure.Samples.dll", "TextAdventure.Samples.Introduction.IntroductionWorld");
+		}
+
+		[StructLayout(LayoutKind.Sequential)]
+		public struct NativeMessage
+		{
+			public IntPtr handle;
+			public uint msg;
+			public IntPtr wParam;
+			public IntPtr lParam;
+			public uint time;
+			public Point p;
 		}
 	}
 #endif
