@@ -3,7 +3,7 @@
 		<character symbol="2" foregroundColor="0.5,0.7,0.9,1" backgroundColor="0,0,0,0" />
 		<actorInstanceTouchedPlayerEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+ActorInstanceTouchedPlayerEventHandler, TextAdventure.UnitTests" />
 	</startingPlayer>
-	<board id="be68b2a8-8b40-440f-a93f-6c5986a000bc" size="12,34">
+	<board id="be68b2a8-8b40-440f-a93f-6c5986a000bc" name="Board" description="Board description" size="12,34">
 		<backgroundLayer size="12,34">
 			<sprite coordinate="1,0">
 				<character symbol="66" foregroundColor="0.8,0.9,1,0.01" backgroundColor="0.02,0.03,0.04,0.05" />
@@ -21,7 +21,7 @@
 			</sprite>
 		</foregroundLayer>
 		<actorInstanceLayer size="12,34">
-			<actorInstance id="f5ef050a-cf2a-4d83-b320-75478c77af4f" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,31">
+			<actorInstance id="f5ef050a-cf2a-4d83-b320-75478c77af4f" name="Actor instance 1" description="Actor instance 1 description" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,31">
 				<character symbol="68" foregroundColor="0.15,0.16,0.17,0.18" backgroundColor="0.2,0.21,0.22,0.23" />
 				<actorInstanceCreatedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+ActorInstanceCreatedEventHandler, TextAdventure.UnitTests" />
 				<actorInstanceDestroyedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+ActorInstanceDestroyedEventHandler, TextAdventure.UnitTests" />
@@ -29,7 +29,7 @@
 				<playerTouchedActorInstanceEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+PlayerTouchedActorInstanceEventHandler, TextAdventure.UnitTests" />
 				<actorInstanceMovedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+ActorInstanceMovedEventHandler, TextAdventure.UnitTests" />
 			</actorInstance>
-			<actorInstance id="706da31e-31b1-40be-9eab-648f5a574acc" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,33">
+			<actorInstance id="706da31e-31b1-40be-9eab-648f5a574acc" name="Actor instance 2" description="Actor instance 2 description" actorId="677ae75c-117c-4992-8dec-ffa645308f82" coordinate="11,33">
 				<character symbol="67" foregroundColor="0.06,0.07,0.08,0.09" backgroundColor="0.11,0.12,0.13,0.14" />
 			</actorInstance>
 		</actorInstanceLayer>
@@ -37,10 +37,10 @@
 		<boardEnteredEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+BoardEnteredEventHandler, TextAdventure.UnitTests" />
 		<boardExitedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+BoardExitedEventHandler, TextAdventure.UnitTests" />
 	</board>
-	<actor id="677ae75c-117c-4992-8dec-ffa645308f82">
+	<actor id="677ae75c-117c-4992-8dec-ffa645308f82" name="Actor" description="Actor description">
 		<character symbol="2" foregroundColor="0.2,0.3,0.7,0.8" backgroundColor="1,1,1,1" />
 	</actor>
-	<message id="fee40b1a-1aa8-467d-9c8d-49b39a1641a9" backgroundColor="0,0,0.5,1">
+	<message id="fee40b1a-1aa8-467d-9c8d-49b39a1641a9" name="Message" description="Message description" backgroundColor="0,0,0.5,1">
 		<color color="0,1,1,1" />
 		<text>Lorem ipsum</text>
 		<lineBreak />
@@ -53,10 +53,10 @@
 			<answer id="bc7cdc46-27f7-4d6b-8fbd-25ea6053a551" text="No" />
 		</question>
 	</message>
-	<timer id="9d18f5e7-8199-4160-bff8-646ca6586ddb" interval="00:00:15" state="Paused" elapsed="00:00:07">
+	<timer id="9d18f5e7-8199-4160-bff8-646ca6586ddb" name="Timer" description="Timer description" interval="00:00:15" state="Paused" elapsed="00:00:07">
 		<timerElapsedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+TimerElapsedEventHandler, TextAdventure.UnitTests" />
 	</timer>
-	<soundEffect id="b98aaa37-100a-429c-b440-a0943e294a6c">
+	<soundEffect id="b98aaa37-100a-429c-b440-a0943e294a6c" name="Sound effect" description="Sound effect description">
 		<data>dGVzdA==</data>
 	</soundEffect>
 	<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+AnswerSelectedEventHandler, TextAdventure.UnitTests" />

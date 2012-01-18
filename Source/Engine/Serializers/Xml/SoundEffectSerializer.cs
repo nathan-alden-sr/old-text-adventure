@@ -23,7 +23,9 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				new XElement("data", BinarySerializer.Instance.Serialize(soundEffect.Data)),
-				new XAttribute("id", soundEffect.Id));
+				new XAttribute("id", soundEffect.Id),
+				new XAttribute("name", soundEffect.Name),
+				new XAttribute("description", soundEffect.Description));
 		}
 
 		public SoundEffect Deserialize(XElement playerElement)
@@ -32,6 +34,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new SoundEffect(
 				(Guid)playerElement.Attribute("id"),
+				(string)playerElement.Attribute("name"),
+				(string)playerElement.Attribute("description"),
 				BinarySerializer.Instance.Deserialize((string)playerElement.Element("data")));
 		}
 	}

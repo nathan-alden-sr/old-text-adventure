@@ -35,6 +35,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 				actorInstance.ActorInstanceMovedEventHandler
 					.IfNotNull(arg => EventHandlerSerializer<ActorInstanceMovedEvent>.Instance.Serialize(arg, "actorInstanceMovedEventHandler")),
 				new XAttribute("id", actorInstance.Id),
+				new XAttribute("name", actorInstance.Name),
+				new XAttribute("description", actorInstance.Description),
 				new XAttribute("actorId", actorInstance.ActorId),
 				new XAttribute("coordinate", CoordinateSerializer.Instance.Serialize(actorInstance.Coordinate)));
 		}
@@ -45,6 +47,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new ActorInstance(
 				(Guid)actorInstanceElement.Attribute("id"),
+				(string)actorInstanceElement.Attribute("name"),
+				(string)actorInstanceElement.Attribute("description"),
 				(Guid)actorInstanceElement.Attribute("actorId"),
 				CoordinateSerializer.Instance.Deserialize((string)actorInstanceElement.Attribute("coordinate")),
 				CharacterSerializer.Instance.Deserialize(actorInstanceElement.Element("character")),

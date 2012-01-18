@@ -24,6 +24,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 				elementName,
 				MessagePartSerializer.Instance.Serialize(message.Parts),
 				new XAttribute("id", message.Id),
+				new XAttribute("name", message.Name),
+				new XAttribute("description", message.Description),
 				new XAttribute("backgroundColor", ColorSerializer.Instance.Serialize(message.BackgroundColor)));
 		}
 
@@ -33,6 +35,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new Message(
 				(Guid)messageElement.Attribute("id"),
+				(string)messageElement.Attribute("name"),
+				(string)messageElement.Attribute("description"),
 				ColorSerializer.Instance.Deserialize((string)messageElement.Attribute("backgroundColor")),
 				MessagePartSerializer.Instance.Deserialize(messageElement));
 		}

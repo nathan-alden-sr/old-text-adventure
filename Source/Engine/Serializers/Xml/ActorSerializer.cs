@@ -23,7 +23,9 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				CharacterSerializer.Instance.Serialize(actor.Character),
-				new XAttribute("id", actor.Id));
+				new XAttribute("id", actor.Id),
+				new XAttribute("name", actor.Name),
+				new XAttribute("description", actor.Description));
 		}
 
 		public Actor Deserialize(XElement actorElement)
@@ -32,6 +34,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new Actor(
 				(Guid)actorElement.Attribute("id"),
+				(string)actorElement.Attribute("name"),
+				(string)actorElement.Attribute("description"),
 				CharacterSerializer.Instance.Deserialize(actorElement.Element("character")));
 		}
 	}

@@ -65,12 +65,12 @@ namespace TextAdventure.Samples.Introduction
 			var foregroundLayer = new SpriteLayer(_size, GetForegroundLayerSprites(_boardIds[0]).ToArray());
 			var actorLayer = new ActorInstanceLayer(_size, GetActorInstanceLayerActorInstances(_boardIds[0]).ToArray());
 
-			yield return new Board(_boardIds[0], _size, backgroundLayer, foregroundLayer, actorLayer, Enumerable.Empty<BoardExit>());
+			yield return new Board(_boardIds[0], "", "", _size, backgroundLayer, foregroundLayer, actorLayer, Enumerable.Empty<BoardExit>());
 		}
 
 		private static IEnumerable<Actor> GetActors()
 		{
-			yield return new Actor(_actorIds[0], new Character(2, Color.Yellow, Color.TransparentBlack));
+			yield return new Actor(_actorIds[0], "", "", new Character(2, Color.Yellow, Color.TransparentBlack));
 		}
 
 		private static IEnumerable<Message> GetMessages()
@@ -100,7 +100,7 @@ namespace TextAdventure.Samples.Introduction
 
 		private static IEnumerable<SoundEffect> GetSoundEffects()
 		{
-			yield return new SoundEffect(_soundEffectIds[0], Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
+			yield return new SoundEffect(_soundEffectIds[0], "", "", Introduction.SoundEffects.SoundEffects.Windows_Balloon.GetBuffer());
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites(Guid boardId)
@@ -148,6 +148,8 @@ namespace TextAdventure.Samples.Introduction
 			{
 				yield return new ActorInstance(
 					_actorInstanceIds[0],
+					"",
+					"",
 					_actorIds[0],
 					new Coordinate(_size.Width / 2, (_size.Height / 2) - 3),
 					new Character(2, Color.Yellow, Color.TransparentBlack),

@@ -61,6 +61,8 @@ namespace TextAdventure.Engine.Game.Commands
 
 			var actorInstance = new ActorInstance(
 				_actorInstanceId,
+				_actor.Name,
+				_actor.Description,
 				_actor.Id,
 				_coordinate,
 				_character,

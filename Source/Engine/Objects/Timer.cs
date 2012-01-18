@@ -1,40 +1,80 @@
 ﻿using System;
 
+using Junior.Common;
+
 using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Timer : IUnique
+	public class Timer : IUnique, INamedObject, IDescribedObject
 	{
 		private readonly Guid _id;
-		private readonly IEventHandler<TimerElapsedEvent> _timerElapsedEventHandler;
 		private readonly TimeSpan _interval;
+		private readonly IEventHandler<TimerElapsedEvent> _timerElapsedEventHandler;
+		private string _description;
+		private string _name;
 
 		public Timer(
 			Guid id,
+			string name,
+			string description,
 			TimeSpan interval,
 			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = null)
-			: this(id, interval, TimerState.Stopped, TimeSpan.Zero, timerElapsedEventHandler)
+			: this(id, name, description, interval, TimerState.Stopped, TimeSpan.Zero, timerElapsedEventHandler)
 		{
 		}
 
 		public Timer(
 			Guid id,
+			string name,
+			string description,
 			TimeSpan interval,
 			TimerState state,
 			TimeSpan elapsed,
 			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = null)
 		{
+			name.ThrowIfNull("name");
+			description.ThrowIfNull("description");
 			if (interval < TimeSpan.Zero)
 			{
 				throw new ArgumentOutOfRangeException("interval");
 			}
 
 			_id = id;
+			Name = name;
+			Description = description;
 			_interval = interval;
 			State = state;
 			ElapsedTime = elapsed;
 			_timerElapsedEventHandler = timerElapsedEventHandler;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return _description;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_description = value;
+			}
 		}
 
 		public TimeSpan Interval

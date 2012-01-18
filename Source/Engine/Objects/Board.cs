@@ -9,7 +9,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class Board : IUnique
+	public class Board : IUnique, INamedObject, IDescribedObject
 	{
 		private static readonly Random _random = new Random();
 		private readonly ActorInstanceLayer _actorInstanceLayer;
@@ -20,9 +20,13 @@ namespace TextAdventure.Engine.Objects
 		private readonly SpriteLayer _foregroundLayer;
 		private readonly Guid _id;
 		private readonly Size _size;
+		private string _description;
+		private string _name;
 
 		public Board(
 			Guid id,
+			string name,
+			string description,
 			Size size,
 			SpriteLayer backgroundLayer,
 			SpriteLayer foregroundLayer,
@@ -31,12 +35,16 @@ namespace TextAdventure.Engine.Objects
 			IEventHandler<BoardEnteredEvent> boardEnteredEventHandler = null,
 			IEventHandler<BoardExitedEvent> boardExitedEventHandler = null)
 		{
+			name.ThrowIfNull("name");
+			description.ThrowIfNull("description");
 			backgroundLayer.ThrowIfNull("backgroundLayer");
 			foregroundLayer.ThrowIfNull("foregroundLayer");
 			actorInstanceLayer.ThrowIfNull("actorInstanceLayer");
 			exits.ThrowIfNull("exits");
 
 			_id = id;
+			Name = name;
+			Description = description;
 			_size = size;
 			_backgroundLayer = backgroundLayer;
 			_foregroundLayer = foregroundLayer;
@@ -44,6 +52,34 @@ namespace TextAdventure.Engine.Objects
 			_exits = exits;
 			_boardEnteredEventHandler = boardEnteredEventHandler;
 			_boardExitedEventHandler = boardExitedEventHandler;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return _description;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_description = value;
+			}
 		}
 
 		public SpriteLayer BackgroundLayer

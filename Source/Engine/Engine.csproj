@@ -129,10 +129,12 @@
     <Compile Include="Objects\ActorInstanceLayer.cs" />
     <Compile Include="Objects\BoardExit.cs" />
     <Compile Include="Objects\BoardExitDirection.cs" />
+    <Compile Include="Objects\IDescribedObject.cs" />
     <Compile Include="Objects\ILayer.cs" />
     <Compile Include="Objects\IMessage.cs" />
     <Compile Include="Objects\IMessagePart.cs" />
     <Compile Include="Objects\IMessageWithBackgroundColor.cs" />
+    <Compile Include="Objects\INamedObject.cs" />
     <Compile Include="Objects\Message.cs" />
     <Compile Include="Objects\MessageAnswer.cs" />
     <Compile Include="Objects\MessageColor.cs" />

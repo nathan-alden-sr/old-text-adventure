@@ -7,7 +7,7 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Objects
 {
-	public class ActorInstance : Sprite, IUnique
+	public class ActorInstance : Sprite, IUnique, INamedObject, IDescribedObject
 	{
 		private readonly Guid _actorId;
 		private readonly IEventHandler<ActorInstanceCreatedEvent> _actorInstanceCreatedEventHandler;
@@ -16,9 +16,13 @@ namespace TextAdventure.Engine.Objects
 		private readonly IEventHandler<ActorInstanceTouchedActorInstanceEvent> _actorInstanceTouchedActorInstanceEventHandler;
 		private readonly Guid _id;
 		private readonly IEventHandler<PlayerTouchedActorInstanceEvent> _playerTouchedActorInstanceEventHandler;
+		private string _description;
+		private string _name;
 
 		public ActorInstance(
 			Guid id,
+			string name,
+			string description,
 			Guid actorId,
 			Coordinate coordinate,
 			Character character,
@@ -29,7 +33,12 @@ namespace TextAdventure.Engine.Objects
 			IEventHandler<ActorInstanceMovedEvent> actorInstanceMovedEventHandler = null)
 			: base(coordinate, character)
 		{
+			name.ThrowIfNull("name");
+			description.ThrowIfNull("description");
+
 			_id = id;
+			Name = name;
+			Description = description;
 			_actorId = actorId;
 			_actorInstanceCreatedEventHandler = actorInstanceCreatedEventHandler;
 			_actorInstanceDestroyedEventHandler = actorInstanceDestroyedEventHandler;
@@ -43,6 +52,34 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _actorId;
+			}
+		}
+
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_name = value;
+			}
+		}
+
+		public string Description
+		{
+			get
+			{
+				return _description;
+			}
+			protected internal set
+			{
+				value.ThrowIfNull("value");
+
+				_description = value;
 			}
 		}
 

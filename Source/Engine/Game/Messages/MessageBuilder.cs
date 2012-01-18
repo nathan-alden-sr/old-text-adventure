@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Junior.Common;
+
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
@@ -9,27 +11,34 @@ namespace TextAdventure.Engine.Game.Messages
 	public class MessageBuilder
 	{
 		private readonly Color _backgroundColor;
+		private readonly string _description;
 		private readonly Guid _id;
+		private readonly string _name;
 		private readonly List<IMessagePart> _parts = new List<IMessagePart>();
 
-		public MessageBuilder(Color backgroundColor)
-			: this(Guid.NewGuid(), backgroundColor)
+		public MessageBuilder(Color backgroundColor, string name = "", string description = "")
+			: this(Guid.NewGuid(), backgroundColor, name, description)
 		{
 			_backgroundColor = backgroundColor;
 			_id = Guid.NewGuid();
 		}
 
-		public MessageBuilder(Guid id, Color backgroundColor)
+		public MessageBuilder(Guid id, Color backgroundColor, string name = "", string description = "")
 		{
+			name.ThrowIfNull("name");
+			description.ThrowIfNull("description");
+
 			_id = id;
 			_backgroundColor = backgroundColor;
+			_name = name;
+			_description = description;
 		}
 
 		public Message Message
 		{
 			get
 			{
-				return new Message(_id, _backgroundColor, _parts);
+				return new Message(_id, _name, _description, _backgroundColor, _parts);
 			}
 		}
 

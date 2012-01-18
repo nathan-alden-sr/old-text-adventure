@@ -31,6 +31,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 				board.BoardEnteredEventHandler.IfNotNull(arg => EventHandlerSerializer<BoardEnteredEvent>.Instance.Serialize(arg, "boardEnteredEventHandler")),
 				board.BoardExitedEventHandler.IfNotNull(arg => EventHandlerSerializer<BoardExitedEvent>.Instance.Serialize(arg, "boardExitedEventHandler")),
 				new XAttribute("id", board.Id),
+				new XAttribute("name", board.Name),
+				new XAttribute("description", board.Description),
 				new XAttribute("size", SizeSerializer.Instance.Serialize(board.Size)));
 		}
 
@@ -40,6 +42,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new Board(
 				(Guid)boardElement.Attribute("id"),
+				(string)boardElement.Attribute("name"),
+				(string)boardElement.Attribute("description"),
 				SizeSerializer.Instance.Deserialize((string)boardElement.Attribute("size")),
 				SpriteLayerSerializer.Instance.Deserialize(boardElement.Element("backgroundLayer")),
 				SpriteLayerSerializer.Instance.Deserialize(boardElement.Element("foregroundLayer")),

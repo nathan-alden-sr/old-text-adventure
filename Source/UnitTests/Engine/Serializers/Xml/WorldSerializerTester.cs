@@ -106,6 +106,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 			private static void AssertBoard(Board board)
 			{
 				Assert.That(board.Id, Is.EqualTo(Guid.Parse("be68b2a8-8b40-440f-a93f-6c5986a000bc")));
+				Assert.That(board.Name, Is.EqualTo("Board"));
+				Assert.That(board.Description, Is.EqualTo("Board description"));
 				Assert.That(board.Size, Is.EqualTo(new Size(12, 34)));
 				Assert.That(board.BoardEnteredEventHandler, Is.Not.Null);
 				Assert.That(board.BoardExitedEventHandler, Is.Not.Null);
@@ -114,6 +116,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 			private static void AssertActor(Actor actor)
 			{
 				Assert.That(actor.Id, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
+				Assert.That(actor.Name, Is.EqualTo("Actor"));
+				Assert.That(actor.Description, Is.EqualTo("Actor description"));
 				Assert.That(actor.Character.Symbol, Is.EqualTo(2));
 				Assert.That(actor.Character.ForegroundColor, Is.EqualTo(new Color(0.2f, 0.3f, 0.7f, 0.8f)));
 				Assert.That(actor.Character.BackgroundColor, Is.EqualTo(new Color(1f, 1f, 1f)));
@@ -168,6 +172,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				ActorInstance actor1 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 31);
 
 				Assert.That(actor1.Id, Is.EqualTo(Guid.Parse("f5ef050a-cf2a-4d83-b320-75478c77af4f")));
+				Assert.That(actor1.Name, Is.EqualTo("Actor instance 1"));
+				Assert.That(actor1.Description, Is.EqualTo("Actor instance 1 description"));
 				Assert.That(actor1.ActorId, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
 				Assert.That(actor1.Character.Symbol, Is.EqualTo(68));
 				Assert.That(actor1.Character.ForegroundColor, Is.EqualTo(new Color(0.15f, 0.16f, 0.17f, 0.18f)));
@@ -181,6 +187,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				ActorInstance actor2 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 33);
 
 				Assert.That(actor2.Id, Is.EqualTo(Guid.Parse("706da31e-31b1-40be-9eab-648f5a574acc")));
+				Assert.That(actor2.Name, Is.EqualTo("Actor instance 2"));
+				Assert.That(actor2.Description, Is.EqualTo("Actor instance 2 description"));
 				Assert.That(actor2.ActorId, Is.EqualTo(Guid.Parse("677ae75c-117c-4992-8dec-ffa645308f82")));
 				Assert.That(actor2.Character.Symbol, Is.EqualTo(67));
 				Assert.That(actor2.Character.ForegroundColor, Is.EqualTo(new Color(0.06f, 0.07f, 0.08f, 0.09f)));
@@ -197,9 +205,11 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				Assert.That(boardExit.DestinationCoordinate, Is.EqualTo(new Coordinate(2, 3)));
 			}
 
-			private static void AssertMessage(IMessageWithBackgroundColor message)
+			private static void AssertMessage(Message message)
 			{
 				Assert.That(message.Id, Is.EqualTo(Guid.Parse("fee40b1a-1aa8-467d-9c8d-49b39a1641a9")));
+				Assert.That(message.Name, Is.EqualTo("Message"));
+				Assert.That(message.Description, Is.EqualTo("Message description"));
 				Assert.That(message.BackgroundColor, Is.EqualTo(new Color(0f, 0f, 0.5f)));
 
 				IMessagePart[] messageParts = message.Parts.ToArray();
@@ -248,6 +258,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 			private static void AssertTimer(Timer timer)
 			{
 				Assert.That(timer.Id, Is.EqualTo(Guid.Parse("9d18f5e7-8199-4160-bff8-646ca6586ddb")));
+				Assert.That(timer.Name, Is.EqualTo("Timer"));
+				Assert.That(timer.Description, Is.EqualTo("Timer description"));
 				Assert.That(timer.Interval, Is.EqualTo(TimeSpan.FromSeconds(15)));
 				Assert.That(timer.TimerElapsedEventHandler, Is.Not.Null);
 				Assert.That(timer.State, Is.EqualTo(TimerState.Paused));
@@ -257,6 +269,8 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 			private static void AssertSoundEffect(SoundEffect soundEffect)
 			{
 				Assert.That(soundEffect.Id, Is.EqualTo(Guid.Parse("b98aaa37-100a-429c-b440-a0943e294a6c")));
+				Assert.That(soundEffect.Name, Is.EqualTo("Sound effect"));
+				Assert.That(soundEffect.Description, Is.EqualTo("Sound effect description"));
 				Assert.That(soundEffect.Data, Is.EqualTo(Encoding.ASCII.GetBytes("test")));
 			}
 
