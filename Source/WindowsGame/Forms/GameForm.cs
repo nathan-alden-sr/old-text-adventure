@@ -63,7 +63,7 @@ namespace TextAdventure.WindowsGame.Forms
 				xnaControl.GraphicsDevice,
 				world,
 				startingPlayer,
-				_multimediaPlayer, 
+				_multimediaPlayer,
 				_fpsConfigurationSection,
 				_logConfigurationSection,
 				_worldTimeConfigurationSection);
@@ -92,6 +92,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 			_game.Dispose();
 			_game = null;
+			xnaControl.Refresh();
 		}
 
 		private void LoadGame(TextAdventureGame game, Engine.Objects.World world)
@@ -135,6 +136,46 @@ namespace TextAdventure.WindowsGame.Forms
 			base.OnResizeEnd(e);
 		}
 
+		private void MenuStripOnMenuActivate(object sender, EventArgs e)
+		{
+			if (_game != null)
+			{
+				_game.Pause();
+			}
+
+			fpsToolStripMenuItem.Enabled = _game != null;
+			logToolStripMenuItem.Enabled = _game != null;
+			worldTimeToolStripMenuItem.Enabled = _game != null;
+			closeToolStripMenuItem.Enabled = _game != null;
+		}
+
+		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
+		{
+			if (_game != null)
+			{
+				_game.Unpause();
+			}
+		}
+
+		private void OpenToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			_game.Pause();
+
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				OpenGame(openFileDialog.FileName);
+			}
+			else
+			{
+				_game.Unpause();
+			}
+		}
+
+		private void CloseToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			CloseGame();
+		}
+
 		private void ExitToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			Close();
@@ -158,40 +199,6 @@ namespace TextAdventure.WindowsGame.Forms
 		private void WorldTimeToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			_worldTimeConfigurationSection.Visible = worldTimeToolStripMenuItem.Checked;
-		}
-
-		private void OpenToolStripMenuItemOnClick(object sender, EventArgs e)
-		{
-			_game.Pause();
-
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				OpenGame(openFileDialog.FileName);
-			}
-			else
-			{
-				_game.Unpause();
-			}
-		}
-
-		private void MenuStripOnMenuActivate(object sender, EventArgs e)
-		{
-			if (_game != null)
-			{
-				_game.Pause();
-			}
-
-			fpsToolStripMenuItem.Enabled = _game != null;
-			logToolStripMenuItem.Enabled = _game != null;
-			worldTimeToolStripMenuItem.Enabled = _game != null;
-		}
-
-		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
-		{
-			if (_game != null)
-			{
-				_game.Unpause();
-			}
 		}
 
 		private void SoundEffectsToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)

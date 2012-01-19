@@ -110,6 +110,11 @@
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="Managers\SongManager.cs" />
     <Compile Include="Managers\SoundEffectManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TextAdventureGame.cs" />
     <Compile Include="Helpers\RectangleHelper.cs" />
     <Compile Include="Forms\GameForm.cs">
@@ -289,6 +294,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

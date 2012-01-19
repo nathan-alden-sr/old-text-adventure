@@ -3,6 +3,8 @@ using System.Windows.Forms;
 
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.WindowsGame.Properties;
+
 namespace TextAdventure.WindowsGame.Xna
 {
 	public class XnaControl : Control
@@ -10,7 +12,7 @@ namespace TextAdventure.WindowsGame.Xna
 		public XnaControl()
 		{
 			SetStyle(ControlStyles.DoubleBuffer, false);
-			SetStyle(ControlStyles.ResizeRedraw, true);
+			SetStyle(ControlStyles.ResizeRedraw, false);
 			SetStyle(ControlStyles.UserPaint, true);
 			TabStop = false;
 		}
@@ -62,6 +64,12 @@ namespace TextAdventure.WindowsGame.Xna
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
+
+			var logoRectangle = new Rectangle(
+				new Point((ClientSize.Width / 2) - (Resources.Game_Thumbnail.Width / 2), (ClientSize.Height / 2) - (Resources.Game_Thumbnail.Height / 2)),
+				Resources.Game_Thumbnail.Size);
+
+			e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
 		}
 	}
 }

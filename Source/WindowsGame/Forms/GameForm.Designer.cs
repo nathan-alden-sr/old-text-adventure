@@ -47,6 +47,7 @@ namespace TextAdventure.WindowsGame.Forms
 			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
+			this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +78,7 @@ namespace TextAdventure.WindowsGame.Forms
 			// 
 			worldToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             openToolStripMenuItem,
+            this.closeToolStripMenuItem,
             toolStripMenuItem1,
             exitToolStripMenuItem});
 			worldToolStripMenuItem.Name = "worldToolStripMenuItem";
@@ -196,6 +198,13 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Text = "xnaControl1";
 			// 
+			// closeToolStripMenuItem
+			// 
+			this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+			this.closeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.closeToolStripMenuItem.Text = "&Close";
+			this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItemOnClick);
+			// 
 			// GameForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -224,6 +233,7 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
 		private System.Windows.Forms.ToolStripMenuItem soundEffectsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem musicToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
 
 
 	}
