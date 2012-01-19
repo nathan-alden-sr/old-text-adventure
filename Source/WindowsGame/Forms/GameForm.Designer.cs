@@ -40,6 +40,7 @@ namespace TextAdventure.WindowsGame.Forms
 			System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 			System.Windows.Forms.ToolStripMenuItem audioToolStripMenuItem;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
+			this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fpsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,6 @@ namespace TextAdventure.WindowsGame.Forms
 			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
-			this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,6 +93,13 @@ namespace TextAdventure.WindowsGame.Forms
 			openToolStripMenuItem.Text = "&Open...";
 			openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemOnClick);
 			// 
+			// closeToolStripMenuItem
+			// 
+			this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+			this.closeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.closeToolStripMenuItem.Text = "&Close";
+			this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItemOnClick);
+			// 
 			// toolStripMenuItem1
 			// 
 			toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -120,6 +127,7 @@ namespace TextAdventure.WindowsGame.Forms
 			// normalSizeToolStripMenuItem
 			// 
 			normalSizeToolStripMenuItem.Name = "normalSizeToolStripMenuItem";
+			normalSizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
 			normalSizeToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
 			normalSizeToolStripMenuItem.Text = "&Normal Size";
 			normalSizeToolStripMenuItem.Click += new System.EventHandler(this.NormalSizeToolStripMenuItemOnClick);
@@ -197,13 +205,6 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabIndex = 1;
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Text = "xnaControl1";
-			// 
-			// closeToolStripMenuItem
-			// 
-			this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-			this.closeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-			this.closeToolStripMenuItem.Text = "&Close";
-			this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItemOnClick);
 			// 
 			// GameForm
 			// 

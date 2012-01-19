@@ -12,7 +12,7 @@ namespace TextAdventure.WindowsGame.Xna
 		public XnaControl()
 		{
 			SetStyle(ControlStyles.DoubleBuffer, false);
-			SetStyle(ControlStyles.ResizeRedraw, false);
+			SetStyle(ControlStyles.ResizeRedraw, true);
 			SetStyle(ControlStyles.UserPaint, true);
 			TabStop = false;
 		}

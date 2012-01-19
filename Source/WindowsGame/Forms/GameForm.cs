@@ -42,9 +42,17 @@ namespace TextAdventure.WindowsGame.Forms
 			musicToolStripMenuItem.Checked = true;
 		}
 
+		private bool GameRunning
+		{
+			get
+			{
+				return _game != null;
+			}
+		}
+
 		public void Render()
 		{
-			if (_game != null)
+			if (GameRunning)
 			{
 				_game.Tick();
 			}
@@ -85,7 +93,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void CloseGame()
 		{
-			if (_game == null)
+			if (!GameRunning)
 			{
 				return;
 			}
@@ -124,21 +132,27 @@ namespace TextAdventure.WindowsGame.Forms
 
 		protected override void OnResizeBegin(EventArgs e)
 		{
-			_game.Pause();
+			if (GameRunning)
+			{
+				_game.Pause();
+			}
 
 			base.OnResizeBegin(e);
 		}
 
 		protected override void OnResizeEnd(EventArgs e)
 		{
-			_game.Unpause();
+			if (GameRunning)
+			{
+				_game.Unpause();
+			}
 
 			base.OnResizeEnd(e);
 		}
 
 		private void MenuStripOnMenuActivate(object sender, EventArgs e)
 		{
-			if (_game != null)
+			if (GameRunning)
 			{
 				_game.Pause();
 			}
@@ -151,7 +165,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
 		{
-			if (_game != null)
+			if (GameRunning)
 			{
 				_game.Unpause();
 			}
