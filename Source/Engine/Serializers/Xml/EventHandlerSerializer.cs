@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Reflection;
 using System.Xml.Linq;
 
 using Junior.Common;
@@ -9,16 +7,16 @@ using TextAdventure.Engine.Game.Events;
 
 namespace TextAdventure.Engine.Serializers.Xml
 {
-	public class EventHandlerSerializer<TEvent>
-		where TEvent : Event
+	public class EventHandlerSerializer
 	{
-		public static readonly EventHandlerSerializer<TEvent> Instance = new EventHandlerSerializer<TEvent>();
+		public static readonly EventHandlerSerializer Instance = new EventHandlerSerializer();
 
 		private EventHandlerSerializer()
 		{
 		}
 
-		public XElement Serialize(IEventHandler<TEvent> eventHandler, string elementName = "eventHandler")
+		public XElement Serialize<TEvent>(IEventHandler<TEvent> eventHandler, string elementName = "eventHandler")
+			where TEvent : Event
 		{
 			eventHandler.ThrowIfNull("eventHandler");
 			elementName.ThrowIfNull("elementName");
@@ -27,30 +25,17 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new XElement(
 				elementName,
-				new XAttribute("type", String.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name)));
+				new XAttribute("type", EventHandlerTypeSerializer.Instance.Serialize(type)));
 		}
 
-		public IEventHandler<TEvent> Deserialize(XElement eventHandlerElement)
+		public IEventHandler<TEvent> Deserialize<TEvent>(XElement eventHandlerElement)
+			where TEvent : Event
 		{
 			eventHandlerElement.ThrowIfNull("eventHandlerElement");
 
 			var typeName = (string)eventHandlerElement.Attribute("type");
-			Type type = Type.GetType(typeName, false, false);
 
-			if (type == null)
-			{
-				throw new TypeLoadException(String.Format("Event handler type '{0}' not found.", typeName));
-			}
-			if ((!type.IsPublic && !type.IsNestedPublic) || type.IsAbstract || !type.IsClass)
-			{
-				throw new TypeLoadException(String.Format("Event handler type '{0}' must be declared as a public instance class.", type.FullName));
-			}
-			if (!type.GetConstructors(BindingFlags.Public | BindingFlags.Instance).Any(arg => arg.GetParameters().Length == 0))
-			{
-				throw new TypeLoadException(String.Format("Event handler type '{0}' must have a public instance constructor that takes no parameters.", type.FullName));
-			}
-
-			return (IEventHandler<TEvent>)Activator.CreateInstance(type);
+			return EventHandlerTypeSerializer.Instance.Deserialize<TEvent>(typeName);
 		}
 	}
 }

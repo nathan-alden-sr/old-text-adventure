@@ -30,7 +30,7 @@ namespace TextAdventure.Engine.Objects
 			string description,
 			TimeSpan interval,
 			TimerState state,
-			TimeSpan elapsed,
+			TimeSpan elapsedTime,
 			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = null)
 		{
 			name.ThrowIfNull("name");
@@ -45,7 +45,7 @@ namespace TextAdventure.Engine.Objects
 			Description = description;
 			_interval = interval;
 			State = state;
-			ElapsedTime = elapsed;
+			ElapsedTime = elapsedTime;
 			_timerElapsedEventHandler = timerElapsedEventHandler;
 		}
 

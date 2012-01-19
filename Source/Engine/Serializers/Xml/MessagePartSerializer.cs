@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 using Junior.Common;
@@ -30,17 +31,21 @@ namespace TextAdventure.Engine.Serializers.Xml
 				{
 					yield return MessageColorSerializer.Instance.Serialize(messageColor);
 				}
-				if (messageLineBreak != null)
+				else if (messageLineBreak != null)
 				{
 					yield return MessageLineBreakSerializer.Instance.Serialize(messageLineBreak);
 				}
-				if (messageQuestion != null)
+				else if (messageQuestion != null)
 				{
 					yield return MessageQuestionSerializer.Instance.Serialize(messageQuestion);
 				}
-				if (messageText != null)
+				else if (messageText != null)
 				{
 					yield return MessageTextSerializer.Instance.Serialize(messageText);
+				}
+				else
+				{
+					throw new ArgumentException(String.Format("Unknown message part type '{0}'.", part.GetType().Name));
 				}
 			}
 		}

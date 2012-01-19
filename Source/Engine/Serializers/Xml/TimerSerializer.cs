@@ -24,7 +24,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new XElement(
 				elementName,
-				EventHandlerSerializer<TimerElapsedEvent>.Instance.Serialize(timer.TimerElapsedEventHandler, "timerElapsedEventHandler"),
+				EventHandlerSerializer.Instance.Serialize(timer.TimerElapsedEventHandler, "timerElapsedEventHandler"),
 				new XAttribute("id", timer.Id),
 				new XAttribute("name", timer.Name),
 				new XAttribute("description", timer.Description),
@@ -44,7 +44,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				TimeSpan.ParseExact((string)timerElement.Attribute("interval"), "c", CultureInfo.InvariantCulture),
 				Enum<TimerState>.Parse((string)timerElement.Attribute("state")),
 				TimeSpan.ParseExact((string)timerElement.Attribute("elapsed"), "c", CultureInfo.InvariantCulture),
-				timerElement.Element("timerElapsedEventHandler").IfNotNull(EventHandlerSerializer<TimerElapsedEvent>.Instance.Deserialize));
+				timerElement.Element("timerElapsedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<TimerElapsedEvent>));
 		}
 	}
 }

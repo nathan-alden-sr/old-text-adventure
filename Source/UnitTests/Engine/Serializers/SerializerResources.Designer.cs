@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TextAdventure.UnitTests.Engine.Serializers.Xml {
+namespace TextAdventure.UnitTests.Engine.Serializers {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TextAdventure.UnitTests.Engine.Serializers.Xml.SerializerResources", typeof(SerializerResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TextAdventure.UnitTests.Engine.Serializers.SerializerResources", typeof(SerializerResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -64,9 +64,9 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml {
         ///   Looks up a localized string similar to &lt;world id=&quot;9846b8bf-6312-4dd0-a70b-022d1ea2d65e&quot; version=&quot;1&quot; title=&quot;Title&quot;&gt;
         ///	&lt;startingPlayer id=&quot;e64d573a-20e2-4f26-9367-3687b250917b&quot; boardId=&quot;be68b2a8-8b40-440f-a93f-6c5986a000bc&quot; coordinate=&quot;10,10&quot;&gt;
         ///		&lt;character symbol=&quot;2&quot; foregroundColor=&quot;0.5,0.7,0.9,1&quot; backgroundColor=&quot;0,0,0,0&quot; /&gt;
-        ///		&lt;actorInstanceTouchedPlayerEventHandler type=&quot;TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTester+ActorInstanceTouchedPlayerEventHandler, TextAdventure.UnitTests&quot; /&gt;
+        ///		&lt;actorInstanceTouchedPlayerEventHandler type=&quot;TextAdventure.UnitTests.Engine.Serializers.Xml.WorldSerializerTester+ActorInstanceTouchedPlayerEventHandler, TextAdventure.UnitTests&quot; /&gt;
         ///	&lt;/startingPlayer&gt;
-        ///	&lt;board id=&quot;be68b2a8 [rest of string was truncated]&quot;;.
+        ///	&lt;board id=&quot;be68 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string World {
             get {

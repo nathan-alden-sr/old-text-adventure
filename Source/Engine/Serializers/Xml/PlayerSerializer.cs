@@ -24,7 +24,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				CharacterSerializer.Instance.Serialize(player.Character),
-				player.ActorInstanceTouchedPlayerEventHandler.IfNotNull(arg => EventHandlerSerializer<ActorInstanceTouchedPlayerEvent>.Instance.Serialize(arg, "actorInstanceTouchedPlayerEventHandler")),
+				player.ActorInstanceTouchedPlayerEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "actorInstanceTouchedPlayerEventHandler")),
 				new XAttribute("id", player.Id),
 				new XAttribute("boardId", player.BoardId),
 				new XAttribute("coordinate", CoordinateSerializer.Instance.Serialize(player.Coordinate)));
@@ -39,7 +39,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				(Guid)playerElement.Attribute("boardId"),
 				CoordinateSerializer.Instance.Deserialize((string)playerElement.Attribute("coordinate")),
 				CharacterSerializer.Instance.Deserialize(playerElement.Element("character")),
-				playerElement.Element("actorInstanceTouchedPlayerEventHandler").IfNotNull(EventHandlerSerializer<ActorInstanceTouchedPlayerEvent>.Instance.Deserialize));
+				playerElement.Element("actorInstanceTouchedPlayerEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<ActorInstanceTouchedPlayerEvent>));
 		}
 	}
 }
