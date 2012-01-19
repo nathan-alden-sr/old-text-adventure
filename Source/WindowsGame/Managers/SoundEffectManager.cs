@@ -31,6 +31,22 @@ namespace TextAdventure.WindowsGame.Managers
 			sound.Play(parameters);
 		}
 
+		public void Mute()
+		{
+			foreach (SoundManager soundManager in _soundManagersById.Values)
+			{
+				soundManager.MuteAll();
+			}
+		}
+
+		public void Unmute()
+		{
+			foreach (SoundManager soundManager in _soundManagersById.Values)
+			{
+				soundManager.UnmuteAll();
+			}
+		}
+
 		protected virtual void OnDispose(bool disposing)
 		{
 			if (disposing)
@@ -76,6 +92,22 @@ namespace TextAdventure.WindowsGame.Managers
 				sound.Stop();
 
 				return sound;
+			}
+
+			public void MuteAll()
+			{
+				foreach (Sound sound in _sounds)
+				{
+					sound.Mute();
+				}
+			}
+
+			public void UnmuteAll()
+			{
+				foreach (Sound sound in _sounds)
+				{
+					sound.Unmute();
+				}
 			}
 		}
 	}

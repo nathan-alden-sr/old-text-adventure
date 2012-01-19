@@ -8,16 +8,15 @@ namespace TextAdventure.Engine.Game.Commands
 {
 	public class PlaySongCommand : Command
 	{
-		private readonly SoundParameters _parameters;
 		private readonly Song _song;
+		private readonly Volume _volume;
 
-		public PlaySongCommand(Song song, SoundParameters parameters)
+		public PlaySongCommand(Song song, Volume volume)
 		{
 			song.ThrowIfNull("song");
-			parameters.ThrowIfNull("parameters");
 
 			_song = song;
-			_parameters = parameters;
+			_volume = volume;
 		}
 
 		public override IEnumerable<string> Details
@@ -32,7 +31,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("context");
 
-			context.MultimediaPlayer.PlaySong(_song.Id, _song.Data, _parameters);
+			context.MultimediaPlayer.PlaySong(_song.Id, _song.Data, _volume);
 
 			return CommandResult.Succeeded;
 		}

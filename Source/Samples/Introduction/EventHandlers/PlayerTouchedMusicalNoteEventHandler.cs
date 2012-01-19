@@ -16,7 +16,7 @@ namespace TextAdventure.Samples.Introduction.EventHandlers
 			{
 				Song song = context.GetSongById(Guid.Parse("9c01844c-4786-4a93-8092-66036666bf2f"));
 
-				context.EnqueueCommand(Commands.PlaySong(song, new SoundParameters(0.3f)));
+				context.EnqueueCommand(Commands.PlaySong(song, 0.3f));
 			}
 			else
 			{

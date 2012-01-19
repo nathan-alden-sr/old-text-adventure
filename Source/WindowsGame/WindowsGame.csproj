@@ -100,6 +100,7 @@
     <Compile Include="Configuration\IWorldTimeConfiguration.cs" />
     <Compile Include="Configuration\VolumeConfigurationSection.cs" />
     <Compile Include="Configuration\VolumeTypeConverter.cs" />
+    <Compile Include="Fmod\SoundParameters.cs" />
     <Compile Include="Fmod\SoundSystem.cs" />
     <Compile Include="Fmod\fmod.cs" />
     <Compile Include="Fmod\fmod_dsp.cs" />

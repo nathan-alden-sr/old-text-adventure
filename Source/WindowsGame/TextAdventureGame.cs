@@ -21,7 +21,7 @@ namespace TextAdventure.WindowsGame
 		private readonly IFpsConfiguration _fpsConfiguration;
 		private readonly InputManager _inputManager = new InputManager();
 		private readonly ILogConfiguration _logConfiguration;
-		private readonly MultimediaPlayer _multimediaPlayer;
+		private readonly IMultimediaPlayer _multimediaPlayer;
 		private readonly Player _player;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
 		private readonly UpdaterCollection _updaterCollection = new UpdaterCollection();
@@ -44,25 +44,25 @@ namespace TextAdventure.WindowsGame
 			GraphicsDevice graphicsDevice,
 			Engine.Objects.World world,
 			Player player,
+			IMultimediaPlayer multimediaPlayer,
 			IFpsConfiguration fpsConfiguration,
 			ILogConfiguration logConfiguration,
-			IWorldTimeConfiguration worldTimeConfiguration,
-			IVolumeConfiguration volumeConfiguration)
+			IWorldTimeConfiguration worldTimeConfiguration)
 			: base(graphicsDevice)
 		{
 			world.ThrowIfNull("world");
 			player.ThrowIfNull("player");
+			multimediaPlayer.ThrowIfNull("multimediaPlayer");
 			fpsConfiguration.ThrowIfNull("fpsConfiguration");
 			logConfiguration.ThrowIfNull("logConfiguration");
 			worldTimeConfiguration.ThrowIfNull("worldTimeConfiguration");
-			volumeConfiguration.ThrowIfNull("volumeConfiguration");
 
 			_world = world;
 			_player = player;
+			_multimediaPlayer = multimediaPlayer;
 			_fpsConfiguration = fpsConfiguration;
 			_logConfiguration = logConfiguration;
 			_worldTimeConfiguration = worldTimeConfiguration;
-			_multimediaPlayer = new MultimediaPlayer(volumeConfiguration);
 		}
 
 		protected override void Initialize()
@@ -108,16 +108,6 @@ namespace TextAdventure.WindowsGame
 			spriteBatch.Dispose();
 
 			base.Draw(gameTime);
-		}
-
-		protected override void OnDispose(bool disposing)
-		{
-			if (disposing)
-			{
-				_multimediaPlayer.Dispose();
-			}
-
-			base.OnDispose(disposing);
 		}
 
 		private void CreateRendererStates()

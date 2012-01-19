@@ -38,10 +38,13 @@ namespace TextAdventure.WindowsGame.Forms
 			System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
 			System.Windows.Forms.ToolStripMenuItem normalSizeToolStripMenuItem;
 			System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+			System.Windows.Forms.ToolStripMenuItem audioToolStripMenuItem;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.fpsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.soundEffectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
 			menuStrip = new System.Windows.Forms.MenuStrip();
@@ -52,6 +55,7 @@ namespace TextAdventure.WindowsGame.Forms
 			viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			normalSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+			audioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -59,7 +63,8 @@ namespace TextAdventure.WindowsGame.Forms
 			// 
 			menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             worldToolStripMenuItem,
-            viewToolStripMenuItem});
+            viewToolStripMenuItem,
+            audioToolStripMenuItem});
 			menuStrip.Location = new System.Drawing.Point(0, 0);
 			menuStrip.Name = "menuStrip";
 			menuStrip.Size = new System.Drawing.Size(284, 24);
@@ -149,6 +154,33 @@ namespace TextAdventure.WindowsGame.Forms
 			this.worldTimeToolStripMenuItem.Text = "&World Time";
 			this.worldTimeToolStripMenuItem.Click += new System.EventHandler(this.WorldTimeToolStripMenuItemOnClick);
 			// 
+			// audioToolStripMenuItem
+			// 
+			audioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.soundEffectsToolStripMenuItem,
+            this.musicToolStripMenuItem});
+			audioToolStripMenuItem.Name = "audioToolStripMenuItem";
+			audioToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+			audioToolStripMenuItem.Text = "&Audio";
+			// 
+			// soundEffectsToolStripMenuItem
+			// 
+			this.soundEffectsToolStripMenuItem.CheckOnClick = true;
+			this.soundEffectsToolStripMenuItem.Name = "soundEffectsToolStripMenuItem";
+			this.soundEffectsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+			this.soundEffectsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.soundEffectsToolStripMenuItem.Text = "&Sound Effects";
+			this.soundEffectsToolStripMenuItem.CheckedChanged += new System.EventHandler(this.SoundEffectsToolStripMenuItemOnCheckedChanged);
+			// 
+			// musicToolStripMenuItem
+			// 
+			this.musicToolStripMenuItem.CheckOnClick = true;
+			this.musicToolStripMenuItem.Name = "musicToolStripMenuItem";
+			this.musicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
+			this.musicToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.musicToolStripMenuItem.Text = "&Music";
+			this.musicToolStripMenuItem.CheckedChanged += new System.EventHandler(this.MusicToolStripMenuItemOnCheckedChanged);
+			// 
 			// openFileDialog
 			// 
 			this.openFileDialog.Filter = "World Assemblies (*.dll)|*.dll|All Files (*.*)|*.*";
@@ -190,6 +222,8 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem worldTimeToolStripMenuItem;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.ToolStripMenuItem soundEffectsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem musicToolStripMenuItem;
 
 
 	}

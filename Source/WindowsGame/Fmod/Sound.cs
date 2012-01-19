@@ -47,6 +47,7 @@ namespace TextAdventure.WindowsGame.Fmod
 			RESULT result = _soundSystem.System.playSound(CHANNELINDEX.FREE, _sound, true, ref _channel);
 
 			_channel.setVolume(parameters.Volume);
+			_channel.setMute(parameters.Muted);
 			_channel.setPaused(false);
 
 			if (result != RESULT.OK)
@@ -60,6 +61,22 @@ namespace TextAdventure.WindowsGame.Fmod
 			if (_channel != null)
 			{
 				_channel.stop();
+			}
+		}
+
+		public void Mute()
+		{
+			if (_channel != null)
+			{
+				_channel.setMute(true);
+			}
+		}
+
+		public void Unmute()
+		{
+			if (_channel != null)
+			{
+				_channel.setMute(false);
 			}
 		}
 

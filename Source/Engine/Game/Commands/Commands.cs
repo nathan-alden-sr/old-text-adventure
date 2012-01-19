@@ -141,14 +141,14 @@ namespace TextAdventure.Engine.Game.Commands
 			return new StopTimerCommand(timer);
 		}
 
-		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect, SoundParameters parameters)
+		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect, Volume volume)
 		{
-			return new PlaySoundEffectCommand(soundEffect, parameters);
+			return new PlaySoundEffectCommand(soundEffect, volume);
 		}
 
-		public static PlaySongCommand PlaySong(Song song, SoundParameters parameters)
+		public static PlaySongCommand PlaySong(Song song, Volume volume)
 		{
-			return new PlaySongCommand(song, parameters);
+			return new PlaySongCommand(song, volume);
 		}
 
 		public static StopSongCommand StopSong()

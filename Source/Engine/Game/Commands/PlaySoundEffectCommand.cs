@@ -8,16 +8,15 @@ namespace TextAdventure.Engine.Game.Commands
 {
 	public class PlaySoundEffectCommand : Command
 	{
-		private readonly SoundParameters _parameters;
 		private readonly SoundEffect _soundEffect;
+		private readonly Volume _volume;
 
-		public PlaySoundEffectCommand(SoundEffect soundEffect, SoundParameters parameters)
+		public PlaySoundEffectCommand(SoundEffect soundEffect, Volume volume)
 		{
 			soundEffect.ThrowIfNull("soundEffect");
-			parameters.ThrowIfNull("parameters");
 
 			_soundEffect = soundEffect;
-			_parameters = parameters;
+			_volume = volume;
 		}
 
 		public override IEnumerable<string> Details
@@ -32,7 +31,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("context");
 
-			context.MultimediaPlayer.PlaySoundEffect(_soundEffect.Id, _soundEffect.Data, _parameters);
+			context.MultimediaPlayer.PlaySoundEffect(_soundEffect.Id, _soundEffect.Data, _volume);
 
 			return CommandResult.Succeeded;
 		}

@@ -8,6 +8,7 @@ using Junior.Common;
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Configuration;
 using TextAdventure.WindowsGame.Helpers;
+using TextAdventure.WindowsGame.Updaters;
 
 namespace TextAdventure.WindowsGame.Forms
 {
@@ -17,16 +18,19 @@ namespace TextAdventure.WindowsGame.Forms
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
 		private static readonly VolumeConfigurationSection _volumeConfigurationSection = (VolumeConfigurationSection)ConfigurationManager.GetSection("volume");
 		private static readonly WorldTimeConfigurationSection _worldTimeConfigurationSection = (WorldTimeConfigurationSection)ConfigurationManager.GetSection("worldTime");
+		private readonly MultimediaPlayer _multimediaPlayer;
 		private TextAdventureGame _game;
 		private Player _startingPlayer;
 		private Engine.Objects.World _world;
 
 		public GameForm(Engine.Objects.World world, Player startingPlayer)
 		{
-			_world = world;
-			_startingPlayer = startingPlayer;
 			world.ThrowIfNull("world");
 			startingPlayer.ThrowIfNull("startingPlayer");
+
+			_world = world;
+			_startingPlayer = startingPlayer;
+			_multimediaPlayer = new MultimediaPlayer(_volumeConfigurationSection);
 
 			InitializeComponent();
 			SetNormalViewSize();
@@ -34,6 +38,8 @@ namespace TextAdventure.WindowsGame.Forms
 			fpsToolStripMenuItem.Checked = _fpsConfigurationSection.Visible;
 			logToolStripMenuItem.Checked = _logConfigurationSection.Visible;
 			worldTimeToolStripMenuItem.Checked = _worldTimeConfigurationSection.Visible;
+			soundEffectsToolStripMenuItem.Checked = true;
+			musicToolStripMenuItem.Checked = true;
 		}
 
 		public void Render()
@@ -57,10 +63,10 @@ namespace TextAdventure.WindowsGame.Forms
 				xnaControl.GraphicsDevice,
 				world,
 				startingPlayer,
+				_multimediaPlayer, 
 				_fpsConfigurationSection,
 				_logConfigurationSection,
-				_worldTimeConfigurationSection,
-				_volumeConfigurationSection);
+				_worldTimeConfigurationSection);
 		}
 
 		private void OpenGame(string path)
@@ -185,6 +191,30 @@ namespace TextAdventure.WindowsGame.Forms
 			if (_game != null)
 			{
 				_game.Unpause();
+			}
+		}
+
+		private void SoundEffectsToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
+		{
+			if (soundEffectsToolStripMenuItem.Checked)
+			{
+				_multimediaPlayer.UnmuteSoundEffects();
+			}
+			else
+			{
+				_multimediaPlayer.MuteSoundEffects();
+			}
+		}
+
+		private void MusicToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
+		{
+			if (musicToolStripMenuItem.Checked)
+			{
+				_multimediaPlayer.UnmuteSongs();
+			}
+			else
+			{
+				_multimediaPlayer.MuteSongs();
 			}
 		}
 	}

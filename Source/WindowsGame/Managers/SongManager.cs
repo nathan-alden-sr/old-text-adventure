@@ -42,6 +42,22 @@ namespace TextAdventure.WindowsGame.Managers
 			}
 		}
 
+		public void Mute()
+		{
+			foreach (Sound sound in _soundsById.Values)
+			{
+				sound.Mute();
+			}
+		}
+
+		public void Unmute()
+		{
+			foreach (Sound sound in _soundsById.Values)
+			{
+				sound.Unmute();
+			}
+		}
+
 		protected virtual void OnDispose(bool disposing)
 		{
 			if (disposing)
