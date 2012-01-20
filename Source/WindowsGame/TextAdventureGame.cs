@@ -101,13 +101,13 @@ namespace TextAdventure.WindowsGame
 
 		protected override void Draw(XnaGameTime gameTime)
 		{
+			base.Draw(gameTime);
+
 			var spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			_rendererCollection.Render(spriteBatch, gameTime, _fontContent, _textureContent);
 
 			spriteBatch.Dispose();
-
-			base.Draw(gameTime);
 		}
 
 		private void CreateRendererStates()

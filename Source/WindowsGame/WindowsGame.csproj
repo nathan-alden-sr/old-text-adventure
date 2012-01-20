@@ -211,7 +211,6 @@
     </Compile>
     <Compile Include="Xna\XnaGame.cs" />
     <Compile Include="Xna\XnaGameTime.cs" />
-    <Compile Include="Xna\XnaServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
@@ -225,6 +224,10 @@
     <ProjectReference Include="..\WindowsGameContent\WindowsGameContent.contentproj">
       <Name>WindowsGameContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\Xna\Xna.csproj">
+      <Project>{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}</Project>
+      <Name>Xna</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

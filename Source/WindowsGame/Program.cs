@@ -25,10 +25,10 @@ namespace TextAdventure.WindowsGame
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(true);
 
-			var _gameForm = new GameForm(world, world.StartingPlayer);
+			var gameForm = new GameForm(world, world.StartingPlayer);
 
-			Application.Idle += (sender, args) => ApplicationOnIdle(_gameForm);
-			Application.Run(_gameForm);
+			Application.Idle += (sender, args) => ApplicationOnIdle(gameForm);
+			Application.Run(gameForm);
 
 			SoundSystem.Instance.Release();
 		}

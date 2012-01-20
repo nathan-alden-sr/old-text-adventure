@@ -77,19 +77,19 @@ namespace TextAdventure.WindowsGame.Renderers
 				{
 					case BoardExitDirection.Up:
 						coordinate.Y--;
-						symbol = Constants.BoardRenderer.BoardExitUpSymbol;
+						symbol = TextAdventure.Xna.Constants.BoardRenderer.BoardExitUpSymbol;
 						break;
 					case BoardExitDirection.Down:
 						coordinate.Y++;
-						symbol = Constants.BoardRenderer.BoardExitDownSymbol;
+						symbol = TextAdventure.Xna.Constants.BoardRenderer.BoardExitDownSymbol;
 						break;
 					case BoardExitDirection.Left:
 						coordinate.X--;
-						symbol = Constants.BoardRenderer.BoardExitLeftSymbol;
+						symbol = TextAdventure.Xna.Constants.BoardRenderer.BoardExitLeftSymbol;
 						break;
 					case BoardExitDirection.Right:
 						coordinate.X++;
-						symbol = Constants.BoardRenderer.BoardExitRightSymbol;
+						symbol = TextAdventure.Xna.Constants.BoardRenderer.BoardExitRightSymbol;
 						break;
 					default:
 						throw new Exception(String.Format("Unexpected board exit direction '{0}'.", boardExit.Direction));
@@ -98,7 +98,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				Rectangle destinationRectangle = GetTileDestinationRectangle(topLeftPoint, topLeftCoordinate, coordinate);
 				Rectangle sourceCharacterRectangle = GetCharacterSourceRectangle(symbol);
 
-				parameters.SpriteBatch.Draw(parameters.TextureContent.Characters, destinationRectangle, sourceCharacterRectangle, Constants.BoardRenderer.BoardExitSymbolColor);
+				parameters.SpriteBatch.Draw(parameters.TextureContent.Characters, destinationRectangle, sourceCharacterRectangle, TextAdventure.Xna.Constants.BoardRenderer.BoardExitSymbolColor);
 			}
 
 			parameters.SpriteBatch.End();
@@ -117,8 +117,8 @@ namespace TextAdventure.WindowsGame.Renderers
 			int drawableTilesToBottom = Math.Min(Constants.GameWindow.TilesToBottomExclusive, board.Size.Height - player.Coordinate.Y - 1);
 
 			topLeftPoint = new Point(
-				Constants.PlayerRenderer.DestinationRectangle.X - (drawableTilesToLeft * Constants.Tile.TileWidth),
-				Constants.PlayerRenderer.DestinationRectangle.Y - (drawableTilesToTop * Constants.Tile.TileHeight));
+				Constants.PlayerRenderer.DestinationRectangle.X - (drawableTilesToLeft * TextAdventure.Xna.Constants.Tile.TileWidth),
+				Constants.PlayerRenderer.DestinationRectangle.Y - (drawableTilesToTop * TextAdventure.Xna.Constants.Tile.TileHeight));
 			topLeftLayerCoordinate = new Coordinate(player.Coordinate.X - drawableTilesToLeft, player.Coordinate.Y - drawableTilesToTop);
 			bottomRightCoordinate = new Coordinate(player.Coordinate.X + drawableTilesToRight, player.Coordinate.Y + drawableTilesToBottom);
 		}
@@ -126,19 +126,19 @@ namespace TextAdventure.WindowsGame.Renderers
 		private static Rectangle GetCharacterSourceRectangle(byte symbol)
 		{
 			return new Rectangle(
-				(symbol % 16) * Constants.Tile.TileWidth,
-				(symbol / 16) * Constants.Tile.TileHeight,
-				Constants.Tile.TileWidth,
-				Constants.Tile.TileHeight);
+				(symbol % 16) * TextAdventure.Xna.Constants.Tile.TileWidth,
+				(symbol / 16) * TextAdventure.Xna.Constants.Tile.TileHeight,
+				TextAdventure.Xna.Constants.Tile.TileWidth,
+				TextAdventure.Xna.Constants.Tile.TileHeight);
 		}
 
 		private static Rectangle GetTileDestinationRectangle(Point topLeftPoint, Coordinate topLeftCoordinate, Coordinate tileCoordinate)
 		{
 			return new Rectangle(
-				topLeftPoint.X + ((tileCoordinate.X - topLeftCoordinate.X) * Constants.Tile.TileWidth),
-				topLeftPoint.Y + ((tileCoordinate.Y - topLeftCoordinate.Y) * Constants.Tile.TileHeight),
-				Constants.Tile.TileWidth,
-				Constants.Tile.TileHeight);
+				topLeftPoint.X + ((tileCoordinate.X - topLeftCoordinate.X) * TextAdventure.Xna.Constants.Tile.TileWidth),
+				topLeftPoint.Y + ((tileCoordinate.Y - topLeftCoordinate.Y) * TextAdventure.Xna.Constants.Tile.TileHeight),
+				TextAdventure.Xna.Constants.Tile.TileWidth,
+				TextAdventure.Xna.Constants.Tile.TileHeight);
 		}
 	}
 }

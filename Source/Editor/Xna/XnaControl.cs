@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.WindowsGame.Properties;
+using TextAdventure.Editor.Properties;
 
-namespace TextAdventure.WindowsGame.Xna
+namespace TextAdventure.Editor.Xna
 {
 	public class XnaControl : Control
 	{
@@ -27,7 +27,7 @@ namespace TextAdventure.WindowsGame.Xna
 		{
 			get
 			{
-				return new Size(Constants.GameWindow.PreferredBackBufferWidth, Constants.GameWindow.PreferredBackBufferHeight);
+				return new Size(100, 100);
 			}
 		}
 
@@ -44,19 +44,22 @@ namespace TextAdventure.WindowsGame.Xna
 
 		public void CreateGraphicsDevice()
 		{
-			var presentationParameters = new PresentationParameters
-			                             	{
-			                             		BackBufferFormat = SurfaceFormat.Color,
-			                             		BackBufferWidth = Constants.GameWindow.PreferredBackBufferWidth,
-			                             		BackBufferHeight = Constants.GameWindow.PreferredBackBufferHeight,
-			                             		DepthStencilFormat = DepthFormat.Depth24Stencil8,
-			                             		DeviceWindowHandle = Handle,
-			                             		IsFullScreen = false,
-			                             		RenderTargetUsage = RenderTargetUsage.DiscardContents,
-			                             		PresentationInterval = PresentInterval.Immediate
-			                             	};
+			GraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, GetPresentationParameters());
+		}
 
-			GraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, presentationParameters);
+		private PresentationParameters GetPresentationParameters()
+		{
+			return new PresentationParameters
+			       	{
+			       		BackBufferFormat = SurfaceFormat.Color,
+			       		BackBufferWidth = ClientSize.Width,
+			       		BackBufferHeight = ClientSize.Height,
+			       		DepthStencilFormat = DepthFormat.Depth24Stencil8,
+			       		DeviceWindowHandle = Handle,
+			       		IsFullScreen = false,
+			       		RenderTargetUsage = RenderTargetUsage.DiscardContents,
+			       		PresentationInterval = PresentInterval.Immediate
+			       	};
 		}
 
 		protected override void Dispose(bool disposing)
@@ -81,6 +84,18 @@ namespace TextAdventure.WindowsGame.Xna
 				Resources.Game_Thumbnail.Size);
 
 			e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
+		}
+
+		protected override void OnResize(System.EventArgs e)
+		{
+			if (GraphicsDevice == null)
+			{
+				return;
+			}
+
+			GraphicsDevice.Reset(GetPresentationParameters());
+
+			base.OnResize(e);
 		}
 	}
 }

@@ -11,20 +11,6 @@ namespace TextAdventure.WindowsGame
 {
 	public static class Constants
 	{
-		public static class BoardRenderer
-		{
-			public const byte BoardExitDownSymbol = 31;
-			public const byte BoardExitLeftSymbol = 16;
-			public const byte BoardExitRightSymbol = 17;
-			public const byte BoardExitUpSymbol = 30;
-			public static readonly Color BoardExitSymbolColor;
-
-			static BoardRenderer()
-			{
-				BoardExitSymbolColor = Color.White * 0.25f;
-			}
-		}
-
 		public static class BorderedWindow
 		{
 			public const int Padding = 2;
@@ -68,13 +54,13 @@ namespace TextAdventure.WindowsGame
 
 			static GameWindow()
 			{
-				PreferredBackBufferWidth = 60 * Tile.TileWidth;
-				PreferredBackBufferHeight = 30 * Tile.TileHeight;
+				PreferredBackBufferWidth = 60 * TextAdventure.Xna.Constants.Tile.TileWidth;
+				PreferredBackBufferHeight = 30 * TextAdventure.Xna.Constants.Tile.TileHeight;
 				DestinationRectangle = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
-				TilesToLeftInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Right / (double)Tile.TileWidth);
-				TilesToTopInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Bottom / (double)Tile.TileHeight);
-				TilesToRightExclusive = (PreferredBackBufferWidth - PlayerRenderer.DestinationRectangle.Left) / Tile.TileWidth;
-				TilesToBottomExclusive = (PreferredBackBufferHeight - PlayerRenderer.DestinationRectangle.Top) / Tile.TileHeight;
+				TilesToLeftInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Right / (double)TextAdventure.Xna.Constants.Tile.TileWidth);
+				TilesToTopInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Bottom / (double)TextAdventure.Xna.Constants.Tile.TileHeight);
+				TilesToRightExclusive = (PreferredBackBufferWidth - PlayerRenderer.DestinationRectangle.Left) / TextAdventure.Xna.Constants.Tile.TileWidth;
+				TilesToBottomExclusive = (PreferredBackBufferHeight - PlayerRenderer.DestinationRectangle.Top) / TextAdventure.Xna.Constants.Tile.TileHeight;
 			}
 		}
 
@@ -113,54 +99,6 @@ namespace TextAdventure.WindowsGame
 			}
 		}
 
-		public static class MessageRenderer
-		{
-			public const int AnswerHorizontalPadding = 5;
-			public const int AnswerHorizontalTextPadding = 5;
-			public const int ArrowHorizontalPadding = 5;
-			public const float MaximumLineWidthAsPercentageOfGameWindowDestinationRectangle = 0.75f;
-			public const int ScrollStep = 5;
-			public const int VerticalOffsetFromGameWindowDestinationRectangleCenter = 30;
-			public const int VerticalWindowPadding = 10;
-			public static readonly Color ArrowColor;
-			public static readonly Color DisabledArrowColor;
-			public static readonly TimeSpan FadeInDuration;
-			public static readonly TimeSpan FadeOutDuration;
-			public static readonly Color ShadowColor;
-			public static readonly Vector2 ShadowOffset;
-			public static readonly Color TextColor;
-
-			static MessageRenderer()
-			{
-				ArrowColor = Color.White;
-				DisabledArrowColor = Color.White * 0.25f;
-				FadeInDuration = TimeSpan.FromMilliseconds(150);
-				FadeOutDuration = TimeSpan.FromMilliseconds(75);
-				ShadowColor = Color.Black;
-				ShadowOffset = Vector2.One;
-				TextColor = Color.White;
-			}
-
-			public static class Input
-			{
-				public const Keys AcceptKey = Keys.Enter;
-				public const Keys EndKey = Keys.End;
-				public const Keys HomeKey = Keys.Home;
-				public const Keys NextAnswerKey = Keys.Right;
-				public const Keys PageDownKey = Keys.PageDown;
-				public const Keys PageUpKey = Keys.PageUp;
-				public const Keys PreviousAnswerKey = Keys.Left;
-				public const Keys ScrollDownKey = Keys.Down;
-				public const Keys ScrollUpKey = Keys.Up;
-				public static readonly TimeSpan ScrollKeyboardInterval;
-
-				static Input()
-				{
-					ScrollKeyboardInterval = TimeSpan.Zero;
-				}
-			}
-		}
-
 		public static class PlayerRenderer
 		{
 			public static readonly Color BackgroundColor;
@@ -172,12 +110,12 @@ namespace TextAdventure.WindowsGame
 			{
 				BackgroundColor = Color.DarkBlue;
 				DestinationRectangle = new Rectangle(
-					GameWindow.DestinationRectangle.Center.X - (Tile.TileWidth / 2),
-					GameWindow.DestinationRectangle.Center.Y - (Tile.TileHeight / 2),
-					Tile.TileWidth,
-					Tile.TileHeight);
+					GameWindow.DestinationRectangle.Center.X - (TextAdventure.Xna.Constants.Tile.TileWidth / 2),
+					GameWindow.DestinationRectangle.Center.Y - (TextAdventure.Xna.Constants.Tile.TileHeight / 2),
+					TextAdventure.Xna.Constants.Tile.TileWidth,
+					TextAdventure.Xna.Constants.Tile.TileHeight);
 				ForegroundColor = Color.White;
-				TextureRectangle = new Rectangle(Tile.TileWidth * 2, 0, Tile.TileWidth, Tile.TileHeight);
+				TextureRectangle = new Rectangle(TextAdventure.Xna.Constants.Tile.TileWidth * 2, 0, TextAdventure.Xna.Constants.Tile.TileWidth, TextAdventure.Xna.Constants.Tile.TileHeight);
 			}
 
 			public static class Input
@@ -195,12 +133,6 @@ namespace TextAdventure.WindowsGame
 					RepeatingInterval = TimeSpan.FromMilliseconds(30);
 				}
 			}
-		}
-
-		public static class Tile
-		{
-			public const int TileHeight = 24;
-			public const int TileWidth = 14;
 		}
 
 		public static class WorldTimeRenderer

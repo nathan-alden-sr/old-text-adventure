@@ -38,19 +38,19 @@ namespace TextAdventure.WindowsGame.Updaters
 				KeyDown,
 				null,
 				null,
-				Constants.MessageRenderer.Input.AcceptKey,
-				Constants.MessageRenderer.Input.NextAnswerKey,
-				Constants.MessageRenderer.Input.PreviousAnswerKey);
+				TextAdventure.Xna.Constants.MessageRenderer.Input.AcceptKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.NextAnswerKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.PreviousAnswerKey);
 			_scrollKeyboardStateHelper = new KeyboardStateHelper(
 				_scrollKeyboardRepeatHelper,
-				Constants.MessageRenderer.Input.ScrollUpKey,
-				Constants.MessageRenderer.Input.ScrollDownKey,
-				Constants.MessageRenderer.Input.HomeKey,
-				Constants.MessageRenderer.Input.EndKey,
-				Constants.MessageRenderer.Input.PageUpKey,
-				Constants.MessageRenderer.Input.PageDownKey);
-			_scrollKeyboardRepeatHelper.InitialInterval = Constants.MessageRenderer.Input.ScrollKeyboardInterval;
-			_scrollKeyboardRepeatHelper.RepeatingInterval = Constants.MessageRenderer.Input.ScrollKeyboardInterval;
+				TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollUpKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollDownKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.HomeKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.EndKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.PageUpKey,
+				TextAdventure.Xna.Constants.MessageRenderer.Input.PageDownKey);
+			_scrollKeyboardRepeatHelper.InitialInterval = TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollKeyboardInterval;
+			_scrollKeyboardRepeatHelper.RepeatingInterval = TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollKeyboardInterval;
 		}
 
 		public void Update(IUpdaterParameters parameters)
@@ -69,22 +69,22 @@ namespace TextAdventure.WindowsGame.Updaters
 
 			switch (_scrollKeyboardStateHelper.LastKeyDown)
 			{
-				case Constants.MessageRenderer.Input.ScrollUpKey:
-					_messageRendererState.ScrollPosition -= Constants.MessageRenderer.ScrollStep;
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollUpKey:
+					_messageRendererState.ScrollPosition -= TextAdventure.Xna.Constants.MessageRenderer.ScrollStep;
 					break;
-				case Constants.MessageRenderer.Input.ScrollDownKey:
-					_messageRendererState.ScrollPosition += Constants.MessageRenderer.ScrollStep;
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollDownKey:
+					_messageRendererState.ScrollPosition += TextAdventure.Xna.Constants.MessageRenderer.ScrollStep;
 					break;
-				case Constants.MessageRenderer.Input.HomeKey:
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.HomeKey:
 					_messageRendererState.ScrollPosition = 0f;
 					break;
-				case Constants.MessageRenderer.Input.EndKey:
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.EndKey:
 					_messageRendererState.ScrollPosition = Single.MaxValue;
 					break;
-				case Constants.MessageRenderer.Input.PageUpKey:
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.PageUpKey:
 					_messageRendererState.ScrollPosition -= _messageRendererState.VisibleHeight;
 					break;
-				case Constants.MessageRenderer.Input.PageDownKey:
+				case TextAdventure.Xna.Constants.MessageRenderer.Input.PageDownKey:
 					_messageRendererState.ScrollPosition += _messageRendererState.VisibleHeight;
 					break;
 			}
@@ -98,7 +98,7 @@ namespace TextAdventure.WindowsGame.Updaters
 			{
 				switch (keys)
 				{
-					case Constants.MessageRenderer.Input.AcceptKey:
+					case TextAdventure.Xna.Constants.MessageRenderer.Input.AcceptKey:
 						MessageAnswer selectedAnswer = _messageRendererState.AnswerSelectionManager.SelectedAnswer;
 
 						_worldInstance.RaiseEvent(_worldInstance.World.AnswerSelectedEventHandler, new AnswerSelectedEvent(selectedAnswer.Id));
@@ -107,15 +107,15 @@ namespace TextAdventure.WindowsGame.Updaters
 							_worldInstance.MessageQueue.EnqueueMessage(selectedAnswer, MessageQueuePosition.First);
 						}
 						break;
-					case Constants.MessageRenderer.Input.NextAnswerKey:
+					case TextAdventure.Xna.Constants.MessageRenderer.Input.NextAnswerKey:
 						_messageRendererState.AnswerSelectionManager.SelectNextAnswer();
 						break;
-					case Constants.MessageRenderer.Input.PreviousAnswerKey:
+					case TextAdventure.Xna.Constants.MessageRenderer.Input.PreviousAnswerKey:
 						_messageRendererState.AnswerSelectionManager.SelectPreviousAnswer();
 						break;
 				}
 			}
-			if (keys == Constants.MessageRenderer.Input.AcceptKey)
+			if (keys == TextAdventure.Xna.Constants.MessageRenderer.Input.AcceptKey)
 			{
 				_messageClosingDelegate(_lastGameTime);
 			}

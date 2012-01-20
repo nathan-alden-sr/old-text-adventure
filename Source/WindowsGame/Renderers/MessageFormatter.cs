@@ -168,7 +168,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			for (int i = 0; i < words.Length; i++)
 			{
 				string word = words[i];
-				Vector2 wordSize = _font.MeasureString(word) + Constants.MessageRenderer.ShadowOffset;
+				Vector2 wordSize = _font.MeasureString(word) + TextAdventure.Xna.Constants.MessageRenderer.ShadowOffset;
 				Vector2 lineSize = _lineSizesByLine[lineIndex];
 
 				lineSize.Y = Math.Max(wordSize.Y, lineSize.Y);
@@ -238,8 +238,8 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			float lineWidth =
 				(_selectedAnswerWindowTexture.SpriteWidth * 2 * answers.Length) +
-				(Constants.MessageRenderer.AnswerHorizontalPadding * (answers.Length - 1)) +
-				(Constants.MessageRenderer.AnswerHorizontalTextPadding * 2 * answers.Length) +
+				(TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalPadding * (answers.Length - 1)) +
+				(TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalTextPadding * 2 * answers.Length) +
 				answers.Sum(arg => arg.Size.X);
 			float lineHeight = (_selectedAnswerWindowTexture.SpriteHeight * 2) + answers.Max(arg => arg.Size.Y);
 
@@ -253,7 +253,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			return new MessageTextAnswer(
 				answer,
 				answer.Text,
-				_font.MeasureString(answer.Text) + Constants.MessageRenderer.ShadowOffset,
+				_font.MeasureString(answer.Text) + TextAdventure.Xna.Constants.MessageRenderer.ShadowOffset,
 				question.UnselectedAnswerForegroundColor,
 				question.SelectedAnswerForegroundColor,
 				question.SelectedAnswerBackgroundColor);

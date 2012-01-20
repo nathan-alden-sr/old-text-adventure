@@ -24,8 +24,8 @@ namespace TextAdventure.WindowsGame.Renderers
 		private readonly IMessageRendererState _state;
 		private MessageAnswerSelectionManager _answerSelectionManager;
 		private MessageFormatter _formatter;
-		private bool _windowRectangleSet;
 		private Matrix _transformMatrix;
+		private bool _windowRectangleSet;
 		//private Texture2D _textTexture;
 
 		public MessageRenderer(IMessageRendererState state)
@@ -57,11 +57,11 @@ namespace TextAdventure.WindowsGame.Renderers
 				WindowTexture selectedAnswerWindowTexture = parameters.TextureContent.Windows.Glow1;
 				SpriteFont font = parameters.FontContent.Calibri12Pt;
 				Rectangle destinationRectangle = Constants.GameWindow.DestinationRectangle;
-				float maximumLineWidth = destinationRectangle.Width * Constants.MessageRenderer.MaximumLineWidthAsPercentageOfGameWindowDestinationRectangle;
+				float maximumLineWidth = destinationRectangle.Width * TextAdventure.Xna.Constants.MessageRenderer.MaximumLineWidthAsPercentageOfGameWindowDestinationRectangle;
 				float maximumClientHeight =
 					destinationRectangle.Height -
-					(destinationRectangle.Center.Y + Constants.MessageRenderer.VerticalOffsetFromGameWindowDestinationRectangleCenter) -
-					(Constants.MessageRenderer.VerticalWindowPadding * 2) -
+					(destinationRectangle.Center.Y + TextAdventure.Xna.Constants.MessageRenderer.VerticalOffsetFromGameWindowDestinationRectangleCenter) -
+					(TextAdventure.Xna.Constants.MessageRenderer.VerticalWindowPadding * 2) -
 					(windowWindowTexture.SpriteHeight * 2);
 
 				_formatter = new MessageFormatter(_state.Message, font, selectedAnswerWindowTexture, maximumLineWidth);
@@ -75,12 +75,12 @@ namespace TextAdventure.WindowsGame.Renderers
 
 				if (clientHeight < _formatter.TotalHeightAfterFormatting)
 				{
-					clientWidth += Constants.MessageRenderer.ArrowHorizontalPadding + windowWindowTexture.SpriteWidth;
+					clientWidth += TextAdventure.Xna.Constants.MessageRenderer.ArrowHorizontalPadding + windowWindowTexture.SpriteWidth;
 				}
 
 				SetWindowRectangleUsingWindowYAndClientSize(
 					WindowHorizontalAlignment.Center,
-					destinationRectangle.Center.Y + Constants.Tile.TileHeight * 2,
+					destinationRectangle.Center.Y + TextAdventure.Xna.Constants.Tile.TileHeight * 2,
 					clientWidth,
 					clientHeight,
 					windowWindowTexture.Padding);
@@ -128,8 +128,8 @@ namespace TextAdventure.WindowsGame.Renderers
 
 		private void RenderMessage(IRendererParameters parameters)
 		{
-			Color textColor = Constants.MessageRenderer.TextColor * Alpha;
-			Color shadowColor = Constants.MessageRenderer.ShadowColor * Alpha;
+			Color textColor = TextAdventure.Xna.Constants.MessageRenderer.TextColor * Alpha;
+			Color shadowColor = TextAdventure.Xna.Constants.MessageRenderer.ShadowColor * Alpha;
 			var position = new Vector2(Window.AbsoluteClientRectangle.X, Window.AbsoluteClientRectangle.Y);
 			Matrix translationMatrix = Matrix.CreateTranslation(0f, -_state.ScrollPosition, 0f) * parameters.TransformMatrix;
 			SpriteFont font = parameters.FontContent.Calibri12Pt;
@@ -207,8 +207,8 @@ namespace TextAdventure.WindowsGame.Renderers
 			answers = answers.ToArray();
 
 			int answerCount = answers.Count();
-			int totalAnswerPadding = ((answerCount - 1) * Constants.MessageRenderer.AnswerHorizontalPadding);
-			float lineWidth = answers.Sum(arg => arg.Size.X + (selectedAnswerWindowTexture.SpriteWidth * 2) + (Constants.MessageRenderer.AnswerHorizontalTextPadding * 2)) + totalAnswerPadding;
+			int totalAnswerPadding = ((answerCount - 1) * TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalPadding);
+			float lineWidth = answers.Sum(arg => arg.Size.X + (selectedAnswerWindowTexture.SpriteWidth * 2) + (TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalTextPadding * 2)) + totalAnswerPadding;
 			float lineHeight = answers.Max(arg => arg.Size.Y);
 
 			position.X += (Window.AbsoluteClientRectangle.Width - lineWidth) / 2;
@@ -219,7 +219,7 @@ namespace TextAdventure.WindowsGame.Renderers
 					new Rectangle(
 						position.X.Round(),
 						position.Y.Round(),
-						(answer.Size.X + (selectedAnswerWindowTexture.SpriteWidth * 2) + (Constants.MessageRenderer.AnswerHorizontalTextPadding * 2)).Round(),
+						(answer.Size.X + (selectedAnswerWindowTexture.SpriteWidth * 2) + (TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalTextPadding * 2)).Round(),
 						(lineHeight + (selectedAnswerWindowTexture.SpriteHeight * 2)).Round()),
 					selectedAnswerWindowTexture.Padding);
 
@@ -254,7 +254,7 @@ namespace TextAdventure.WindowsGame.Renderers
 
 				parameters.SpriteBatch.End();
 
-				position.X += window.WindowRectangle.Width + Constants.MessageRenderer.AnswerHorizontalPadding;
+				position.X += window.WindowRectangle.Width + TextAdventure.Xna.Constants.MessageRenderer.AnswerHorizontalPadding;
 			}
 		}
 
@@ -265,8 +265,10 @@ namespace TextAdventure.WindowsGame.Renderers
 			var scrollPosition = new FloatToInt(_state.ScrollPosition);
 			var upArrowPosition = new Vector2(x, Window.AbsoluteClientRectangle.Y);
 			var downArrowPosition = new Vector2(x, Window.AbsoluteClientRectangle.Bottom - windowTexture.SpriteHeight);
-			Color upArrowColor = (scrollPosition == 0 ? Constants.MessageRenderer.DisabledArrowColor : Constants.MessageRenderer.ArrowColor) * Alpha;
-			Color downArrowColor = (scrollPosition.FloatValue >= _state.MaximumScrollPosition ? Constants.MessageRenderer.DisabledArrowColor : Constants.MessageRenderer.ArrowColor) * Alpha;
+			Color upArrowColor = (scrollPosition == 0 ? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor : TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
+			Color downArrowColor = (scrollPosition.FloatValue >= _state.MaximumScrollPosition
+			                        	? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor
+			                        	: TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 

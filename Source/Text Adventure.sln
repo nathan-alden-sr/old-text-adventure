@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorContent", "EditorCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xna", "Xna\Xna.csproj", "{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -67,6 +69,10 @@ Global
 		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Debug|x86.Build.0 = Debug|x86
 		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Release|x86.ActiveCfg = Release|x86
 		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Release|x86.Build.0 = Release|x86
+		{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

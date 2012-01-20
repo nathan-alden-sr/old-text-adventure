@@ -4,7 +4,7 @@ using Junior.Common;
 
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TextAdventure.WindowsGame.Xna
+namespace TextAdventure.Xna
 {
 	public class XnaServiceProvider : IServiceProvider, IGraphicsDeviceService
 	{

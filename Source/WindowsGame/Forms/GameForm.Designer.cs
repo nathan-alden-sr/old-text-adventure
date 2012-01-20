@@ -204,7 +204,6 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.Size = new System.Drawing.Size(284, 238);
 			this.xnaControl.TabIndex = 1;
 			this.xnaControl.TabStop = false;
-			this.xnaControl.Text = "xnaControl1";
 			// 
 			// GameForm
 			// 
