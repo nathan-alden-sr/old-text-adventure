@@ -168,31 +168,61 @@ namespace TextAdventure.Engine.Objects
 
 		public Board GetBoardById(Guid id)
 		{
+			if (!_boardsById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Board with ID '{0}' not found.", id), "id");
+			}
+
 			return _boardsById[id];
 		}
 
 		public Actor GetActorById(Guid id)
 		{
+			if (!_actorsById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Actor with ID '{0}' not found.", id), "id");
+			}
+
 			return _actorsById[id];
 		}
 
 		public Message GetMessageById(Guid id)
 		{
+			if (!_messagesById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Message with ID '{0}' not found.", id), "id");
+			}
+
 			return _messagesById[id];
 		}
 
 		public Timer GetTimerById(Guid id)
 		{
+			if (!_timersById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Timer with ID '{0}' not found.", id), "id");
+			}
+
 			return _timersById[id];
 		}
 
 		public SoundEffect GetSoundEffectById(Guid id)
 		{
+			if (!_soundEffectsById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Sound effect with ID '{0}' not found.", id), "id");
+			}
+
 			return _soundEffectsById[id];
 		}
 
 		public Song GetSongById(Guid id)
 		{
+			if (!_songsById.ContainsKey(id))
+			{
+				throw new ArgumentException(String.Format("Song with ID '{0}' not found.", id), "id");
+			}
+
 			return _songsById[id];
 		}
 	}
