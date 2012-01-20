@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 using Microsoft.Xna.Framework.Graphics;
@@ -86,16 +87,16 @@ namespace TextAdventure.Editor.Xna
 			e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
 		}
 
-		protected override void OnResize(System.EventArgs e)
+		protected override void OnResize(EventArgs e)
 		{
+			base.OnResize(e);
+
 			if (GraphicsDevice == null)
 			{
 				return;
 			}
 
 			GraphicsDevice.Reset(GetPresentationParameters());
-
-			base.OnResize(e);
 		}
 	}
 }
