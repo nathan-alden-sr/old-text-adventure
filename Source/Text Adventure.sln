@@ -16,7 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared Files", "Shared Files", "{A283B25B-07B4-42E4-A94D-31BF2EA95F2F}"
 	ProjectSection(SolutionItems) = preProject
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		Text Adventure.ico = Text Adventure.ico
 		Text Adventure.snk = Text Adventure.snk
 	EndProjectSection
 EndProject
@@ -31,6 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGame", "WindowsGame\WindowsGame.csproj", "{6E90CFE3-53A9-4D21-A4E9-33C4D2368372}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{BF2466D3-F97A-4F3C-8941-96D58A698124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorContent", "EditorContent\EditorContent.contentproj", "{B5D2E693-7426-4AA4-B822-1134E1BDE717}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +61,12 @@ Global
 		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Debug|x86.Build.0 = Debug|Any CPU
 		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF2466D3-F97A-4F3C-8941-96D58A698124}.Release|x86.Build.0 = Release|Any CPU
+		{B5D2E693-7426-4AA4-B822-1134E1BDE717}.Debug|x86.ActiveCfg = Debug|x86
+		{B5D2E693-7426-4AA4-B822-1134E1BDE717}.Release|x86.ActiveCfg = Release|x86
+		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Debug|x86.ActiveCfg = Debug|x86
+		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Debug|x86.Build.0 = Debug|x86
+		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Release|x86.ActiveCfg = Release|x86
+		{F3F1FE52-4918-4DD9-B96F-EDA953E1F1FE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

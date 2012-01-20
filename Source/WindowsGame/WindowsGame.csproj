@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TextAdventure.WindowsGame</RootNamespace>
-    <AssemblyName>TextAdventure.WindowsGame</AssemblyName>
+    <AssemblyName>Text Adventure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
@@ -16,7 +16,7 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>eb41dea5-b024-417f-a72f-3dcde654d65e</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Text Adventure.ico</ApplicationIcon>
+    <ApplicationIcon>WindowsGame.ico</ApplicationIcon>
     <Thumbnail>Game Thumbnail.png</Thumbnail>
     <SccProjectName>
     </SccProjectName>
@@ -289,7 +289,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Game Thumbnail.png" />
-    <Content Include="Text Adventure.ico" />
+    <Content Include="WindowsGame.ico" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\GameForm.resx">
