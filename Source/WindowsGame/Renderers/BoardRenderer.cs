@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.RendererStates;
+using TextAdventure.Xna.Extensions;
 
 namespace TextAdventure.WindowsGame.Renderers
 {
@@ -46,7 +46,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				out topLeftCoordinate,
 				out bottomRightCoordinate);
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			foreach (ILayer layer in layers)
 			{

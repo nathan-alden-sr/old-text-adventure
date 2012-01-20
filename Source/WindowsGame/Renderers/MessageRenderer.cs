@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Managers;
 using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Windows;
+using TextAdventure.Xna.Extensions;
 
 using Color = Microsoft.Xna.Framework.Color;
 

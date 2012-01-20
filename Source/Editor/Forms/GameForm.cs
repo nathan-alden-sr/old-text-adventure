@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 using TextAdventure.Editor.Objects;
+using TextAdventure.Editor.RendererStates;
+using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Editor.Forms
 {
 	public partial class GameForm : Form
 	{
+		private readonly BoardRendererState _boardRendererState = new BoardRendererState();
 		private TextAdventureEditorGame _game;
 		private bool _resizing;
 
@@ -34,7 +38,10 @@ namespace TextAdventure.Editor.Forms
 
 		private void CreateGame(World world)
 		{
-			_game = new TextAdventureEditorGame(xnaControl.GraphicsDevice, world);
+			_boardRendererState.Board = world.Boards.FirstOrDefault();
+			_boardRendererState.ScrollCoordinate = Coordinate.Zero;
+
+			_game = new TextAdventureEditorGame(xnaControl.GraphicsDevice, _boardRendererState);
 			_game.Run();
 		}
 

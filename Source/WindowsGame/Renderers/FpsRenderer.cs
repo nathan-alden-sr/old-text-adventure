@@ -2,9 +2,9 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Windows;
+using TextAdventure.Xna.Extensions;
 
 namespace TextAdventure.WindowsGame.Renderers
 {

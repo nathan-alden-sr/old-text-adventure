@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-using TextAdventure.WindowsGame.Extensions;
+using TextAdventure.Xna.Extensions;
 
 namespace TextAdventure.WindowsGame.Helpers
 {

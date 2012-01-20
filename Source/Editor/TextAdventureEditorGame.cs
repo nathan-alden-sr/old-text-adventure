@@ -1,40 +1,27 @@
-﻿using System;
-using System.Linq;
-
-using Junior.Common;
+﻿using Junior.Common;
 
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.Editor.RendererStates;
 using TextAdventure.Editor.Renderers;
 using TextAdventure.Editor.Xna;
-using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Editor
 {
 	public class TextAdventureEditorGame : XnaGame
 	{
+		private readonly IBoardRendererState _boardRendererState;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
-		private readonly World _world;
 		private TextureContent _textureContent;
 
-		public TextAdventureEditorGame(GraphicsDevice graphicsDevice, World world)
+		public TextAdventureEditorGame(
+			GraphicsDevice graphicsDevice,
+			IBoardRendererState boardRendererState)
 			: base(graphicsDevice)
 		{
-			world.ThrowIfNull("world");
+			boardRendererState.ThrowIfNull("boardRendererState");
 
-			_world = world;
-			CurrentBoard = world.Boards.First();
-		}
-
-		public Board CurrentBoard
-		{
-			get;
-			private set;
-		}
-
-		public void SetCurrentBoard(Guid boardId)
-		{
-			CurrentBoard = _world.GetBoardById(boardId);
+			_boardRendererState = boardRendererState;
 		}
 
 		protected override void Initialize()
@@ -65,6 +52,7 @@ namespace TextAdventure.Editor
 		private void AddRenderers()
 		{
 			_rendererCollection.Add(new HatchRenderer());
+			_rendererCollection.Add(new BoardRenderer(_boardRendererState));
 		}
 	}
 }

@@ -5,8 +5,8 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Windows;
+using TextAdventure.Xna.Extensions;
 
 namespace TextAdventure.WindowsGame.Helpers
 {

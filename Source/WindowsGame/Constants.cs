@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using TextAdventure.WindowsGame.Extensions;
 using TextAdventure.WindowsGame.Renderers;
+using TextAdventure.Xna.Extensions;
 
 namespace TextAdventure.WindowsGame
 {

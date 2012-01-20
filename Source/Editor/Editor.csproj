@@ -128,7 +128,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RendererStates\Layer.cs" />
+    <Compile Include="RendererStates\BoardRendererState.cs" />
+    <Compile Include="Renderers\BoardRenderer.cs" />
     <Compile Include="Renderers\HatchRenderer.cs" />
+    <Compile Include="RendererStates\IBoardRendererState.cs" />
     <Compile Include="Renderers\IRenderer.cs" />
     <Compile Include="Renderers\IRendererParameters.cs" />
     <Compile Include="Renderers\RendererCollection.cs" />
