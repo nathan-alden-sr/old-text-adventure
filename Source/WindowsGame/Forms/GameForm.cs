@@ -18,7 +18,7 @@ namespace TextAdventure.WindowsGame.Forms
 		private static readonly LogConfigurationSection _logConfigurationSection = (LogConfigurationSection)ConfigurationManager.GetSection("log");
 		private static readonly VolumeConfigurationSection _volumeConfigurationSection = (VolumeConfigurationSection)ConfigurationManager.GetSection("volume");
 		private static readonly WorldTimeConfigurationSection _worldTimeConfigurationSection = (WorldTimeConfigurationSection)ConfigurationManager.GetSection("worldTime");
-		private readonly MultimediaPlayer _multimediaPlayer;
+		private readonly MultimediaPlayer _multimediaPlayer = new MultimediaPlayer(_volumeConfigurationSection);
 		private TextAdventureGame _game;
 		private Player _startingPlayer;
 		private Engine.Objects.World _world;
@@ -100,6 +100,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 			_game.Dispose();
 			_game = null;
+			_multimediaPlayer.Reset();
 			xnaControl.Refresh();
 		}
 
@@ -157,10 +158,12 @@ namespace TextAdventure.WindowsGame.Forms
 				_game.Pause();
 			}
 
-			fpsToolStripMenuItem.Enabled = _game != null;
-			logToolStripMenuItem.Enabled = _game != null;
-			worldTimeToolStripMenuItem.Enabled = _game != null;
-			closeToolStripMenuItem.Enabled = _game != null;
+			fpsToolStripMenuItem.Enabled = GameRunning;
+			logToolStripMenuItem.Enabled = GameRunning;
+			worldTimeToolStripMenuItem.Enabled = GameRunning;
+			closeToolStripMenuItem.Enabled = GameRunning;
+			soundEffectsToolStripMenuItem.Enabled = GameRunning;
+			musicToolStripMenuItem.Enabled = GameRunning;
 		}
 
 		private void MenuStripOnMenuDeactivate(object sender, EventArgs e)
@@ -173,13 +176,16 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void OpenToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
-			_game.Pause();
+			if (GameRunning)
+			{
+				_game.Pause();
+			}
 
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				OpenGame(openFileDialog.FileName);
 			}
-			else
+			else if (GameRunning)
 			{
 				_game.Unpause();
 			}
@@ -217,6 +223,10 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void SoundEffectsToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
 		{
+			if (_multimediaPlayer == null)
+			{
+				return;
+			}
 			if (soundEffectsToolStripMenuItem.Checked)
 			{
 				_multimediaPlayer.UnmuteSoundEffects();
@@ -229,6 +239,10 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void MusicToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
 		{
+			if (_multimediaPlayer == null)
+			{
+				return;
+			}
 			if (musicToolStripMenuItem.Checked)
 			{
 				_multimediaPlayer.UnmuteSongs();

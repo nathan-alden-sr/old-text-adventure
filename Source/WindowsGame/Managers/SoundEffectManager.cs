@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using TextAdventure.Engine.Game.Commands;
 using TextAdventure.WindowsGame.Fmod;
 
 namespace TextAdventure.WindowsGame.Managers
@@ -47,14 +46,25 @@ namespace TextAdventure.WindowsGame.Managers
 			}
 		}
 
+		public void Reset()
+		{
+			DisposeAllSoundManagers();
+			_soundManagersById.Clear();
+		}
+
 		protected virtual void OnDispose(bool disposing)
 		{
 			if (disposing)
 			{
-				foreach (SoundManager manager in _soundManagersById.Values)
-				{
-					manager.Dispose();
-				}
+				DisposeAllSoundManagers();
+			}
+		}
+
+		private void DisposeAllSoundManagers()
+		{
+			foreach (SoundManager manager in _soundManagersById.Values)
+			{
+				manager.Dispose();
 			}
 		}
 

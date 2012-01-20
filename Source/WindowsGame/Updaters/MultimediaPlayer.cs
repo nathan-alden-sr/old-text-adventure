@@ -78,6 +78,12 @@ namespace TextAdventure.WindowsGame.Updaters
 			_songManager.Unmute();
 		}
 
+		public void Reset()
+		{
+			_soundEffectManager.Reset();
+			_songManager.Reset();
+		}
+
 		~MultimediaPlayer()
 		{
 			OnDispose(false);
@@ -88,6 +94,7 @@ namespace TextAdventure.WindowsGame.Updaters
 			if (disposing)
 			{
 				_soundEffectManager.Dispose();
+				_songManager.Dispose();
 			}
 		}
 	}
