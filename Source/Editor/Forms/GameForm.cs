@@ -9,6 +9,7 @@ namespace TextAdventure.Editor.Forms
 	public partial class GameForm : Form
 	{
 		private TextAdventureEditorGame _game;
+		private bool _resizing;
 
 		public GameForm()
 		{
@@ -25,7 +26,7 @@ namespace TextAdventure.Editor.Forms
 
 		public void Render()
 		{
-			if (GameRunning)
+			if (GameRunning && !_resizing)
 			{
 				_game.Tick();
 			}
@@ -50,6 +51,20 @@ namespace TextAdventure.Editor.Forms
 			_game.Dispose();
 
 			base.OnFormClosing(e);
+		}
+
+		protected override void OnResizeBegin(EventArgs e)
+		{
+			_resizing = true;
+
+			base.OnResizeBegin(e);
+		}
+
+		protected override void OnResizeEnd(EventArgs e)
+		{
+			_resizing = false;
+
+			base.OnResizeEnd(e);
 		}
 	}
 }
