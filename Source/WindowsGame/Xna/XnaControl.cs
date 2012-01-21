@@ -12,8 +12,9 @@ namespace TextAdventure.WindowsGame.Xna
 		public XnaControl()
 		{
 			SetStyle(ControlStyles.DoubleBuffer, true);
-			SetStyle(ControlStyles.ResizeRedraw, true);
+			SetStyle(ControlStyles.ResizeRedraw, false);
 			SetStyle(ControlStyles.UserPaint, true);
+			DrawBackground = true;
 			TabStop = false;
 		}
 
@@ -27,7 +28,7 @@ namespace TextAdventure.WindowsGame.Xna
 		{
 			get
 			{
-				return new Size(Constants.GameWindow.PreferredBackBufferWidth, Constants.GameWindow.PreferredBackBufferHeight);
+				return new Size(Constants.GameWindow.Width, Constants.GameWindow.Height);
 			}
 		}
 
@@ -42,13 +43,19 @@ namespace TextAdventure.WindowsGame.Xna
 			}
 		}
 
+		public bool DrawBackground
+		{
+			get;
+			set;
+		}
+
 		public void CreateGraphicsDevice()
 		{
 			var presentationParameters = new PresentationParameters
 			                             	{
 			                             		BackBufferFormat = SurfaceFormat.Color,
-			                             		BackBufferWidth = Constants.GameWindow.PreferredBackBufferWidth,
-			                             		BackBufferHeight = Constants.GameWindow.PreferredBackBufferHeight,
+			                             		BackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+			                             		BackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
 			                             		DepthStencilFormat = DepthFormat.Depth24Stencil8,
 			                             		DeviceWindowHandle = Handle,
 			                             		IsFullScreen = false,
@@ -74,13 +81,18 @@ namespace TextAdventure.WindowsGame.Xna
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
+			if (DrawBackground)
+			{
+				e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
 
-			var logoRectangle = new Rectangle(
-				new Point((ClientSize.Width / 2) - (Resources.Game_Thumbnail.Width / 2), (ClientSize.Height / 2) - (Resources.Game_Thumbnail.Height / 2)),
-				Resources.Game_Thumbnail.Size);
+				var logoRectangle = new Rectangle(
+					new Point((ClientSize.Width / 2) - (Resources.Game_Thumbnail.Width / 2), (ClientSize.Height / 2) - (Resources.Game_Thumbnail.Height / 2)),
+					Resources.Game_Thumbnail.Size);
 
-			e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
+				e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
+			}
+
+			base.OnPaint(e);
 		}
 	}
 }

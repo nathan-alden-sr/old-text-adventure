@@ -199,11 +199,13 @@ namespace TextAdventure.WindowsGame.Forms
 			// xnaControl
 			// 
 			this.xnaControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.xnaControl.DrawBackground = true;
 			this.xnaControl.Location = new System.Drawing.Point(0, 24);
 			this.xnaControl.Name = "xnaControl";
 			this.xnaControl.Size = new System.Drawing.Size(284, 238);
 			this.xnaControl.TabIndex = 1;
 			this.xnaControl.TabStop = false;
+			this.xnaControl.Resize += new System.EventHandler(this.XnaControlOnResize);
 			// 
 			// GameForm
 			// 

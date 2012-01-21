@@ -100,25 +100,23 @@ namespace TextAdventure.WindowsGame.Xna
 			{
 				throw new InvalidOperationException("Game is not running.");
 			}
-			if (_paused)
+			if (!_paused)
 			{
-				return;
+				TimeSpan totalGameTime = _totalGameTimeStopwatch.Elapsed;
+				TimeSpan elapsedGameTime = _elapsedGameTimeStopwatch.Elapsed;
+
+				_elapsedGameTimeStopwatch.Restart();
+
+				_gameTime.TotalGameTime = totalGameTime;
+				_gameTime.ElapsedGameTime = elapsedGameTime;
+
+				FrameworkDispatcher.Update();
+				Update(_gameTime);
 			}
-
-			TimeSpan totalGameTime = _totalGameTimeStopwatch.Elapsed;
-			TimeSpan elapsedGameTime = _elapsedGameTimeStopwatch.Elapsed;
-
-			_elapsedGameTimeStopwatch.Restart();
-
-			_gameTime.TotalGameTime = totalGameTime;
-			_gameTime.ElapsedGameTime = elapsedGameTime;
-
-			FrameworkDispatcher.Update();
-			Update(_gameTime);
 
 			_graphicsDevice.Clear(Color.Black);
 			Draw(_gameTime);
-			_graphicsDevice.Present();
+			Present();
 		}
 
 		~XnaGame()
@@ -148,6 +146,13 @@ namespace TextAdventure.WindowsGame.Xna
 			{
 				_content.Dispose();
 			}
+		}
+
+		private void Present()
+		{
+			var sourceRectangle = new Rectangle(0, 0, Constants.GameWindow.Width, Constants.GameWindow.Height);
+
+			_graphicsDevice.Present(sourceRectangle, null, IntPtr.Zero);
 		}
 	}
 }

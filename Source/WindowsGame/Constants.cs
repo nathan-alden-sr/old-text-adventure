@@ -45,8 +45,8 @@ namespace TextAdventure.WindowsGame
 		public static class GameWindow
 		{
 			public static readonly Rectangle DestinationRectangle;
-			public static readonly int PreferredBackBufferHeight;
-			public static readonly int PreferredBackBufferWidth;
+			public static readonly int Height;
+			public static readonly int Width;
 			public static readonly int TilesToBottomExclusive;
 			public static readonly int TilesToLeftInclusive;
 			public static readonly int TilesToRightExclusive;
@@ -54,13 +54,13 @@ namespace TextAdventure.WindowsGame
 
 			static GameWindow()
 			{
-				PreferredBackBufferWidth = 60 * TextAdventure.Xna.Constants.Tile.TileWidth;
-				PreferredBackBufferHeight = 30 * TextAdventure.Xna.Constants.Tile.TileHeight;
-				DestinationRectangle = new Rectangle(0, 0, PreferredBackBufferWidth, PreferredBackBufferHeight);
+				Width = 60 * TextAdventure.Xna.Constants.Tile.TileWidth;
+				Height = 30 * TextAdventure.Xna.Constants.Tile.TileHeight;
+				DestinationRectangle = new Rectangle(0, 0, Width, Height);
 				TilesToLeftInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Right / (double)TextAdventure.Xna.Constants.Tile.TileWidth);
 				TilesToTopInclusive = (int)Math.Ceiling(PlayerRenderer.DestinationRectangle.Bottom / (double)TextAdventure.Xna.Constants.Tile.TileHeight);
-				TilesToRightExclusive = (PreferredBackBufferWidth - PlayerRenderer.DestinationRectangle.Left) / TextAdventure.Xna.Constants.Tile.TileWidth;
-				TilesToBottomExclusive = (PreferredBackBufferHeight - PlayerRenderer.DestinationRectangle.Top) / TextAdventure.Xna.Constants.Tile.TileHeight;
+				TilesToRightExclusive = (Width - PlayerRenderer.DestinationRectangle.Left) / TextAdventure.Xna.Constants.Tile.TileWidth;
+				TilesToBottomExclusive = (Height - PlayerRenderer.DestinationRectangle.Top) / TextAdventure.Xna.Constants.Tile.TileHeight;
 			}
 		}
 

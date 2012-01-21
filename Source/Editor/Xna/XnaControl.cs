@@ -59,9 +59,9 @@ namespace TextAdventure.Editor.Xna
 			return new PresentationParameters
 			       	{
 			       		BackBufferFormat = SurfaceFormat.Color,
-			       		BackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
-			       		BackBufferHeight = Screen.PrimaryScreen.Bounds.Height,
-			       		DepthStencilFormat = DepthFormat.Depth24Stencil8,
+						BackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+						BackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
+						DepthStencilFormat = DepthFormat.Depth24Stencil8,
 			       		DeviceWindowHandle = Handle,
 			       		IsFullScreen = false,
 			       		RenderTargetUsage = RenderTargetUsage.DiscardContents,

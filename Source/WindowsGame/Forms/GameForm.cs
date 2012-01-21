@@ -61,8 +61,8 @@ namespace TextAdventure.WindowsGame.Forms
 		private void SetNormalViewSize()
 		{
 			Size = new Size(
-				Width + (Constants.GameWindow.PreferredBackBufferWidth - xnaControl.Size.Width),
-				Height + (Constants.GameWindow.PreferredBackBufferHeight - xnaControl.Size.Height));
+				Width + (Constants.GameWindow.Width - xnaControl.Size.Width),
+				Height + (Constants.GameWindow.Height - xnaControl.Size.Height));
 		}
 
 		private TextAdventureGame CreateGame(Engine.Objects.World world, Player startingPlayer)
@@ -101,6 +101,7 @@ namespace TextAdventure.WindowsGame.Forms
 			_game.Dispose();
 			_game = null;
 			_multimediaPlayer.Reset();
+			xnaControl.DrawBackground = true;
 			xnaControl.Refresh();
 		}
 
@@ -111,6 +112,7 @@ namespace TextAdventure.WindowsGame.Forms
 			Text = world.Title + " - Text Adventure";
 			_game = game;
 			_game.Run();
+			xnaControl.DrawBackground = false;
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -251,6 +253,11 @@ namespace TextAdventure.WindowsGame.Forms
 			{
 				_multimediaPlayer.MuteSongs();
 			}
+		}
+
+		private void XnaControlOnResize(object sender, EventArgs e)
+		{
+			Render();
 		}
 	}
 }
