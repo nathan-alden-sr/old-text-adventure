@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
-namespace TextAdventure.Editor.Objects
+namespace TextAdventure.Editor
 {
 	public class DefaultWorldFactory
 	{
@@ -84,7 +84,16 @@ namespace TextAdventure.Editor.Objects
 
 		private static IEnumerable<Sprite> GetForegroundLayerSprites()
 		{
-			yield break;
+			for (int x = 0; x < _boardSize.Width; x++)
+			{
+				yield return new Sprite(new Coordinate(x, 0), new Character(0x23, Color.White, Color.TransparentBlack));
+				yield return new Sprite(new Coordinate(x, _boardSize.Height - 1), new Character(0x23, Color.White, Color.TransparentBlack));
+			}
+			for (int y = 1; y < _boardSize.Height - 1; y++)
+			{
+				yield return new Sprite(new Coordinate(0, y), new Character(0x23, Color.White, Color.TransparentBlack));
+				yield return new Sprite(new Coordinate(_boardSize.Width - 1, y), new Character(0x23, Color.White, Color.TransparentBlack));
+			}
 		}
 
 		private static IEnumerable<ActorInstance> GetActorInstanceLayerActorInstances()

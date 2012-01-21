@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 using Microsoft.Xna.Framework.Graphics;
@@ -13,8 +12,9 @@ namespace TextAdventure.Editor.Xna
 		public XnaControl()
 		{
 			SetStyle(ControlStyles.DoubleBuffer, true);
-			SetStyle(ControlStyles.ResizeRedraw, true);
+			SetStyle(ControlStyles.ResizeRedraw, false);
 			SetStyle(ControlStyles.UserPaint, true);
+			DrawBackground = true;
 			TabStop = false;
 		}
 
@@ -43,6 +43,12 @@ namespace TextAdventure.Editor.Xna
 			}
 		}
 
+		public bool DrawBackground
+		{
+			get;
+			set;
+		}
+
 		public void CreateGraphicsDevice()
 		{
 			GraphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, GetPresentationParameters());
@@ -53,8 +59,8 @@ namespace TextAdventure.Editor.Xna
 			return new PresentationParameters
 			       	{
 			       		BackBufferFormat = SurfaceFormat.Color,
-			       		BackBufferWidth = ClientSize.Width,
-			       		BackBufferHeight = ClientSize.Height,
+			       		BackBufferWidth = Screen.PrimaryScreen.Bounds.Width,
+			       		BackBufferHeight = Screen.PrimaryScreen.Bounds.Height,
 			       		DepthStencilFormat = DepthFormat.Depth24Stencil8,
 			       		DeviceWindowHandle = Handle,
 			       		IsFullScreen = false,
@@ -78,25 +84,18 @@ namespace TextAdventure.Editor.Xna
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
-
-			var logoRectangle = new Rectangle(
-				new Point((ClientSize.Width / 2) - (Resources.Game_Thumbnail.Width / 2), (ClientSize.Height / 2) - (Resources.Game_Thumbnail.Height / 2)),
-				Resources.Game_Thumbnail.Size);
-
-			e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
-		}
-
-		protected override void OnResize(EventArgs e)
-		{
-			base.OnResize(e);
-
-			if (GraphicsDevice == null)
+			if (DrawBackground)
 			{
-				return;
+				e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
+
+				var logoRectangle = new Rectangle(
+					new Point((ClientSize.Width / 2) - (Resources.Game_Thumbnail.Width / 2), (ClientSize.Height / 2) - (Resources.Game_Thumbnail.Height / 2)),
+					Resources.Game_Thumbnail.Size);
+
+				e.Graphics.DrawImage(Resources.Game_Thumbnail, logoRectangle);
 			}
 
-			GraphicsDevice.Reset(GetPresentationParameters());
+			base.OnPaint(e);
 		}
 	}
 }

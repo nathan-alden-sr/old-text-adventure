@@ -1,4 +1,3 @@
-using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Editor.RendererStates
@@ -6,10 +5,6 @@ namespace TextAdventure.Editor.RendererStates
 	public interface IBoardRendererState
 	{
 		Board Board
-		{
-			get;
-		}
-		Coordinate ScrollCoordinate
 		{
 			get;
 		}

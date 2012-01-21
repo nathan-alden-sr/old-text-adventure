@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Junior.Common;
@@ -11,18 +10,22 @@ using TextAdventure.Editor.RendererStates;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Xna.Extensions;
+using TextAdventure.Xna.Helpers;
 
 namespace TextAdventure.Editor.Renderers
 {
 	public class BoardRenderer : IRenderer
 	{
+		private readonly IEditorView _editorView;
 		private readonly IBoardRendererState _state;
 
-		public BoardRenderer(IBoardRendererState state)
+		public BoardRenderer(IBoardRendererState state, IEditorView editorView)
 		{
 			state.ThrowIfNull("state");
+			editorView.ThrowIfNull("editorView");
 
 			_state = state;
+			_editorView = editorView;
 		}
 
 		public void Render(IRendererParameters parameters)
@@ -42,8 +45,8 @@ namespace TextAdventure.Editor.Renderers
 			                             		_state.Board.ForegroundLayer,
 			                             		_state.Board.ActorInstanceLayer
 			                             	};
-			Coordinate topLeftCoordinate = _state.ScrollCoordinate;
-			Coordinate bottomRightCoordinate = GetBottomRightCoordinate(parameters.ViewportRectangle);
+			Coordinate topLeftCoordinate = _editorView.TopLeftCoordinate;
+			var bottomRightCoordinate = new Coordinate(topLeftCoordinate.X + _editorView.VisibleSizeInTiles.Width - 1, topLeftCoordinate.Y + _editorView.VisibleSizeInTiles.Height - 1);
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
@@ -57,41 +60,24 @@ namespace TextAdventure.Editor.Renderers
 
 				foreach (Tile tile in tiles)
 				{
-					Rectangle destinationRectangle = GetTileDestinationRectangle(topLeftCoordinate, tile.Coordinate);
+					Rectangle destinationRectangle = GetTileDestinationRectangle(_editorView.TopLeftPoint, topLeftCoordinate, tile.Coordinate);
 
 					parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, destinationRectangle, parameters.TextureContent.Pixel.Bounds, tile.Character.BackgroundColor.ToXnaColor());
 
-					Rectangle sourceCharacterRectangle = GetCharacterSourceRectangle(tile.Character.Symbol);
+					Rectangle symbolSourceRectangle = CharacterTextureHelper.GetSymbolSourceRectangle(tile.Character.Symbol);
 
-					parameters.SpriteBatch.Draw(parameters.TextureContent.Characters, destinationRectangle, sourceCharacterRectangle, tile.Character.ForegroundColor.ToXnaColor());
+					parameters.SpriteBatch.Draw(parameters.TextureContent.Characters, destinationRectangle, symbolSourceRectangle, tile.Character.ForegroundColor.ToXnaColor());
 				}
 			}
 
 			parameters.SpriteBatch.End();
 		}
 
-		private Coordinate GetBottomRightCoordinate(Rectangle viewportRectangle)
-		{
-			var widthInTiles = (int)Math.Ceiling(viewportRectangle.Width / (double)TextAdventure.Xna.Constants.Tile.TileWidth);
-			var heightInTiles = (int)Math.Ceiling(viewportRectangle.Height / (double)TextAdventure.Xna.Constants.Tile.TileHeight);
-
-			return new Coordinate(_state.ScrollCoordinate.X + widthInTiles - 1, _state.ScrollCoordinate.Y + heightInTiles - 1);
-		}
-
-		private static Rectangle GetCharacterSourceRectangle(byte symbol)
+		private static Rectangle GetTileDestinationRectangle(Point topLeftPoint, Coordinate topLeftCoordinate, Coordinate tileCoordinate)
 		{
 			return new Rectangle(
-				(symbol % 16) * TextAdventure.Xna.Constants.Tile.TileWidth,
-				(symbol / 16) * TextAdventure.Xna.Constants.Tile.TileHeight,
-				TextAdventure.Xna.Constants.Tile.TileWidth,
-				TextAdventure.Xna.Constants.Tile.TileHeight);
-		}
-
-		private static Rectangle GetTileDestinationRectangle(Coordinate topLeftCoordinate, Coordinate tileCoordinate)
-		{
-			return new Rectangle(
-				(tileCoordinate.X - topLeftCoordinate.X) * TextAdventure.Xna.Constants.Tile.TileWidth,
-				(tileCoordinate.Y - topLeftCoordinate.Y) * TextAdventure.Xna.Constants.Tile.TileHeight,
+				topLeftPoint.X + ((tileCoordinate.X - topLeftCoordinate.X) * TextAdventure.Xna.Constants.Tile.TileWidth),
+				topLeftPoint.Y + ((tileCoordinate.Y - topLeftCoordinate.Y) * TextAdventure.Xna.Constants.Tile.TileHeight),
 				TextAdventure.Xna.Constants.Tile.TileWidth,
 				TextAdventure.Xna.Constants.Tile.TileHeight);
 		}

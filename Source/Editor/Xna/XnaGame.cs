@@ -13,14 +13,17 @@ namespace TextAdventure.Editor.Xna
 	public class XnaGame : IDisposable
 	{
 		private readonly ContentManager _content;
+		private readonly IEditorView _editorView;
 		private readonly GraphicsDevice _graphicsDevice;
 		private bool _running;
 
-		public XnaGame(GraphicsDevice graphicsDevice)
+		public XnaGame(GraphicsDevice graphicsDevice, IEditorView editorView)
 		{
 			graphicsDevice.ThrowIfNull("graphicsDevice");
+			editorView.ThrowIfNull("editorView");
 
 			_graphicsDevice = graphicsDevice;
+			_editorView = editorView;
 			_content = new ContentManager(new XnaServiceProvider(graphicsDevice))
 			           	{
 			           		RootDirectory = "Content"
@@ -32,6 +35,14 @@ namespace TextAdventure.Editor.Xna
 			get
 			{
 				return _graphicsDevice;
+			}
+		}
+
+		protected IEditorView EditorView
+		{
+			get
+			{
+				return _editorView;
 			}
 		}
 
@@ -70,10 +81,11 @@ namespace TextAdventure.Editor.Xna
 			}
 
 			FrameworkDispatcher.Update();
+			Update();
 
 			_graphicsDevice.Clear(Color.Black);
 			Draw();
-			_graphicsDevice.Present();
+			Present();
 		}
 
 		~XnaGame()
@@ -89,6 +101,10 @@ namespace TextAdventure.Editor.Xna
 		{
 		}
 
+		protected virtual void Update()
+		{
+		}
+
 		protected virtual void Draw()
 		{
 		}
@@ -99,6 +115,13 @@ namespace TextAdventure.Editor.Xna
 			{
 				_content.Dispose();
 			}
+		}
+
+		private void Present()
+		{
+			var sourceRectangle = new Rectangle(0, 0, _editorView.VisibleSizeInPixels.Width, _editorView.VisibleSizeInPixels.Height);
+
+			_graphicsDevice.Present(sourceRectangle, null, IntPtr.Zero);
 		}
 	}
 }

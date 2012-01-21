@@ -29,15 +29,15 @@
 		private void InitializeComponent()
 		{
 			System.Windows.Forms.Panel panel2;
-			System.Windows.Forms.Panel panel1;
 			System.Windows.Forms.Panel panel3;
+			System.Windows.Forms.Panel panel1;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.hScrollBar = new System.Windows.Forms.HScrollBar();
 			this.vScrollBar = new System.Windows.Forms.VScrollBar();
 			this.xnaControl = new TextAdventure.Editor.Xna.XnaControl();
 			panel2 = new System.Windows.Forms.Panel();
-			panel1 = new System.Windows.Forms.Panel();
 			panel3 = new System.Windows.Forms.Panel();
+			panel1 = new System.Windows.Forms.Panel();
 			panel2.SuspendLayout();
 			panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -50,6 +50,15 @@
 			panel2.Name = "panel2";
 			panel2.Size = new System.Drawing.Size(200, 564);
 			panel2.TabIndex = 1;
+			// 
+			// panel3
+			// 
+			panel3.BackColor = System.Drawing.SystemColors.ControlDark;
+			panel3.Dock = System.Windows.Forms.DockStyle.Left;
+			panel3.Location = new System.Drawing.Point(0, 0);
+			panel3.Name = "panel3";
+			panel3.Size = new System.Drawing.Size(2, 564);
+			panel3.TabIndex = 0;
 			// 
 			// panel1
 			// 
@@ -73,6 +82,7 @@
 			this.hScrollBar.Name = "hScrollBar";
 			this.hScrollBar.Size = new System.Drawing.Size(564, 17);
 			this.hScrollBar.TabIndex = 2;
+			this.hScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.HScrollBarOnScroll);
 			// 
 			// vScrollBar
 			// 
@@ -85,26 +95,20 @@
 			this.vScrollBar.Name = "vScrollBar";
 			this.vScrollBar.Size = new System.Drawing.Size(17, 548);
 			this.vScrollBar.TabIndex = 1;
+			this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBarOnScroll);
 			// 
 			// xnaControl
 			// 
 			this.xnaControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.xnaControl.DrawBackground = true;
 			this.xnaControl.Location = new System.Drawing.Point(0, 0);
 			this.xnaControl.Name = "xnaControl";
 			this.xnaControl.Size = new System.Drawing.Size(563, 547);
 			this.xnaControl.TabIndex = 0;
 			this.xnaControl.TabStop = false;
-			// 
-			// panel3
-			// 
-			panel3.BackColor = System.Drawing.SystemColors.ControlDark;
-			panel3.Dock = System.Windows.Forms.DockStyle.Left;
-			panel3.Location = new System.Drawing.Point(0, 0);
-			panel3.Name = "panel3";
-			panel3.Size = new System.Drawing.Size(2, 564);
-			panel3.TabIndex = 0;
+			this.xnaControl.Resize += new System.EventHandler(this.XnaControlOnResize);
 			// 
 			// GameForm
 			// 
