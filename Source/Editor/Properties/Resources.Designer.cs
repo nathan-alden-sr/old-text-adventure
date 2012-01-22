@@ -67,6 +67,13 @@ namespace TextAdventure.Editor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Eraser {
+            get {
+                object obj = ResourceManager.GetObject("Eraser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Game_Thumbnail {
             get {
                 object obj = ResourceManager.GetObject("Game_Thumbnail", resourceCulture);

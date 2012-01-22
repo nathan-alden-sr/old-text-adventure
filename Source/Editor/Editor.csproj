@@ -145,11 +145,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RendererStates\EraserRendererState.cs" />
+    <Compile Include="RendererStates\IEraserRendererState.cs" />
     <Compile Include="RendererStates\IPencilRendererState.cs" />
     <Compile Include="RendererStates\Layer.cs" />
     <Compile Include="RendererStates\BoardRendererState.cs" />
     <Compile Include="RendererStates\PencilRendererState.cs" />
     <Compile Include="Renderers\BoardRenderer.cs" />
+    <Compile Include="Renderers\EraserRenderer.cs" />
     <Compile Include="Renderers\HatchRenderer.cs" />
     <Compile Include="RendererStates\IBoardRendererState.cs" />
     <Compile Include="Renderers\IRenderer.cs" />
@@ -158,7 +161,14 @@
     <Compile Include="Renderers\RendererCollection.cs" />
     <Compile Include="TextAdventureEditorGame.cs" />
     <Compile Include="TextureContent.cs" />
+    <Compile Include="ToolActions\EraserAction.cs" />
     <Compile Include="ToolActions\PencilAction.cs" />
+    <Compile Include="Tools\EraserUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\EraserUserControl.Designer.cs">
+      <DependentUpon>EraserUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\PencilUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -204,6 +214,7 @@
   <ItemGroup>
     <Content Include="Editor.ico" />
     <Content Include="Game Thumbnail.png" />
+    <Content Include="Images\Eraser.png" />
     <Content Include="Images\Symbol Selection.png" />
     <Content Include="Images\Transparent Background.png" />
     <None Include="Images\Characters.png" />
@@ -268,6 +279,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\EraserUserControl.resx">
+      <DependentUpon>EraserUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tools\PencilUserControl.resx">
       <DependentUpon>PencilUserControl.cs</DependentUpon>

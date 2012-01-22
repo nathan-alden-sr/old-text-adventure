@@ -8,6 +8,7 @@
 		EraserFill,
 		SelectionSquare,
 		SelectionCircular,
-		SelectionMagicWand
+		SelectionMagicWand,
+		EyeDropper
 	}
 }

@@ -19,6 +19,8 @@ namespace TextAdventure.Editor.Forms
 	{
 		private readonly BoardRendererState _boardRendererState = new BoardRendererState();
 		private readonly EditorView _editorView = new EditorView();
+		private readonly EraserAction _eraserAction;
+		private readonly EraserRendererState _eraserRendererState = new EraserRendererState();
 		private readonly PencilAction _pencilAction;
 		private readonly PencilRendererState _pencilRendererState = new PencilRendererState();
 		private readonly ToolSelectionUserControl _toolSelectionUserControl;
@@ -29,8 +31,9 @@ namespace TextAdventure.Editor.Forms
 			InitializeComponent();
 
 			_pencilAction = new PencilAction(_boardRendererState, _pencilRendererState);
+			_eraserAction = new EraserAction(_boardRendererState, _eraserRendererState);
 
-			_toolSelectionUserControl = new ToolSelectionUserControl(_pencilRendererState)
+			_toolSelectionUserControl = new ToolSelectionUserControl(_pencilRendererState, _eraserRendererState)
 			                            	{
 			                            		Dock = DockStyle.Fill
 			                            	};
@@ -63,7 +66,8 @@ namespace TextAdventure.Editor.Forms
 				xnaControl.GraphicsDevice,
 				_editorView,
 				_boardRendererState,
-				_pencilRendererState);
+				_pencilRendererState,
+				_eraserRendererState);
 			_game.Run();
 			xnaControl.DrawBackground = false;
 		}
@@ -94,11 +98,16 @@ namespace TextAdventure.Editor.Forms
 			{
 				_pencilRendererState.SetSelection(coordinate);
 			}
+			else if (_eraserRendererState.Enabled)
+			{
+				_eraserRendererState.SetSelection(coordinate);
+			}
 		}
 
 		private void ClearSelections()
 		{
 			_pencilRendererState.ClearSelection();
+			_eraserRendererState.ClearSelection();
 		}
 
 		private void PerformToolAction()
@@ -106,6 +115,10 @@ namespace TextAdventure.Editor.Forms
 			if (_pencilRendererState.Enabled)
 			{
 				_pencilAction.Draw();
+			}
+			else if (_eraserRendererState.Enabled)
+			{
+				_eraserAction.Draw();
 			}
 		}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 using Junior.Common;
 
@@ -19,6 +20,14 @@ namespace TextAdventure.Editor.Tools
 			_pencilRendererState = pencilRendererState;
 
 			InitializeComponent();
+		}
+
+		protected override Size DefaultSize
+		{
+			get
+			{
+				return new Size(200, 264);
+			}
 		}
 
 		private void SetCharacter()

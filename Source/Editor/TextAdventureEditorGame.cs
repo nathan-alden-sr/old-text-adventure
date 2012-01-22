@@ -11,6 +11,7 @@ namespace TextAdventure.Editor
 	public class TextAdventureEditorGame : XnaGame
 	{
 		private readonly IBoardRendererState _boardRendererState;
+		private readonly IEraserRendererState _eraserRendererState;
 		private readonly IPencilRendererState _pencilRendererState;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
 		private TextureContent _textureContent;
@@ -19,14 +20,17 @@ namespace TextAdventure.Editor
 			GraphicsDevice graphicsDevice,
 			IEditorView editorView,
 			IBoardRendererState boardRendererState,
-			IPencilRendererState pencilRendererState)
+			IPencilRendererState pencilRendererState,
+			IEraserRendererState eraserRendererState)
 			: base(graphicsDevice, editorView)
 		{
 			boardRendererState.ThrowIfNull("boardRendererState");
 			pencilRendererState.ThrowIfNull("pencilRendererState");
+			eraserRendererState.ThrowIfNull("eraserRendererState");
 
 			_boardRendererState = boardRendererState;
 			_pencilRendererState = pencilRendererState;
+			_eraserRendererState = eraserRendererState;
 		}
 
 		protected override void Initialize()
@@ -59,6 +63,7 @@ namespace TextAdventure.Editor
 			_rendererCollection.Add(new HatchRenderer());
 			_rendererCollection.Add(new BoardRenderer(_boardRendererState, EditorView));
 			_rendererCollection.Add(new PencilRenderer(_pencilRendererState, EditorView));
+			_rendererCollection.Add(new EraserRenderer(_eraserRendererState, EditorView));
 		}
 	}
 }
