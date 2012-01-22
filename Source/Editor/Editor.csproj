@@ -158,6 +158,7 @@
     <Compile Include="Renderers\RendererCollection.cs" />
     <Compile Include="TextAdventureEditorGame.cs" />
     <Compile Include="TextureContent.cs" />
+    <Compile Include="ToolActions\PencilAction.cs" />
     <Compile Include="Tools\PencilUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Junior.Common;
 
 using TextAdventure.Editor.RendererStates;
+using TextAdventure.Editor.ToolActions;
 using TextAdventure.Editor.Tools;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
@@ -18,6 +19,7 @@ namespace TextAdventure.Editor.Forms
 	{
 		private readonly BoardRendererState _boardRendererState = new BoardRendererState();
 		private readonly EditorView _editorView = new EditorView();
+		private readonly PencilAction _pencilAction;
 		private readonly PencilRendererState _pencilRendererState = new PencilRendererState();
 		private readonly ToolSelectionUserControl _toolSelectionUserControl;
 		private TextAdventureEditorGame _game;
@@ -25,6 +27,8 @@ namespace TextAdventure.Editor.Forms
 		public GameForm()
 		{
 			InitializeComponent();
+
+			_pencilAction = new PencilAction(_boardRendererState, _pencilRendererState);
 
 			_toolSelectionUserControl = new ToolSelectionUserControl(_pencilRendererState)
 			                            	{
@@ -86,12 +90,23 @@ namespace TextAdventure.Editor.Forms
 
 		private void SetSelections(Coordinate coordinate)
 		{
-			_pencilRendererState.SetSelection(coordinate);
+			if (_pencilRendererState.Enabled)
+			{
+				_pencilRendererState.SetSelection(coordinate);
+			}
 		}
 
 		private void ClearSelections()
 		{
 			_pencilRendererState.ClearSelection();
+		}
+
+		private void PerformToolAction()
+		{
+			if (_pencilRendererState.Enabled)
+			{
+				_pencilAction.Draw();
+			}
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -131,13 +146,28 @@ namespace TextAdventure.Editor.Forms
 			Render();
 		}
 
+		private void XnaControlOnMouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				PerformToolAction();
+			}
+		}
+
 		private void XnaControlOnMouseMove(object sender, MouseEventArgs e)
 		{
+			Text = e.Button.ToString();
+
 			Coordinate? coordinate = _editorView.GetCoordinateFromClientPoint(e.Location);
 
-			if (coordinate != null)
+			if (coordinate != null && xnaControl.ClientRectangle.Contains(e.Location))
 			{
 				SetSelections(coordinate.Value);
+
+				if (e.Button == MouseButtons.Left)
+				{
+					PerformToolAction();
+				}
 			}
 			else
 			{

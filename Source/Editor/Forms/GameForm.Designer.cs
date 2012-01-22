@@ -33,8 +33,8 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.hScrollBar = new System.Windows.Forms.HScrollBar();
 			this.vScrollBar = new System.Windows.Forms.VScrollBar();
-			this.panelTool = new System.Windows.Forms.Panel();
 			this.xnaControl = new TextAdventure.Editor.Xna.XnaControl();
+			this.panelTool = new System.Windows.Forms.Panel();
 			panel3 = new System.Windows.Forms.Panel();
 			panel1 = new System.Windows.Forms.Panel();
 			panel1.SuspendLayout();
@@ -87,16 +87,6 @@
 			this.vScrollBar.TabIndex = 1;
 			this.vScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VScrollBarOnScroll);
 			// 
-			// panelTool
-			// 
-			this.panelTool.Controls.Add(panel3);
-			this.panelTool.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panelTool.Location = new System.Drawing.Point(0, 0);
-			this.panelTool.Name = "panelTool";
-			this.panelTool.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-			this.panelTool.Size = new System.Drawing.Size(210, 564);
-			this.panelTool.TabIndex = 1;
-			// 
 			// xnaControl
 			// 
 			this.xnaControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -108,9 +98,20 @@
 			this.xnaControl.Size = new System.Drawing.Size(553, 547);
 			this.xnaControl.TabIndex = 0;
 			this.xnaControl.TabStop = false;
+			this.xnaControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.XnaControlOnMouseDown);
 			this.xnaControl.MouseLeave += new System.EventHandler(this.XnaControlOnMouseLeave);
 			this.xnaControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.XnaControlOnMouseMove);
 			this.xnaControl.Resize += new System.EventHandler(this.XnaControlOnResize);
+			// 
+			// panelTool
+			// 
+			this.panelTool.Controls.Add(panel3);
+			this.panelTool.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panelTool.Location = new System.Drawing.Point(0, 0);
+			this.panelTool.Name = "panelTool";
+			this.panelTool.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+			this.panelTool.Size = new System.Drawing.Size(210, 564);
+			this.panelTool.TabIndex = 1;
 			// 
 			// GameForm
 			// 
