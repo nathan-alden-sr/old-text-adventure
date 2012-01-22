@@ -89,5 +89,16 @@ namespace TextAdventure.Editor
 				Math.Min(clientSizeInPixels.Width, TopLeftPoint.X + (visibleCoordinateSize.X * tileWidth)),
 				Math.Min(clientSizeInPixels.Height, TopLeftPoint.Y + (visibleCoordinateSize.Y * tileHeight)));
 		}
+
+		public Coordinate? GetCoordinateFromClientPoint(Point clientPoint)
+		{
+			const int tileWidth = TextAdventure.Xna.Constants.Tile.TileWidth;
+			const int tileHeight = TextAdventure.Xna.Constants.Tile.TileHeight;
+			var originCoordinate = new Coordinate(
+				TopLeftCoordinate.X + ((clientPoint.X - TopLeftPoint.X) / tileWidth),
+				TopLeftCoordinate.Y + ((clientPoint.Y - TopLeftPoint.Y) / tileHeight));
+
+			return originCoordinate.X < BoardSizeInTiles.Width && originCoordinate.Y < BoardSizeInTiles.Height ? originCoordinate : (Coordinate?)null;
+		}
 	}
 }

@@ -9,10 +9,6 @@ namespace TextAdventure.Editor.RendererStates
 		{
 			get;
 		}
-		Coordinate? OriginCoordinate
-		{
-			get;
-		}
 		Coordinate? TopLeftSelectionCoordinate
 		{
 			get;
@@ -21,7 +17,7 @@ namespace TextAdventure.Editor.RendererStates
 		{
 			get;
 		}
-		int Size
+		int SelectionSize
 		{
 			get;
 		}

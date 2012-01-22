@@ -84,6 +84,16 @@ namespace TextAdventure.Editor.Forms
 			vScrollBar.Enabled = _editorView.ClientSizeInPixels.Height < _editorView.BoardSizeInTiles.Height * tileHeight;
 		}
 
+		private void SetSelections(Coordinate coordinate)
+		{
+			_pencilRendererState.SetSelection(coordinate);
+		}
+
+		private void ClearSelections()
+		{
+			_pencilRendererState.ClearSelection();
+		}
+
 		protected override void OnShown(EventArgs e)
 		{
 			xnaControl.CreateGraphicsDevice();
@@ -123,18 +133,21 @@ namespace TextAdventure.Editor.Forms
 
 		private void XnaControlOnMouseMove(object sender, MouseEventArgs e)
 		{
-			const int tileWidth = TextAdventure.Xna.Constants.Tile.TileWidth;
-			const int tileHeight = TextAdventure.Xna.Constants.Tile.TileHeight;
-			var originCoordinate = new Coordinate(
-				_editorView.TopLeftCoordinate.X + ((e.Location.X - _editorView.TopLeftPoint.X) / tileWidth),
-				_editorView.TopLeftCoordinate.Y + ((e.Location.Y - _editorView.TopLeftPoint.Y) / tileHeight));
+			Coordinate? coordinate = _editorView.GetCoordinateFromClientPoint(e.Location);
 
-			_pencilRendererState.OriginCoordinate = originCoordinate;
+			if (coordinate != null)
+			{
+				SetSelections(coordinate.Value);
+			}
+			else
+			{
+				ClearSelections();
+			}
 		}
 
 		private void XnaControlOnMouseLeave(object sender, EventArgs e)
 		{
-			_pencilRendererState.OriginCoordinate = null;
+			ClearSelections();
 		}
 	}
 }

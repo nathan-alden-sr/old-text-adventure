@@ -46,7 +46,7 @@ namespace TextAdventure.Editor.Tools
 
 		private void SizeUserControlOnSelectedSizeChanged(object sender, EventArgs e)
 		{
-			_pencilRendererState.Size = sizeUserControl.SelectedSize;
+			_pencilRendererState.SelectionSize = sizeUserControl.SelectedSize;
 		}
 	}
 }

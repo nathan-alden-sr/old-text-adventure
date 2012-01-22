@@ -10,7 +10,7 @@ namespace TextAdventure.Editor.RendererStates
 	public class PencilRendererState : IPencilRendererState
 	{
 		private Character _character;
-		private int _size = 1;
+		private int _selectionSize = 1;
 
 		public PencilRendererState()
 		{
@@ -23,16 +23,10 @@ namespace TextAdventure.Editor.RendererStates
 			set;
 		}
 
-		public Coordinate? OriginCoordinate
-		{
-			get;
-			set;
-		}
-
 		public Coordinate? TopLeftSelectionCoordinate
 		{
 			get;
-			set;
+			private set;
 		}
 
 		public Character Character
@@ -49,16 +43,28 @@ namespace TextAdventure.Editor.RendererStates
 			}
 		}
 
-		public int Size
+		public int SelectionSize
 		{
 			get
 			{
-				return _size;
+				return _selectionSize;
 			}
 			set
 			{
-				_size = Math.Max(1, value);
+				_selectionSize = Math.Max(1, value);
 			}
+		}
+
+		public void SetSelection(Coordinate originCoordinate)
+		{
+			var offset = (int)Math.Ceiling((SelectionSize / 2f) - 1);
+
+			TopLeftSelectionCoordinate = new Coordinate(originCoordinate.X - offset, originCoordinate.Y - offset);
+		}
+
+		public void ClearSelection()
+		{
+			TopLeftSelectionCoordinate = null;
 		}
 	}
 }

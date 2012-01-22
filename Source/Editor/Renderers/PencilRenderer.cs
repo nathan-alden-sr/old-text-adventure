@@ -1,15 +1,10 @@
-﻿using System;
-
-using Junior.Common;
+﻿using Junior.Common;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Editor.RendererStates;
-using TextAdventure.Engine.Common;
 using TextAdventure.Xna;
-
-using Color = Microsoft.Xna.Framework.Color;
 
 namespace TextAdventure.Editor.Renderers
 {
@@ -32,28 +27,17 @@ namespace TextAdventure.Editor.Renderers
 		{
 			parameters.ThrowIfNull("parameters");
 
-			if (!_state.Enabled || _state.OriginCoordinate == null)
+			if (!_state.Enabled || _state.TopLeftSelectionCoordinate == null)
 			{
 				return;
 			}
 
 			const int tileWidth = TextAdventure.Xna.Constants.Tile.TileWidth;
 			const int tileHeight = TextAdventure.Xna.Constants.Tile.TileHeight;
-			Coordinate originCoordinate = _state.OriginCoordinate.Value;
-
-			if (originCoordinate.X > _editorView.BottomRightCoordinate.X || originCoordinate.Y > _editorView.BottomRightCoordinate.Y)
-			{
-				return;
-			}
-
-			var offset = (int)Math.Ceiling((_state.Size / 2f) - 1);
-			var topLeftHighlightCoordinate = new Coordinate(
-				originCoordinate.X - offset - _editorView.TopLeftCoordinate.X,
-				originCoordinate.Y - offset - _editorView.TopLeftCoordinate.Y);
 			var topLeftPoint = new Point(
-				_editorView.TopLeftPoint.X + (topLeftHighlightCoordinate.X * tileWidth),
-				_editorView.TopLeftPoint.Y + (topLeftHighlightCoordinate.Y * tileHeight));
-			var destinationRectangle = new Rectangle(topLeftPoint.X, topLeftPoint.Y, tileWidth * _state.Size, tileHeight * _state.Size);
+				_editorView.TopLeftPoint.X + (_state.TopLeftSelectionCoordinate.Value.X * tileWidth),
+				_editorView.TopLeftPoint.Y + (_state.TopLeftSelectionCoordinate.Value.Y * tileHeight));
+			var destinationRectangle = new Rectangle(topLeftPoint.X, topLeftPoint.Y, tileWidth * _state.SelectionSize, tileHeight * _state.SelectionSize);
 			var topLine = new Rectangle(destinationRectangle.X, destinationRectangle.Y, destinationRectangle.Width, 1);
 			var bottomLine = new Rectangle(destinationRectangle.X, destinationRectangle.Bottom - 1, destinationRectangle.Width, 1);
 			var leftLine = new Rectangle(destinationRectangle.X, destinationRectangle.Y, 1, destinationRectangle.Height);
