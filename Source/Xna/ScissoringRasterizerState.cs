@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace TextAdventure.WindowsGame
+namespace TextAdventure.Xna
 {
 	public class ScissoringRasterizerState : RasterizerState
 	{

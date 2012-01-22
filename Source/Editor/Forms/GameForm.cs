@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
-
 using TextAdventure.Editor.RendererStates;
+using TextAdventure.Editor.Tools;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
+
+using Size = TextAdventure.Engine.Common.Size;
 
 namespace TextAdventure.Editor.Forms
 {
@@ -17,11 +19,18 @@ namespace TextAdventure.Editor.Forms
 		private readonly BoardRendererState _boardRendererState = new BoardRendererState();
 		private readonly EditorView _editorView = new EditorView();
 		private readonly PencilRendererState _pencilRendererState = new PencilRendererState();
+		private readonly ToolSelectionUserControl _toolSelectionUserControl;
 		private TextAdventureEditorGame _game;
 
 		public GameForm()
 		{
 			InitializeComponent();
+
+			_toolSelectionUserControl = new ToolSelectionUserControl(_pencilRendererState)
+			                            	{
+			                            		Dock = DockStyle.Fill
+			                            	};
+			panelTool.Controls.Add(_toolSelectionUserControl);
 		}
 
 		private bool GameRunning
@@ -44,7 +53,7 @@ namespace TextAdventure.Editor.Forms
 		{
 			_boardRendererState.Board = world.Boards.FirstOrDefault();
 
-			RecalculateView();
+			CalculateEditorView();
 
 			_game = new TextAdventureEditorGame(
 				xnaControl.GraphicsDevice,
@@ -55,33 +64,24 @@ namespace TextAdventure.Editor.Forms
 			xnaControl.DrawBackground = false;
 		}
 
-		private void RecalculateView()
+		private void CalculateEditorView()
 		{
+			_editorView.Calculate(xnaControl.ClientSize, _boardRendererState.Board.IfNotNull(arg => (Size?)arg.Size), new Point(hScrollBar.Value, vScrollBar.Value));
+
 			const int tileWidth = TextAdventure.Xna.Constants.Tile.TileWidth;
 			const int tileHeight = TextAdventure.Xna.Constants.Tile.TileHeight;
-			int clientWidth = xnaControl.ClientSize.Width;
-			int clientHeight = xnaControl.ClientSize.Height;
-			int boardWidth = _boardRendererState.Board.IfNotNull(arg => (int?)arg.Size.Width) ?? 0;
-			int boardHeight = _boardRendererState.Board.IfNotNull(arg => (int?)arg.Size.Height) ?? 0;
-			var visibleTileWidth = (int)Math.Ceiling((clientWidth + (hScrollBar.Value % tileWidth)) / (double)tileWidth);
-			var visibleTileHeight = (int)Math.Ceiling((clientHeight + (vScrollBar.Value % tileHeight)) / (double)tileHeight);
 
-			hScrollBar.Maximum = boardWidth * tileWidth;
-			hScrollBar.LargeChange = clientWidth;
+			hScrollBar.Maximum = _editorView.BoardSizeInTiles.Width * tileWidth;
+			hScrollBar.LargeChange = Math.Min(hScrollBar.Maximum, _editorView.ClientSizeInPixels.Width);
 			hScrollBar.SmallChange = tileWidth;
-			hScrollBar.Enabled = clientWidth < boardWidth * tileWidth;
+			hScrollBar.Value = Math.Max(0, Math.Min(hScrollBar.Value, _editorView.BoardSizeInPixels.Width - _editorView.ClientSizeInPixels.Width));
+			hScrollBar.Enabled = _editorView.ClientSizeInPixels.Width < _editorView.BoardSizeInTiles.Width * tileWidth;
 
-			vScrollBar.Maximum = boardHeight * tileHeight;
-			vScrollBar.LargeChange = clientHeight;
+			vScrollBar.Maximum = _editorView.BoardSizeInTiles.Height * tileHeight;
+			vScrollBar.LargeChange = Math.Min(hScrollBar.Maximum, _editorView.ClientSizeInPixels.Height);
 			vScrollBar.SmallChange = tileHeight;
-			vScrollBar.Enabled = clientHeight < boardHeight * tileHeight;
-
-			var topLeftCoordinate = new Coordinate(hScrollBar.Value / tileWidth, vScrollBar.Value / tileHeight);
-
-			_editorView.TopLeftPoint = new Point(-(hScrollBar.Value % tileWidth), -(vScrollBar.Value % tileHeight));
-			_editorView.TopLeftCoordinate = topLeftCoordinate;
-			_editorView.VisibleSizeInTiles = new Size(visibleTileWidth, visibleTileHeight);
-			_editorView.VisibleSizeInPixels = xnaControl.ClientSize;
+			vScrollBar.Value = Math.Max(0, Math.Min(vScrollBar.Value, _editorView.BoardSizeInPixels.Height - _editorView.ClientSizeInPixels.Height));
+			vScrollBar.Enabled = _editorView.ClientSizeInPixels.Height < _editorView.BoardSizeInTiles.Height * tileHeight;
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -101,22 +101,40 @@ namespace TextAdventure.Editor.Forms
 
 		private void HScrollBarOnScroll(object sender, ScrollEventArgs e)
 		{
+			e.NewValue = Math.Min(hScrollBar.Maximum - hScrollBar.LargeChange, e.NewValue);
 			hScrollBar.Value = e.NewValue;
-			RecalculateView();
+			CalculateEditorView();
 			Render();
 		}
 
 		private void VScrollBarOnScroll(object sender, ScrollEventArgs e)
 		{
+			e.NewValue = Math.Min(vScrollBar.Maximum - vScrollBar.LargeChange, e.NewValue);
 			vScrollBar.Value = e.NewValue;
-			RecalculateView();
+			CalculateEditorView();
 			Render();
 		}
 
 		private void XnaControlOnResize(object sender, EventArgs e)
 		{
-			RecalculateView();
+			CalculateEditorView();
 			Render();
+		}
+
+		private void XnaControlOnMouseMove(object sender, MouseEventArgs e)
+		{
+			const int tileWidth = TextAdventure.Xna.Constants.Tile.TileWidth;
+			const int tileHeight = TextAdventure.Xna.Constants.Tile.TileHeight;
+			var originCoordinate = new Coordinate(
+				_editorView.TopLeftCoordinate.X + ((e.Location.X - _editorView.TopLeftPoint.X) / tileWidth),
+				_editorView.TopLeftCoordinate.Y + ((e.Location.Y - _editorView.TopLeftPoint.Y) / tileHeight));
+
+			_pencilRendererState.OriginCoordinate = originCoordinate;
+		}
+
+		private void XnaControlOnMouseLeave(object sender, EventArgs e)
+		{
+			_pencilRendererState.OriginCoordinate = null;
 		}
 	}
 }

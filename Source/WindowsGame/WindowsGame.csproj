@@ -171,7 +171,6 @@
     <Compile Include="Renderers\WindowRendererBase.cs" />
     <Compile Include="Renderers\WorldTimeRenderer.cs" />
     <Compile Include="RendererStates\WorldTimeRendererState.cs" />
-    <Compile Include="ScissoringRasterizerState.cs" />
     <Compile Include="Updaters\IUpdater.cs" />
     <Compile Include="Windows\BorderedWindow.cs" />
     <Compile Include="Configuration\FpsConfigurationSection.cs" />

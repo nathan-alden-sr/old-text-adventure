@@ -60,9 +60,37 @@ namespace TextAdventure.Editor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Characters {
+            get {
+                object obj = ResourceManager.GetObject("Characters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Game_Thumbnail {
             get {
                 object obj = ResourceManager.GetObject("Game_Thumbnail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Pencil {
+            get {
+                object obj = ResourceManager.GetObject("Pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Symbol_Selection {
+            get {
+                object obj = ResourceManager.GetObject("Symbol_Selection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Transparent_Background {
+            get {
+                object obj = ResourceManager.GetObject("Transparent_Background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

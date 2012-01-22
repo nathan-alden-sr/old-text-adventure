@@ -12,6 +12,7 @@ using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Managers;
 using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Windows;
+using TextAdventure.Xna;
 using TextAdventure.Xna.Extensions;
 
 using Color = Microsoft.Xna.Framework.Color;
@@ -26,7 +27,6 @@ namespace TextAdventure.WindowsGame.Renderers
 		private MessageFormatter _formatter;
 		private Matrix _transformMatrix;
 		private bool _windowRectangleSet;
-		//private Texture2D _textTexture;
 
 		public MessageRenderer(IMessageRendererState state)
 			: base(textureContent => textureContent.Windows.InnerBevel1)

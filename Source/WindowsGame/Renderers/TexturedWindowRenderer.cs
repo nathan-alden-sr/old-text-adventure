@@ -5,6 +5,8 @@ using Junior.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using TextAdventure.Xna;
+
 namespace TextAdventure.WindowsGame.Renderers
 {
 	public class TexturedWindowRenderer : BorderedWindowRenderer

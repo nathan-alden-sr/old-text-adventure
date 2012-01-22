@@ -106,20 +106,35 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\ColorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="EditorView.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
     <Compile Include="Forms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SymbolControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\SymbolSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SymbolSelectionForm.Designer.cs">
+      <DependentUpon>SymbolSelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IEditorView.cs" />
     <Compile Include="DefaultWorldFactory.cs" />
@@ -143,6 +158,43 @@
     <Compile Include="Renderers\RendererCollection.cs" />
     <Compile Include="TextAdventureEditorGame.cs" />
     <Compile Include="TextureContent.cs" />
+    <Compile Include="Tools\PencilUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\PencilUserControl.Designer.cs">
+      <DependentUpon>PencilUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Tool.cs" />
+    <Compile Include="Tools\ToolSelectionUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\ToolSelectionUserControl.Designer.cs">
+      <DependentUpon>ToolSelectionUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\ToolUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tools\ToolUserControl.Designer.cs">
+      <DependentUpon>ToolUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CharacterSelectionUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CharacterSelectionUserControl.Designer.cs">
+      <DependentUpon>CharacterSelectionUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorSelectionUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ColorSelectionUserControl.Designer.cs">
+      <DependentUpon>ColorSelectionUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SizeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SizeUserControl.Designer.cs">
+      <DependentUpon>SizeUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Xna\XnaControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -151,6 +203,10 @@
   <ItemGroup>
     <Content Include="Editor.ico" />
     <Content Include="Game Thumbnail.png" />
+    <Content Include="Images\Symbol Selection.png" />
+    <Content Include="Images\Transparent Background.png" />
+    <None Include="Images\Characters.png" />
+    <None Include="Images\Pencil.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EditorContent\EditorContent.contentproj">
@@ -205,9 +261,30 @@
     <EmbeddedResource Include="Forms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SymbolSelectionForm.resx">
+      <DependentUpon>SymbolSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\PencilUserControl.resx">
+      <DependentUpon>PencilUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ToolSelectionUserControl.resx">
+      <DependentUpon>ToolSelectionUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\ToolUserControl.resx">
+      <DependentUpon>ToolUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\CharacterSelectionUserControl.resx">
+      <DependentUpon>CharacterSelectionUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ColorSelectionUserControl.resx">
+      <DependentUpon>ColorSelectionUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SizeUserControl.resx">
+      <DependentUpon>SizeUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

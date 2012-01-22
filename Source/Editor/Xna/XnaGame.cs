@@ -119,7 +119,7 @@ namespace TextAdventure.Editor.Xna
 
 		private void Present()
 		{
-			var sourceRectangle = new Rectangle(0, 0, _editorView.VisibleSizeInPixels.Width, _editorView.VisibleSizeInPixels.Height);
+			var sourceRectangle = new Rectangle(0, 0, _editorView.ClientSizeInPixels.Width, _editorView.ClientSizeInPixels.Height);
 
 			_graphicsDevice.Present(sourceRectangle, null, IntPtr.Zero);
 		}

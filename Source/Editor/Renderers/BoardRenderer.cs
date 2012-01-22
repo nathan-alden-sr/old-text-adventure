@@ -46,7 +46,7 @@ namespace TextAdventure.Editor.Renderers
 			                             		_state.Board.ActorInstanceLayer
 			                             	};
 			Coordinate topLeftCoordinate = _editorView.TopLeftCoordinate;
-			var bottomRightCoordinate = new Coordinate(topLeftCoordinate.X + _editorView.VisibleSizeInTiles.Width - 1, topLeftCoordinate.Y + _editorView.VisibleSizeInTiles.Height - 1);
+			var bottomRightCoordinate = new Coordinate(topLeftCoordinate.X + _editorView.ClientSizeInTiles.Width - 1, topLeftCoordinate.Y + _editorView.ClientSizeInTiles.Height - 1);
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
