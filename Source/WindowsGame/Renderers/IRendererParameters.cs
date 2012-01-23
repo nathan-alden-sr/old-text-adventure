@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.WindowsGame.Xna;
+using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.Renderers
 {
 	public interface IRendererParameters
 	{
-		XnaGameTime GameTime
+		IXnaGameTime GameTime
 		{
 			get;
 		}

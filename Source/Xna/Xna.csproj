@@ -41,6 +41,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ContentDirectoryContentManagerProvider.cs" />
     <Compile Include="Helpers\CharacterTextureHelper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
@@ -49,8 +50,16 @@
     <Compile Include="Extensions\PointExtensions.cs" />
     <Compile Include="Extensions\SpriteBatchExtensions.cs" />
     <Compile Include="Extensions\Vector2Extensions.cs" />
+    <Compile Include="IContentManagerProvider.cs" />
+    <Compile Include="IXnaGameTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScissoringRasterizerState.cs" />
+    <Compile Include="TimedXnaGame.cs" />
+    <Compile Include="XnaControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XnaGame.cs" />
+    <Compile Include="XnaGameTime.cs" />
     <Compile Include="XnaServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +81,9 @@
       <HintPath>..\..\Binaries\XNA\Microsoft.Xna.Framework.Graphics.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

@@ -4,17 +4,17 @@ using Junior.Common;
 
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
-using TextAdventure.WindowsGame.Xna;
+using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.Updaters
 {
 	public class MessageFadeInAndScaleUpdater : IUpdater
 	{
-		private readonly Action<XnaGameTime> _completeDelegate;
+		private readonly Action<IXnaGameTime> _completeDelegate;
 		private readonly MessageRendererState _messageRendererState;
 		private readonly TimedLerpHelper _timedLerpHelper;
 
-		public MessageFadeInAndScaleUpdater(MessageRendererState messageRendererState, TimeSpan totalTime, Action<XnaGameTime> completeDelegate)
+		public MessageFadeInAndScaleUpdater(MessageRendererState messageRendererState, TimeSpan totalTime, Action<IXnaGameTime> completeDelegate)
 		{
 			messageRendererState.ThrowIfNull("messageRendererState");
 			completeDelegate.ThrowIfNull("completeDelegate");

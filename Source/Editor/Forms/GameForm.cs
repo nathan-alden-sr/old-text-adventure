@@ -8,6 +8,7 @@ using Junior.Common;
 using TextAdventure.Editor.RendererStates;
 using TextAdventure.Editor.ToolActions;
 using TextAdventure.Editor.Tools;
+using TextAdventure.Editor.Xna;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
@@ -124,7 +125,6 @@ namespace TextAdventure.Editor.Forms
 
 		protected override void OnShown(EventArgs e)
 		{
-			xnaControl.CreateGraphicsDevice();
 			CreateGame(DefaultWorldFactory.Instance.CreateWorld());
 
 			base.OnShown(e);

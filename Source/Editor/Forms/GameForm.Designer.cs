@@ -33,7 +33,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.hScrollBar = new System.Windows.Forms.HScrollBar();
 			this.vScrollBar = new System.Windows.Forms.VScrollBar();
-			this.xnaControl = new TextAdventure.Editor.Xna.XnaControl();
+			this.xnaControl = new TextAdventure.Editor.Xna.TextAdventureEditorXnaControl();
 			this.panelTool = new System.Windows.Forms.Panel();
 			panel3 = new System.Windows.Forms.Panel();
 			panel1 = new System.Windows.Forms.Panel();
@@ -134,7 +134,7 @@
 
 		private System.Windows.Forms.HScrollBar hScrollBar;
 		private System.Windows.Forms.VScrollBar vScrollBar;
-		private Xna.XnaControl xnaControl;
+		private Xna.TextAdventureEditorXnaControl xnaControl;
 		private System.Windows.Forms.Panel panelTool;
 
 	}

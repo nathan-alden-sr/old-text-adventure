@@ -115,7 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TextAdventureGame.cs" />
+    <Compile Include="Xna\TextAdventureGame.cs" />
     <Compile Include="Helpers\RectangleHelper.cs" />
     <Compile Include="Forms\GameForm.cs">
       <SubType>Form</SubType>
@@ -199,11 +199,9 @@
     <Compile Include="Updaters\MultimediaPlayer.cs" />
     <Compile Include="World\WorldObserver.cs" />
     <Compile Include="World\WorldTime.cs" />
-    <Compile Include="Xna\XnaControl.cs">
+    <Compile Include="Xna\TextAdventureXnaControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xna\XnaGame.cs" />
-    <Compile Include="Xna\XnaGameTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

@@ -8,7 +8,7 @@ using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.WindowsGame.Renderers;
-using TextAdventure.WindowsGame.Xna;
+using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.RendererStates
 {
@@ -61,7 +61,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 			}
 		}
 
-		public void DequeueOldLogEntries(XnaGameTime gameTime)
+		public void DequeueOldLogEntries(IXnaGameTime gameTime)
 		{
 			gameTime.ThrowIfNull("gameTime");
 

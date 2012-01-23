@@ -159,7 +159,7 @@
     <Compile Include="Renderers\IRendererParameters.cs" />
     <Compile Include="Renderers\PencilRenderer.cs" />
     <Compile Include="Renderers\RendererCollection.cs" />
-    <Compile Include="TextAdventureEditorGame.cs" />
+    <Compile Include="Xna\TextAdventureEditorGame.cs" />
     <Compile Include="TextureContent.cs" />
     <Compile Include="ToolActions\EraserAction.cs" />
     <Compile Include="ToolActions\PencilAction.cs" />
@@ -206,10 +206,9 @@
     <Compile Include="UserControls\SizeUserControl.Designer.cs">
       <DependentUpon>SizeUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Xna\XnaControl.cs">
+    <Compile Include="Xna\TextAdventureEditorXnaControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xna\XnaGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Editor.ico" />

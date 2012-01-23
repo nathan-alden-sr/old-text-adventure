@@ -11,21 +11,21 @@ using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.RendererStates;
-using TextAdventure.WindowsGame.Xna;
+using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.Updaters
 {
 	public class MessageInputHandler : IUpdater
 	{
 		private readonly KeyboardStateHelper _answerKeyboardStateHelper;
-		private readonly Action<XnaGameTime> _messageClosingDelegate;
+		private readonly Action<IXnaGameTime> _messageClosingDelegate;
 		private readonly MessageRendererState _messageRendererState;
 		private readonly KeyboardRepeatHelper _scrollKeyboardRepeatHelper = new KeyboardRepeatHelper();
 		private readonly KeyboardStateHelper _scrollKeyboardStateHelper;
 		private readonly WorldInstance _worldInstance;
-		private XnaGameTime _lastGameTime;
+		private IXnaGameTime _lastGameTime;
 
-		public MessageInputHandler(WorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalTime, Action<XnaGameTime> messageClosingDelegate)
+		public MessageInputHandler(WorldInstance worldInstance, MessageRendererState messageRendererState, TimeSpan totalTime, Action<IXnaGameTime> messageClosingDelegate)
 		{
 			worldInstance.ThrowIfNull("worldInstance");
 			messageRendererState.ThrowIfNull("messageRendererState");

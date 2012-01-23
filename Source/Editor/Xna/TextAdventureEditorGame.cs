@@ -1,16 +1,20 @@
-﻿using Junior.Common;
+﻿using System;
 
+using Junior.Common;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Editor.RendererStates;
 using TextAdventure.Editor.Renderers;
-using TextAdventure.Editor.Xna;
+using TextAdventure.Xna;
 
-namespace TextAdventure.Editor
+namespace TextAdventure.Editor.Xna
 {
 	public class TextAdventureEditorGame : XnaGame
 	{
 		private readonly IBoardRendererState _boardRendererState;
+		private readonly IEditorView _editorView;
 		private readonly IEraserRendererState _eraserRendererState;
 		private readonly IPencilRendererState _pencilRendererState;
 		private readonly RendererCollection _rendererCollection = new RendererCollection();
@@ -22,12 +26,14 @@ namespace TextAdventure.Editor
 			IBoardRendererState boardRendererState,
 			IPencilRendererState pencilRendererState,
 			IEraserRendererState eraserRendererState)
-			: base(graphicsDevice, editorView)
+			: base(graphicsDevice, new ContentDirectoryContentManagerProvider())
 		{
+			editorView.ThrowIfNull("editorView");
 			boardRendererState.ThrowIfNull("boardRendererState");
 			pencilRendererState.ThrowIfNull("pencilRendererState");
 			eraserRendererState.ThrowIfNull("eraserRendererState");
 
+			_editorView = editorView;
 			_boardRendererState = boardRendererState;
 			_pencilRendererState = pencilRendererState;
 			_eraserRendererState = eraserRendererState;
@@ -58,12 +64,19 @@ namespace TextAdventure.Editor
 			spriteBatch.Dispose();
 		}
 
+		protected override void Present()
+		{
+			var sourceRectangle = new Rectangle(0, 0, _editorView.ClientSizeInPixels.Width, _editorView.ClientSizeInPixels.Height);
+
+			GraphicsDevice.Present(sourceRectangle, null, IntPtr.Zero);
+		}
+
 		private void AddRenderers()
 		{
 			_rendererCollection.Add(new HatchRenderer());
-			_rendererCollection.Add(new BoardRenderer(_boardRendererState, EditorView));
-			_rendererCollection.Add(new PencilRenderer(_pencilRendererState, EditorView));
-			_rendererCollection.Add(new EraserRenderer(_eraserRendererState, EditorView));
+			_rendererCollection.Add(new BoardRenderer(_boardRendererState, _editorView));
+			_rendererCollection.Add(new PencilRenderer(_pencilRendererState, _editorView));
+			_rendererCollection.Add(new EraserRenderer(_eraserRendererState, _editorView));
 		}
 	}
 }

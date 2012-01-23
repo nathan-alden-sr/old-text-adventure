@@ -9,6 +9,7 @@ using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Configuration;
 using TextAdventure.WindowsGame.Helpers;
 using TextAdventure.WindowsGame.Updaters;
+using TextAdventure.WindowsGame.Xna;
 
 namespace TextAdventure.WindowsGame.Forms
 {
@@ -118,7 +119,6 @@ namespace TextAdventure.WindowsGame.Forms
 		protected override void OnShown(EventArgs e)
 		{
 			SetNormalViewSize();
-			xnaControl.CreateGraphicsDevice();
 			LoadGame(CreateGame(_world, _startingPlayer), _world);
 			_world = null;
 			_startingPlayer = null;

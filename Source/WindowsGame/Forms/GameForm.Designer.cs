@@ -47,7 +47,7 @@ namespace TextAdventure.WindowsGame.Forms
 			this.soundEffectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.xnaControl = new TextAdventure.WindowsGame.Xna.XnaControl();
+			this.xnaControl = new TextAdventure.WindowsGame.Xna.TextAdventureXnaControl();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -228,7 +228,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 		#endregion
 
-		private XnaControl xnaControl;
+		private TextAdventureXnaControl xnaControl;
 		private System.Windows.Forms.ToolStripMenuItem fpsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem worldTimeToolStripMenuItem;

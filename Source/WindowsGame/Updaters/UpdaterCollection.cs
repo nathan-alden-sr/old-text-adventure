@@ -3,7 +3,7 @@ using System.Linq;
 
 using Junior.Common;
 
-using TextAdventure.WindowsGame.Xna;
+using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.Updaters
 {
@@ -25,7 +25,7 @@ namespace TextAdventure.WindowsGame.Updaters
 			_updaters.Remove(updater);
 		}
 
-		public void Update(XnaGameTime gameTime, Focus focus)
+		public void Update(IXnaGameTime gameTime, Focus focus)
 		{
 			gameTime.ThrowIfNull("gameTime");
 
@@ -38,15 +38,15 @@ namespace TextAdventure.WindowsGame.Updaters
 		private class UpdaterParameters : IUpdaterParameters
 		{
 			private readonly Focus _focus;
-			private readonly XnaGameTime _gameTime;
+			private readonly IXnaGameTime _gameTime;
 
-			public UpdaterParameters(XnaGameTime gameTime, Focus focus)
+			public UpdaterParameters(IXnaGameTime gameTime, Focus focus)
 			{
 				_gameTime = gameTime;
 				_focus = focus;
 			}
 
-			public XnaGameTime GameTime
+			public IXnaGameTime GameTime
 			{
 				get
 				{

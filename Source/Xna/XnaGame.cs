@@ -6,28 +6,26 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-using TextAdventure.Xna;
-
-namespace TextAdventure.Editor.Xna
+namespace TextAdventure.Xna
 {
-	public class XnaGame : IDisposable
+	public abstract class XnaGame : IDisposable
 	{
 		private readonly ContentManager _content;
-		private readonly IEditorView _editorView;
 		private readonly GraphicsDevice _graphicsDevice;
-		private bool _running;
 
-		public XnaGame(GraphicsDevice graphicsDevice, IEditorView editorView)
+		protected XnaGame(GraphicsDevice graphicsDevice, IContentManagerProvider contentManagerProvider)
 		{
 			graphicsDevice.ThrowIfNull("graphicsDevice");
-			editorView.ThrowIfNull("editorView");
+			contentManagerProvider.ThrowIfNull("contentManagerProvider");
 
 			_graphicsDevice = graphicsDevice;
-			_editorView = editorView;
-			_content = new ContentManager(new XnaServiceProvider(graphicsDevice))
-			           	{
-			           		RootDirectory = "Content"
-			           	};
+			_content = contentManagerProvider.GetContentManager(graphicsDevice);
+		}
+
+		public bool Running
+		{
+			get;
+			private set;
 		}
 
 		protected GraphicsDevice GraphicsDevice
@@ -35,14 +33,6 @@ namespace TextAdventure.Editor.Xna
 			get
 			{
 				return _graphicsDevice;
-			}
-		}
-
-		protected IEditorView EditorView
-		{
-			get
-			{
-				return _editorView;
 			}
 		}
 
@@ -62,12 +52,12 @@ namespace TextAdventure.Editor.Xna
 
 		public void Run()
 		{
-			if (_running)
+			if (Running)
 			{
 				throw new InvalidOperationException("Game is already running.");
 			}
 
-			_running = true;
+			Running = true;
 
 			Initialize();
 			LoadContent();
@@ -75,10 +65,12 @@ namespace TextAdventure.Editor.Xna
 
 		public void Tick()
 		{
-			if (!_running)
+			if (!Running)
 			{
 				throw new InvalidOperationException("Game is not running.");
 			}
+
+			BeforeTick();
 
 			FrameworkDispatcher.Update();
 			Update();
@@ -101,6 +93,10 @@ namespace TextAdventure.Editor.Xna
 		{
 		}
 
+		protected virtual void BeforeTick()
+		{
+		}
+
 		protected virtual void Update()
 		{
 		}
@@ -117,11 +113,6 @@ namespace TextAdventure.Editor.Xna
 			}
 		}
 
-		private void Present()
-		{
-			var sourceRectangle = new Rectangle(0, 0, _editorView.ClientSizeInPixels.Width, _editorView.ClientSizeInPixels.Height);
-
-			_graphicsDevice.Present(sourceRectangle, null, IntPtr.Zero);
-		}
+		protected abstract void Present();
 	}
 }

@@ -1,10 +1,10 @@
-﻿using TextAdventure.WindowsGame.Xna;
+﻿using TextAdventure.Xna;
 
 namespace TextAdventure.WindowsGame.Updaters
 {
 	public interface IUpdaterParameters
 	{
-		XnaGameTime GameTime
+		IXnaGameTime GameTime
 		{
 			get;
 		}
