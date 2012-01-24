@@ -24,7 +24,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				MessagePartSerializer.Instance.Serialize(messageAnswer.Parts),
-				messageAnswer.AnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "answerSelectedEventHandler")),
+				messageAnswer.MessageAnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "messageAnswerSelectedEventHandler")),
 				new XAttribute("id", messageAnswer.Id),
 				new XAttribute("text", messageAnswer.Text));
 		}
@@ -37,7 +37,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				(Guid)answerElement.Attribute("id"),
 				(string)answerElement.Attribute("text"),
 				MessagePartSerializer.Instance.Deserialize(answerElement),
-				answerElement.Element("answerSelectedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<AnswerSelectedEvent>));
+				answerElement.Element("messageAnswerSelectedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<MessageAnswerSelectedEvent>));
 		}
 	}
 }

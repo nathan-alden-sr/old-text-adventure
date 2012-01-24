@@ -101,7 +101,7 @@ namespace TextAdventure.WindowsGame.Updaters
 					case TextAdventure.Xna.Constants.MessageRenderer.Input.AcceptKey:
 						MessageAnswer selectedAnswer = _messageRendererState.AnswerSelectionManager.SelectedAnswer;
 
-						_worldInstance.RaiseEvent(_worldInstance.World.AnswerSelectedEventHandler, new AnswerSelectedEvent(selectedAnswer.Id));
+						_worldInstance.RaiseEvent(selectedAnswer.MessageAnswerSelectedEventHandler, new MessageAnswerSelectedEvent(selectedAnswer.Id));
 						if (selectedAnswer.Parts.Any())
 						{
 							_worldInstance.MessageQueue.EnqueueMessage(selectedAnswer, MessageQueuePosition.First);

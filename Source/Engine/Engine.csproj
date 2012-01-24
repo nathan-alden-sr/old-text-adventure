@@ -90,7 +90,7 @@
     <Compile Include="Game\Events\ActorInstanceTouchedPlayerEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceCreatedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceMovedEvent.cs" />
-    <Compile Include="Game\Events\AnswerSelectedEvent.cs" />
+    <Compile Include="Game\Events\MessageAnswerSelectedEvent.cs" />
     <Compile Include="Game\Events\BoardExitedEvent.cs" />
     <Compile Include="Game\Events\BoardEnteredEvent.cs" />
     <Compile Include="Game\Events\Event.cs" />

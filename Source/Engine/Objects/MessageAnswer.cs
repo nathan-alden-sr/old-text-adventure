@@ -10,8 +10,8 @@ namespace TextAdventure.Engine.Objects
 {
 	public class MessageAnswer : IMessage
 	{
-		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Guid _id;
+		private readonly IEventHandler<MessageAnswerSelectedEvent> _messageAnswerSelectedEventHandler;
 		private readonly IEnumerable<IMessagePart> _parts;
 		private readonly string _text;
 
@@ -19,7 +19,7 @@ namespace TextAdventure.Engine.Objects
 			Guid id,
 			string text,
 			IEnumerable<IMessagePart> parts,
-			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+			IEventHandler<MessageAnswerSelectedEvent> messageAnswerSelectedEventHandler = null)
 		{
 			parts.ThrowIfNull("parts");
 			text.ThrowIfNull("text");
@@ -27,7 +27,7 @@ namespace TextAdventure.Engine.Objects
 			_id = id;
 			_text = text;
 			_parts = parts;
-			_answerSelectedEventHandler = answerSelectedEventHandler;
+			_messageAnswerSelectedEventHandler = messageAnswerSelectedEventHandler;
 		}
 
 		public string Text
@@ -38,11 +38,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
+		public IEventHandler<MessageAnswerSelectedEvent> MessageAnswerSelectedEventHandler
 		{
 			get
 			{
-				return _answerSelectedEventHandler;
+				return _messageAnswerSelectedEventHandler;
 			}
 		}
 
@@ -62,12 +62,12 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public static MessageAnswerBuilder Build(string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+		public static MessageAnswerBuilder Build(string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			return new MessageAnswerBuilder(text, answerSelectedEventHandler);
 		}
 
-		public static MessageAnswerBuilder Build(Guid id, string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+		public static MessageAnswerBuilder Build(Guid id, string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			return new MessageAnswerBuilder(id, text, answerSelectedEventHandler);
 		}

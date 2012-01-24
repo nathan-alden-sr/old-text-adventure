@@ -49,7 +49,7 @@
 				<color color="1,0,1,1" />
 				<text>Yes</text>
 				<lineBreak />
-				<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTestFixture+AnswerSelectedEventHandler, TextAdventure.UnitTests" />
+				<messageAnswerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTestFixture+MessageAnswerSelectedEventHandler, TextAdventure.UnitTests" />
 			</answer>
 			<answer id="bc7cdc46-27f7-4d6b-8fbd-25ea6053a551" text="No" />
 		</question>

@@ -9,17 +9,17 @@ namespace TextAdventure.Engine.Game.Messages
 {
 	public class MessageAnswerBuilder
 	{
-		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
+		private readonly IEventHandler<MessageAnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Guid _id;
 		private readonly List<IMessagePart> _parts = new List<IMessagePart>();
 		private readonly string _text;
 
-		public MessageAnswerBuilder(string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+		public MessageAnswerBuilder(string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
 			: this(Guid.NewGuid(), text, answerSelectedEventHandler)
 		{
 		}
 
-		public MessageAnswerBuilder(Guid id, string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+		public MessageAnswerBuilder(Guid id, string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			_id = id;
 			_text = text;

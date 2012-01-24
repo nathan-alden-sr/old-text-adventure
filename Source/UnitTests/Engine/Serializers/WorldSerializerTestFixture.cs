@@ -189,6 +189,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 			NUnit.Framework.Assert.That(messageAnswers[0].Id, Is.EqualTo(Guid.Parse("bf61ef08-2bd2-4273-a1f4-641e22415047")));
 			NUnit.Framework.Assert.That(messageAnswers[0].Text, Is.EqualTo("Yes"));
+			NUnit.Framework.Assert.That(messageAnswers[0].MessageAnswerSelectedEventHandler, Is.Not.Null);
 
 			IMessagePart[] messageAnswerParts = messageAnswers[0].Parts.ToArray();
 
@@ -264,13 +265,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			}
 		}
 
-		public class AnswerSelectedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<AnswerSelectedEvent>
-		{
-			public override void HandleEvent(EventContext context, AnswerSelectedEvent @event)
-			{
-			}
-		}
-
 		public class BoardEnteredEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardEnteredEvent>
 		{
 			public override void HandleEvent(EventContext context, BoardEnteredEvent @event)
@@ -281,6 +275,13 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		public class BoardExitedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardExitedEvent>
 		{
 			public override void HandleEvent(EventContext context, BoardExitedEvent @event)
+			{
+			}
+		}
+
+		public class MessageAnswerSelectedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<MessageAnswerSelectedEvent>
+		{
+			public override void HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
 			{
 			}
 		}
