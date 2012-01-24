@@ -34,6 +34,7 @@ namespace TextAdventure.WindowsGame.Forms
 			System.Windows.Forms.ToolStripMenuItem worldToolStripMenuItem;
 			System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 			System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+			System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 			System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
 			System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
 			System.Windows.Forms.ToolStripMenuItem normalSizeToolStripMenuItem;
@@ -41,6 +42,7 @@ namespace TextAdventure.WindowsGame.Forms
 			System.Windows.Forms.ToolStripMenuItem audioToolStripMenuItem;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fpsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +54,7 @@ namespace TextAdventure.WindowsGame.Forms
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
 			exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			normalSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +83,8 @@ namespace TextAdventure.WindowsGame.Forms
             openToolStripMenuItem,
             this.closeToolStripMenuItem,
             toolStripMenuItem1,
+            this.pauseToolStripMenuItem,
+            toolStripMenuItem3,
             exitToolStripMenuItem});
 			worldToolStripMenuItem.Name = "worldToolStripMenuItem";
 			worldToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
@@ -104,6 +109,20 @@ namespace TextAdventure.WindowsGame.Forms
 			// 
 			toolStripMenuItem1.Name = "toolStripMenuItem1";
 			toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
+			// 
+			// pauseToolStripMenuItem
+			// 
+			this.pauseToolStripMenuItem.CheckOnClick = true;
+			this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+			this.pauseToolStripMenuItem.ShortcutKeyDisplayString = "Pause";
+			this.pauseToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.pauseToolStripMenuItem.Text = "&Pause";
+			this.pauseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.PauseToolStripMenuItemOnCheckedChanged);
+			// 
+			// toolStripMenuItem3
+			// 
+			toolStripMenuItem3.Name = "toolStripMenuItem3";
+			toolStripMenuItem3.Size = new System.Drawing.Size(152, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -216,6 +235,7 @@ namespace TextAdventure.WindowsGame.Forms
 			this.Controls.Add(menuStrip);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.MainMenuStrip = menuStrip;
 			this.Name = "GameForm";
 			this.Text = "Text Adventure";
@@ -236,6 +256,7 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.ToolStripMenuItem soundEffectsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem musicToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
 
 
 	}

@@ -66,6 +66,24 @@ namespace TextAdventure.WindowsGame.Xna
 			_worldTimeConfiguration = worldTimeConfiguration;
 		}
 
+		public bool WorldPaused
+		{
+			get
+			{
+				return _worldTimeRendererState.Paused;
+			}
+		}
+
+		public void PauseWorld()
+		{
+			_worldTimeRendererState.Pause();
+		}
+
+		public void UnpauseWorld()
+		{
+			_worldTimeRendererState.Unpause();
+		}
+
 		protected override void Initialize()
 		{
 			base.Initialize();
@@ -96,8 +114,6 @@ namespace TextAdventure.WindowsGame.Xna
 			ProcessMessage(gameTime.TotalGameTime);
 
 			_updaterCollection.Update(gameTime, _inputManager.Focus);
-
-			base.Update(gameTime);
 		}
 
 		protected override void Draw(IXnaGameTime gameTime)

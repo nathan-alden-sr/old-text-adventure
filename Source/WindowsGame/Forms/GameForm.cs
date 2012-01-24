@@ -160,10 +160,12 @@ namespace TextAdventure.WindowsGame.Forms
 				_game.Pause();
 			}
 
+			closeToolStripMenuItem.Enabled = GameRunning;
+			pauseToolStripMenuItem.Enabled = GameRunning;
+			pauseToolStripMenuItem.Checked = _game.WorldPaused;
 			fpsToolStripMenuItem.Enabled = GameRunning;
 			logToolStripMenuItem.Enabled = GameRunning;
 			worldTimeToolStripMenuItem.Enabled = GameRunning;
-			closeToolStripMenuItem.Enabled = GameRunning;
 			soundEffectsToolStripMenuItem.Enabled = GameRunning;
 			musicToolStripMenuItem.Enabled = GameRunning;
 		}
@@ -196,6 +198,18 @@ namespace TextAdventure.WindowsGame.Forms
 		private void CloseToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			CloseGame();
+		}
+
+		private void PauseToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
+		{
+			if (pauseToolStripMenuItem.Checked)
+			{
+				_game.PauseWorld();
+			}
+			else
+			{
+				_game.UnpauseWorld();
+			}
 		}
 
 		private void ExitToolStripMenuItemOnClick(object sender, EventArgs e)
