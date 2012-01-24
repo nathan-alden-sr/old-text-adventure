@@ -49,6 +49,7 @@
 				<color color="1,0,1,1" />
 				<text>Yes</text>
 				<lineBreak />
+				<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTestFixture+AnswerSelectedEventHandler, TextAdventure.UnitTests" />
 			</answer>
 			<answer id="bc7cdc46-27f7-4d6b-8fbd-25ea6053a551" text="No" />
 		</question>
@@ -62,5 +63,4 @@
 	<song id="597a8458-a2be-4975-a6d5-69eebc701b9a" name="Song" description="Song description">
 		<data>dGVzdDI=</data>
 	</song>
-	<answerSelectedEventHandler type="TextAdventure.UnitTests.Engine.Serializers.WorldSerializerTestFixture+AnswerSelectedEventHandler, TextAdventure.UnitTests" />
 </world>

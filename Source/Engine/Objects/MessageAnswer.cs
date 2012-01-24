@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class MessageAnswer : IMessage
 	{
+		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Guid _id;
 		private readonly IEnumerable<IMessagePart> _parts;
 		private readonly string _text;
@@ -16,7 +18,8 @@ namespace TextAdventure.Engine.Objects
 		public MessageAnswer(
 			Guid id,
 			string text,
-			IEnumerable<IMessagePart> parts)
+			IEnumerable<IMessagePart> parts,
+			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			parts.ThrowIfNull("parts");
 			text.ThrowIfNull("text");
@@ -24,6 +27,7 @@ namespace TextAdventure.Engine.Objects
 			_id = id;
 			_text = text;
 			_parts = parts;
+			_answerSelectedEventHandler = answerSelectedEventHandler;
 		}
 
 		public string Text
@@ -31,6 +35,14 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _text;
+			}
+		}
+
+		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
+		{
+			get
+			{
+				return _answerSelectedEventHandler;
 			}
 		}
 
@@ -50,14 +62,14 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public static MessageAnswerBuilder Build(string text)
+		public static MessageAnswerBuilder Build(string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
-			return new MessageAnswerBuilder(text);
+			return new MessageAnswerBuilder(text, answerSelectedEventHandler);
 		}
 
-		public static MessageAnswerBuilder Build(Guid id, string text)
+		public static MessageAnswerBuilder Build(Guid id, string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
-			return new MessageAnswerBuilder(id, text);
+			return new MessageAnswerBuilder(id, text, answerSelectedEventHandler);
 		}
 	}
 }

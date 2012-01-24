@@ -3,6 +3,7 @@ using System.Xml.Linq;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Xml
@@ -23,6 +24,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				MessagePartSerializer.Instance.Serialize(messageAnswer.Parts),
+				messageAnswer.AnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "answerSelectedEventHandler")),
 				new XAttribute("id", messageAnswer.Id),
 				new XAttribute("text", messageAnswer.Text));
 		}
@@ -34,7 +36,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new MessageAnswer(
 				(Guid)answerElement.Attribute("id"),
 				(string)answerElement.Attribute("text"),
-				MessagePartSerializer.Instance.Deserialize(answerElement));
+				MessagePartSerializer.Instance.Deserialize(answerElement),
+				answerElement.Element("answerSelectedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<AnswerSelectedEvent>));
 		}
 	}
 }

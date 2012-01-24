@@ -2,32 +2,35 @@ using System;
 using System.Collections.Generic;
 
 using TextAdventure.Engine.Common;
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Messages
 {
 	public class MessageAnswerBuilder
 	{
+		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Guid _id;
 		private readonly List<IMessagePart> _parts = new List<IMessagePart>();
 		private readonly string _text;
 
-		public MessageAnswerBuilder(string text)
-			: this(Guid.NewGuid(), text)
+		public MessageAnswerBuilder(string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+			: this(Guid.NewGuid(), text, answerSelectedEventHandler)
 		{
 		}
 
-		public MessageAnswerBuilder(Guid id, string text)
+		public MessageAnswerBuilder(Guid id, string text, IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
 		{
 			_id = id;
 			_text = text;
+			_answerSelectedEventHandler = answerSelectedEventHandler;
 		}
 
 		public MessageAnswer MessageAnswer
 		{
 			get
 			{
-				return new MessageAnswer(_id, _text, _parts);
+				return new MessageAnswer(_id, _text, _parts, _answerSelectedEventHandler);
 			}
 		}
 

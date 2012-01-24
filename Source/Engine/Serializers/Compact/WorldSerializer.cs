@@ -5,7 +5,6 @@ using System.Text;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Compact
@@ -88,7 +87,6 @@ namespace TextAdventure.Engine.Serializers.Compact
 			}
 
 			serializer[9] = songSerializer.Serialize();
-			serializer[10] = EventHandlerSerializer.Instance.Serialize(world.AnswerSelectedEventHandler);
 
 			return serializer.Serialize();
 		}
@@ -114,9 +112,8 @@ namespace TextAdventure.Engine.Serializers.Compact
 			IEnumerable<SoundEffect> soundEffects = soundEffectSerializer.FieldIndices.Select(arg => SoundEffectSerializer.Instance.Deserialize(soundEffectSerializer[arg]));
 			var songSerializer = new CompactSerializer(serializer[9]);
 			IEnumerable<Song> songs = songSerializer.FieldIndices.Select(arg => SongSerializer.Instance.Deserialize(songSerializer[arg]));
-			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = EventHandlerSerializer.Instance.Deserialize<AnswerSelectedEvent>(serializer[10]);
 
-			return new World(id, version, title, startingPlayer, boards, actors, messages, timers, soundEffects, songs, answerSelectedEventHandler);
+			return new World(id, version, title, startingPlayer, boards, actors, messages, timers, soundEffects, songs);
 		}
 	}
 }

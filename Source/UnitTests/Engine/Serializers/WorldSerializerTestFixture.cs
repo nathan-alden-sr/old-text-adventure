@@ -48,7 +48,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			NUnit.Framework.Assert.That(world.Boards.CountEqual(1), Is.True);
 			NUnit.Framework.Assert.That(world.Actors.CountEqual(1), Is.True);
 			NUnit.Framework.Assert.That(world.Messages.CountEqual(1), Is.True);
-			NUnit.Framework.Assert.That(world.AnswerSelectedEventHandler, Is.Not.Null);
 		}
 
 		private static void AssertBoard(Board board)

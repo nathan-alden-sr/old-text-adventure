@@ -5,6 +5,7 @@ using System.Text;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Compact
@@ -35,6 +36,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			}
 
 			serializer[2] = partSerializer.Serialize();
+			serializer[3] = EventHandlerSerializer.Instance.Serialize(messageAnswer.AnswerSelectedEventHandler);
 
 			return serializer.Serialize();
 		}
@@ -48,8 +50,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			string text = Encoding.UTF8.GetString(serializer[1]);
 			var partSerializer = new CompactSerializer(serializer[2]);
 			IEnumerable<IMessagePart> parts = partSerializer.FieldIndices.Select(arg => MessagePartSerializer.Instance.Deserialize(partSerializer[arg]));
+			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = EventHandlerSerializer.Instance.Deserialize<AnswerSelectedEvent>(serializer[3]);
 
-			return new MessageAnswer(id, text, parts);
+			return new MessageAnswer(id, text, parts, answerSelectedEventHandler);
 		}
 	}
 }

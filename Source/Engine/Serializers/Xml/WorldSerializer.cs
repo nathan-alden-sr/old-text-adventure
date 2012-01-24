@@ -4,7 +4,6 @@ using System.Xml.Linq;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Xml
@@ -31,7 +30,6 @@ namespace TextAdventure.Engine.Serializers.Xml
 				world.Timers.Select(arg => TimerSerializer.Instance.Serialize(arg)),
 				world.SoundEffects.Select(arg => SoundEffectSerializer.Instance.Serialize(arg)),
 				world.Songs.Select(arg => SongSerializer.Instance.Serialize(arg)),
-				world.AnswerSelectedEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "answerSelectedEventHandler")),
 				new XAttribute("id", world.Id),
 				new XAttribute("version", world.Version),
 				new XAttribute("title", world.Title));
@@ -51,8 +49,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				worldElement.Elements("message").Select(MessageSerializer.Instance.Deserialize),
 				worldElement.Elements("timer").Select(TimerSerializer.Instance.Deserialize),
 				worldElement.Elements("soundEffect").Select(SoundEffectSerializer.Instance.Deserialize),
-				worldElement.Elements("song").Select(SongSerializer.Instance.Deserialize),
-				worldElement.Element("answerSelectedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<AnswerSelectedEvent>));
+				worldElement.Elements("song").Select(SongSerializer.Instance.Deserialize));
 		}
 	}
 }

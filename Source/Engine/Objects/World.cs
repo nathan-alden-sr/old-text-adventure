@@ -3,14 +3,11 @@ using System.Collections.Generic;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Events;
-
 namespace TextAdventure.Engine.Objects
 {
 	public class World : IUnique
 	{
 		private readonly Dictionary<Guid, Actor> _actorsById = new Dictionary<Guid, Actor>();
-		private readonly IEventHandler<AnswerSelectedEvent> _answerSelectedEventHandler;
 		private readonly Dictionary<Guid, Board> _boardsById = new Dictionary<Guid, Board>();
 		private readonly Guid _id;
 		private readonly Dictionary<Guid, Message> _messagesById = new Dictionary<Guid, Message>();
@@ -31,8 +28,7 @@ namespace TextAdventure.Engine.Objects
 			IEnumerable<Message> messages,
 			IEnumerable<Timer> timers,
 			IEnumerable<SoundEffect> soundEffects,
-			IEnumerable<Song> songs,
-			IEventHandler<AnswerSelectedEvent> answerSelectedEventHandler = null)
+			IEnumerable<Song> songs)
 		{
 			title.ThrowIfNull("title");
 			startingPlayer.ThrowIfNull("startingPlayer");
@@ -50,7 +46,6 @@ namespace TextAdventure.Engine.Objects
 			_id = id;
 			_version = version;
 			_title = title;
-			_answerSelectedEventHandler = answerSelectedEventHandler;
 			_startingPlayer = startingPlayer;
 			foreach (Board board in boards)
 			{
@@ -147,14 +142,6 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _songsById.Values;
-			}
-		}
-
-		public IEventHandler<AnswerSelectedEvent> AnswerSelectedEventHandler
-		{
-			get
-			{
-				return _answerSelectedEventHandler;
 			}
 		}
 
