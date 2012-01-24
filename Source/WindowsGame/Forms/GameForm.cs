@@ -162,7 +162,7 @@ namespace TextAdventure.WindowsGame.Forms
 
 			closeToolStripMenuItem.Enabled = GameRunning;
 			pauseToolStripMenuItem.Enabled = GameRunning;
-			pauseToolStripMenuItem.Checked = _game.WorldPaused;
+			pauseToolStripMenuItem.Checked = GameRunning && _game.WorldPaused;
 			fpsToolStripMenuItem.Enabled = GameRunning;
 			logToolStripMenuItem.Enabled = GameRunning;
 			worldTimeToolStripMenuItem.Enabled = GameRunning;
@@ -202,6 +202,11 @@ namespace TextAdventure.WindowsGame.Forms
 
 		private void PauseToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)
 		{
+			if (!GameRunning)
+			{
+				return;
+			}
+
 			if (pauseToolStripMenuItem.Checked)
 			{
 				_game.PauseWorld();
