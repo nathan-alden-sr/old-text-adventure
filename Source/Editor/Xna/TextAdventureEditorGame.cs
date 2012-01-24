@@ -73,7 +73,7 @@ namespace TextAdventure.Editor.Xna
 
 		private void AddRenderers()
 		{
-			_rendererCollection.Add(new HatchRenderer());
+			_rendererCollection.Add(new HatchRenderer(_editorView));
 			_rendererCollection.Add(new BoardRenderer(_boardRendererState, _editorView));
 			_rendererCollection.Add(new PencilRenderer(_pencilRendererState, _editorView));
 			_rendererCollection.Add(new EraserRenderer(_eraserRendererState, _editorView));

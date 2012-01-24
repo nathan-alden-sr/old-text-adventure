@@ -9,13 +9,22 @@ namespace TextAdventure.Editor.Renderers
 {
 	public class HatchRenderer : IRenderer
 	{
+		private readonly IEditorView _editorView;
+
+		public HatchRenderer(IEditorView editorView)
+		{
+			editorView.ThrowIfNull("editorView");
+
+			_editorView = editorView;
+		}
+
 		public void Render(IRendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
 
-			Rectangle rectangle = parameters.ViewportRectangle;
+			var rectangle = new Rectangle(0, 0, _editorView.VisibleBoardSizeInPixels.Width, _editorView.VisibleBoardSizeInPixels.Height);
 			Texture2D texture = parameters.TextureContent.Hatch;
 
 			rectangle.Width = MathHelper.Instance.QuantizationCeiling(rectangle.Width, 8);
