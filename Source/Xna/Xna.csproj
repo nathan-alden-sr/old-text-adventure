@@ -42,6 +42,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ContentDirectoryContentManagerProvider.cs" />
+    <Compile Include="Contexts\SpriteBatchContext.cs" />
     <Compile Include="Helpers\CharacterTextureHelper.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions\ColorExtensions.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="IXnaGameTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScissoringRasterizerState.cs" />
+    <Compile Include="Contexts\ScissorRectangleContext.cs" />
     <Compile Include="TimedXnaGame.cs" />
     <Compile Include="XnaControl.cs">
       <SubType>Component</SubType>

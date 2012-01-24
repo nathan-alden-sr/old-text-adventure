@@ -49,8 +49,6 @@ namespace TextAdventure.Editor.Renderers
 				_spriteBatch = spriteBatch;
 				_viewportRectangle = viewportRectangle;
 				_textureContent = textureContent;
-				Origin = Vector2.Zero;
-				TransformMatrix = Matrix.Identity;
 			}
 
 			public SpriteBatch SpriteBatch
@@ -75,30 +73,6 @@ namespace TextAdventure.Editor.Renderers
 				{
 					return _viewportRectangle;
 				}
-			}
-
-			public Rectangle? ScissorRectangle
-			{
-				get;
-				set;
-			}
-
-			public Vector2 Origin
-			{
-				get;
-				set;
-			}
-
-			public Effect Effect
-			{
-				get;
-				set;
-			}
-
-			public Matrix TransformMatrix
-			{
-				get;
-				set;
 			}
 		}
 	}

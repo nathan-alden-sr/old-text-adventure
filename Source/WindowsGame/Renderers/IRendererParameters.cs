@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Xna;
@@ -22,26 +21,6 @@ namespace TextAdventure.WindowsGame.Renderers
 		TextureContent TextureContent
 		{
 			get;
-		}
-		Rectangle? ScissorRectangle
-		{
-			get;
-			set;
-		}
-		Vector2 Origin
-		{
-			get;
-			set;
-		}
-		Effect Effect
-		{
-			get;
-			set;
-		}
-		Matrix TransformMatrix
-		{
-			get;
-			set;
 		}
 	}
 }

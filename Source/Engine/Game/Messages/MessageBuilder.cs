@@ -56,6 +56,14 @@ namespace TextAdventure.Engine.Game.Messages
 			return LineBreak(numberOfLineBreaksAfterText);
 		}
 
+		public MessageBuilder Text(Color color, string text, int numberOfLineBreaksAfterText = 0)
+		{
+			_parts.Add(new MessageColor(color));
+			_parts.Add(new MessageText(text));
+
+			return LineBreak(numberOfLineBreaksAfterText);
+		}
+
 		public MessageBuilder LineBreak(int numberOfLineBreaks = 1)
 		{
 			for (int i = 0; i < numberOfLineBreaks; i++)

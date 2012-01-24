@@ -11,7 +11,6 @@ namespace TextAdventure.Editor.Renderers
 	public class EraserRenderer : IRenderer
 	{
 		private readonly IEditorView _editorView;
-		private readonly ScissoringRasterizerState _rasterizerState = new ScissoringRasterizerState();
 		private readonly IEraserRendererState _state;
 
 		public EraserRenderer(IEraserRendererState state, IEditorView editorView)
@@ -44,7 +43,7 @@ namespace TextAdventure.Editor.Renderers
 			var rightLine = new Rectangle(destinationRectangle.Right - 1, destinationRectangle.Y, 1, destinationRectangle.Height);
 			Texture2D pixelTexture = parameters.TextureContent.Pixel;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, _rasterizerState);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, new ScissoringRasterizerState());
 
 			parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(0, 0, _editorView.VisibleBoardSizeInPixels.Width, _editorView.VisibleBoardSizeInPixels.Height);
 

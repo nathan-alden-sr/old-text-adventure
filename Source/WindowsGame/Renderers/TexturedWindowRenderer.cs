@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Xna;
+using TextAdventure.Xna.Contexts;
 
 namespace TextAdventure.WindowsGame.Renderers
 {
@@ -53,24 +54,28 @@ namespace TextAdventure.WindowsGame.Renderers
 		private void RenderBackground(IRendererParameters parameters, WindowTexture windowTexture)
 		{
 			Color backgroundColor = BackgroundColor * Alpha;
-			RasterizerState rasterizerState = parameters.ScissorRectangle != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;
+			RasterizerState rasterizerState = ScissorRectangleContext.Current != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;
+			SpriteBatchContext spriteBatchContext = SpriteBatchContext.Current ?? SpriteBatchContext.Default;
+			Vector2 origin = spriteBatchContext.Origin;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, rasterizerState, parameters.Effect, parameters.TransformMatrix);
+			parameters.SpriteBatch.Begin(
+				SpriteSortMode.Immediate,
+				BlendState.AlphaBlend,
+				SamplerState.PointWrap,
+				DepthStencilState.None,
+				rasterizerState,
+				spriteBatchContext.Effect,
+				spriteBatchContext.TransformMatrix);
 
-			if (parameters.ScissorRectangle != null)
-			{
-				parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = parameters.ScissorRectangle.Value;
-			}
-
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopLeftCornerRectangle, windowTexture.BackgroundTopLeftRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRightCornerRectangle, windowTexture.BackgroundTopRightRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomLeftCornerRectangle, windowTexture.BackgroundBottomLeftRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRightCornerRectangle, windowTexture.BackgroundBottomRightRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.LeftRectangle, windowTexture.BackgroundLeftRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.RightRectangle, windowTexture.BackgroundRightRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRectangle, windowTexture.BackgroundTopRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRectangle, windowTexture.BackgroundBottomRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.CenterRectangle, windowTexture.BackgroundCenterRectangle, backgroundColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopLeftCornerRectangle, windowTexture.BackgroundTopLeftRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRightCornerRectangle, windowTexture.BackgroundTopRightRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomLeftCornerRectangle, windowTexture.BackgroundBottomLeftRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRightCornerRectangle, windowTexture.BackgroundBottomRightRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.LeftRectangle, windowTexture.BackgroundLeftRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.RightRectangle, windowTexture.BackgroundRightRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRectangle, windowTexture.BackgroundTopRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRectangle, windowTexture.BackgroundBottomRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.CenterRectangle, windowTexture.BackgroundCenterRectangle, backgroundColor, 0f, origin, SpriteEffects.None, 0f);
 
 			parameters.SpriteBatch.End();
 		}
@@ -78,23 +83,27 @@ namespace TextAdventure.WindowsGame.Renderers
 		private void RenderBorder(IRendererParameters parameters, WindowTexture windowTexture)
 		{
 			Color borderColor = BorderColor * Alpha;
-			RasterizerState rasterizerState = parameters.ScissorRectangle != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;
+			RasterizerState rasterizerState = ScissorRectangleContext.Current != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;
+			SpriteBatchContext spriteBatchContext = SpriteBatchContext.Current ?? SpriteBatchContext.Default;
+			Vector2 origin = spriteBatchContext.Origin;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, rasterizerState, parameters.Effect, parameters.TransformMatrix);
+			parameters.SpriteBatch.Begin(
+				SpriteSortMode.Immediate,
+				BlendState.AlphaBlend,
+				SamplerState.PointClamp,
+				DepthStencilState.None,
+				rasterizerState,
+				spriteBatchContext.Effect,
+				spriteBatchContext.TransformMatrix);
 
-			if (parameters.ScissorRectangle != null)
-			{
-				parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = parameters.ScissorRectangle.Value;
-			}
-
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopLeftCornerRectangle, windowTexture.BorderTopLeftRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRightCornerRectangle, windowTexture.BorderTopRightRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomLeftCornerRectangle, windowTexture.BorderBottomLeftRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRightCornerRectangle, windowTexture.BorderBottomRightRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.LeftRectangle, windowTexture.BorderTextureLeftRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.RightRectangle, windowTexture.BorderRightRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRectangle, windowTexture.BorderTopRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
-			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRectangle, windowTexture.BorderBottomRectangle, borderColor, 0f, parameters.Origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopLeftCornerRectangle, windowTexture.BorderTopLeftRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRightCornerRectangle, windowTexture.BorderTopRightRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomLeftCornerRectangle, windowTexture.BorderBottomLeftRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRightCornerRectangle, windowTexture.BorderBottomRightRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.LeftRectangle, windowTexture.BorderTextureLeftRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.RightRectangle, windowTexture.BorderRightRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.TopRectangle, windowTexture.BorderTopRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
+			parameters.SpriteBatch.Draw(windowTexture.Texture, Window.BottomRectangle, windowTexture.BorderBottomRectangle, borderColor, 0f, origin, SpriteEffects.None, 0f);
 
 			parameters.SpriteBatch.End();
 		}

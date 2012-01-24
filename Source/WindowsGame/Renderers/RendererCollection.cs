@@ -2,7 +2,6 @@
 
 using Junior.Common;
 
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using TextAdventure.Xna;
@@ -55,8 +54,6 @@ namespace TextAdventure.WindowsGame.Renderers
 				_spriteBatch = spriteBatch;
 				_fontContent = fontContent;
 				_textureContent = textureContent;
-				Origin = Vector2.Zero;
-				TransformMatrix = Matrix.Identity;
 			}
 
 			public IXnaGameTime GameTime
@@ -89,30 +86,6 @@ namespace TextAdventure.WindowsGame.Renderers
 				{
 					return _textureContent;
 				}
-			}
-
-			public Rectangle? ScissorRectangle
-			{
-				get;
-				set;
-			}
-
-			public Vector2 Origin
-			{
-				get;
-				set;
-			}
-
-			public Effect Effect
-			{
-				get;
-				set;
-			}
-
-			public Matrix TransformMatrix
-			{
-				get;
-				set;
 			}
 		}
 	}

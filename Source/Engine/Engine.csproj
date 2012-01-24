@@ -147,6 +147,7 @@
     <Compile Include="Objects\MessageQuestion.cs" />
     <Compile Include="Objects\MessageText.cs" />
     <Compile Include="Objects\SoundEffect.cs" />
+    <Compile Include="Objects\Symbol.cs" />
     <Compile Include="Objects\Tile.cs" />
     <Compile Include="Objects\Layer.cs" />
     <Compile Include="Objects\Timer.cs" />

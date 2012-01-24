@@ -10,8 +10,26 @@ namespace TextAdventure.Engine.Common
 	{
 		public static readonly Color Black = new Color(0f, 0f, 0f);
 		public static readonly Color Blue = new Color(0f, 0f, 1f);
+		public static readonly Color Brown = new Color(1f, 0.5f, 0f);
 		public static readonly Color Cyan = new Color(0f, 1f, 1f);
+		public static readonly Color DarkBlue = new Color(0f, 0f, 0.5f);
+		public static readonly Color DarkBrown = new Color(0.5f, 0.25f, 0f);
+		public static readonly Color DarkCyan = new Color(0f, 0.5f, 0.5f);
+		public static readonly Color DarkGray = new Color(0.25f, 0.25f, 0.25f);
+		public static readonly Color DarkGreen = new Color(0f, 0.5f, 0f);
+		public static readonly Color DarkMagenta = new Color(0.5f, 0f, 0.5f);
+		public static readonly Color DarkRed = new Color(0.5f, 0f, 0f);
+		public static readonly Color DarkYellow = new Color(0.5f, 0.5f, 0f);
+		public static readonly Color Gray = new Color(0.5f, 0.5f, 0.5f);
 		public static readonly Color Green = new Color(0f, 1f, 0f);
+		public static readonly Color LightBlue = new Color(0.5f, 0.5f, 1f);
+		public static readonly Color LightBrown = new Color(1f, 0.75f, 0.5f);
+		public static readonly Color LightCyan = new Color(0.5f, 1f, 1f);
+		public static readonly Color LightGray = new Color(0.75f, 0.75f, 0.75f);
+		public static readonly Color LightGreen = new Color(0.5f, 1f, 0.5f);
+		public static readonly Color LightMagenta = new Color(1f, 0.5f, 1f);
+		public static readonly Color LightRed = new Color(1f, 0.5f, 0.5f);
+		public static readonly Color LightYellow = new Color(1f, 1f, 0.5f);
 		public static readonly Color Magenta = new Color(1f, 0f, 1f);
 		public static readonly Color Red = new Color(1f, 0f, 0f);
 		public static readonly Color TransparentBlack = new Color(0f, 0f, 0f, 0f);

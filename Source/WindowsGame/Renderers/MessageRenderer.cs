@@ -13,6 +13,7 @@ using TextAdventure.WindowsGame.Managers;
 using TextAdventure.WindowsGame.RendererStates;
 using TextAdventure.WindowsGame.Windows;
 using TextAdventure.Xna;
+using TextAdventure.Xna.Contexts;
 using TextAdventure.Xna.Extensions;
 
 using Color = Microsoft.Xna.Framework.Color;
@@ -105,25 +106,30 @@ namespace TextAdventure.WindowsGame.Renderers
 		{
 			parameters.ThrowIfNull("parameters");
 
-			RenderMessage(parameters);
-			if (_formatter.TotalHeightAfterFormatting > Window.AbsoluteClientRectangle.Height)
+			using (new ScissorRectangleContext(parameters.SpriteBatch.GraphicsDevice, Window.AbsoluteClientRectangle))
 			{
-				RenderScrollArrows(parameters);
+				RenderMessage(parameters);
+				if (_formatter.TotalHeightAfterFormatting > Window.AbsoluteClientRectangle.Height)
+				{
+					RenderScrollArrows(parameters);
+				}
 			}
 		}
 
 		protected override void RenderBackground(IRendererParameters parameters)
 		{
-			parameters.TransformMatrix = _transformMatrix;
-
-			base.RenderBackground(parameters);
+			using (new SpriteBatchContext(_transformMatrix))
+			{
+				base.RenderBackground(parameters);
+			}
 		}
 
 		protected override void RenderBorder(IRendererParameters parameters)
 		{
-			parameters.TransformMatrix = _transformMatrix;
-
-			base.RenderBorder(parameters);
+			using (new SpriteBatchContext(_transformMatrix))
+			{
+				base.RenderBorder(parameters);
+			}
 		}
 
 		private void RenderMessage(IRendererParameters parameters)
@@ -131,7 +137,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			Color textColor = TextAdventure.Xna.Constants.MessageRenderer.TextColor * Alpha;
 			Color shadowColor = TextAdventure.Xna.Constants.MessageRenderer.ShadowColor * Alpha;
 			var position = new Vector2(Window.AbsoluteClientRectangle.X, Window.AbsoluteClientRectangle.Y);
-			Matrix translationMatrix = Matrix.CreateTranslation(0f, -_state.ScrollPosition, 0f) * parameters.TransformMatrix;
+			Matrix translationMatrix = Matrix.CreateTranslation(0f, -_state.ScrollPosition, 0f) * _transformMatrix;
 			SpriteFont font = parameters.FontContent.Calibri12Pt;
 			WindowTexture selectedAnswerWindowTexture = parameters.TextureContent.Windows.Glow1;
 
@@ -242,8 +248,6 @@ namespace TextAdventure.WindowsGame.Renderers
 
 				parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
 
-				parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = Window.AbsoluteClientRectangle;
-
 				parameters.SpriteBatch.DrawStringWithShadow(
 					font,
 					answer.Text,
@@ -300,22 +304,20 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			protected override void RenderBackground(IRendererParameters parameters)
 			{
-				UpdateParameters(parameters);
-
-				base.RenderBackground(parameters);
+				using (new ScissorRectangleContext(parameters.SpriteBatch.GraphicsDevice, _scissorRectangle))
+				using (new SpriteBatchContext(_transformMatrix))
+				{
+					base.RenderBackground(parameters);
+				}
 			}
 
 			protected override void RenderBorder(IRendererParameters parameters)
 			{
-				UpdateParameters(parameters);
-
-				base.RenderBorder(parameters);
-			}
-
-			private void UpdateParameters(IRendererParameters parameters)
-			{
-				parameters.ScissorRectangle = _scissorRectangle;
-				parameters.TransformMatrix = _transformMatrix;
+				using (new ScissorRectangleContext(parameters.SpriteBatch.GraphicsDevice, _scissorRectangle))
+				using (new SpriteBatchContext(_transformMatrix))
+				{
+					base.RenderBorder(parameters);
+				}
 			}
 		}
 	}

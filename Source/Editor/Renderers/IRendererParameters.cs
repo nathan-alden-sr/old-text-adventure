@@ -17,25 +17,5 @@ namespace TextAdventure.Editor.Renderers
 		{
 			get;
 		}
-		Rectangle? ScissorRectangle
-		{
-			get;
-			set;
-		}
-		Vector2 Origin
-		{
-			get;
-			set;
-		}
-		Effect Effect
-		{
-			get;
-			set;
-		}
-		Matrix TransformMatrix
-		{
-			get;
-			set;
-		}
 	}
 }
