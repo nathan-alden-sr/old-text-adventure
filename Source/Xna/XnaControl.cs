@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -16,6 +17,7 @@ namespace TextAdventure.Xna
 			TabStop = false;
 		}
 
+		[Browsable(false)]
 		public GraphicsDevice GraphicsDevice
 		{
 			get;

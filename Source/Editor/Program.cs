@@ -39,14 +39,14 @@ namespace TextAdventure.Editor
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		public struct NativeMessage
+		private struct NativeMessage
 		{
-			public IntPtr handle;
-			public uint msg;
-			public IntPtr wParam;
-			public IntPtr lParam;
-			public uint time;
-			public Point p;
+			private readonly IntPtr handle;
+			private readonly uint msg;
+			private readonly IntPtr wParam;
+			private readonly IntPtr lParam;
+			private readonly uint time;
+			private readonly Point p;
 		}
 	}
 #endif
