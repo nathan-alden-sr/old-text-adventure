@@ -48,28 +48,10 @@ namespace TextAdventure.WindowsGame.Updaters
 					}
 					break;
 				case Constants.WorldTimeRenderer.Input.FasterKey:
-					if (_worldTimeRendererState.Paused)
-					{
-						_worldTimeRendererState.Unpause();
-					}
-					else
-					{
-						_worldTimeRendererState.Speed *= 2;
-					}
+					_worldTimeRendererState.SpeedUp();
 					break;
 				case Constants.WorldTimeRenderer.Input.SlowerKey:
-					if (_worldTimeRendererState.Paused)
-					{
-						_worldTimeRendererState.Unpause();
-					}
-					else if (new FloatToInt(_worldTimeRendererState.Speed) == new FloatToInt(Constants.WorldTimeRenderer.MinimumSpeedFactor))
-					{
-						_worldTimeRendererState.Pause();
-					}
-					else
-					{
-						_worldTimeRendererState.Speed /= 2;
-					}
+					_worldTimeRendererState.SlowDown();
 					break;
 			}
 		}

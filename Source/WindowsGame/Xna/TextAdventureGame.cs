@@ -66,6 +66,14 @@ namespace TextAdventure.WindowsGame.Xna
 			_worldTimeConfiguration = worldTimeConfiguration;
 		}
 
+		public float WorldSpeed
+		{
+			get
+			{
+				return _worldTimeRendererState.Speed;
+			}
+		}
+
 		public bool WorldPaused
 		{
 			get
@@ -82,6 +90,16 @@ namespace TextAdventure.WindowsGame.Xna
 		public void UnpauseWorld()
 		{
 			_worldTimeRendererState.Unpause();
+		}
+
+		public void SpeedUpWorld()
+		{
+			_worldTimeRendererState.SpeedUp();
+		}
+
+		public void SlowDownWorld()
+		{
+			_worldTimeRendererState.SlowDown();
 		}
 
 		protected override void Initialize()

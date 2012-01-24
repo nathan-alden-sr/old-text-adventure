@@ -34,7 +34,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 			{
 				return _speed;
 			}
-			set
+			private set
 			{
 				_speed = Math.Max(Constants.WorldTimeRenderer.MinimumSpeedFactor, Math.Min(Constants.WorldTimeRenderer.MaximumSpeedFactor, value));
 			}
@@ -44,6 +44,36 @@ namespace TextAdventure.WindowsGame.RendererStates
 		{
 			get;
 			private set;
+		}
+
+		public void SpeedUp()
+		{
+			if (Paused)
+			{
+				Unpause();
+			}
+			else
+			{
+				Speed *= 2;
+			}
+		}
+
+		public void SlowDown()
+		{
+			const float minimumSpeedFactor = Constants.WorldTimeRenderer.MinimumSpeedFactor;
+
+			if (Paused && Speed > minimumSpeedFactor)
+			{
+				Unpause();
+			}
+			else if (new FloatToInt(Speed) == new FloatToInt(minimumSpeedFactor))
+			{
+				Pause();
+			}
+			else
+			{
+				Speed /= 2;
+			}
 		}
 
 		public void Pause()

@@ -163,6 +163,8 @@ namespace TextAdventure.WindowsGame.Forms
 			closeToolStripMenuItem.Enabled = GameRunning;
 			pauseToolStripMenuItem.Enabled = GameRunning;
 			pauseToolStripMenuItem.Checked = GameRunning && _game.WorldPaused;
+			speedUpToolStripMenuItem.Enabled = GameRunning;
+			slowDownToolStripMenuItem.Enabled = GameRunning && (!_game.WorldPaused || _game.WorldSpeed > Constants.WorldTimeRenderer.MinimumSpeedFactor);
 			fpsToolStripMenuItem.Enabled = GameRunning;
 			logToolStripMenuItem.Enabled = GameRunning;
 			worldTimeToolStripMenuItem.Enabled = GameRunning;
@@ -215,6 +217,26 @@ namespace TextAdventure.WindowsGame.Forms
 			{
 				_game.UnpauseWorld();
 			}
+		}
+
+		private void SpeedUpToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			if (!GameRunning)
+			{
+				return;
+			}
+
+			_game.SpeedUpWorld();
+		}
+
+		private void SlowDownToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			if (!GameRunning)
+			{
+				return;
+			}
+
+			_game.SlowDownWorld();
 		}
 
 		private void ExitToolStripMenuItemOnClick(object sender, EventArgs e)

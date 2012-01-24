@@ -50,6 +50,8 @@ namespace TextAdventure.WindowsGame.Forms
 			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.TextAdventureXnaControl();
+			this.speedUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.slowDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,6 +86,8 @@ namespace TextAdventure.WindowsGame.Forms
             this.closeToolStripMenuItem,
             toolStripMenuItem1,
             this.pauseToolStripMenuItem,
+            this.speedUpToolStripMenuItem,
+            this.slowDownToolStripMenuItem,
             toolStripMenuItem3,
             exitToolStripMenuItem});
 			worldToolStripMenuItem.Name = "worldToolStripMenuItem";
@@ -226,6 +230,22 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Resize += new System.EventHandler(this.XnaControlOnResize);
 			// 
+			// speedUpToolStripMenuItem
+			// 
+			this.speedUpToolStripMenuItem.Name = "speedUpToolStripMenuItem";
+			this.speedUpToolStripMenuItem.ShortcutKeyDisplayString = "+";
+			this.speedUpToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.speedUpToolStripMenuItem.Text = "Speed &Up";
+			this.speedUpToolStripMenuItem.Click += new System.EventHandler(this.SpeedUpToolStripMenuItemOnClick);
+			// 
+			// slowDownToolStripMenuItem
+			// 
+			this.slowDownToolStripMenuItem.Name = "slowDownToolStripMenuItem";
+			this.slowDownToolStripMenuItem.ShortcutKeyDisplayString = "-";
+			this.slowDownToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.slowDownToolStripMenuItem.Text = "Slow &Down";
+			this.slowDownToolStripMenuItem.Click += new System.EventHandler(this.SlowDownToolStripMenuItemOnClick);
+			// 
 			// GameForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,6 +277,8 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.ToolStripMenuItem musicToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem speedUpToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem slowDownToolStripMenuItem;
 
 
 	}
