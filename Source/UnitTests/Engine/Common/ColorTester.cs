@@ -82,6 +82,70 @@ namespace TextAdventure.UnitTests.Engine.Common
 		}
 
 		[TestFixture]
+		public class When_lerping_colors
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.Lerp(Color.White, Color.TransparentBlack, 0.4f), Is.EqualTo(new Color(0.6f, 0.6f, 0.6f, 0.6f)));
+				Assert.That(Color.Lerp(Color.TransparentBlack, Color.White, 0.4f), Is.EqualTo(new Color(0.4f, 0.4f, 0.4f, 0.4f)));
+			}
+		}
+
+		[TestFixture]
+		public class When_lerping_colors_alpha
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.LerpAlpha(Color.White, Color.TransparentBlack, 0.4f), Is.EqualTo(new Color(1f, 1f, 1f, 0.6f)));
+				Assert.That(Color.LerpAlpha(Color.TransparentBlack, Color.White, 0.4f), Is.EqualTo(new Color(0f, 0f, 0f, 0.4f)));
+			}
+		}
+
+		[TestFixture]
+		public class When_lerping_colors_rgb
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.LerpRgb(Color.White, Color.TransparentBlack, 0.4f), Is.EqualTo(new Color(0.6f, 0.6f, 0.6f)));
+				Assert.That(Color.LerpRgb(Color.TransparentBlack, Color.White, 0.4f), Is.EqualTo(new Color(0.4f, 0.4f, 0.4f, 0f)));
+			}
+		}
+
+		[TestFixture]
+		public class When_multiplying_color
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.Multiply(Color.White, 0.75f), Is.EqualTo(new Color(0.75f, 0.75f, 0.75f, 0.75f)));
+				Assert.That(Color.White * 0.75f, Is.EqualTo(new Color(0.75f, 0.75f, 0.75f, 0.75f)));
+			}
+		}
+
+		[TestFixture]
+		public class When_multiplying_color_alpha
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.MultiplyAlpha(Color.White, 0.75f), Is.EqualTo(new Color(1f, 1f, 1f, 0.75f)));
+			}
+		}
+
+		[TestFixture]
+		public class When_multiplying_color_rgb
+		{
+			[Test]
+			public void Must_result_in_correct_color()
+			{
+				Assert.That(Color.MultiplyRgb(Color.White, 0.75f), Is.EqualTo(new Color(0.75f, 0.75f, 0.75f)));
+			}
+		}
+
+		[TestFixture]
 		public class When_testing_equality_with_equal_instances
 		{
 			[Test]

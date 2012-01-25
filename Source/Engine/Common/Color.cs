@@ -105,6 +105,44 @@ namespace TextAdventure.Engine.Common
 			return other.R.Equals(R) && other.G.Equals(G) && other.B.Equals(B) && other.A.Equals(A);
 		}
 
+		public Color Multiply(float factor)
+		{
+			return new Color(R * factor, G * factor, B * factor, A * factor);
+		}
+
+		public Color MultiplyRgb(float factor)
+		{
+			return new Color(R * factor, G * factor, B * factor, A);
+		}
+
+		public Color MultiplyAlpha(float factor)
+		{
+			return new Color(R, G, B, A * factor);
+		}
+
+		public Color Lerp(Color color, float scale)
+		{
+			return new Color(
+				MathHelper.Instance.Lerp(R, color.R, scale),
+				MathHelper.Instance.Lerp(G, color.G, scale),
+				MathHelper.Instance.Lerp(B, color.B, scale),
+				MathHelper.Instance.Lerp(A, color.A, scale));
+		}
+
+		public Color LerpRgb(Color color, float scale)
+		{
+			return new Color(
+				MathHelper.Instance.Lerp(R, color.R, scale),
+				MathHelper.Instance.Lerp(G, color.G, scale),
+				MathHelper.Instance.Lerp(B, color.B, scale),
+				A);
+		}
+
+		public Color LerpAlpha(Color color, float scale)
+		{
+			return new Color(R, G, B, MathHelper.Instance.Lerp(A, color.A, scale));
+		}
+
 		public override bool Equals(object obj)
 		{
 			if (ReferenceEquals(null, obj))
@@ -138,14 +176,49 @@ namespace TextAdventure.Engine.Common
 			return String.Format("R = {0}, G = {1}, B = {2}, A = {3}", R, G, B, A);
 		}
 
-		public static bool operator ==(Color a, Color b)
+		public static Color Multiply(Color color, float factor)
 		{
-			return a.Equals(b);
+			return color.Multiply(factor);
 		}
 
-		public static bool operator !=(Color a, Color b)
+		public static Color MultiplyRgb(Color color, float factor)
 		{
-			return !a.Equals(b);
+			return color.MultiplyRgb(factor);
+		}
+
+		public static Color MultiplyAlpha(Color color, float factor)
+		{
+			return color.MultiplyAlpha(factor);
+		}
+
+		public static Color Lerp(Color color1, Color color2, float scale)
+		{
+			return color1.Lerp(color2, scale);
+		}
+
+		public static Color LerpRgb(Color color1, Color color2, float scale)
+		{
+			return color1.LerpRgb(color2, scale);
+		}
+
+		public static Color LerpAlpha(Color color1, Color color2, float scale)
+		{
+			return color1.LerpAlpha(color2, scale);
+		}
+
+		public static bool operator ==(Color color1, Color color2)
+		{
+			return color1.Equals(color2);
+		}
+
+		public static bool operator !=(Color color1, Color color2)
+		{
+			return !color1.Equals(color2);
+		}
+
+		public static Color operator *(Color color, float factor)
+		{
+			return color.Multiply(factor);
 		}
 	}
 }
