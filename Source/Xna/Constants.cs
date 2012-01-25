@@ -19,7 +19,7 @@ namespace TextAdventure.Xna
 
 			static BoardRenderer()
 			{
-				BoardExitSymbolColor = Color.White * 0.25f;
+				BoardExitSymbolColor = Color.DarkGray;
 			}
 		}
 
