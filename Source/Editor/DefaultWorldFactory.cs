@@ -75,7 +75,7 @@ namespace TextAdventure.Editor
 				for (int y = 0; y < _boardSize.Height; y++)
 				{
 					var coordinate = new Coordinate(x, y);
-					var character = new Character(0xb0, new Color(0, 96, 0), new Color(0, 64, 0));
+					var character = new Character(Symbol.LightShade, new Color(0, 96, 0), new Color(0, 64, 0));
 
 					yield return new Sprite(coordinate, character);
 				}
