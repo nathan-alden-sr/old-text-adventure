@@ -3,16 +3,18 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
+using TextAdventure.Engine.Objects;
+
 namespace TextAdventure.Xna
 {
 	public static class Constants
 	{
 		public static class BoardRenderer
 		{
-			public const byte BoardExitDownSymbol = 31;
-			public const byte BoardExitLeftSymbol = 16;
-			public const byte BoardExitRightSymbol = 17;
-			public const byte BoardExitUpSymbol = 30;
+			public const byte BoardExitDownSymbol = Symbol.DownTriangle;
+			public const byte BoardExitLeftSymbol = Symbol.LeftTriangle;
+			public const byte BoardExitRightSymbol = Symbol.RightTriangle;
+			public const byte BoardExitUpSymbol = Symbol.UpTriangle;
 			public static readonly Color BoardExitSymbolColor;
 
 			static BoardRenderer()
