@@ -162,7 +162,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 						.Chain(Commands.Delay(TimeSpan.FromSeconds(1)))
 						.And(Commands.PlaySoundEffect(context.GetSoundEffectById(SlapSoundEffect.SoundEffectId), Volume.Full))
 						.And(Commands.PlayerMoveDown())
-						.And(Commands.Message(Message.Build(Color.Red).Text("WHAP!")))
+						.And(Commands.Message(Message.Build(Color.DarkRed).Text(Color.Yellow, "WHAP!")))
 						.And(Commands.Delay(TimeSpan.FromSeconds(1)))
 						.And(moveActorCommand);
 
