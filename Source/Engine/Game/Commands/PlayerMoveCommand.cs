@@ -15,11 +15,6 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("worldInstance");
 
-			if (context.PlayerInput.Suspended)
-			{
-				return CommandResult.Failed;
-			}
-
 			Coordinate playerCoordinate = context.Player.Coordinate;
 			Coordinate newCoordinate = ModifyCoordinate(playerCoordinate.X, playerCoordinate.Y);
 

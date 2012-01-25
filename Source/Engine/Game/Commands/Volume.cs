@@ -4,6 +4,8 @@ namespace TextAdventure.Engine.Game.Commands
 {
 	public struct Volume
 	{
+		public static readonly Volume Full = new Volume(1f);
+		public static readonly Volume Silent = new Volume(0f);
 		private readonly float _value;
 
 		public Volume(float value)
