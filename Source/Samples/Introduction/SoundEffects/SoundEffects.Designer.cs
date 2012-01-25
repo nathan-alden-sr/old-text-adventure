@@ -60,9 +60,17 @@ namespace TextAdventure.Samples.Introduction.SoundEffects {
             }
         }
         
-        internal static System.IO.UnmanagedMemoryStream Windows_Balloon {
+        internal static byte[] Explode {
             get {
-                return ResourceManager.GetStream("Windows_Balloon", resourceCulture);
+                object obj = ResourceManager.GetObject("Explode", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        internal static byte[] Slap {
+            get {
+                object obj = ResourceManager.GetObject("Slap", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

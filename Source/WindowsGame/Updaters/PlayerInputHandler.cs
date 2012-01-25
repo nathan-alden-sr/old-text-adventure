@@ -32,7 +32,7 @@ namespace TextAdventure.WindowsGame.Updaters
 		{
 			parameters.ThrowIfNull("parameters");
 
-			if (_worldInstance.WorldTime.Paused || parameters.Focus != Focus.Player || _worldInstance.PlayerInput.Suspended)
+			if (_worldInstance.WorldTime.Paused || _worldInstance.PlayerInput.Suspended || parameters.Focus != Focus.Player)
 			{
 				return;
 			}

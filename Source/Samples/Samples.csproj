@@ -50,18 +50,23 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Introduction\EventHandlers\PlayerTouchedMusicalNoteEventHandler.cs" />
-    <Compile Include="Introduction\EventHandlers\PlayerTouchedSmileyEventHandler2.cs" />
+    <Compile Include="Introduction\Actors\WelcomeActor.cs" />
+    <Compile Include="Introduction\Boards\WelcomeBoard.cs" />
+    <Compile Include="Factories\ActorInstanceFactory.cs" />
     <Compile Include="Introduction\Songs\Songs.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Songs.resx</DependentUpon>
     </Compile>
+    <Compile Include="Introduction\SoundEffects\ExplodeSoundEffect.cs" />
+    <Compile Include="Introduction\SoundEffects\SlapSoundEffect.cs" />
     <Compile Include="Introduction\SoundEffects\SoundEffects.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SoundEffects.resx</DependentUpon>
     </Compile>
+    <Compile Include="Factories\SpriteFactory.cs" />
+    <Compile Include="Introduction\StartingPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Introduction\IntroductionWorld.cs" />
     <Compile Include="UnmanagedMemoryStreamExtensions.cs" />
@@ -78,6 +83,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Junior.Common">
+      <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -92,7 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Introduction\Songs\The Experiment.mp3" />
-    <None Include="Introduction\SoundEffects\Windows Balloon.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Introduction\SoundEffects\Explode.mp3" />
+    <Content Include="Introduction\SoundEffects\Slap.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
