@@ -15,6 +15,11 @@ namespace TextAdventure.Engine.Helpers
 			return Math.Max(minimum, Math.Min(value, maximum));
 		}
 
+		public float Lerp(float value1, float value2, float scale)
+		{
+			return value1 + ((value2 - value1) * scale);
+		}
+
 		public int QuantizationRound(int value, int multiple)
 		{
 			return (int)(Math.Round(value / (double)multiple, 0) * multiple);
