@@ -59,6 +59,8 @@
     <Compile Include="Game\Commands\CommandStatus.cs" />
     <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
+    <Compile Include="Game\Commands\RemoveSpriteCommand.cs" />
+    <Compile Include="Game\Commands\SetSpriteCommand.cs" />
     <Compile Include="Game\Commands\StopSongCommand.cs" />
     <Compile Include="Game\Commands\PlaySongCommand.cs" />
     <Compile Include="Game\Commands\PlaySoundEffectCommand.cs" />

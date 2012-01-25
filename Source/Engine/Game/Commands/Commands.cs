@@ -156,6 +156,16 @@ namespace TextAdventure.Engine.Game.Commands
 			return new StopSongCommand();
 		}
 
+		public static SetSpriteCommand SetSprite(SpriteLayer spriteLayer, Sprite sprite)
+		{
+			return new SetSpriteCommand(spriteLayer, sprite);
+		}
+
+		public static RemoveSpriteCommand RemoveSprite(SpriteLayer spriteLayer, Coordinate coordinate)
+		{
+			return new RemoveSpriteCommand(spriteLayer, coordinate);
+		}
+
 		public static DelayCommand Delay(TimeSpan delay)
 		{
 			return new DelayCommand(delay);
