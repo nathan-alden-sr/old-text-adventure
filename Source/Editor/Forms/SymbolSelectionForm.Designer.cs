@@ -28,31 +28,32 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.Button buttonCancel;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SymbolSelectionForm));
+			this.buttonCancel = new System.Windows.Forms.Button();
 			this.pictureBoxSymbols = new System.Windows.Forms.PictureBox();
-			buttonCancel = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSymbols)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// buttonCancel
 			// 
-			buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			buttonCancel.Location = new System.Drawing.Point(780, 624);
-			buttonCancel.Name = "buttonCancel";
-			buttonCancel.Size = new System.Drawing.Size(76, 24);
-			buttonCancel.TabIndex = 0;
-			buttonCancel.Text = "Cancel";
-			buttonCancel.UseVisualStyleBackColor = true;
+			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.buttonCancel.Location = new System.Drawing.Point(210, 240);
+			this.buttonCancel.Name = "buttonCancel";
+			this.buttonCancel.Size = new System.Drawing.Size(76, 24);
+			this.buttonCancel.TabIndex = 0;
+			this.buttonCancel.Text = "Cancel";
+			this.buttonCancel.UseVisualStyleBackColor = true;
 			// 
 			// pictureBoxSymbols
 			// 
+			this.pictureBoxSymbols.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.pictureBoxSymbols.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.pictureBoxSymbols.Dock = System.Windows.Forms.DockStyle.Top;
 			this.pictureBoxSymbols.Location = new System.Drawing.Point(0, 0);
 			this.pictureBoxSymbols.Name = "pictureBoxSymbols";
-			this.pictureBoxSymbols.Size = new System.Drawing.Size(864, 616);
+			this.pictureBoxSymbols.Size = new System.Drawing.Size(294, 232);
 			this.pictureBoxSymbols.TabIndex = 0;
 			this.pictureBoxSymbols.TabStop = false;
 			this.pictureBoxSymbols.Paint += new System.Windows.Forms.PaintEventHandler(this.PictureBoxSymbolsOnPaint);
@@ -63,9 +64,9 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = buttonCancel;
-			this.ClientSize = new System.Drawing.Size(864, 656);
-			this.Controls.Add(buttonCancel);
+			this.CancelButton = this.buttonCancel;
+			this.ClientSize = new System.Drawing.Size(294, 272);
+			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.pictureBoxSymbols);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -84,6 +85,7 @@
 		#endregion
 
 		private System.Windows.Forms.PictureBox pictureBoxSymbols;
+		private System.Windows.Forms.Button buttonCancel;
 
 	}
 }

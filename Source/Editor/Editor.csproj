@@ -216,8 +216,8 @@
     <Content Include="Images\Eraser.png" />
     <Content Include="Images\Symbol Selection.png" />
     <Content Include="Images\Transparent Background.png" />
-    <None Include="Images\Characters.png" />
-    <None Include="Images\Pencil.png" />
+    <Content Include="Images\Characters.png" />
+    <Content Include="Images\Pencil.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EditorContent\EditorContent.contentproj">

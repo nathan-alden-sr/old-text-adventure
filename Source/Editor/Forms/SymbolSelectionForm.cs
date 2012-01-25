@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 using TextAdventure.Editor.Properties;
@@ -7,6 +8,10 @@ namespace TextAdventure.Editor.Forms
 {
 	public partial class SymbolSelectionForm : Form
 	{
+		private const int SymbolsHigh = 11;
+		private const int SymbolsWide = 24;
+		private static readonly int _symbolHeight = Resources.Symbol_Selection.Height / SymbolsHigh;
+		private static readonly int _symbolWidth = Resources.Symbol_Selection.Width / SymbolsWide;
 		private byte _selectedSymbol;
 		private Rectangle _selectedSymbolRectangle;
 
@@ -51,17 +56,21 @@ namespace TextAdventure.Editor.Forms
 
 		private static Rectangle GetSymbolRectangle(byte symbol)
 		{
-			const int tileWidth = (TextAdventure.Xna.Constants.Tile.TileWidth * 2) + 8;
-			const int tileHeight = (TextAdventure.Xna.Constants.Tile.TileHeight * 2) + 8;
+			return new Rectangle((symbol % SymbolsWide) * _symbolWidth, (symbol / 24) * _symbolHeight, _symbolWidth, _symbolHeight);
+		}
 
-			return new Rectangle((symbol % 24) * tileWidth, (symbol / 24) * tileHeight, tileWidth, tileHeight);
+		protected override void OnHandleCreated(EventArgs e)
+		{
+			SetClientSizeCore(Resources.Symbol_Selection.Width, Resources.Symbol_Selection.Height + buttonCancel.Height + 16);
+
+			base.OnHandleCreated(e);
 		}
 
 		private void PictureBoxSymbolsOnMouseMove(object sender, MouseEventArgs e)
 		{
-			int symbolX = e.X / ((TextAdventure.Xna.Constants.Tile.TileWidth * 2) + 8);
-			int symbolY = e.Y / ((TextAdventure.Xna.Constants.Tile.TileHeight * 2) + 8);
-			int selectedSymbol = (symbolY * 24) + symbolX;
+			int symbolX = e.X / _symbolWidth;
+			int symbolY = e.Y / _symbolHeight;
+			int selectedSymbol = (symbolY * SymbolsWide) + symbolX;
 
 			SetSelectedSymbol(selectedSymbol > 255 ? (byte)0 : (byte)selectedSymbol);
 		}
