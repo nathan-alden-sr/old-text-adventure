@@ -71,6 +71,18 @@ namespace TextAdventure.WindowsGame.Helpers
 		{
 			KeyboardState newKeyboardState = Keyboard.GetState();
 
+			UpdateDownKeys(newKeyboardState);
+			UpdateUpKeys(newKeyboardState);
+			if (!_keyStack.Any() && _allKeysUpDelegate != null)
+			{
+				_allKeysUpDelegate();
+			}
+
+			_oldKeyboardState = newKeyboardState;
+		}
+
+		private void UpdateDownKeys(KeyboardState newKeyboardState)
+		{
 			foreach (Keys key in _keysToMonitor.Where(arg => _oldKeyboardState.IsKeyUp(arg) && newKeyboardState.IsKeyDown(arg)))
 			{
 				_keyStack.Insert(0, key);
@@ -79,6 +91,10 @@ namespace TextAdventure.WindowsGame.Helpers
 					_keyDownDelegate(newKeyboardState, key);
 				}
 			}
+		}
+
+		private void UpdateUpKeys(KeyboardState newKeyboardState)
+		{
 			foreach (Keys key in _keysToMonitor.Where(arg => _oldKeyboardState.IsKeyDown(arg) && newKeyboardState.IsKeyUp(arg)))
 			{
 				Keys tempKey = key;
@@ -89,12 +105,6 @@ namespace TextAdventure.WindowsGame.Helpers
 					_keyUpDelegate(newKeyboardState, key);
 				}
 			}
-			if (_keysToMonitor.All(newKeyboardState.IsKeyUp) && _allKeysUpDelegate != null)
-			{
-				_allKeysUpDelegate();
-			}
-
-			_oldKeyboardState = newKeyboardState;
 		}
 	}
 }
