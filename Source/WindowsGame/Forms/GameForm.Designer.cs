@@ -40,9 +40,12 @@ namespace TextAdventure.WindowsGame.Forms
 			System.Windows.Forms.ToolStripMenuItem normalSizeToolStripMenuItem;
 			System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 			System.Windows.Forms.ToolStripMenuItem audioToolStripMenuItem;
+			System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
 			this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.speedUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.slowDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.fpsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.worldTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +53,7 @@ namespace TextAdventure.WindowsGame.Forms
 			this.musicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.xnaControl = new TextAdventure.WindowsGame.Xna.TextAdventureXnaControl();
-			this.speedUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.slowDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			menuStrip = new System.Windows.Forms.MenuStrip();
 			worldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +64,7 @@ namespace TextAdventure.WindowsGame.Forms
 			normalSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			audioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
 			menuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -123,6 +126,22 @@ namespace TextAdventure.WindowsGame.Forms
 			this.pauseToolStripMenuItem.Text = "&Pause";
 			this.pauseToolStripMenuItem.CheckedChanged += new System.EventHandler(this.PauseToolStripMenuItemOnCheckedChanged);
 			// 
+			// speedUpToolStripMenuItem
+			// 
+			this.speedUpToolStripMenuItem.Name = "speedUpToolStripMenuItem";
+			this.speedUpToolStripMenuItem.ShortcutKeyDisplayString = "+";
+			this.speedUpToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.speedUpToolStripMenuItem.Text = "Speed &Up";
+			this.speedUpToolStripMenuItem.Click += new System.EventHandler(this.SpeedUpToolStripMenuItemOnClick);
+			// 
+			// slowDownToolStripMenuItem
+			// 
+			this.slowDownToolStripMenuItem.Name = "slowDownToolStripMenuItem";
+			this.slowDownToolStripMenuItem.ShortcutKeyDisplayString = "-";
+			this.slowDownToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+			this.slowDownToolStripMenuItem.Text = "Slow &Down";
+			this.slowDownToolStripMenuItem.Click += new System.EventHandler(this.SlowDownToolStripMenuItemOnClick);
+			// 
 			// toolStripMenuItem3
 			// 
 			toolStripMenuItem3.Name = "toolStripMenuItem3";
@@ -142,7 +161,9 @@ namespace TextAdventure.WindowsGame.Forms
             toolStripMenuItem2,
             this.fpsToolStripMenuItem,
             this.logToolStripMenuItem,
-            this.worldTimeToolStripMenuItem});
+            this.worldTimeToolStripMenuItem,
+            toolStripMenuItem4,
+            this.clearLogToolStripMenuItem});
 			viewToolStripMenuItem.Name = "viewToolStripMenuItem";
 			viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			viewToolStripMenuItem.Text = "&View";
@@ -230,21 +251,18 @@ namespace TextAdventure.WindowsGame.Forms
 			this.xnaControl.TabStop = false;
 			this.xnaControl.Resize += new System.EventHandler(this.XnaControlOnResize);
 			// 
-			// speedUpToolStripMenuItem
+			// toolStripMenuItem4
 			// 
-			this.speedUpToolStripMenuItem.Name = "speedUpToolStripMenuItem";
-			this.speedUpToolStripMenuItem.ShortcutKeyDisplayString = "+";
-			this.speedUpToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-			this.speedUpToolStripMenuItem.Text = "Speed &Up";
-			this.speedUpToolStripMenuItem.Click += new System.EventHandler(this.SpeedUpToolStripMenuItemOnClick);
+			toolStripMenuItem4.Name = "toolStripMenuItem4";
+			toolStripMenuItem4.Size = new System.Drawing.Size(174, 6);
 			// 
-			// slowDownToolStripMenuItem
+			// clearLogToolStripMenuItem
 			// 
-			this.slowDownToolStripMenuItem.Name = "slowDownToolStripMenuItem";
-			this.slowDownToolStripMenuItem.ShortcutKeyDisplayString = "-";
-			this.slowDownToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-			this.slowDownToolStripMenuItem.Text = "Slow &Down";
-			this.slowDownToolStripMenuItem.Click += new System.EventHandler(this.SlowDownToolStripMenuItemOnClick);
+			this.clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
+			this.clearLogToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+			this.clearLogToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+			this.clearLogToolStripMenuItem.Text = "&Clear Log";
+			this.clearLogToolStripMenuItem.Click += new System.EventHandler(this.ClearLogToolStripMenuItemOnClick);
 			// 
 			// GameForm
 			// 
@@ -279,6 +297,7 @@ namespace TextAdventure.WindowsGame.Forms
 		private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem speedUpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem slowDownToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
 
 
 	}

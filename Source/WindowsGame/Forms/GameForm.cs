@@ -168,6 +168,7 @@ namespace TextAdventure.WindowsGame.Forms
 			fpsToolStripMenuItem.Enabled = GameRunning;
 			logToolStripMenuItem.Enabled = GameRunning;
 			worldTimeToolStripMenuItem.Enabled = GameRunning;
+			clearLogToolStripMenuItem.Enabled = GameRunning;
 			soundEffectsToolStripMenuItem.Enabled = GameRunning;
 			musicToolStripMenuItem.Enabled = GameRunning;
 		}
@@ -262,6 +263,11 @@ namespace TextAdventure.WindowsGame.Forms
 		private void WorldTimeToolStripMenuItemOnClick(object sender, EventArgs e)
 		{
 			_worldTimeConfigurationSection.Visible = worldTimeToolStripMenuItem.Checked;
+		}
+
+		private void ClearLogToolStripMenuItemOnClick(object sender, EventArgs e)
+		{
+			_game.ClearLog();
 		}
 
 		private void SoundEffectsToolStripMenuItemOnCheckedChanged(object sender, EventArgs e)

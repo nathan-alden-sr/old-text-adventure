@@ -102,6 +102,11 @@ namespace TextAdventure.WindowsGame.Xna
 			_worldTimeRendererState.SlowDown();
 		}
 
+		public void ClearLog()
+		{
+			_logRendererState.ClearLog();
+		}
+
 		protected override void Initialize()
 		{
 			base.Initialize();
