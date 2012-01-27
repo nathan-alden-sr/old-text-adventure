@@ -16,6 +16,12 @@ namespace TextAdventure.Samples.Introduction.Boards
 	{
 		public static readonly Guid BoardId = Guid.Parse("7754ecf6-445f-46ff-97b6-7649e5fc2d3e");
 		public static readonly Size BoardSize = new Size(7, 9);
+		public static readonly Coordinate[] ExitCoordinates = new[]
+		                                                      	{
+		                                                      		new Coordinate(0, 6),
+		                                                      		new Coordinate(3, 8)
+		                                                      	};
+
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 2);
 		private static readonly Size _layerSize = new Size(7, 7);
 
@@ -43,13 +49,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites.Concat(textLineSprites));
-			var doorCoordinates = new[]
-			                      	{
-			                      		new Coordinate(_layerOriginCoordinate.X, _layerOriginCoordinate.Y + 4),
-			                      		new Coordinate(_layerOriginCoordinate.X + (_layerSize.Width / 2), _layerOriginCoordinate.Y + _layerSize.Height - 1)
-			                      	};
-
-			sprites.RemoveAll(arg => doorCoordinates.Contains(arg.Coordinate));
+			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
 			return new SpriteLayer(BoardSize, sprites);
 		}
@@ -59,15 +59,16 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var objectsActor = new ObjectsActor();
 			ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
 				objectsActor,
-				new Coordinate(BoardSize.Width / 2, 4),
+				new Coordinate(3, 4),
 				playerTouchedActorInstanceEventHandler:new PlayerTouchedObjectsActorEventHandler());
 
-			return new ActorInstanceLayer(_layerSize, new[] { actorInstance });
+			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
-			yield return new BoardExit(new Coordinate(0, 6), BoardExitDirection.Left, IntroductionBoard.BoardId, new Coordinate(50, 11));
+			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Left, IntroductionBoard.BoardId, IntroductionBoard.ExitCoordinates[0]);
+			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Down, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[0]);
 		}
 
 		private class PlayerTouchedObjectsActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>

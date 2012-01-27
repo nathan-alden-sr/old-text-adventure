@@ -17,13 +17,12 @@ namespace TextAdventure.Samples.Introduction.Boards
 	{
 		public static readonly Guid BoardId = Guid.Parse("dae415ca-ca40-4745-8126-217e43530170");
 		public static readonly Size BoardSize = new Size(80, 20);
-		private static readonly Coordinate _layerOriginCoordinate;
+		public static readonly Coordinate[] ExitCoordinates = new[]
+		                                                      	{
+		                                                      		new Coordinate(50, 11)
+		                                                      	};
+		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(30, 8);
 		private static readonly Size _layerSize = new Size(21, 7);
-
-		static IntroductionBoard()
-		{
-			_layerOriginCoordinate = new Coordinate((BoardSize.Width / 2) - (_layerSize.Width / 2), 8);
-		}
 
 		public IntroductionBoard()
 			: base(BoardId, "Introduction", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
@@ -71,10 +70,9 @@ namespace TextAdventure.Samples.Introduction.Boards
 			                               	.Concat(textLine2Sprites)
 			                               	.Concat(textLine3Sprites)
 			                               	.Concat(textLine4Sprites));
-			var doorCoordinate = new Coordinate(_layerOriginCoordinate.X + _layerSize.Width - 1, _layerOriginCoordinate.Y + 3);
 
-			sprites.RemoveAll(arg => arg.Coordinate == doorCoordinate);
-			sprites.Add(new Sprite(doorCoordinate, new Character(Symbol.InverseCircle, Color.Magenta, Color.Black)));
+			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
+			sprites.Add(new Sprite(ExitCoordinates[0], new Character(Symbol.InverseCircle, Color.Magenta, Color.Black)));
 
 			return new SpriteLayer(BoardSize, sprites);
 		}
@@ -84,7 +82,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var welcomeActor = new IntroductionActor();
 			ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
 				welcomeActor,
-				new Coordinate(BoardSize.Width / 2, 10),
+				new Coordinate(40, 10),
 				playerTouchedActorInstanceEventHandler:new PlayerTouchedIntroductionActorEventHandler());
 
 			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
@@ -92,7 +90,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
-			yield return new BoardExit(new Coordinate(50, 11), BoardExitDirection.Right, ObjectsBoard.BoardId, new Coordinate(0, 6));
+			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Right, ObjectsBoard.BoardId, ObjectsBoard.ExitCoordinates[0]);
 		}
 
 		private class PlayerTouchedIntroductionActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
