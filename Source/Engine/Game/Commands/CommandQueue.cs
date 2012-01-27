@@ -9,15 +9,38 @@ namespace TextAdventure.Engine.Game.Commands
 	public class CommandQueue
 	{
 		private readonly CommandList _commandList;
+		private readonly CommandContext _context;
 		private readonly WorldInstance _worldInstance;
+		private readonly IWorldObserver _worldObserver;
 
 		public CommandQueue(IWorldObserver worldObserver, WorldInstance worldInstance)
 		{
+			_worldObserver = worldObserver;
 			_worldInstance = worldInstance;
 			worldObserver.ThrowIfNull("worldObserver");
 			worldInstance.ThrowIfNull("worldInstance");
 
-			_commandList = new CommandList(worldObserver, new CommandContext(_worldInstance, this));
+			_context = new CommandContext(_worldInstance, this);
+			_commandList = new CommandList(worldObserver, _context);
+		}
+
+		public void ExecuteCommand(Command command)
+		{
+			command.ThrowIfNull("command");
+
+			_worldObserver.CommandExecuting(command);
+
+			CommandResult result = command.Execute(_context);
+			bool wasDeferred = result == CommandResult.Deferred;
+
+			if (wasDeferred)
+			{
+				_commandList.Add(command, _worldInstance.WorldTime.Total);
+			}
+			else
+			{
+				_worldObserver.CommandExecuted(command, result);
+			}
 		}
 
 		public void EnqueueCommand(Command command, Action<CommandResult> commandExecutedDelegate = null)

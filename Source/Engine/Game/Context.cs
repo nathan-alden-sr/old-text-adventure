@@ -97,6 +97,11 @@ namespace TextAdventure.Engine.Game
 			return _worldInstance.RaiseEvent(eventHandler, @event);
 		}
 
+		public void ExecuteCommand(Command command)
+		{
+			_commandQueue.ExecuteCommand(command);
+		}
+
 		public void EnqueueCommand(Command command, Action<CommandResult> commandExecutedDelegate = null)
 		{
 			command.ThrowIfNull("command");

@@ -12,6 +12,7 @@ namespace TextAdventure.Engine.Game.Commands
 	public abstract class ActorInstanceMoveCommand : MoveCommand
 	{
 		private readonly ActorInstance _actorInstance;
+		private Coordinate? _destinationCoordinate;
 
 		protected ActorInstanceMoveCommand(ActorInstance actorInstance)
 		{
@@ -25,6 +26,10 @@ namespace TextAdventure.Engine.Game.Commands
 			get
 			{
 				yield return FormatNamedObjectDetailText("Actor instance", _actorInstance);
+				if (_destinationCoordinate != null)
+				{
+					yield return "Destination coordinate: " + _destinationCoordinate.Value;
+				}
 			}
 		}
 
@@ -33,28 +38,29 @@ namespace TextAdventure.Engine.Game.Commands
 			context.ThrowIfNull("context");
 
 			Coordinate actorCoordinate = _actorInstance.Coordinate;
-			Coordinate newCoordinate = ModifyCoordinate(actorCoordinate.X, actorCoordinate.Y);
 
-			if (context.RaiseEvent(_actorInstance.ActorInstanceMovedEventHandler, new ActorInstanceMovedEvent(_actorInstance, newCoordinate)) == EventResult.Canceled)
+			_destinationCoordinate = ModifyCoordinate(actorCoordinate.X, actorCoordinate.Y);
+
+			if (context.RaiseEvent(_actorInstance.ActorInstanceMovedEventHandler, new ActorInstanceMovedEvent(_actorInstance, _destinationCoordinate.Value)) == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
 
-			return ProcessNewCoordinate(context, context.CurrentBoard, newCoordinate);
+			return ProcessNewCoordinate(context, context.CurrentBoard, _destinationCoordinate.Value);
 		}
 
 		protected abstract Coordinate ModifyCoordinate(int x, int y);
 
-		private CommandResult ProcessNewCoordinate(Context context, Board board, Coordinate newCoordinate)
+		private CommandResult ProcessNewCoordinate(Context context, Board board, Coordinate destinationCoordinate)
 		{
-			if (!board.CoordinateIntersects(newCoordinate))
+			if (!board.CoordinateIntersects(destinationCoordinate))
 			{
 				return CommandResult.Failed;
 			}
 
 			Coordinate currentCoordinate = _actorInstance.Coordinate;
-			ActorInstance targetActorInstance = board.ActorInstanceLayer[newCoordinate];
-			TouchDirection? touchDirection = GetTouchDirection(currentCoordinate, newCoordinate);
+			ActorInstance targetActorInstance = board.ActorInstanceLayer[destinationCoordinate];
+			TouchDirection? touchDirection = GetTouchDirection(currentCoordinate, destinationCoordinate);
 
 			if (targetActorInstance != null)
 			{
@@ -65,7 +71,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 				return CommandResult.Failed;
 			}
-			if (context.Player.Coordinate == newCoordinate)
+			if (context.Player.Coordinate == destinationCoordinate)
 			{
 				if (touchDirection != null)
 				{
@@ -75,7 +81,7 @@ namespace TextAdventure.Engine.Game.Commands
 				return CommandResult.Failed;
 			}
 
-			return _actorInstance.ChangeCoordinate(context.CurrentBoard, context.Player, newCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
+			return _actorInstance.ChangeCoordinate(context.CurrentBoard, context.Player, destinationCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 		}
 	}
 }
