@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using NUnit.Framework;
 
-namespace TextAdventure.IntegrationTests.FontGenerator
+namespace TextAdventure.IntegrationTests.SymbolImageGenerator
 {
 	[TestFixture]
 	[Explicit]
