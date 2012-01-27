@@ -130,7 +130,7 @@ namespace TextAdventure.WindowsGame
 				static Input()
 				{
 					InitialInterval = TimeSpan.FromMilliseconds(250);
-					RepeatingInterval = TimeSpan.FromMilliseconds(30);
+					RepeatingInterval = TimeSpan.FromMilliseconds(75);
 				}
 			}
 		}

@@ -46,11 +46,6 @@ namespace TextAdventure.WindowsGame.Helpers
 
 		public void Start()
 		{
-			if (_started)
-			{
-				return;
-			}
-
 			_started = true;
 			_initialUpdateProcessed = false;
 			_totalTime = null;
