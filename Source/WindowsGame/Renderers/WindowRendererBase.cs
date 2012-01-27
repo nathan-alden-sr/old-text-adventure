@@ -29,6 +29,6 @@ namespace TextAdventure.WindowsGame.Renderers
 			set;
 		}
 
-		public abstract void Render(IRendererParameters parameters);
+		public abstract void Render(RendererParameters parameters);
 	}
 }

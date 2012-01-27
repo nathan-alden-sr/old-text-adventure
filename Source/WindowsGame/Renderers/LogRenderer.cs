@@ -33,7 +33,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		protected override void BeforeRender(IRendererParameters parameters)
+		protected override void BeforeRender(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -53,7 +53,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			SetWindowRectangleUsingClientSize(WindowAlignment.TopLeft, clientWidth, clientHeight, new Padding(Constants.BorderedWindow.Padding));
 		}
 
-		protected override void RenderContents(IRendererParameters parameters)
+		protected override void RenderContents(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

@@ -2,6 +2,6 @@
 {
 	public interface IUpdater
 	{
-		void Update(IUpdaterParameters parameters);
+		void Update(UpdaterParameters parameters);
 	}
 }

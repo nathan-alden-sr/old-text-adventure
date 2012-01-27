@@ -29,7 +29,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		protected override void BeforeRender(IRendererParameters parameters)
+		protected override void BeforeRender(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -50,7 +50,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_windowRectangleSet = true;
 		}
 
-		protected override void RenderContents(IRendererParameters parameters)
+		protected override void RenderContents(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

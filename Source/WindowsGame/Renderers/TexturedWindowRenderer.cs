@@ -23,7 +23,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			BorderColor = Color.White;
 		}
 
-		protected override void RenderBackground(IRendererParameters parameters)
+		protected override void RenderBackground(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -37,7 +37,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			RenderBackground(parameters, windowTexture);
 		}
 
-		protected override void RenderBorder(IRendererParameters parameters)
+		protected override void RenderBorder(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -51,7 +51,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			RenderBorder(parameters, windowTexture);
 		}
 
-		private void RenderBackground(IRendererParameters parameters, WindowTexture windowTexture)
+		private void RenderBackground(RendererParameters parameters, WindowTexture windowTexture)
 		{
 			Color backgroundColor = BackgroundColor * Alpha;
 			RasterizerState rasterizerState = ScissorRectangleContext.Current != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;
@@ -80,7 +80,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			parameters.SpriteBatch.End();
 		}
 
-		private void RenderBorder(IRendererParameters parameters, WindowTexture windowTexture)
+		private void RenderBorder(RendererParameters parameters, WindowTexture windowTexture)
 		{
 			Color borderColor = BorderColor * Alpha;
 			RasterizerState rasterizerState = ScissorRectangleContext.Current != null ? new ScissoringRasterizerState() : RasterizerState.CullNone;

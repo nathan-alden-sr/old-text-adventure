@@ -26,7 +26,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			_state = state;
 		}
 
-		public void Render(IRendererParameters parameters)
+		public void Render(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

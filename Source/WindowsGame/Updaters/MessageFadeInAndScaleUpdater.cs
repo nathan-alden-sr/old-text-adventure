@@ -28,7 +28,7 @@ namespace TextAdventure.WindowsGame.Updaters
 			_timedLerpHelper = new TimedLerpHelper(totalTime, TextAdventure.Xna.Constants.MessageRenderer.FadeInDuration, 0f, 1f);
 		}
 
-		public void Update(IUpdaterParameters parameters)
+		public void Update(UpdaterParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

@@ -29,37 +29,12 @@ namespace TextAdventure.WindowsGame.Updaters
 		{
 			gameTime.ThrowIfNull("gameTime");
 
+			var updaterParameters = new UpdaterParameters(gameTime, focus);
+
+			// Must call ToArray() because collection could be modified during iteration
 			foreach (IUpdater updater in _updaters.ToArray())
 			{
-				updater.Update(new UpdaterParameters(gameTime, focus));
-			}
-		}
-
-		private class UpdaterParameters : IUpdaterParameters
-		{
-			private readonly Focus _focus;
-			private readonly IXnaGameTime _gameTime;
-
-			public UpdaterParameters(IXnaGameTime gameTime, Focus focus)
-			{
-				_gameTime = gameTime;
-				_focus = focus;
-			}
-
-			public IXnaGameTime GameTime
-			{
-				get
-				{
-					return _gameTime;
-				}
-			}
-
-			public Focus Focus
-			{
-				get
-				{
-					return _focus;
-				}
+				updater.Update(updaterParameters);
 			}
 		}
 	}

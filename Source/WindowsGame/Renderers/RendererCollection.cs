@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 using Junior.Common;
 
@@ -33,59 +34,12 @@ namespace TextAdventure.WindowsGame.Renderers
 			fontContent.ThrowIfNull("fontContent");
 			textureContent.ThrowIfNull("textureContent");
 
-			foreach (IRenderer renderer in _renderers)
-			{
-				var parameters = new RenderParameters(gameTime, spriteBatch, fontContent, textureContent);
+			var parameters = new RendererParameters(gameTime, spriteBatch, fontContent, textureContent);
 
+			// Must call ToArray() because collection could be modified during iteration
+			foreach (IRenderer renderer in _renderers.ToArray())
+			{
 				renderer.Render(parameters);
-			}
-		}
-
-		private class RenderParameters : IRendererParameters
-		{
-			private readonly FontContent _fontContent;
-			private readonly IXnaGameTime _gameTime;
-			private readonly SpriteBatch _spriteBatch;
-			private readonly TextureContent _textureContent;
-
-			public RenderParameters(IXnaGameTime gameTime, SpriteBatch spriteBatch, FontContent fontContent, TextureContent textureContent)
-			{
-				_gameTime = gameTime;
-				_spriteBatch = spriteBatch;
-				_fontContent = fontContent;
-				_textureContent = textureContent;
-			}
-
-			public IXnaGameTime GameTime
-			{
-				get
-				{
-					return _gameTime;
-				}
-			}
-
-			public SpriteBatch SpriteBatch
-			{
-				get
-				{
-					return _spriteBatch;
-				}
-			}
-
-			public FontContent FontContent
-			{
-				get
-				{
-					return _fontContent;
-				}
-			}
-
-			public TextureContent TextureContent
-			{
-				get
-				{
-					return _textureContent;
-				}
 			}
 		}
 	}

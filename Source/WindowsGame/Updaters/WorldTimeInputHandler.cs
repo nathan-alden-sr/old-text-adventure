@@ -26,7 +26,7 @@ namespace TextAdventure.WindowsGame.Updaters
 				Constants.WorldTimeRenderer.Input.SlowerKey);
 		}
 
-		public void Update(IUpdaterParameters parameters)
+		public void Update(UpdaterParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

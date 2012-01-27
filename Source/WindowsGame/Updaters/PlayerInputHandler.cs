@@ -28,7 +28,7 @@ namespace TextAdventure.WindowsGame.Updaters
 				Constants.PlayerRenderer.Input.MoveRightKey);
 		}
 
-		public void Update(IUpdaterParameters parameters)
+		public void Update(UpdaterParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

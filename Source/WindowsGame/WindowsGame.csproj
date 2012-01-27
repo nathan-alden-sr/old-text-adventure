@@ -115,6 +115,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Renderers\RendererParameters.cs" />
+    <Compile Include="Updaters\UpdaterParameters.cs" />
     <Compile Include="Xna\TextAdventureGame.cs" />
     <Compile Include="Helpers\RectangleHelper.cs" />
     <Compile Include="Forms\GameForm.cs">
@@ -123,7 +125,6 @@
     <Compile Include="Forms\GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Updaters\IUpdaterParameters.cs" />
     <Compile Include="Updaters\MessageFadeOutAndScaleUpdater.cs" />
     <Compile Include="Updaters\UpdaterCollection.cs" />
     <Compile Include="Updaters\MessageFadeInAndScaleUpdater.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="RendererStates\FpsRendererState.cs" />
     <Compile Include="Renderers\GameBackgroundRenderer.cs" />
     <Compile Include="Renderers\IRenderer.cs" />
-    <Compile Include="Renderers\IRendererParameters.cs" />
     <Compile Include="Renderers\LogEntry.cs" />
     <Compile Include="Renderers\LogEntryType.cs">
       <SubType>Code</SubType>

@@ -18,7 +18,7 @@ namespace TextAdventure.Editor.Renderers
 			_editorView = editorView;
 		}
 
-		public void Render(IRendererParameters parameters)
+		public void Render(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

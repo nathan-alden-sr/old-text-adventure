@@ -2,6 +2,6 @@
 {
 	public interface IRenderer
 	{
-		void Render(IRendererParameters parameters);
+		void Render(RendererParameters parameters);
 	}
 }

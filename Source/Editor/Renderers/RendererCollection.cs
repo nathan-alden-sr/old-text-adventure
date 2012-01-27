@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 
 using Junior.Common;
 
@@ -30,49 +31,12 @@ namespace TextAdventure.Editor.Renderers
 			spriteBatch.ThrowIfNull("spriteBatch");
 			textureContent.ThrowIfNull("textureContent");
 
-			foreach (IRenderer renderer in _renderers)
+			// Must call ToArray() because collection could be modified during iteration
+			foreach (IRenderer renderer in _renderers.ToArray())
 			{
-				var parameters = new RenderParameters(spriteBatch, viewRectangle, textureContent);
+				var parameters = new RendererParameters(spriteBatch, viewRectangle, textureContent);
 
 				renderer.Render(parameters);
-			}
-		}
-
-		private class RenderParameters : IRendererParameters
-		{
-			private readonly SpriteBatch _spriteBatch;
-			private readonly TextureContent _textureContent;
-			private readonly Rectangle _viewportRectangle;
-
-			public RenderParameters(SpriteBatch spriteBatch, Rectangle viewportRectangle, TextureContent textureContent)
-			{
-				_spriteBatch = spriteBatch;
-				_viewportRectangle = viewportRectangle;
-				_textureContent = textureContent;
-			}
-
-			public SpriteBatch SpriteBatch
-			{
-				get
-				{
-					return _spriteBatch;
-				}
-			}
-
-			public TextureContent TextureContent
-			{
-				get
-				{
-					return _textureContent;
-				}
-			}
-
-			public Rectangle ViewportRectangle
-			{
-				get
-				{
-					return _viewportRectangle;
-				}
 			}
 		}
 	}

@@ -4,7 +4,7 @@ namespace TextAdventure.WindowsGame.Renderers
 {
 	public class PlayerRenderer : IRenderer
 	{
-		public void Render(IRendererParameters parameters)
+		public void Render(RendererParameters parameters)
 		{
 			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 

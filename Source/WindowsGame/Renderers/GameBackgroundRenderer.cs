@@ -6,7 +6,7 @@ namespace TextAdventure.WindowsGame.Renderers
 {
 	public class GameBackgroundRenderer : IRenderer
 	{
-		public void Render(IRendererParameters parameters)
+		public void Render(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 

@@ -156,9 +156,9 @@
     <Compile Include="Renderers\HatchRenderer.cs" />
     <Compile Include="RendererStates\IBoardRendererState.cs" />
     <Compile Include="Renderers\IRenderer.cs" />
-    <Compile Include="Renderers\IRendererParameters.cs" />
     <Compile Include="Renderers\PencilRenderer.cs" />
     <Compile Include="Renderers\RendererCollection.cs" />
+    <Compile Include="Renderers\RendererParameters.cs" />
     <Compile Include="Xna\TextAdventureEditorGame.cs" />
     <Compile Include="TextureContent.cs" />
     <Compile Include="ToolActions\EraserAction.cs" />

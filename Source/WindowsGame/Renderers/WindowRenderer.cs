@@ -22,7 +22,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			private set;
 		}
 
-		public override sealed void Render(IRendererParameters parameters)
+		public override sealed void Render(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -37,11 +37,11 @@ namespace TextAdventure.WindowsGame.Renderers
 			RenderContents(parameters);
 		}
 
-		protected virtual void BeforeRender(IRendererParameters parameters)
+		protected virtual void BeforeRender(RendererParameters parameters)
 		{
 		}
 
-		protected virtual void RenderContents(IRendererParameters parameters)
+		protected virtual void RenderContents(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 		}

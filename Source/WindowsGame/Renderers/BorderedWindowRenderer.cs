@@ -38,7 +38,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			}
 		}
 
-		public override sealed void Render(IRendererParameters parameters)
+		public override sealed void Render(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -53,11 +53,11 @@ namespace TextAdventure.WindowsGame.Renderers
 			RenderContents(parameters);
 		}
 
-		protected virtual void BeforeRender(IRendererParameters parameters)
+		protected virtual void BeforeRender(RendererParameters parameters)
 		{
 		}
 
-		protected virtual void RenderBackground(IRendererParameters parameters)
+		protected virtual void RenderBackground(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -78,7 +78,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			parameters.SpriteBatch.End();
 		}
 
-		protected virtual void RenderBorder(IRendererParameters parameters)
+		protected virtual void RenderBorder(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
@@ -107,7 +107,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			parameters.SpriteBatch.End();
 		}
 
-		protected virtual void RenderContents(IRendererParameters parameters)
+		protected virtual void RenderContents(RendererParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 		}

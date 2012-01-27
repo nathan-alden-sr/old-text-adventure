@@ -53,7 +53,7 @@ namespace TextAdventure.WindowsGame.Updaters
 			_scrollKeyboardRepeatHelper.RepeatingInterval = TextAdventure.Xna.Constants.MessageRenderer.Input.ScrollKeyboardInterval;
 		}
 
-		public void Update(IUpdaterParameters parameters)
+		public void Update(UpdaterParameters parameters)
 		{
 			parameters.ThrowIfNull("parameters");
 
