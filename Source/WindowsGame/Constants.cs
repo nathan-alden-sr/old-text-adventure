@@ -38,7 +38,7 @@ namespace TextAdventure.WindowsGame
 
 			static GameBackgroundRenderer()
 			{
-				Color = Color.White;
+				Color = new Color(34, 52, 72);
 			}
 		}
 

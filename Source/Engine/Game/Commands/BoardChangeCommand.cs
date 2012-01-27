@@ -11,14 +11,14 @@ namespace TextAdventure.Engine.Game.Commands
 {
 	public class BoardChangeCommand : Command
 	{
-		private readonly Board _board;
+		private readonly Board _destinationBoard;
 		private readonly Coordinate _playerCoordinate;
 
-		public BoardChangeCommand(Board board, Coordinate playerCoordinate)
+		public BoardChangeCommand(Board destinationBoard, Coordinate playerCoordinate)
 		{
-			board.ThrowIfNull("board");
+			destinationBoard.ThrowIfNull("destinationBoard");
 
-			_board = board;
+			_destinationBoard = destinationBoard;
 			_playerCoordinate = playerCoordinate;
 		}
 
@@ -26,7 +26,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				yield return FormatNamedObjectDetailText("Changed to board", _board);
+				yield return FormatNamedObjectDetailText("Destination board", _destinationBoard);
 				yield return "Player coordinate: " + _playerCoordinate;
 			}
 		}
@@ -37,14 +37,14 @@ namespace TextAdventure.Engine.Game.Commands
 
 			Board oldBoard = context.CurrentBoard;
 
-			if (context.RaiseEvent(oldBoard.BoardExitedEventHandler, new BoardExitedEvent(oldBoard, _board)) == EventResult.Canceled)
+			if (context.RaiseEvent(oldBoard.BoardExitedEventHandler, new BoardExitedEvent(oldBoard, _destinationBoard)) == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
 
-			CommandResult result = context.Player.ChangeLocation(_board, _playerCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
+			CommandResult result = context.Player.ChangeLocation(_destinationBoard, _playerCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 
-			context.RaiseEvent(_board.BoardEnteredEventHandler, new BoardEnteredEvent(oldBoard, _board));
+			context.RaiseEvent(_destinationBoard.BoardEnteredEventHandler, new BoardEnteredEvent(oldBoard, _destinationBoard));
 
 			return result;
 		}

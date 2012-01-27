@@ -13,20 +13,20 @@ using TextAdventure.Samples.Introduction.SoundEffects;
 
 namespace TextAdventure.Samples.Introduction.Boards
 {
-	public class WelcomeBoard : Board
+	public class IntroductionBoard : Board
 	{
 		public static readonly Guid BoardId = Guid.Parse("dae415ca-ca40-4745-8126-217e43530170");
 		public static readonly Size BoardSize = new Size(80, 20);
 		private static readonly Coordinate _layerOriginCoordinate;
 		private static readonly Size _layerSize = new Size(21, 7);
 
-		static WelcomeBoard()
+		static IntroductionBoard()
 		{
 			_layerOriginCoordinate = new Coordinate((BoardSize.Width / 2) - (_layerSize.Width / 2), 8);
 		}
 
-		public WelcomeBoard()
-			: base(BoardId, "Welcome", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
+		public IntroductionBoard()
+			: base(BoardId, "Introduction", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
 		{
 		}
 
@@ -81,22 +81,21 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 		private static ActorInstanceLayer GetActorInstanceLayer()
 		{
-			var welcomeActor = new WelcomeActor();
-
+			var welcomeActor = new IntroductionActor();
 			ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
 				welcomeActor,
 				new Coordinate(BoardSize.Width / 2, 10),
-				playerTouchedActorInstanceEventHandler:new PlayerTouchedWelcomeActorEventHandler());
+				playerTouchedActorInstanceEventHandler:new PlayerTouchedIntroductionActorEventHandler());
 
 			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
-			yield return new BoardExit(new Coordinate(50, 11), BoardExitDirection.Right, Guid.NewGuid(), Coordinate.Zero);
+			yield return new BoardExit(new Coordinate(50, 11), BoardExitDirection.Right, ObjectsBoard.BoardId, new Coordinate(0, 6));
 		}
 
-		private class PlayerTouchedWelcomeActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
+		private class PlayerTouchedIntroductionActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
 			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
