@@ -10,7 +10,7 @@ namespace TextAdventure.Samples.Introduction.Actors
 		public static readonly Guid ActorId = Guid.Parse("607e9f11-93e0-4b69-91ca-f74d08cb5214");
 
 		public ObjectsActor()
-			: base(ActorId, "Objects", "", new Character(2, Color.LightGreen, Color.TransparentBlack))
+			: base(ActorId, "Objects", "", new Character(Symbol.FilledSmiley, Color.LightGreen, Color.TransparentBlack))
 		{
 		}
 	}
