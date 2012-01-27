@@ -6,7 +6,7 @@ namespace TextAdventure.WindowsGame.Renderers
 	{
 		public void Render(IRendererParameters parameters)
 		{
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.Draw(
 				parameters.TextureContent.Pixel,

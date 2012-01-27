@@ -59,7 +59,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			Vector2 origin = spriteBatchContext.Origin;
 
 			parameters.SpriteBatch.Begin(
-				SpriteSortMode.Immediate,
+				SpriteSortMode.Deferred,
 				BlendState.AlphaBlend,
 				SamplerState.PointWrap,
 				DepthStencilState.None,
@@ -88,7 +88,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			Vector2 origin = spriteBatchContext.Origin;
 
 			parameters.SpriteBatch.Begin(
-				SpriteSortMode.Immediate,
+				SpriteSortMode.Deferred,
 				BlendState.AlphaBlend,
 				SamplerState.PointClamp,
 				DepthStencilState.None,

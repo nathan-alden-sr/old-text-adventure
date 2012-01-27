@@ -61,7 +61,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			Vector2 textVector = Window.AbsoluteClientRectangle.Location.ToVector2();
 			int lineCount = 0;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			foreach (LogEntry logEntry in _state.LogEntries)
 			{
@@ -91,7 +91,7 @@ namespace TextAdventure.WindowsGame.Renderers
 						break;
 					}
 
-					textVector.Y += font.LineSpacing;
+					textVector.Y += font.LineSpacing + Constants.LogRenderer.ShadowOffset.Y;
 				}
 
 				if (lineCount >= _state.MaximumVisibleLogLines)

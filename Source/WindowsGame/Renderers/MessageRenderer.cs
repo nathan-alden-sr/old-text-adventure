@@ -167,7 +167,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			ref Vector2 position,
 			ref Color textColor)
 		{
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
 
 			MessageTextAlignment alignment = _formatter.GetAlignmentByLine(lineIndex);
 			Vector2 lineSize = _formatter.GetLineSizeByLine(lineIndex);
@@ -246,7 +246,7 @@ namespace TextAdventure.WindowsGame.Renderers
 					window.AbsoluteClientRectangle.Y + ((window.AbsoluteClientRectangle.Height - lineHeight) / 2));
 				Color textColor = answer.Answer == _answerSelectionManager.SelectedAnswer ? answer.SelectedAnswerForegroundColor.ToXnaColor() : answer.UnselectedAnswerForegroundColor.ToXnaColor();
 
-				parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
+				parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, new ScissoringRasterizerState(), null, transformMatrix);
 
 				parameters.SpriteBatch.DrawStringWithShadow(
 					font,
@@ -274,7 +274,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			                        	? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor
 			                        	: TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.Draw(windowTexture.Texture, upArrowPosition, windowTexture.UpArrowRectangle, upArrowColor);
 			parameters.SpriteBatch.Draw(windowTexture.Texture, downArrowPosition, windowTexture.DownArrowRectangle, downArrowColor);

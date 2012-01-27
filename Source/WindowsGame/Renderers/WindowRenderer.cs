@@ -28,7 +28,7 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			BeforeRender(parameters);
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.Draw(parameters.TextureContent.Pixel, Window.WindowRectangle, BackgroundColor * Alpha);
 

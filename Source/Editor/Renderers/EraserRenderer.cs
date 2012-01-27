@@ -43,7 +43,7 @@ namespace TextAdventure.Editor.Renderers
 			var rightLine = new Rectangle(destinationRectangle.Right - 1, destinationRectangle.Y, 1, destinationRectangle.Height);
 			Texture2D pixelTexture = parameters.TextureContent.Pixel;
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, new ScissoringRasterizerState());
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, new ScissoringRasterizerState());
 
 			parameters.SpriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(0, 0, _editorView.VisibleBoardSizeInPixels.Width, _editorView.VisibleBoardSizeInPixels.Height);
 

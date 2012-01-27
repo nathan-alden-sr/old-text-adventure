@@ -47,7 +47,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				out topLeftCoordinate,
 				out bottomRightCoordinate);
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			foreach (ILayer layer in layers)
 			{

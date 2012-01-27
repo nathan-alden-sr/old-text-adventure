@@ -10,7 +10,7 @@ namespace TextAdventure.WindowsGame.Renderers
 		{
 			parameters.ThrowIfNull("parameters");
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.Draw(parameters.TextureContent.GameBackground, Constants.GameWindow.DestinationRectangle, Constants.GameWindow.DestinationRectangle, Constants.GameBackgroundRenderer.Color);
 

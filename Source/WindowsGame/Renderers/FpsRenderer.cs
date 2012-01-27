@@ -57,7 +57,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			SpriteFont font = parameters.FontContent.Calibri10Pt;
 			string text = _state.FrameCount + " fps";
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.DrawStringWithShadow(
 				font,

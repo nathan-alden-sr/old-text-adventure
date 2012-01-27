@@ -71,7 +71,7 @@ namespace TextAdventure.WindowsGame.Renderers
 				_state.TotalWorldTime.Seconds,
 				_state.TotalWorldTime.Milliseconds / 100);
 
-			parameters.SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
 			parameters.SpriteBatch.DrawStringWithShadow(
 				font,
