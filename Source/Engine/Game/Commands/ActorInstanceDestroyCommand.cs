@@ -34,7 +34,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 			EventResult result = context.RaiseEvent(_actorInstance.ActorInstanceDestroyedEventHandler, new ActorInstanceDestroyedEvent(_actorInstance));
 
-			if (result == EventResult.Canceled || !context.CurrentBoard.ActorInstanceLayer.RemoveTile(_actorInstance))
+			if (result == EventResult.Canceled || !context.CurrentBoard.ActorInstanceLayer.RemoveActorInstance(_actorInstance))
 			{
 				return CommandResult.Failed;
 			}

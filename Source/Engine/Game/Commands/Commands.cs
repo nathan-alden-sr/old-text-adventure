@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Junior.Common;
+
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
@@ -211,9 +213,23 @@ namespace TextAdventure.Engine.Game.Commands
 			return new RepeatCommand(command, repeatDelay, totalRepeats);
 		}
 
-		public static Command InContext(Command command, IUnique context)
+		public static Command Tagged(Command command, IUnique tag)
 		{
-			return command.WithContext(context);
+			command.ThrowIfNull("command");
+
+			return command.WithTag(tag);
+		}
+
+		public static Command Tagged(Command command, Guid tag)
+		{
+			command.ThrowIfNull("command");
+
+			return command.WithTag(tag);
+		}
+
+		public static ContextCommand Contextual(Func<CommandContext, Command> commandDelegate)
+		{
+			return new ContextCommand(commandDelegate);
 		}
 	}
 }

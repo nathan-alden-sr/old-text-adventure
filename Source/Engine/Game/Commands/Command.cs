@@ -36,7 +36,7 @@ namespace TextAdventure.Engine.Game.Commands
 			}
 		}
 
-		public Guid? ContextId
+		public Guid? Tag
 		{
 			get;
 			private set;
@@ -176,9 +176,16 @@ namespace TextAdventure.Engine.Game.Commands
 			return new RepeatCommand(this, repeatDelay, totalRepeats);
 		}
 
-		public Command WithContext(IUnique context)
+		public Command WithTag(IUnique tag)
 		{
-			ContextId = context.IfNotNull(arg => (Guid?)arg.Id);
+			Tag = tag.IfNotNull(arg => (Guid?)arg.Id);
+
+			return this;
+		}
+
+		public Command WithTag(Guid? tag)
+		{
+			Tag = tag;
 
 			return this;
 		}
@@ -204,8 +211,8 @@ namespace TextAdventure.Engine.Game.Commands
 			namedObject.ThrowIfNull("namedObject");
 
 			return namedObject.Name.Length == 0
-				? DetailTextFormatter.Instance.FormatUnique(prefix, namedObject)
-				: DetailTextFormatter.Instance.FormatNamedObject(prefix, namedObject);
+			       	? DetailTextFormatter.Instance.FormatUnique(prefix, namedObject)
+			       	: DetailTextFormatter.Instance.FormatNamedObject(prefix, namedObject);
 		}
 
 		private static void SetPaused(Command command, bool paused)

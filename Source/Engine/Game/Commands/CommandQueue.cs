@@ -53,9 +53,9 @@ namespace TextAdventure.Engine.Game.Commands
 			_commandList.RemoveByCommandId(commandId);
 		}
 
-		public void CancelCommands(Guid contextId)
+		public void CancelCommands(Guid tag)
 		{
-			_commandList.RemoveByContextId(contextId);
+			_commandList.RemoveByTag(tag);
 		}
 
 		public bool CommandQueued(Command command)

@@ -69,6 +69,22 @@ namespace TextAdventure.Engine.Objects
 			}
 
 			SetTile(coordinate, actorInstance);
+			_actorInstancesById[actorInstance.Id] = actorInstance;
+
+			return true;
+		}
+
+		protected internal bool RemoveActorInstance(ActorInstance actorInstance)
+		{
+			actorInstance.ThrowIfNull("actorInstance");
+
+			if (!_actorInstancesById.ContainsKey(actorInstance.Id))
+			{
+				return false;
+			}
+
+			RemoveTile(actorInstance.Coordinate);
+			_actorInstancesById.Remove(actorInstance.Id);
 
 			return true;
 		}

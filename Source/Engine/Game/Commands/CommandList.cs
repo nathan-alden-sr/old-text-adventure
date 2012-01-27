@@ -90,14 +90,14 @@ namespace TextAdventure.Engine.Game.Commands
 			}
 		}
 
-		public void RemoveByContextId(Guid contextId)
+		public void RemoveByTag(Guid tag)
 		{
-			IEnumerable<Command> commandsWithContext = _commands
-				.Where(arg => arg.Command.ContextId == contextId)
+			IEnumerable<Command> commandsWithTag = _commands
+				.Where(arg => arg.Command.Tag == tag)
 				.Select(arg => arg.Command)
 				.ToArray();
 
-			foreach (Command command in commandsWithContext)
+			foreach (Command command in commandsWithTag)
 			{
 				Remove(command);
 			}
