@@ -51,10 +51,12 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Introduction\Actors\ActorsActor.cs" />
+    <Compile Include="Introduction\Actors\BoardsActor.cs" />
     <Compile Include="Introduction\Actors\BoulderActor.cs" />
     <Compile Include="Introduction\Actors\IntroductionActor.cs" />
     <Compile Include="Introduction\Actors\ObjectsActor.cs" />
     <Compile Include="Introduction\Boards\ActorsBoard.cs" />
+    <Compile Include="Introduction\Boards\BoardsBoard.cs" />
     <Compile Include="Introduction\Boards\ObjectsBoard.cs" />
     <Compile Include="Introduction\Boards\IntroductionBoard.cs" />
     <Compile Include="Factories\ActorInstanceFactory.cs" />
@@ -72,6 +74,7 @@
     </Compile>
     <Compile Include="Factories\SpriteFactory.cs" />
     <Compile Include="Introduction\StartingPlayer.cs" />
+    <Compile Include="Introduction\Timers\BoardsActorMoveTimer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Introduction\IntroductionWorld.cs" />
     <Compile Include="UnmanagedMemoryStreamExtensions.cs" />

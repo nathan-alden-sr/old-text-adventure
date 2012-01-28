@@ -91,6 +91,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Up, ObjectsBoard.BoardId, ObjectsBoard.ExitCoordinates[1]);
+			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Down, BoardsBoard.BoardId, BoardsBoard.ExitCoordinates[0]);
 		}
 
 		private class PlayerTouchedActorsActorCopyEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
