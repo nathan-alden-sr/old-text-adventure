@@ -36,7 +36,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			}
 
 			serializer[2] = partSerializer.Serialize();
-			serializer[3] = EventHandlerSerializer.Instance.Serialize(messageAnswer.MessageAnswerSelectedEventHandler);
+			serializer[3] = EventHandlerCollectionSerializer.Instance.Serialize(messageAnswer.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -50,9 +50,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			string text = Encoding.UTF8.GetString(serializer[1]);
 			var partSerializer = new CompactSerializer(serializer[2]);
 			IEnumerable<IMessagePart> parts = partSerializer.FieldIndices.Select(arg => MessagePartSerializer.Instance.Deserialize(partSerializer[arg]));
-			IEventHandler<MessageAnswerSelectedEvent> messageAnswerSelectedEventHandler = EventHandlerSerializer.Instance.Deserialize<MessageAnswerSelectedEvent>(serializer[3]);
+			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[3]);
 
-			return new MessageAnswer(id, text, parts, messageAnswerSelectedEventHandler);
+			return new MessageAnswer(id, text, parts, eventHandlerCollection);
 		}
 	}
 }

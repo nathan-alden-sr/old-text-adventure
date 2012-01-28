@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using Junior.Common;
@@ -12,47 +11,24 @@ namespace TextAdventure.Engine.Game.Commands
 {
 	public class ActorInstanceCreateCommand : Command
 	{
-		private readonly Actor _actor;
-		private readonly IEventHandler<ActorInstanceCreatedEvent> _actorInstanceCreatedEventHandler;
-		private readonly IEventHandler<ActorInstanceDestroyedEvent> _actorInstanceDestroyedEventHandler;
-		private readonly Guid _actorInstanceId;
-		private readonly IEventHandler<ActorInstanceMovedEvent> _actorInstanceMovedEventHandler;
-		private readonly IEventHandler<ActorInstanceTouchedActorInstanceEvent> _actorInstanceTouchedActorInstanceEventHandler;
-		private readonly Character _character;
-		private readonly Coordinate _coordinate;
-		private readonly IEventHandler<PlayerTouchedActorInstanceEvent> _playerTouchedActorInstanceEventHandler;
+		private readonly ActorInstance _actorInstance;
+		private readonly Board _board;
 
-		public ActorInstanceCreateCommand(
-			Actor actor,
-			Guid actorInstanceId,
-			Coordinate coordinate,
-			Character character,
-			IEventHandler<ActorInstanceCreatedEvent> actorInstanceCreatedEventHandler = null,
-			IEventHandler<ActorInstanceDestroyedEvent> actorInstanceDestroyedEventHandler = null,
-			IEventHandler<ActorInstanceTouchedActorInstanceEvent> actorInstanceTouchedActorInstanceEventHandler = null,
-			IEventHandler<PlayerTouchedActorInstanceEvent> playerTouchedActorInstanceEventHandler = null,
-			IEventHandler<ActorInstanceMovedEvent> actorInstanceMovedEventHandler = null)
+		public ActorInstanceCreateCommand(Board board, ActorInstance actorInstance)
 		{
-			actor.ThrowIfNull("actor");
-			character.ThrowIfNull("character");
+			board.ThrowIfNull("board");
+			actorInstance.ThrowIfNull("actorInstance");
 
-			_actor = actor;
-			_actorInstanceId = actorInstanceId;
-			_coordinate = coordinate;
-			_character = character;
-			_actorInstanceCreatedEventHandler = actorInstanceCreatedEventHandler;
-			_actorInstanceDestroyedEventHandler = actorInstanceDestroyedEventHandler;
-			_actorInstanceTouchedActorInstanceEventHandler = actorInstanceTouchedActorInstanceEventHandler;
-			_playerTouchedActorInstanceEventHandler = playerTouchedActorInstanceEventHandler;
-			_actorInstanceMovedEventHandler = actorInstanceMovedEventHandler;
+			_board = board;
+			_actorInstance = actorInstance;
 		}
 
 		public override IEnumerable<string> Details
 		{
 			get
 			{
-				yield return FormatIdDetailText("Actor instance", _actorInstanceId);
-				yield return FormatNamedObjectDetailText("Actor", _actor);
+				yield return FormatNamedObjectDetailText("Actor instance", _actorInstance);
+				yield return FormatIdDetailText("Actor", _actorInstance.ActorId);
 			}
 		}
 
@@ -60,36 +36,24 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("context");
 
-			ActorInstanceLayer actorInstanceLayer = context.CurrentBoard.ActorInstanceLayer;
-			Sprite foregroundSprite = context.CurrentBoard.ForegroundLayer[_coordinate];
-			ActorInstance existingActorInstance = actorInstanceLayer[_coordinate];
+			ActorInstanceLayer actorInstanceLayer = _board.ActorInstanceLayer;
+			Coordinate coordinate = _actorInstance.Coordinate;
+			Sprite foregroundSprite = _board.ForegroundLayer[coordinate];
+			ActorInstance existingActorInstance = actorInstanceLayer[coordinate];
 
-			if (foregroundSprite != null || existingActorInstance != null || context.Player.Coordinate == _coordinate)
+			if (foregroundSprite != null || existingActorInstance != null || (context.CurrentBoard == _board && context.Player.Coordinate == coordinate))
 			{
 				return CommandResult.Failed;
 			}
 
-			var actorInstance = new ActorInstance(
-				_actorInstanceId,
-				_actor.Name,
-				_actor.Description,
-				_actor.Id,
-				_coordinate,
-				_character,
-				_actorInstanceCreatedEventHandler,
-				_actorInstanceDestroyedEventHandler,
-				_actorInstanceTouchedActorInstanceEventHandler,
-				_playerTouchedActorInstanceEventHandler,
-				_actorInstanceMovedEventHandler);
-
-			EventResult result = context.RaiseEvent(actorInstance.ActorInstanceCreatedEventHandler, new ActorInstanceCreatedEvent(actorInstance));
+			EventResult result = context.RaiseEvent(_actorInstance.OnCreated, new ActorInstanceCreatedEvent(_actorInstance));
 
 			if (result == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
 
-			actorInstanceLayer.AddActorInstance(context.CurrentBoard, context.Player, actorInstance);
+			actorInstanceLayer.AddActorInstance(context.CurrentBoard, context.Player, _actorInstance);
 
 			return CommandResult.Succeeded;
 		}

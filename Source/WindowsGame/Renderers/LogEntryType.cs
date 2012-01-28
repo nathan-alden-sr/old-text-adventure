@@ -6,7 +6,6 @@
 		CommandExecutionFailed,
 		EventRaising,
 		EventComplete,
-		EventCanceled,
-		EventHandled
+		EventCanceled
 	}
 }

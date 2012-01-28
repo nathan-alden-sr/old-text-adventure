@@ -9,11 +9,5 @@ namespace TextAdventure.Engine.Game.Events
 			: base(worldInstance, commandQueue)
 		{
 		}
-
-		public bool Cancel
-		{
-			get;
-			set;
-		}
 	}
 }

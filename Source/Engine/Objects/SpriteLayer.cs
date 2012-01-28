@@ -10,6 +10,13 @@ namespace TextAdventure.Engine.Objects
 	{
 		public SpriteLayer(
 			Size size,
+			params Sprite[] sprites)
+			: this(size, (IEnumerable<Sprite>)sprites)
+		{
+		}
+
+		public SpriteLayer(
+			Size size,
 			IEnumerable<Sprite> sprites)
 			: base(size)
 		{

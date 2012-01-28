@@ -5,13 +5,14 @@ using Junior.Common;
 
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class MessageAnswer : IMessage
 	{
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
-		private readonly IEventHandler<MessageAnswerSelectedEvent> _messageAnswerSelectedEventHandler;
 		private readonly IEnumerable<IMessagePart> _parts;
 		private readonly string _text;
 
@@ -19,7 +20,7 @@ namespace TextAdventure.Engine.Objects
 			Guid id,
 			string text,
 			IEnumerable<IMessagePart> parts,
-			IEventHandler<MessageAnswerSelectedEvent> messageAnswerSelectedEventHandler = null)
+			EventHandlerCollection eventHandlerCollection = null)
 		{
 			parts.ThrowIfNull("parts");
 			text.ThrowIfNull("text");
@@ -27,7 +28,7 @@ namespace TextAdventure.Engine.Objects
 			_id = id;
 			_text = text;
 			_parts = parts;
-			_messageAnswerSelectedEventHandler = messageAnswerSelectedEventHandler;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
 		public string Text
@@ -38,11 +39,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<MessageAnswerSelectedEvent> MessageAnswerSelectedEventHandler
+		protected internal EventHandlerCollection EventHandlerCollection
 		{
 			get
 			{
-				return _messageAnswerSelectedEventHandler;
+				return _eventHandlerCollection;
 			}
 		}
 
@@ -62,14 +63,19 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public static MessageAnswerBuilder Build(string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
+		public static MessageAnswerBuilder Build(string text, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new MessageAnswerBuilder(text, answerSelectedEventHandler);
+			return new MessageAnswerBuilder(text, eventHandlerCollection);
 		}
 
-		public static MessageAnswerBuilder Build(Guid id, string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
+		public static MessageAnswerBuilder Build(Guid id, string text, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new MessageAnswerBuilder(id, text, answerSelectedEventHandler);
+			return new MessageAnswerBuilder(id, text, eventHandlerCollection);
+		}
+
+		protected internal virtual EventResult OnSelected(EventContext context, MessageAnswerSelectedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

@@ -9,6 +9,7 @@ using NUnit.Framework;
 using TextAdventure.Engine;
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.UnitTests.Engine.Serializers
@@ -56,8 +57,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			NUnit.Framework.Assert.That(board.Name, Is.EqualTo("Board"));
 			NUnit.Framework.Assert.That(board.Description, Is.EqualTo("Board description"));
 			NUnit.Framework.Assert.That(board.Size, Is.EqualTo(new Size(12, 34)));
-			NUnit.Framework.Assert.That(board.BoardEnteredEventHandler, Is.Not.Null);
-			NUnit.Framework.Assert.That(board.BoardExitedEventHandler, Is.Not.Null);
 		}
 
 		private static void AssertActor(Actor actor)
@@ -78,7 +77,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			NUnit.Framework.Assert.That(startingPlayer.Character.ForegroundColor, Is.EqualTo(new Color(0.5f, 0.7f, 0.9f)));
 			NUnit.Framework.Assert.That(startingPlayer.Character.BackgroundColor, Is.EqualTo(Color.TransparentBlack));
 			NUnit.Framework.Assert.That(startingPlayer.Coordinate, Is.EqualTo(new Coordinate(10, 10)));
-			NUnit.Framework.Assert.That(startingPlayer.ActorInstanceTouchedPlayerEventHandler, Is.Not.Null);
 		}
 
 		private static void AssertBackgroundLayer(Board board)
@@ -125,11 +123,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			NUnit.Framework.Assert.That(actor1.Character.Symbol, Is.EqualTo(68));
 			NUnit.Framework.Assert.That(actor1.Character.ForegroundColor, Is.EqualTo(new Color(0.15f, 0.16f, 0.17f, 0.18f)));
 			NUnit.Framework.Assert.That(actor1.Character.BackgroundColor, Is.EqualTo(new Color(0.2f, 0.21f, 0.22f, 0.23f)));
-			NUnit.Framework.Assert.That(actor1.ActorInstanceCreatedEventHandler, Is.Not.Null);
-			NUnit.Framework.Assert.That(actor1.ActorInstanceDestroyedEventHandler, Is.Not.Null);
-			NUnit.Framework.Assert.That(actor1.ActorInstanceTouchedActorInstanceEventHandler, Is.Not.Null);
-			NUnit.Framework.Assert.That(actor1.PlayerTouchedActorInstanceEventHandler, Is.Not.Null);
-			NUnit.Framework.Assert.That(actor1.ActorInstanceMovedEventHandler, Is.Not.Null);
 
 			ActorInstance actor2 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 33);
 
@@ -189,7 +182,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 			NUnit.Framework.Assert.That(messageAnswers[0].Id, Is.EqualTo(Guid.Parse("bf61ef08-2bd2-4273-a1f4-641e22415047")));
 			NUnit.Framework.Assert.That(messageAnswers[0].Text, Is.EqualTo("Yes"));
-			NUnit.Framework.Assert.That(messageAnswers[0].MessageAnswerSelectedEventHandler, Is.Not.Null);
 
 			IMessagePart[] messageAnswerParts = messageAnswers[0].Parts.ToArray();
 
@@ -209,7 +201,6 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 			NUnit.Framework.Assert.That(timer.Name, Is.EqualTo("Timer"));
 			NUnit.Framework.Assert.That(timer.Description, Is.EqualTo("Timer description"));
 			NUnit.Framework.Assert.That(timer.Interval, Is.EqualTo(TimeSpan.FromSeconds(15)));
-			NUnit.Framework.Assert.That(timer.TimerElapsedEventHandler, Is.Not.Null);
 			NUnit.Framework.Assert.That(timer.State, Is.EqualTo(TimerState.Paused));
 			NUnit.Framework.Assert.That(timer.ElapsedTime, Is.EqualTo(TimeSpan.FromSeconds(7)));
 		}
@@ -232,71 +223,81 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 		public class ActorInstanceCreatedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceCreatedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceCreatedEvent @event)
+			public override EventResult HandleEvent(EventContext context, ActorInstanceCreatedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class ActorInstanceDestroyedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceDestroyedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceDestroyedEvent @event)
+			public override EventResult HandleEvent(EventContext context, ActorInstanceDestroyedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class ActorInstanceMovedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceMovedEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceMovedEvent @event)
+			public override EventResult HandleEvent(EventContext context, ActorInstanceMovedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class ActorInstanceTouchedActorInstanceEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class ActorInstanceTouchedPlayerEventHandler : TextAdventure.Engine.Game.Events.EventHandler<ActorInstanceTouchedPlayerEvent>
 		{
-			public override void HandleEvent(EventContext context, ActorInstanceTouchedPlayerEvent @event)
+			public override EventResult HandleEvent(EventContext context, ActorInstanceTouchedPlayerEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class BoardEnteredEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardEnteredEvent>
 		{
-			public override void HandleEvent(EventContext context, BoardEnteredEvent @event)
+			public override EventResult HandleEvent(EventContext context, BoardEnteredEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class BoardExitedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<BoardExitedEvent>
 		{
-			public override void HandleEvent(EventContext context, BoardExitedEvent @event)
+			public override EventResult HandleEvent(EventContext context, BoardExitedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class MessageAnswerSelectedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<MessageAnswerSelectedEvent>
 		{
-			public override void HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
+			public override EventResult HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class PlayerTouchedActorInstanceEventHandler : TextAdventure.Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 
 		public class TimerElapsedEventHandler : TextAdventure.Engine.Game.Events.EventHandler<TimerElapsedEvent>
 		{
-			public override void HandleEvent(EventContext context, TimerElapsedEvent @event)
+			public override EventResult HandleEvent(EventContext context, TimerElapsedEvent @event)
 			{
+				return EventResult.Complete;
 			}
 		}
 	}

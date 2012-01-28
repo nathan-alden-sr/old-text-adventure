@@ -40,7 +40,7 @@ namespace TextAdventure.WindowsGame.Renderers
 			base.BeforeRender(parameters);
 
 			SpriteFont font = parameters.FontContent.Calibri10Pt;
-			LogEntry[] logEntries = _state.LogEntries.ToArray();
+			LogEntry[] logEntries = _state.GetFilteredLogEntries().ToArray();
 			int maximumTitleTextWidth = logEntries.Any() ? logEntries.Max(arg => MeasureLineWidth(font, arg.LoggedTotalWorldTime, arg.Title, 0, _state.ShowTimestamps)) : 0;
 			int maximumDetailTextWidth =
 				logEntries.Any(arg => arg.Details.Any())
@@ -63,7 +63,7 @@ namespace TextAdventure.WindowsGame.Renderers
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 
-			foreach (LogEntry logEntry in _state.LogEntries)
+			foreach (LogEntry logEntry in _state.GetFilteredLogEntries())
 			{
 				Color textColor = Constants.LogRenderer.TextColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.TimedLerpHelper.Value;
 				Color shadowColor = Constants.LogRenderer.ShadowColors.Single(arg => arg.Key == logEntry.EntryType).Value * logEntry.TimedLerpHelper.Value;

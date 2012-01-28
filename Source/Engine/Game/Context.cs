@@ -89,12 +89,13 @@ namespace TextAdventure.Engine.Game
 			}
 		}
 
-		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)
+		public EventResult RaiseEvent<TEvent>(Func<EventContext, TEvent, EventResult> eventDelegate, TEvent @event)
 			where TEvent : Event
 		{
+			eventDelegate.ThrowIfNull("eventDelegate");
 			@event.ThrowIfNull("event");
 
-			return _worldInstance.RaiseEvent(eventHandler, @event);
+			return _worldInstance.RaiseEvent(eventDelegate, @event);
 		}
 
 		public void ExecuteCommand(Command command)
@@ -206,7 +207,7 @@ namespace TextAdventure.Engine.Game
 		{
 			message.ThrowIfNull("message");
 
-			_worldInstance.MessageQueue.EnqueueMessage(message, position);
+			_worldInstance.MessageMananger.EnqueueMessage(message, position);
 		}
 	}
 }

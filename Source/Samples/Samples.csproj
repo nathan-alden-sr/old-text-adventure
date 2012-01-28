@@ -59,7 +59,6 @@
     <Compile Include="Introduction\Boards\BoardsBoard.cs" />
     <Compile Include="Introduction\Boards\ObjectsBoard.cs" />
     <Compile Include="Introduction\Boards\IntroductionBoard.cs" />
-    <Compile Include="Factories\ActorInstanceFactory.cs" />
     <Compile Include="Introduction\Songs\Songs.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

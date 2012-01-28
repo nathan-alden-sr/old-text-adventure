@@ -58,6 +58,15 @@ namespace TextAdventure.WindowsGame.Configuration
 			}
 		}
 
+		[ConfigurationProperty("showRaisingEvents", IsRequired = false, DefaultValue = false)]
+		public bool ShowRaisingEvents
+		{
+			get
+			{
+				return (bool)this["showRaisingEvents"];
+			}
+		}
+
 		public override bool IsReadOnly()
 		{
 			return false;

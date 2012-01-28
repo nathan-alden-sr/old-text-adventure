@@ -83,8 +83,7 @@ namespace TextAdventure.WindowsGame
 				               		{ LogEntryType.CommandExecutionFailed, Color.Black },
 				               		{ LogEntryType.EventRaising, Color.Black },
 				               		{ LogEntryType.EventComplete, Color.Black },
-				               		{ LogEntryType.EventCanceled, Color.Black },
-				               		{ LogEntryType.EventHandled, Color.Black }
+				               		{ LogEntryType.EventCanceled, Color.Black }
 				               	};
 				ShadowOffset = Vector2.One;
 				TextColors = new Dictionary<LogEntryType, Color>
@@ -93,8 +92,7 @@ namespace TextAdventure.WindowsGame
 				             		{ LogEntryType.CommandExecutionFailed, Color.Red },
 				             		{ LogEntryType.EventRaising, Color.LightGreen },
 				             		{ LogEntryType.EventComplete, Color.LightBlue },
-				             		{ LogEntryType.EventCanceled, Color.PaleVioletRed },
-				             		{ LogEntryType.EventHandled, Color.LightBlue }
+				             		{ LogEntryType.EventCanceled, Color.PaleVioletRed }
 				             	};
 			}
 		}

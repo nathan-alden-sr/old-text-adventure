@@ -27,9 +27,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 		{
 			get;
 		}
-		IEnumerable<LogEntry> LogEntries
-		{
-			get;
-		}
+
+		IEnumerable<LogEntry> GetFilteredLogEntries();
 	}
 }

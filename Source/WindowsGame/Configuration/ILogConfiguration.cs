@@ -24,5 +24,9 @@ namespace TextAdventure.WindowsGame.Configuration
 		{
 			get;
 		}
+		bool ShowRaisingEvents
+		{
+			get;
+		}
 	}
 }

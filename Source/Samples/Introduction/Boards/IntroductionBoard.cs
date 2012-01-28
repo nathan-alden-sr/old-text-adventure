@@ -6,6 +6,7 @@ using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Samples.Factories;
 using TextAdventure.Samples.Introduction.Actors;
@@ -80,10 +81,9 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static ActorInstanceLayer GetActorInstanceLayer()
 		{
 			var welcomeActor = new IntroductionActor();
-			ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
-				welcomeActor,
+			ActorInstance actorInstance = welcomeActor.CreateActorInstance(
 				new Coordinate(40, 10),
-				playerTouchedActorInstanceEventHandler:new PlayerTouchedIntroductionActorEventHandler());
+				new EventHandlerCollection(new PlayerTouchedIntroductionActorEventHandler()));
 
 			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
 		}
@@ -95,7 +95,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 		private class PlayerTouchedIntroductionActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
@@ -121,10 +121,12 @@ namespace TextAdventure.Samples.Introduction.Boards
 						Color.White,
 						Color.Yellow,
 						Color.Gray,
-						MessageAnswer.Build(Guid.Parse("233587f3-e960-4f78-bf66-c4c20110ca05"), "Yes", new YesAnswerSelectedEventHandler(@event.Target)),
+						MessageAnswer.Build("Yes", new EventHandlerCollection(new YesAnswerSelectedEventHandler(@event.Target))),
 						MessageAnswer.Build("No"));
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
+
+				return EventResult.Complete;
 			}
 		}
 
@@ -137,7 +139,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 				_actorInstance = actorInstance;
 			}
 
-			public override void HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
+			public override EventResult HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
 			{
 				context.PlayerInput.Suspend();
 
@@ -169,6 +171,8 @@ namespace TextAdventure.Samples.Introduction.Boards
 				{
 					context.EnqueueCommand(moveActorCommand);
 				}
+
+				return EventResult.Complete;
 			}
 		}
 	}

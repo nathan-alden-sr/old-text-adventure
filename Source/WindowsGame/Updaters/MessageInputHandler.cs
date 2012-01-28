@@ -5,8 +5,6 @@ using Junior.Common;
 
 using Microsoft.Xna.Framework.Input;
 
-using TextAdventure.Engine.Game.Events;
-using TextAdventure.Engine.Game.Messages;
 using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.WindowsGame.Helpers;
@@ -101,11 +99,7 @@ namespace TextAdventure.WindowsGame.Updaters
 					case TextAdventure.Xna.Constants.MessageRenderer.Input.AcceptKey:
 						MessageAnswer selectedAnswer = _messageRendererState.AnswerSelectionManager.SelectedAnswer;
 
-						_worldInstance.RaiseEvent(selectedAnswer.MessageAnswerSelectedEventHandler, new MessageAnswerSelectedEvent(selectedAnswer));
-						if (selectedAnswer.Parts.Any())
-						{
-							_worldInstance.MessageQueue.EnqueueMessage(selectedAnswer, MessageQueuePosition.First);
-						}
+						_worldInstance.MessageMananger.SelectAnswer(selectedAnswer);
 						break;
 					case TextAdventure.Xna.Constants.MessageRenderer.Input.NextAnswerKey:
 						_messageRendererState.AnswerSelectionManager.SelectNextAnswer();

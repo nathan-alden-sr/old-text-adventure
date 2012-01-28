@@ -3,34 +3,15 @@
 using Junior.Common;
 
 using TextAdventure.Engine.Common;
-using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Commands
 {
 	public static class Commands
 	{
-		public static ActorInstanceCreateCommand ActorInstanceCreate(
-			Actor actor,
-			Guid actorInstanceId,
-			Coordinate coordinate,
-			Character character,
-			IEventHandler<ActorInstanceCreatedEvent> actorInstanceCreatedEventHandler = null,
-			IEventHandler<ActorInstanceDestroyedEvent> actorInstanceDestroyedEventHandler = null,
-			IEventHandler<ActorInstanceTouchedActorInstanceEvent> actorInstanceTouchedActorInstanceEventHandler = null,
-			IEventHandler<PlayerTouchedActorInstanceEvent> playerTouchedActorInstanceEventHandler = null,
-			IEventHandler<ActorInstanceMovedEvent> actorInstanceMovedEventHandler = null)
+		public static ActorInstanceCreateCommand ActorInstanceCreate(Board board, ActorInstance actorInstance)
 		{
-			return new ActorInstanceCreateCommand(
-				actor,
-				actorInstanceId,
-				coordinate,
-				character,
-				actorInstanceCreatedEventHandler,
-				actorInstanceDestroyedEventHandler,
-				actorInstanceTouchedActorInstanceEventHandler,
-				playerTouchedActorInstanceEventHandler,
-				actorInstanceMovedEventHandler);
+			return new ActorInstanceCreateCommand(board, actorInstance);
 		}
 
 		public static BoardChangeCommand BoardChange(Board board, Coordinate newPlayerCoordinate)

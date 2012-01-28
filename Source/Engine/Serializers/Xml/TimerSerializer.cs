@@ -4,7 +4,6 @@ using System.Xml.Linq;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Xml
@@ -24,7 +23,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 
 			return new XElement(
 				elementName,
-				EventHandlerSerializer.Instance.Serialize(timer.TimerElapsedEventHandler, "timerElapsedEventHandler"),
+				EventHandlerCollectionSerializer.Instance.Serialize(timer.EventHandlerCollection),
 				new XAttribute("id", timer.Id),
 				new XAttribute("name", timer.Name),
 				new XAttribute("description", timer.Description),
@@ -44,7 +43,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				TimeSpan.ParseExact((string)timerElement.Attribute("interval"), "c", CultureInfo.InvariantCulture),
 				Enum<TimerState>.Parse((string)timerElement.Attribute("state")),
 				TimeSpan.ParseExact((string)timerElement.Attribute("elapsed"), "c", CultureInfo.InvariantCulture),
-				timerElement.Element("timerElapsedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<TimerElapsedEvent>));
+				EventHandlerCollectionSerializer.Instance.Deserialize(timerElement));
 		}
 	}
 }

@@ -30,7 +30,7 @@ namespace TextAdventure.Engine.Objects
 
 			parts = parts.ToArray();
 
-			IMessagePart question = parts.SingleOrDefault(arg => arg is MessageQueue);
+			IMessagePart question = parts.SingleOrDefault(arg => arg is MessageMananger);
 
 			if (question != null && parts.Last() != question)
 			{

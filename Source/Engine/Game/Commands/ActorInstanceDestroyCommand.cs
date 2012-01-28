@@ -32,7 +32,7 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("context");
 
-			EventResult result = context.RaiseEvent(_actorInstance.ActorInstanceDestroyedEventHandler, new ActorInstanceDestroyedEvent(_actorInstance));
+			EventResult result = context.RaiseEvent(_actorInstance.OnDestroyed, new ActorInstanceDestroyedEvent(_actorInstance));
 
 			if (result == EventResult.Canceled || !context.CurrentBoard.ActorInstanceLayer.RemoveActorInstance(_actorInstance))
 			{

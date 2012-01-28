@@ -6,6 +6,7 @@ using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Samples.Factories;
 using TextAdventure.Samples.Introduction.Actors;
@@ -57,12 +58,11 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static ActorInstanceLayer GetActorInstanceLayer()
 		{
 			var objectsActor = new ObjectsActor();
-			ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
-				objectsActor,
+			ActorInstance objectsActorInstance = objectsActor.CreateActorInstance(
 				new Coordinate(3, 4),
-				playerTouchedActorInstanceEventHandler:new PlayerTouchedObjectsActorEventHandler());
+				new EventHandlerCollection(new PlayerTouchedObjectsActorEventHandler()));
 
-			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
+			return new ActorInstanceLayer(BoardSize, objectsActorInstance);
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
@@ -73,7 +73,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 		private class PlayerTouchedObjectsActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
@@ -85,6 +85,8 @@ namespace TextAdventure.Samples.Introduction.Boards
 					.Text(indent1, "  - Serialized and deserialized");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
+
+				return EventResult.Complete;
 			}
 		}
 	}

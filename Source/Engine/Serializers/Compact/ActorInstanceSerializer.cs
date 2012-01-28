@@ -29,11 +29,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			serializer[3] = actorInstance.ActorId.ToByteArray();
 			serializer[4] = CoordinateSerializer.Instance.Serialize(actorInstance.Coordinate);
 			serializer[5] = CharacterSerializer.Instance.Serialize(actorInstance.Character);
-			serializer[6] = EventHandlerSerializer.Instance.Serialize(actorInstance.ActorInstanceCreatedEventHandler);
-			serializer[7] = EventHandlerSerializer.Instance.Serialize(actorInstance.ActorInstanceDestroyedEventHandler);
-			serializer[8] = EventHandlerSerializer.Instance.Serialize(actorInstance.ActorInstanceTouchedActorInstanceEventHandler);
-			serializer[9] = EventHandlerSerializer.Instance.Serialize(actorInstance.PlayerTouchedActorInstanceEventHandler);
-			serializer[10] = EventHandlerSerializer.Instance.Serialize(actorInstance.ActorInstanceMovedEventHandler);
+			serializer[6] = EventHandlerCollectionSerializer.Instance.Serialize(actorInstance.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -49,24 +45,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			var actorId = new Guid(serializer[3]);
 			Coordinate coordinate = CoordinateSerializer.Instance.Deserialize(serializer[4]);
 			Character character = CharacterSerializer.Instance.Deserialize(serializer[5]);
-			IEventHandler<ActorInstanceCreatedEvent> actorInstanceCreatedEventHandler = EventHandlerSerializer.Instance.Deserialize<ActorInstanceCreatedEvent>(serializer[6]);
-			IEventHandler<ActorInstanceDestroyedEvent> actorInstanceDestroyedEventHandler = EventHandlerSerializer.Instance.Deserialize<ActorInstanceDestroyedEvent>(serializer[7]);
-			IEventHandler<ActorInstanceTouchedActorInstanceEvent> actorInstanceTouchedActorInstanceEventHandler = EventHandlerSerializer.Instance.Deserialize<ActorInstanceTouchedActorInstanceEvent>(serializer[8]);
-			IEventHandler<PlayerTouchedActorInstanceEvent> playerTouchedActorInstanceEventHandler = EventHandlerSerializer.Instance.Deserialize<PlayerTouchedActorInstanceEvent>(serializer[9]);
-			IEventHandler<ActorInstanceMovedEvent> actorInstanceMovedEventHandler = EventHandlerSerializer.Instance.Deserialize<ActorInstanceMovedEvent>(serializer[10]);
+			EventHandlerCollection eventHandlers = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[6]);
 
-			return new ActorInstance(
-				id,
-				name,
-				description,
-				actorId,
-				coordinate,
-				character,
-				actorInstanceCreatedEventHandler,
-				actorInstanceDestroyedEventHandler,
-				actorInstanceTouchedActorInstanceEventHandler,
-				playerTouchedActorInstanceEventHandler,
-				actorInstanceMovedEventHandler);
+			return new ActorInstance(id, name, description, actorId, coordinate, character, eventHandlers);
 		}
 	}
 }

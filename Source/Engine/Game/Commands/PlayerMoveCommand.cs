@@ -63,7 +63,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 				if (touchDirection != null)
 				{
-					context.RaiseEvent(targetActorInstance.PlayerTouchedActorInstanceEventHandler, new PlayerTouchedActorInstanceEvent(targetActorInstance, touchDirection.Value));
+					context.RaiseEvent(targetActorInstance.OnTouchedByPlayer, new PlayerTouchedActorInstanceEvent(targetActorInstance, touchDirection.Value));
 				}
 			}
 

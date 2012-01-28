@@ -14,6 +14,13 @@ namespace TextAdventure.Engine.Objects
 
 		public ActorInstanceLayer(
 			Size size,
+			params ActorInstance[] actorInstances)
+			: this(size, (IEnumerable<ActorInstance>)actorInstances)
+		{
+		}
+
+		public ActorInstanceLayer(
+			Size size,
 			IEnumerable<ActorInstance> actorInstances)
 			: base(size)
 		{

@@ -26,7 +26,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			serializer[1] = player.BoardId.ToByteArray();
 			serializer[2] = CoordinateSerializer.Instance.Serialize(player.Coordinate);
 			serializer[3] = CharacterSerializer.Instance.Serialize(player.Character);
-			serializer[4] = EventHandlerSerializer.Instance.Serialize(player.ActorInstanceTouchedPlayerEventHandler);
+			serializer[4] = EventHandlerCollectionSerializer.Instance.Serialize(player.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -40,9 +40,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			var boardId = new Guid(serializer[1]);
 			Coordinate coordinate = CoordinateSerializer.Instance.Deserialize(serializer[2]);
 			Character character = CharacterSerializer.Instance.Deserialize(serializer[3]);
-			IEventHandler<ActorInstanceTouchedPlayerEvent> actorInstanceTouchedPlayerEventHandler = EventHandlerSerializer.Instance.Deserialize<ActorInstanceTouchedPlayerEvent>(serializer[4]);
+			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[4]);
 
-			return new Player(id, boardId, coordinate, character, actorInstanceTouchedPlayerEventHandler);
+			return new Player(id, boardId, coordinate, character, eventHandlerCollection);
 		}
 	}
 }

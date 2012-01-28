@@ -40,18 +40,11 @@ namespace TextAdventure.WindowsGame.World
 			_logRendererState.EnqueueEventRaisingLogEntry(_worldTime.Total, @event);
 		}
 
-		public void EventRaised(Event @event)
+		public void EventRaised(Event @event, EventResult result)
 		{
 			@event.ThrowIfNull("event");
-		}
 
-		public void EventHandled<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event, EventResult result)
-			where TEvent : Event
-		{
-			@event.ThrowIfNull("event");
-			eventHandler.ThrowIfNull("eventHandler");
-
-			_logRendererState.EnqueueEventHandledLogEntry(_worldTime.Total, eventHandler, @event, result);
+			_logRendererState.EnqueueEventRaisedLogEntry(_worldTime.Total, @event, result);
 		}
 	}
 }

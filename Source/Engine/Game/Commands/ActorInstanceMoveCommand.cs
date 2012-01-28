@@ -41,7 +41,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 			_destinationCoordinate = ModifyCoordinate(actorCoordinate.X, actorCoordinate.Y);
 
-			if (context.RaiseEvent(_actorInstance.ActorInstanceMovedEventHandler, new ActorInstanceMovedEvent(_actorInstance, _destinationCoordinate.Value)) == EventResult.Canceled)
+			if (context.RaiseEvent(_actorInstance.OnMoved, new ActorInstanceMovedEvent(_actorInstance, _destinationCoordinate.Value)) == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
@@ -66,7 +66,7 @@ namespace TextAdventure.Engine.Game.Commands
 			{
 				if (touchDirection != null)
 				{
-					context.RaiseEvent(targetActorInstance.ActorInstanceTouchedActorInstanceEventHandler, new ActorInstanceTouchedActorInstanceEvent(_actorInstance, targetActorInstance, touchDirection.Value));
+					context.RaiseEvent(targetActorInstance.OnTouchedByActorInstance, new ActorInstanceTouchedActorInstanceEvent(_actorInstance, targetActorInstance, touchDirection.Value));
 				}
 
 				return CommandResult.Failed;
@@ -75,7 +75,7 @@ namespace TextAdventure.Engine.Game.Commands
 			{
 				if (touchDirection != null)
 				{
-					context.RaiseEvent(context.Player.ActorInstanceTouchedPlayerEventHandler, new ActorInstanceTouchedPlayerEvent(_actorInstance, context.Player, touchDirection.Value));
+					context.RaiseEvent(context.Player.OnTouchedByActorInstance, new ActorInstanceTouchedPlayerEvent(_actorInstance, context.Player, touchDirection.Value));
 				}
 
 				return CommandResult.Failed;

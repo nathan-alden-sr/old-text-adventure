@@ -6,6 +6,7 @@ using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Samples.Factories;
 using TextAdventure.Samples.Introduction.Actors;
@@ -26,8 +27,28 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static readonly Size _layerSize = new Size(17, 12);
 
 		public BoardsBoard()
-			: base(BoardId, "Boards", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits(), new BoardEnteredEventHandler(), new BoardExitedEventHandler())
+			: base(BoardId, "Boards", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
 		{
+		}
+
+		protected override EventResult OnEntered(EventContext context, BoardEnteredEvent @event)
+		{
+			Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
+			StartTimerCommand command = Commands.StartTimer(timer);
+
+			context.EnqueueCommand(command);
+
+			return base.OnEntered(context, @event);
+		}
+
+		protected override EventResult OnExited(EventContext context, BoardExitedEvent @event)
+		{
+			Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
+			StopTimerCommand command = Commands.StopTimer(timer);
+
+			context.EnqueueCommand(command);
+
+			return base.OnExited(context, @event);
 		}
 
 		private static SpriteLayer GetBackgroundLayer()
@@ -62,10 +83,9 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			for (int i = 0; i < 5; i++)
 			{
-				ActorInstance actorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
-					boardsActor,
+				ActorInstance actorInstance = boardsActor.CreateActorInstance(
 					new Coordinate(_layerOriginCoordinate.X + (i * 3) + 1, _layerOriginCoordinate.Y + i + 1),
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedBoardsActorInstanceEventHandler());
+					new EventHandlerCollection(new PlayerTouchedBoardsActorInstanceEventHandler()));
 
 				actorInstances.Add(actorInstance);
 			}
@@ -79,31 +99,9 @@ namespace TextAdventure.Samples.Introduction.Boards
 			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Right, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[1]);
 		}
 
-		private new class BoardEnteredEventHandler : Engine.Game.Events.EventHandler<BoardEnteredEvent>
-		{
-			public override void HandleEvent(EventContext context, BoardEnteredEvent @event)
-			{
-				Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
-				StartTimerCommand command = Commands.StartTimer(timer);
-
-				context.EnqueueCommand(command);
-			}
-		}
-
-		private new class BoardExitedEventHandler : Engine.Game.Events.EventHandler<BoardExitedEvent>
-		{
-			public override void HandleEvent(EventContext context, BoardExitedEvent @event)
-			{
-				Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
-				StopTimerCommand command = Commands.StopTimer(timer);
-
-				context.EnqueueCommand(command);
-			}
-		}
-
 		private class PlayerTouchedBoardsActorInstanceEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
@@ -119,6 +117,8 @@ namespace TextAdventure.Samples.Introduction.Boards
 					.Text(indent1, "      - Player lives here also");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
+
+				return EventResult.Complete;
 			}
 		}
 	}

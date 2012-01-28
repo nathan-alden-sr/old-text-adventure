@@ -4,13 +4,14 @@ using Junior.Common;
 
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class Player : IUnique
 	{
-		private readonly IEventHandler<ActorInstanceTouchedPlayerEvent> _actorInstanceTouchedPlayerEventHandler;
 		private readonly Character _character;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 
 		public Player(
@@ -18,15 +19,15 @@ namespace TextAdventure.Engine.Objects
 			Guid boardId,
 			Coordinate coordinate,
 			Character character,
-			IEventHandler<ActorInstanceTouchedPlayerEvent> actorInstanceTouchedPlayerEventHandler = null)
+			EventHandlerCollection eventHandlerCollection = null)
 		{
 			character.ThrowIfNull("character");
 
 			_id = id;
 			BoardId = boardId;
 			_character = character;
+			_eventHandlerCollection = eventHandlerCollection;
 			Coordinate = coordinate;
-			_actorInstanceTouchedPlayerEventHandler = actorInstanceTouchedPlayerEventHandler;
 		}
 
 		public Guid BoardId
@@ -49,11 +50,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<ActorInstanceTouchedPlayerEvent> ActorInstanceTouchedPlayerEventHandler
+		protected internal EventHandlerCollection EventHandlerCollection
 		{
 			get
 			{
-				return _actorInstanceTouchedPlayerEventHandler;
+				return _eventHandlerCollection;
 			}
 		}
 
@@ -81,6 +82,11 @@ namespace TextAdventure.Engine.Objects
 			Coordinate = newCoordinate;
 
 			return true;
+		}
+
+		protected internal virtual EventResult OnTouchedByActorInstance(EventContext context, ActorInstanceTouchedPlayerEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

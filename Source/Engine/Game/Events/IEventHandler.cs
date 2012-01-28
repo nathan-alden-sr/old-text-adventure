@@ -1,8 +1,18 @@
+using TextAdventure.Engine.Game.World;
+
 namespace TextAdventure.Engine.Game.Events
 {
-	public interface IEventHandler<in TEvent> : ILoggable
+	public interface IEventHandler
+	{
+		string EventHandlerTypeName
+		{
+			get;
+		}
+	}
+
+	public interface IEventHandler<in TEvent> : IEventHandler
 		where TEvent : Event
 	{
-		void HandleEvent(EventContext context, TEvent @event);
+		EventResult HandleEvent(EventContext context, TEvent @event);
 	}
 }

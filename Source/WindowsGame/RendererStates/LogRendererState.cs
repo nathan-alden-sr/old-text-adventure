@@ -17,11 +17,17 @@ namespace TextAdventure.WindowsGame.RendererStates
 		private readonly Queue<LogEntry> _logEntries = new Queue<LogEntry>();
 		private bool _visible;
 
+		public bool ShowRaisingEvents
+		{
+			get;
+			set;
+		}
+
 		public bool Visible
 		{
 			get
 			{
-				return _visible && _logEntries.Any();
+				return _visible && GetFilteredLogEntries().Any();
 			}
 			set
 			{
@@ -53,20 +59,16 @@ namespace TextAdventure.WindowsGame.RendererStates
 			set;
 		}
 
-		public IEnumerable<LogEntry> LogEntries
+		public IEnumerable<LogEntry> GetFilteredLogEntries()
 		{
-			get
-			{
-				return _logEntries;
-			}
+			return ShowRaisingEvents ? _logEntries : _logEntries.Where(arg => arg.EntryType != LogEntryType.EventRaising);
 		}
 
 		public void DequeueOldLogEntries(IXnaGameTime gameTime)
 		{
 			gameTime.ThrowIfNull("gameTime");
 
-			while (_logEntries.Count + _logEntries.Sum(arg => arg.Details.Count()) > MaximumVisibleLogLines ||
-			       (_logEntries.Count + _logEntries.Sum(arg => arg.Details.Count()) > 0 && gameTime.TotalGameTime - _logEntries.Peek().LoggedTotalWorldTime > LogEntryLifetime))
+			while (_logEntries.Any() && gameTime.TotalGameTime - _logEntries.Peek().LoggedTotalWorldTime > LogEntryLifetime)
 			{
 				_logEntries.Dequeue();
 			}
@@ -108,13 +110,17 @@ namespace TextAdventure.WindowsGame.RendererStates
 			EnqueueLogEntry(entry);
 		}
 
-		public void EnqueueEventHandledLogEntry<TEvent>(TimeSpan loggedTotalWorldTime, IEventHandler<TEvent> eventHandler, TEvent @event, EventResult result)
+		public void EnqueueEventRaisedLogEntry<TEvent>(TimeSpan loggedTotalWorldTime, TEvent @event, EventResult result)
 			where TEvent : Event
 		{
 			@event.ThrowIfNull("event");
-			eventHandler.ThrowIfNull("eventHandler");
 
-			var entry = new LogEntry(loggedTotalWorldTime, eventHandler, result == EventResult.Complete ? LogEntryType.EventComplete : LogEntryType.EventCanceled, LogEntryLifetime);
+			if (result == EventResult.None)
+			{
+				return;
+			}
+
+			var entry = new LogEntry(loggedTotalWorldTime, @event, result == EventResult.Complete ? LogEntryType.EventComplete : LogEntryType.EventCanceled, LogEntryLifetime);
 
 			EnqueueLogEntry(entry);
 		}
@@ -126,7 +132,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 
 		private void EnqueueLogEntry(LogEntry entry)
 		{
-			DequeueIfFull();
+			DequeueIfFull(1 + entry.Details.Count());
 
 			if (LogEntryLifetime > TimeSpan.Zero)
 			{
@@ -134,11 +140,14 @@ namespace TextAdventure.WindowsGame.RendererStates
 			}
 		}
 
-		private void DequeueIfFull()
+		private void DequeueIfFull(int newLines)
 		{
-			if (_logEntries.Count == MaximumVisibleLogLines)
+			LogEntry[] filteredLogEntries = GetFilteredLogEntries().ToArray();
+
+			while (filteredLogEntries.Length + filteredLogEntries.Sum(arg => arg.Details.Count()) + newLines >= MaximumVisibleLogLines)
 			{
 				_logEntries.Dequeue();
+				filteredLogEntries = GetFilteredLogEntries().ToArray();
 			}
 		}
 	}

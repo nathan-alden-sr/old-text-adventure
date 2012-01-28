@@ -9,28 +9,28 @@ namespace TextAdventure.Engine.Game.Messages
 {
 	public class MessageAnswerBuilder
 	{
-		private readonly IEventHandler<MessageAnswerSelectedEvent> _answerSelectedEventHandler;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 		private readonly List<IMessagePart> _parts = new List<IMessagePart>();
 		private readonly string _text;
 
-		public MessageAnswerBuilder(string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
-			: this(Guid.NewGuid(), text, answerSelectedEventHandler)
+		public MessageAnswerBuilder(string text, EventHandlerCollection eventHandlerCollection = null)
+			: this(Guid.NewGuid(), text, eventHandlerCollection)
 		{
 		}
 
-		public MessageAnswerBuilder(Guid id, string text, IEventHandler<MessageAnswerSelectedEvent> answerSelectedEventHandler = null)
+		public MessageAnswerBuilder(Guid id, string text, EventHandlerCollection eventHandlerCollection = null)
 		{
 			_id = id;
 			_text = text;
-			_answerSelectedEventHandler = answerSelectedEventHandler;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
 		public MessageAnswer MessageAnswer
 		{
 			get
 			{
-				return new MessageAnswer(_id, _text, _parts, _answerSelectedEventHandler);
+				return new MessageAnswer(_id, _text, _parts, _eventHandlerCollection);
 			}
 		}
 

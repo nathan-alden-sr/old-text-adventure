@@ -37,14 +37,14 @@ namespace TextAdventure.Engine.Game.Commands
 
 			Board oldBoard = context.CurrentBoard;
 
-			if (context.RaiseEvent(oldBoard.BoardExitedEventHandler, new BoardExitedEvent(oldBoard, _destinationBoard)) == EventResult.Canceled)
+			if (context.RaiseEvent(oldBoard.OnExited, new BoardExitedEvent(oldBoard, _destinationBoard)) == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
 
 			CommandResult result = context.Player.ChangeLocation(_destinationBoard, _playerCoordinate) ? CommandResult.Succeeded : CommandResult.Failed;
 
-			context.RaiseEvent(_destinationBoard.BoardEnteredEventHandler, new BoardEnteredEvent(oldBoard, _destinationBoard));
+			context.RaiseEvent(_destinationBoard.OnEntered, new BoardEnteredEvent(oldBoard, _destinationBoard));
 
 			return result;
 		}

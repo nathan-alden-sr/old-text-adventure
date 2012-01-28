@@ -28,7 +28,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			serializer[3] = BitConverter.GetBytes(timer.Interval.Ticks);
 			serializer[4] = Encoding.UTF8.GetBytes(timer.State.ToString());
 			serializer[5] = BitConverter.GetBytes(timer.ElapsedTime.Ticks);
-			serializer[6] = EventHandlerSerializer.Instance.Serialize(timer.TimerElapsedEventHandler);
+			serializer[6] = EventHandlerCollectionSerializer.Instance.Serialize(timer.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -44,9 +44,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			TimeSpan interval = TimeSpan.FromTicks(BitConverter.ToInt64(serializer[3], 0));
 			TimerState state = Enum<TimerState>.Parse(Encoding.UTF8.GetString(serializer[4]));
 			TimeSpan elapsedTime = TimeSpan.FromTicks(BitConverter.ToInt64(serializer[5], 0));
-			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = EventHandlerSerializer.Instance.Deserialize<TimerElapsedEvent>(serializer[6]);
+			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[6]);
 
-			return new Timer(id, name, description, interval, state, elapsedTime, timerElapsedEventHandler);
+			return new Timer(id, name, description, interval, state, elapsedTime, eventHandlerCollection);
 		}
 	}
 }

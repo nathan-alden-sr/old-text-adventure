@@ -6,6 +6,7 @@ using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 using TextAdventure.Samples.Factories;
 using TextAdventure.Samples.Introduction.Actors;
@@ -69,19 +70,17 @@ namespace TextAdventure.Samples.Introduction.Boards
 			for (int x = _layerOriginCoordinate.X + 1; x < _layerOriginCoordinate.X + _layerSize.Width - 1; x++)
 			{
 				var boulderActor = new BoulderActor();
-				ActorInstance boulderActorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
-					boulderActor,
+				ActorInstance boulderActorInstance = boulderActor.CreateActorInstance(
 					new Coordinate(x, 9),
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedBoulderActorEventHandler());
+					new EventHandlerCollection(new PlayerTouchedBoulderActorEventHandler()));
 
 				actorInstances.Add(boulderActorInstance);
 			}
 
 			var actorsActor = new ActorsActor();
-			ActorInstance actorsActorInstance = ActorInstanceFactory.Instance.CreateActorInstance(
-				actorsActor,
+			ActorInstance actorsActorInstance = actorsActor.CreateActorInstance(
 				new Coordinate(2, 5),
-				playerTouchedActorInstanceEventHandler:new PlayerTouchedActorsActorEventHandler());
+				new EventHandlerCollection(new PlayerTouchedActorsActorEventHandler()));
 
 			actorInstances.Add(actorsActorInstance);
 
@@ -96,7 +95,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 		private class PlayerTouchedActorsActorCopyEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
@@ -109,6 +108,8 @@ namespace TextAdventure.Samples.Introduction.Boards
 					.Text(indent1, "  - Can also interact with other actor instances");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
+
+				return EventResult.Complete;
 			}
 		}
 
@@ -116,11 +117,11 @@ namespace TextAdventure.Samples.Introduction.Boards
 		{
 			private bool _handledOnce;
 
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				if (_handledOnce)
 				{
-					return;
+					return EventResult.Canceled;
 				}
 
 				_handledOnce = true;
@@ -135,33 +136,30 @@ namespace TextAdventure.Samples.Introduction.Boards
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
 				Actor actor = context.GetActorById(@event.Target.ActorId);
-				Guid actorInstanceId = Guid.NewGuid();
-				ActorInstanceCreateCommand actorInstanceCreateCommand = Commands.ActorInstanceCreate(
-					actor,
-					actorInstanceId,
-					ExitCoordinates[0],
-					actor.Character,
-					playerTouchedActorInstanceEventHandler:new PlayerTouchedActorsActorCopyEventHandler());
+				ActorInstance actorInstance = actor.CreateActorInstance(ExitCoordinates[0], new EventHandlerCollection(new PlayerTouchedActorsActorCopyEventHandler()));
+				ActorInstanceCreateCommand actorInstanceCreateCommand = Commands.ActorInstanceCreate(context.GetBoardById(BoardId), actorInstance);
 
 				context.EnqueueCommand(actorInstanceCreateCommand);
 
 				ChainedCommand chainedCommand = Commands
 					.Chain(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.Contextual(arg => Commands.ActorInstanceMoveDown(arg.GetActorInstanceById(actorInstanceId)))
+					     	.ActorInstanceMoveDown(actorInstance)
 					     	.Repeat(TimeSpan.FromMilliseconds(200), 2))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.Contextual(arg => Commands.ActorInstanceMoveRight(arg.GetActorInstanceById(actorInstanceId)))
+					     	.ActorInstanceMoveRight(actorInstance)
 					     	.Repeat(TimeSpan.FromMilliseconds(200), 5));
 
 				context.EnqueueCommand(chainedCommand);
+
+				return EventResult.Complete;
 			}
 		}
 
 		private class PlayerTouchedBoulderActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
 		{
-			public override void HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
 				switch (@event.TouchDirection)
 				{
@@ -178,6 +176,8 @@ namespace TextAdventure.Samples.Introduction.Boards
 						context.ExecuteCommand(Commands.ActorInstanceMoveLeft(@event.Target));
 						break;
 				}
+
+				return EventResult.Complete;
 			}
 		}
 	}

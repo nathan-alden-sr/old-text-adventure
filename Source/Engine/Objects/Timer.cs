@@ -3,14 +3,15 @@
 using Junior.Common;
 
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class Timer : INamedObject, IDescribedObject
 	{
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 		private readonly TimeSpan _interval;
-		private readonly IEventHandler<TimerElapsedEvent> _timerElapsedEventHandler;
 		private string _description;
 		private string _name;
 
@@ -19,8 +20,8 @@ namespace TextAdventure.Engine.Objects
 			string name,
 			string description,
 			TimeSpan interval,
-			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = null)
-			: this(id, name, description, interval, TimerState.Stopped, TimeSpan.Zero, timerElapsedEventHandler)
+			EventHandlerCollection eventHandlers = null)
+			: this(id, name, description, interval, TimerState.Stopped, TimeSpan.Zero, eventHandlers)
 		{
 		}
 
@@ -31,7 +32,7 @@ namespace TextAdventure.Engine.Objects
 			TimeSpan interval,
 			TimerState state,
 			TimeSpan elapsedTime,
-			IEventHandler<TimerElapsedEvent> timerElapsedEventHandler = null)
+			EventHandlerCollection eventHandlerCollection = null)
 		{
 			name.ThrowIfNull("name");
 			description.ThrowIfNull("description");
@@ -44,9 +45,9 @@ namespace TextAdventure.Engine.Objects
 			Name = name;
 			Description = description;
 			_interval = interval;
+			_eventHandlerCollection = eventHandlerCollection;
 			State = state;
 			ElapsedTime = elapsedTime;
-			_timerElapsedEventHandler = timerElapsedEventHandler;
 		}
 
 		public TimeSpan Interval
@@ -77,11 +78,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<TimerElapsedEvent> TimerElapsedEventHandler
+		protected internal EventHandlerCollection EventHandlerCollection
 		{
 			get
 			{
-				return _timerElapsedEventHandler;
+				return _eventHandlerCollection;
 			}
 		}
 
@@ -167,6 +168,11 @@ namespace TextAdventure.Engine.Objects
 			}
 
 			ElapsedTime += elapsedTime;
+		}
+
+		protected internal virtual EventResult OnElapsed(EventContext context, TimerElapsedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

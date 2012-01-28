@@ -6,6 +6,7 @@ using Junior.Common;
 
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
@@ -14,8 +15,7 @@ namespace TextAdventure.Engine.Objects
 		private static readonly Random _random = new Random();
 		private readonly ActorInstanceLayer _actorInstanceLayer;
 		private readonly SpriteLayer _backgroundLayer;
-		private readonly IEventHandler<BoardEnteredEvent> _boardEnteredEventHandler;
-		private readonly IEventHandler<BoardExitedEvent> _boardExitedEventHandler;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly IEnumerable<BoardExit> _exits;
 		private readonly SpriteLayer _foregroundLayer;
 		private readonly Guid _id;
@@ -32,8 +32,7 @@ namespace TextAdventure.Engine.Objects
 			SpriteLayer foregroundLayer,
 			ActorInstanceLayer actorInstanceLayer,
 			IEnumerable<BoardExit> exits,
-			IEventHandler<BoardEnteredEvent> boardEnteredEventHandler = null,
-			IEventHandler<BoardExitedEvent> boardExitedEventHandler = null)
+			EventHandlerCollection eventHandlerCollection = null)
 		{
 			name.ThrowIfNull("name");
 			description.ThrowIfNull("description");
@@ -50,8 +49,7 @@ namespace TextAdventure.Engine.Objects
 			_foregroundLayer = foregroundLayer;
 			_actorInstanceLayer = actorInstanceLayer;
 			_exits = exits;
-			_boardEnteredEventHandler = boardEnteredEventHandler;
-			_boardExitedEventHandler = boardExitedEventHandler;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
 		public SpriteLayer BackgroundLayer
@@ -94,19 +92,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<BoardEnteredEvent> BoardEnteredEventHandler
+		protected internal EventHandlerCollection EventHandlerCollection
 		{
 			get
 			{
-				return _boardEnteredEventHandler;
-			}
-		}
-
-		public IEventHandler<BoardExitedEvent> BoardExitedEventHandler
-		{
-			get
-			{
-				return _boardExitedEventHandler;
+				return _eventHandlerCollection;
 			}
 		}
 
@@ -159,6 +149,16 @@ namespace TextAdventure.Engine.Objects
 			int index = _random.Next(0, emptyCoordinates.Length);
 
 			return emptyCoordinates[index];
+		}
+
+		protected internal virtual EventResult OnEntered(EventContext context, BoardEnteredEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnExited(EventContext context, BoardExitedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

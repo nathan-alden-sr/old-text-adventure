@@ -42,8 +42,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			}
 
 			serializer[7] = boardExitSerializer.Serialize();
-			serializer[8] = EventHandlerSerializer.Instance.Serialize(board.BoardEnteredEventHandler);
-			serializer[9] = EventHandlerSerializer.Instance.Serialize(board.BoardExitedEventHandler);
+			serializer[8] = EventHandlerCollectionSerializer.Instance.Serialize(board.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -62,10 +61,9 @@ namespace TextAdventure.Engine.Serializers.Compact
 			ActorInstanceLayer actorInstanceLayer = ActorInstanceLayerSerializer.Instance.Deserialize(serializer[6]);
 			var boardExitSerializer = new CompactSerializer(serializer[7]);
 			IEnumerable<BoardExit> exits = boardExitSerializer.FieldIndices.Select(arg => BoardExitSerializer.Instance.Deserialize(boardExitSerializer[arg]));
-			IEventHandler<BoardEnteredEvent> boardEnteredEventHandler = EventHandlerSerializer.Instance.Deserialize<BoardEnteredEvent>(serializer[8]);
-			IEventHandler<BoardExitedEvent> boardExitedEventHandler = EventHandlerSerializer.Instance.Deserialize<BoardExitedEvent>(serializer[9]);
+			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[8]);
 
-			return new Board(id, name, description, size, backgroundLayer, foregroundLayer, actorInstanceLayer, exits, boardEnteredEventHandler, boardExitedEventHandler);
+			return new Board(id, name, description, size, backgroundLayer, foregroundLayer, actorInstanceLayer, exits, eventHandlerCollection);
 		}
 	}
 }

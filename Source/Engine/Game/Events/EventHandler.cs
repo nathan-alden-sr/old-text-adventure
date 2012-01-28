@@ -1,40 +1,22 @@
-using System.Collections.Generic;
+﻿using System;
+
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Game.Events
 {
-	public abstract class EventHandler : ILoggable
-	{
-		public virtual string Title
-		{
-			get
-			{
-				string typeName = GetType().Name;
-
-				if (typeName.EndsWith("EventHandler"))
-				{
-					typeName = typeName.Substring(0, typeName.Length - 12);
-				}
-				else if (typeName.EndsWith("Handler"))
-				{
-					typeName = typeName.Substring(0, typeName.Length - 7);
-				}
-
-				return typeName;
-			}
-		}
-
-		public virtual IEnumerable<string> Details
-		{
-			get
-			{
-				yield break;
-			}
-		}
-	}
-
-	public abstract class EventHandler<TEvent> : EventHandler, IEventHandler<TEvent>
+	public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
 		where TEvent : Event
 	{
-		public abstract void HandleEvent(EventContext context, TEvent @event);
+		public string EventHandlerTypeName
+		{
+			get
+			{
+				Type type = GetType();
+
+				return String.Format("{0}, {1}", type.FullName, type.Assembly.GetName().Name);
+			}
+		}
+
+		public abstract EventResult HandleEvent(EventContext context, TEvent @event);
 	}
 }

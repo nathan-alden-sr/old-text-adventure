@@ -4,7 +4,6 @@ using System.Xml.Linq;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Serializers.Xml
@@ -28,8 +27,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				SpriteLayerSerializer.Instance.Serialize(board.ForegroundLayer, "foregroundLayer"),
 				ActorInstanceLayerSerializer.Instance.Serialize(board.ActorInstanceLayer),
 				board.Exits.Select(arg => BoardExitSerializer.Instance.Serialize(arg)),
-				board.BoardEnteredEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "boardEnteredEventHandler")),
-				board.BoardExitedEventHandler.IfNotNull(arg => EventHandlerSerializer.Instance.Serialize(arg, "boardExitedEventHandler")),
+				EventHandlerCollectionSerializer.Instance.Serialize(board.EventHandlerCollection),
 				new XAttribute("id", board.Id),
 				new XAttribute("name", board.Name),
 				new XAttribute("description", board.Description),
@@ -49,8 +47,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				SpriteLayerSerializer.Instance.Deserialize(boardElement.Element("foregroundLayer")),
 				ActorInstanceLayerSerializer.Instance.Deserialize(boardElement.Element("actorInstanceLayer")),
 				boardElement.Elements("boardExit").Select(BoardExitSerializer.Instance.Deserialize),
-				boardElement.Element("boardEnteredEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<BoardEnteredEvent>),
-				boardElement.Element("boardExitedEventHandler").IfNotNull(EventHandlerSerializer.Instance.Deserialize<BoardExitedEvent>));
+				EventHandlerCollectionSerializer.Instance.Deserialize(boardElement));
 		}
 	}
 }

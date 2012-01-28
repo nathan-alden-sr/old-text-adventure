@@ -4,18 +4,15 @@ using Junior.Common;
 
 using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class ActorInstance : Sprite, INamedObject, IDescribedObject
 	{
 		private readonly Guid _actorId;
-		private readonly IEventHandler<ActorInstanceCreatedEvent> _actorInstanceCreatedEventHandler;
-		private readonly IEventHandler<ActorInstanceDestroyedEvent> _actorInstanceDestroyedEventHandler;
-		private readonly IEventHandler<ActorInstanceMovedEvent> _actorInstanceMovedEventHandler;
-		private readonly IEventHandler<ActorInstanceTouchedActorInstanceEvent> _actorInstanceTouchedActorInstanceEventHandler;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
-		private readonly IEventHandler<PlayerTouchedActorInstanceEvent> _playerTouchedActorInstanceEventHandler;
 		private string _description;
 		private string _name;
 
@@ -26,11 +23,7 @@ namespace TextAdventure.Engine.Objects
 			Guid actorId,
 			Coordinate coordinate,
 			Character character,
-			IEventHandler<ActorInstanceCreatedEvent> actorInstanceCreatedEventHandler = null,
-			IEventHandler<ActorInstanceDestroyedEvent> actorInstanceDestroyedEventHandler = null,
-			IEventHandler<ActorInstanceTouchedActorInstanceEvent> actorInstanceTouchedActorInstanceEventHandler = null,
-			IEventHandler<PlayerTouchedActorInstanceEvent> playerTouchedActorInstanceEventHandler = null,
-			IEventHandler<ActorInstanceMovedEvent> actorInstanceMovedEventHandler = null)
+			EventHandlerCollection eventHandlerCollection = null)
 			: base(coordinate, character)
 		{
 			name.ThrowIfNull("name");
@@ -40,11 +33,7 @@ namespace TextAdventure.Engine.Objects
 			Name = name;
 			Description = description;
 			_actorId = actorId;
-			_actorInstanceCreatedEventHandler = actorInstanceCreatedEventHandler;
-			_actorInstanceDestroyedEventHandler = actorInstanceDestroyedEventHandler;
-			_actorInstanceTouchedActorInstanceEventHandler = actorInstanceTouchedActorInstanceEventHandler;
-			_playerTouchedActorInstanceEventHandler = playerTouchedActorInstanceEventHandler;
-			_actorInstanceMovedEventHandler = actorInstanceMovedEventHandler;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
 		public Guid ActorId
@@ -55,43 +44,11 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public IEventHandler<ActorInstanceCreatedEvent> ActorInstanceCreatedEventHandler
+		protected internal EventHandlerCollection EventHandlerCollection
 		{
 			get
 			{
-				return _actorInstanceCreatedEventHandler;
-			}
-		}
-
-		public IEventHandler<ActorInstanceDestroyedEvent> ActorInstanceDestroyedEventHandler
-		{
-			get
-			{
-				return _actorInstanceDestroyedEventHandler;
-			}
-		}
-
-		public IEventHandler<ActorInstanceTouchedActorInstanceEvent> ActorInstanceTouchedActorInstanceEventHandler
-		{
-			get
-			{
-				return _actorInstanceTouchedActorInstanceEventHandler;
-			}
-		}
-
-		public IEventHandler<PlayerTouchedActorInstanceEvent> PlayerTouchedActorInstanceEventHandler
-		{
-			get
-			{
-				return _playerTouchedActorInstanceEventHandler;
-			}
-		}
-
-		public IEventHandler<ActorInstanceMovedEvent> ActorInstanceMovedEventHandler
-		{
-			get
-			{
-				return _actorInstanceMovedEventHandler;
+				return _eventHandlerCollection;
 			}
 		}
 
@@ -154,6 +111,31 @@ namespace TextAdventure.Engine.Objects
 			Coordinate = newCoordinate;
 
 			return true;
+		}
+
+		protected internal virtual EventResult OnCreated(EventContext context, ActorInstanceCreatedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnDestroyed(EventContext context, ActorInstanceDestroyedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnMoved(EventContext context, ActorInstanceMovedEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnTouchedByActorInstance(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnTouchedByPlayer(EventContext context, PlayerTouchedActorInstanceEvent @event)
+		{
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

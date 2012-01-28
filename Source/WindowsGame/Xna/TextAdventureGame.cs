@@ -165,7 +165,8 @@ namespace TextAdventure.WindowsGame.Xna
 			                    		MaximumVisibleLogLines = _logConfiguration.MaximumVisibleLogLines,
 			                    		MinimumWindowWidth = _logConfiguration.MinimumWindowWidth,
 			                    		LogEntryLifetime = _logConfiguration.LogEntryLifetime,
-			                    		ShowTimestamps = _logConfiguration.ShowTimestamps
+			                    		ShowTimestamps = _logConfiguration.ShowTimestamps,
+										ShowRaisingEvents = _logConfiguration.ShowRaisingEvents
 			                    	};
 			_worldTimeRendererState = new WorldTimeRendererState
 			                          	{
@@ -239,7 +240,7 @@ namespace TextAdventure.WindowsGame.Xna
 		private void ProcessMessage(TimeSpan totalGameTime)
 		{
 			bool processingMessage = _messageRenderer != null;
-			bool messageAvailable = !_worldInstance.WorldTime.Paused && _worldInstance.MessageQueue.Count > 0;
+			bool messageAvailable = !_worldInstance.WorldTime.Paused && _worldInstance.MessageMananger.Count > 0;
 
 			if (processingMessage || !messageAvailable)
 			{
@@ -248,7 +249,7 @@ namespace TextAdventure.WindowsGame.Xna
 
 			_messageRendererState = new MessageRendererState
 			                        	{
-			                        		Message = _worldInstance.MessageQueue.DequeueMessage()
+			                        		Message = _worldInstance.MessageMananger.DequeueMessage()
 			                        	};
 			_messageRenderer = new MessageRenderer(_messageRendererState);
 			_messageFadeInAndScaleUpdater = new MessageFadeInAndScaleUpdater(_messageRendererState, totalGameTime, MessageOpened);

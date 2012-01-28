@@ -4,13 +4,21 @@ using System.Linq;
 
 using Junior.Common;
 
+using TextAdventure.Engine.Game.Events;
+using TextAdventure.Engine.Game.World;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Messages
 {
-	public class MessageQueue
+	public class MessageMananger
 	{
 		private readonly List<IMessage> _list = new List<IMessage>();
+		private readonly WorldInstance _worldInstance;
+
+		public MessageMananger(WorldInstance worldInstance)
+		{
+			_worldInstance = worldInstance;
+		}
 
 		public int Count
 		{
@@ -49,6 +57,15 @@ namespace TextAdventure.Engine.Game.Messages
 			}
 
 			return null;
+		}
+
+		public void SelectAnswer(MessageAnswer answer)
+		{
+			_worldInstance.RaiseEvent(answer.OnSelected, new MessageAnswerSelectedEvent(answer));
+			if (answer.Parts.Any())
+			{
+				EnqueueMessage(answer, MessageQueuePosition.First);
+			}
 		}
 	}
 }

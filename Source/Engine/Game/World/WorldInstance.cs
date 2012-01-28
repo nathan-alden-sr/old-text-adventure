@@ -14,7 +14,7 @@ namespace TextAdventure.Engine.Game.World
 	{
 		private readonly DelegateDictionary<Guid, Board> _boardsById = new DelegateDictionary<Guid, Board>();
 		private readonly Dictionary<Board, CommandQueue> _commandQueuesByBoard = new Dictionary<Board, CommandQueue>();
-		private readonly MessageQueue _messageQueue = new MessageQueue();
+		private readonly MessageMananger _messageMananger;
 		private readonly IMultimediaPlayer _multimediaPlayer;
 		private readonly Player _player;
 		private readonly PlayerInput _playerInput = new PlayerInput();
@@ -35,6 +35,7 @@ namespace TextAdventure.Engine.Game.World
 			_worldTime = worldTime;
 			_worldObserver = worldObserver;
 			_multimediaPlayer = multimediaPlayer;
+			_messageMananger = new MessageMananger(this);
 
 			PopulateCommandQueues(world, worldObserver);
 		}
@@ -71,11 +72,11 @@ namespace TextAdventure.Engine.Game.World
 			}
 		}
 
-		public MessageQueue MessageQueue
+		public MessageMananger MessageMananger
 		{
 			get
 			{
-				return _messageQueue;
+				return _messageMananger;
 			}
 		}
 
@@ -110,37 +111,41 @@ namespace TextAdventure.Engine.Game.World
 			_commandQueuesByBoard[CurrentBoard].ProcessQueue();
 		}
 
+		protected internal EventResult RaiseEvent<TEvent>(Func<EventContext, TEvent, EventResult> eventDelegate, TEvent @event)
+			where TEvent : Event
+		{
+			eventDelegate.ThrowIfNull("eventDelegate");
+			@event.ThrowIfNull("event");
+
+			_worldObserver.EventRaising(@event);
+
+			var eventContext = new EventContext(this, _commandQueuesByBoard[CurrentBoard]);
+			EventResult result = eventDelegate(eventContext, @event);
+
+			_worldObserver.EventRaised(@event, result);
+
+			return result;
+		}
+
 		private void UpdateTimers()
 		{
 			foreach (Timer timer in _world.Timers)
 			{
 				timer.Update(_worldTime.Elapsed);
 
-				if (timer.State == TimerState.Running && timer.HasElapsed)
+				bool elapsed = timer.State == TimerState.Running && timer.HasElapsed;
+
+				if (!elapsed)
 				{
-					timer.Stop();
-					RaiseEvent(timer.TimerElapsedEventHandler, new TimerElapsedEvent(timer));
+					continue;
 				}
+
+				timer.Stop();
+
+				Timer tempTimer = timer;
+
+				RaiseEvent(tempTimer.OnElapsed, new TimerElapsedEvent(timer));
 			}
-		}
-
-		public EventResult RaiseEvent<TEvent>(IEventHandler<TEvent> eventHandler, TEvent @event)
-			where TEvent : Event
-		{
-			@event.ThrowIfNull("event");
-
-			if (eventHandler == null)
-			{
-				return EventResult.Complete;
-			}
-
-			var eventContext = new EventContext(this, _commandQueuesByBoard[CurrentBoard]);
-
-			eventHandler.HandleEvent(eventContext, @event);
-
-			_worldObserver.EventHandled(eventHandler, @event, eventContext.Cancel ? EventResult.Canceled : EventResult.Complete);
-
-			return eventContext.Cancel ? EventResult.Canceled : EventResult.Complete;
 		}
 
 		private void PopulateCommandQueues(Objects.World world, IWorldObserver worldObserver)
