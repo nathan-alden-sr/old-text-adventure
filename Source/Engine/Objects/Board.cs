@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Junior.Common;
 
@@ -12,7 +11,6 @@ namespace TextAdventure.Engine.Objects
 {
 	public class Board : INamedObject, IDescribedObject
 	{
-		private static readonly Random _random = new Random();
 		private readonly ActorInstanceLayer _actorInstanceLayer;
 		private readonly SpriteLayer _backgroundLayer;
 		private readonly EventHandlerCollection _eventHandlerCollection;
@@ -141,14 +139,9 @@ namespace TextAdventure.Engine.Objects
 			return coordinate.X >= 0 && coordinate.Y >= 0 && coordinate.X < Size.Width && coordinate.Y < Size.Height;
 		}
 
-		public Coordinate GetRandomEmptyActorInstanceLayerCoordinate()
+		public bool IsCoordinateOccupied(Coordinate coordinate)
 		{
-			Coordinate[] emptyCoordinates = _foregroundLayer.EmptyTiles
-				.Intersect(_actorInstanceLayer.EmptyTiles)
-				.ToArray();
-			int index = _random.Next(0, emptyCoordinates.Length);
-
-			return emptyCoordinates[index];
+			return _foregroundLayer[coordinate] != null || _actorInstanceLayer[coordinate] != null;
 		}
 
 		protected internal virtual EventResult OnEntered(EventContext context, BoardEnteredEvent @event)

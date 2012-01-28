@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Junior.Common;
 
@@ -39,9 +40,10 @@ namespace TextAdventure.Engine.Game.Commands
 
 			Coordinate actorCoordinate = _actorInstance.Coordinate;
 
-			_destinationCoordinate = ModifyCoordinate(actorCoordinate.X, actorCoordinate.Y);
+			_destinationCoordinate = ModifyCoordinate(context.CurrentBoard, context.Player, actorCoordinate.X, actorCoordinate.Y);
 
-			if (context.RaiseEvent(_actorInstance.OnMoved, new ActorInstanceMovedEvent(_actorInstance, _destinationCoordinate.Value)) == EventResult.Canceled)
+			if (_destinationCoordinate == null ||
+			    context.RaiseEvent(_actorInstance.OnMoved, new ActorInstanceMovedEvent(_actorInstance, _destinationCoordinate.Value)) == EventResult.Canceled)
 			{
 				return CommandResult.Failed;
 			}
@@ -49,7 +51,23 @@ namespace TextAdventure.Engine.Game.Commands
 			return ProcessNewCoordinate(context, context.CurrentBoard, _destinationCoordinate.Value);
 		}
 
-		protected abstract Coordinate ModifyCoordinate(int x, int y);
+		protected abstract Coordinate? ModifyCoordinate(Board board, Player player, int x, int y);
+
+		protected static bool IsValidCoordinate(Board board, Player player, Coordinate coordinate)
+		{
+			var exitUpCoordinate = new Coordinate(coordinate.X, coordinate.Y + 1);
+			var exitDownCoordinate = new Coordinate(coordinate.X, coordinate.Y - 1);
+			var exitLeftCoordinate = new Coordinate(coordinate.X + 1, coordinate.Y);
+			var exitRightCoordinate = new Coordinate(coordinate.X - 1, coordinate.Y);
+
+			return
+				board.IsCoordinateOccupied(coordinate) ||
+				player.BoardId == board.Id && player.Coordinate == coordinate ||
+				board.Exits.Any(arg => arg.Coordinate == exitUpCoordinate && arg.Direction == BoardExitDirection.Up) ||
+				board.Exits.Any(arg => arg.Coordinate == exitDownCoordinate && arg.Direction == BoardExitDirection.Down) ||
+				board.Exits.Any(arg => arg.Coordinate == exitLeftCoordinate && arg.Direction == BoardExitDirection.Left) ||
+				board.Exits.Any(arg => arg.Coordinate == exitRightCoordinate && arg.Direction == BoardExitDirection.Right);
+		}
 
 		private CommandResult ProcessNewCoordinate(Context context, Board board, Coordinate destinationCoordinate)
 		{

@@ -44,7 +44,7 @@ namespace TextAdventure.Engine.Game.Commands
 			return new ActorInstanceMoveRightCommand(actorInstance);
 		}
 
-		public static ActorInstanceRandomMoveCommand ActorInstanceRandomMove(ActorInstance actorInstance, RandomMoveDirection directions = RandomMoveDirection.All)
+		public static ActorInstanceRandomMoveCommand ActorInstanceRandomMove(ActorInstance actorInstance, RandomMoveDirection directions = RandomMoveDirection.AnyUnoccupied)
 		{
 			return new ActorInstanceRandomMoveCommand(actorInstance, directions);
 		}

@@ -1,4 +1,6 @@
-﻿using TextAdventure.Engine.Common;
+﻿using Junior.Common;
+
+using TextAdventure.Engine.Common;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Commands
@@ -10,8 +12,11 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 		}
 
-		protected override Coordinate ModifyCoordinate(int x, int y)
+		protected override Coordinate? ModifyCoordinate(Board board, Player player, int x, int y)
 		{
+			board.ThrowIfNull("board");
+			player.ThrowIfNull("player");
+
 			return new Coordinate(x - 1, y);
 		}
 	}
