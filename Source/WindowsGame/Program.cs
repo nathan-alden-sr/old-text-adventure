@@ -45,7 +45,7 @@ namespace TextAdventure.WindowsGame
 
 		private static Engine.Objects.World GetWorld()
 		{
-			return WorldLoader.Instance.FromAssembly("TextAdventure.Samples.dll", "TextAdventure.Samples.Introduction.IntroductionWorld");
+			return WorldLoader.Instance.FromAssembly("TextAdventure.Samples.dll", "TextAdventure.Samples.Ctxna.CtxnaWorld");
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
