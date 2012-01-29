@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Common\Color.cs" />
     <Compile Include="Common\Coordinate.cs" />
+    <Compile Include="Game\Commands\ActorInstanceMoveCommandBase.cs" />
     <Compile Include="Game\Commands\ActorInstanceRandomMoveCommand.cs" />
     <Compile Include="Game\Commands\ChainedCommand.cs" />
     <Compile Include="Game\Commands\BoardChangeCommand.cs" />
@@ -60,19 +61,17 @@
     <Compile Include="Game\Commands\ActorInstanceTransportCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceCreateCommand.cs" />
     <Compile Include="Game\Commands\ContextCommand.cs" />
+    <Compile Include="Game\Commands\MoveDirection.cs" />
     <Compile Include="Game\Commands\RemoveSpriteCommand.cs" />
     <Compile Include="Game\Commands\SetSpriteCommand.cs" />
     <Compile Include="Game\Commands\StopSongCommand.cs" />
     <Compile Include="Game\Commands\PlaySongCommand.cs" />
     <Compile Include="Game\Commands\PlaySoundEffectCommand.cs" />
-    <Compile Include="Game\Commands\RestartTimerCommand.cs" />
-    <Compile Include="Game\Commands\StopTimerCommand.cs" />
     <Compile Include="Game\Commands\DelayCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceDestroyCommand.cs" />
     <Compile Include="Game\Commands\LogCommand.cs" />
     <Compile Include="Game\Commands\MessageCommand.cs" />
     <Compile Include="Game\Commands\MoveCommand.cs" />
-    <Compile Include="Game\Commands\PauseTimerCommand.cs" />
     <Compile Include="Game\Commands\PlayerResumeInputCommand.cs" />
     <Compile Include="Game\Commands\PlayerSuspendInputCommand.cs">
       <SubType>Code</SubType>
@@ -82,11 +81,11 @@
     <Compile Include="Game\Commands\RandomDelayCommand.cs" />
     <Compile Include="Game\Commands\RandomMoveDirection.cs" />
     <Compile Include="Game\Commands\RepeatCommand.cs" />
-    <Compile Include="Game\Commands\ResetTimerCommand.cs" />
     <Compile Include="Game\Commands\RetryCommand.cs" />
-    <Compile Include="Game\Commands\StartTimerCommand.cs" />
+    <Compile Include="Game\Commands\TimerAction.cs" />
     <Compile Include="Game\Commands\TotalRepeats.cs" />
     <Compile Include="Game\Commands\Volume.cs" />
+    <Compile Include="Game\Commands\PerformWorldTimerActionCommand.cs" />
     <Compile Include="Game\DetailTextFormatter.cs" />
     <Compile Include="Game\Events\ActorInstanceDestroyedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceTouchedActorInstanceEvent.cs" />
@@ -103,23 +102,15 @@
     <Compile Include="Game\Events\PlayerTouchedActorInstanceEvent.cs" />
     <Compile Include="Game\Events\EventContext.cs" />
     <Compile Include="Game\Commands\ActorInstanceMoveCommand.cs" />
-    <Compile Include="Game\Commands\ActorInstanceMoveDownCommand.cs" />
-    <Compile Include="Game\Commands\ActorInstanceMoveLeftCommand.cs" />
-    <Compile Include="Game\Commands\ActorInstanceMoveRightCommand.cs" />
-    <Compile Include="Game\Commands\ActorInstanceMoveUpCommand.cs" />
     <Compile Include="Game\Commands\NextAction.cs" />
     <Compile Include="Game\Commands\Command.cs" />
     <Compile Include="Game\Commands\CommandResult.cs" />
     <Compile Include="Game\Commands\PlayerMoveCommand.cs" />
-    <Compile Include="Game\Commands\PlayerMoveRightCommand.cs" />
-    <Compile Include="Game\Commands\PlayerMoveLeftCommand.cs" />
-    <Compile Include="Game\Commands\PlayerMoveUpCommand.cs" />
     <Compile Include="Game\Commands\TouchDirection.cs" />
     <Compile Include="Game\Events\TargetedEvent.cs" />
     <Compile Include="Game\Events\TimerElapsedEvent.cs" />
     <Compile Include="Game\ILoggable.cs" />
     <Compile Include="Game\Commands\CommandList.cs" />
-    <Compile Include="Game\Commands\PlayerMoveDownCommand.cs" />
     <Compile Include="Game\Context.cs" />
     <Compile Include="Game\Messages\MessageMananger.cs" />
     <Compile Include="Game\Messages\MessageQueuePosition.cs" />

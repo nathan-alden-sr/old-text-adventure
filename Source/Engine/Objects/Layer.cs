@@ -11,11 +11,15 @@ namespace TextAdventure.Engine.Objects
 	public abstract class Layer<T> : ILayer
 		where T : Tile
 	{
+		private readonly Guid _boardId;
 		private readonly Size _size;
 		private readonly T[,] _tiles;
 
-		protected Layer(Size size)
+		protected Layer(
+			Guid boardId,
+			Size size)
 		{
+			_boardId = boardId;
 			_size = size;
 			_tiles = new T[size.Height,size.Width];
 		}
@@ -69,6 +73,14 @@ namespace TextAdventure.Engine.Objects
 						}
 					}
 				}
+			}
+		}
+
+		public Guid BoardId
+		{
+			get
+			{
+				return _boardId;
 			}
 		}
 

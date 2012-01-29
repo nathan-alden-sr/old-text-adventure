@@ -26,7 +26,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static readonly Size _layerSize = new Size(17, 12);
 
 		public ActorsBoard()
-			: base(BoardId, "Actors", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
+			: base(BoardId, "Actors", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits().ToArray(), GetTimers().ToArray())
 		{
 		}
 
@@ -35,7 +35,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var character = new Character(Symbol.LightShade, new Color(132, 133, 32), new Color(92, 93, 23));
 			IEnumerable<Sprite> sprites = SpriteFactory.Instance.CreateArea(_layerOriginCoordinate, _layerSize, character);
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static SpriteLayer GetForegroundLayer()
@@ -60,7 +60,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static ActorInstanceLayer GetActorInstanceLayer()
@@ -71,6 +71,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 			{
 				var boulderActor = new BoulderActor();
 				ActorInstance boulderActorInstance = boulderActor.CreateActorInstance(
+					BoardId,
 					new Coordinate(x, 9),
 					new EventHandlerCollection(new PlayerTouchedBoulderActorEventHandler()));
 
@@ -79,18 +80,24 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			var actorsActor = new ActorsActor();
 			ActorInstance actorsActorInstance = actorsActor.CreateActorInstance(
+				BoardId,
 				new Coordinate(2, 5),
 				new EventHandlerCollection(new PlayerTouchedActorsActorEventHandler()));
 
 			actorInstances.Add(actorsActorInstance);
 
-			return new ActorInstanceLayer(BoardSize, actorInstances);
+			return new ActorInstanceLayer(BoardId, BoardSize, actorInstances);
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Up, ObjectsBoard.BoardId, ObjectsBoard.ExitCoordinates[1]);
 			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Down, BoardsBoard.BoardId, BoardsBoard.ExitCoordinates[0]);
+		}
+
+		private static IEnumerable<Timer> GetTimers()
+		{
+			yield break;
 		}
 
 		private class PlayerTouchedActorsActorCopyEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
@@ -119,13 +126,6 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
-				if (_handledOnce)
-				{
-					return EventResult.Canceled;
-				}
-
-				_handledOnce = true;
-
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
 				MessageBuilder messageBuilder = Message
@@ -135,8 +135,15 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
+				if (_handledOnce)
+				{
+					return EventResult.Canceled;
+				}
+
+				_handledOnce = true;
+
 				Actor actor = context.GetActorById(@event.Target.ActorId);
-				ActorInstance actorInstance = actor.CreateActorInstance(ExitCoordinates[0], new EventHandlerCollection(new PlayerTouchedActorsActorCopyEventHandler()));
+				ActorInstance actorInstance = actor.CreateActorInstance(BoardId, ExitCoordinates[0], new EventHandlerCollection(new PlayerTouchedActorsActorCopyEventHandler()));
 				ActorInstanceCreateCommand actorInstanceCreateCommand = Commands.ActorInstanceCreate(context.GetBoardById(BoardId), actorInstance);
 
 				context.EnqueueCommand(actorInstanceCreateCommand);
@@ -144,11 +151,11 @@ namespace TextAdventure.Samples.Introduction.Boards
 				ChainedCommand chainedCommand = Commands
 					.Chain(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.ActorInstanceMoveDown(actorInstance)
+					     	.ActorInstanceMove(actorInstance, MoveDirection.Down)
 					     	.Repeat(TimeSpan.FromMilliseconds(200), 2))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.ActorInstanceMoveRight(actorInstance)
+					     	.ActorInstanceMove(actorInstance, MoveDirection.Right)
 					     	.Repeat(TimeSpan.FromMilliseconds(200), 5));
 
 				context.EnqueueCommand(chainedCommand);
@@ -164,16 +171,16 @@ namespace TextAdventure.Samples.Introduction.Boards
 				switch (@event.TouchDirection)
 				{
 					case TouchDirection.FromBelow:
-						context.ExecuteCommand(Commands.ActorInstanceMoveUp(@event.Target));
+						context.ExecuteCommand(Commands.ActorInstanceMove(@event.Target, MoveDirection.Up));
 						break;
 					case TouchDirection.FromAbove:
-						context.ExecuteCommand(Commands.ActorInstanceMoveDown(@event.Target));
+						context.ExecuteCommand(Commands.ActorInstanceMove(@event.Target, MoveDirection.Down));
 						break;
 					case TouchDirection.FromLeft:
-						context.ExecuteCommand(Commands.ActorInstanceMoveRight(@event.Target));
+						context.ExecuteCommand(Commands.ActorInstanceMove(@event.Target, MoveDirection.Right));
 						break;
 					case TouchDirection.FromRight:
-						context.ExecuteCommand(Commands.ActorInstanceMoveLeft(@event.Target));
+						context.ExecuteCommand(Commands.ActorInstanceMove(@event.Target, MoveDirection.Left));
 						break;
 				}
 

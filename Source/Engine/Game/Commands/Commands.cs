@@ -24,24 +24,9 @@ namespace TextAdventure.Engine.Game.Commands
 			return new ActorInstanceDestroyCommand(actorInstance);
 		}
 
-		public static ActorInstanceMoveDownCommand ActorInstanceMoveDown(ActorInstance actorInstance)
+		public static ActorInstanceMoveCommand ActorInstanceMove(ActorInstance actorInstance, MoveDirection direction)
 		{
-			return new ActorInstanceMoveDownCommand(actorInstance);
-		}
-
-		public static ActorInstanceMoveUpCommand ActorInstanceMoveUp(ActorInstance actorInstance)
-		{
-			return new ActorInstanceMoveUpCommand(actorInstance);
-		}
-
-		public static ActorInstanceMoveLeftCommand ActorInstanceMoveLeft(ActorInstance actorInstance)
-		{
-			return new ActorInstanceMoveLeftCommand(actorInstance);
-		}
-
-		public static ActorInstanceMoveRightCommand ActorInstanceMoveRight(ActorInstance actorInstance)
-		{
-			return new ActorInstanceMoveRightCommand(actorInstance);
+			return new ActorInstanceMoveCommand(actorInstance, direction);
 		}
 
 		public static ActorInstanceRandomMoveCommand ActorInstanceRandomMove(ActorInstance actorInstance, RandomMoveDirection directions = RandomMoveDirection.AnyUnoccupied)
@@ -54,24 +39,9 @@ namespace TextAdventure.Engine.Game.Commands
 			return new ActorInstanceTransportCommand(actorInstance, coordinate);
 		}
 
-		public static PlayerMoveDownCommand PlayerMoveDown()
+		public static PlayerMoveCommand PlayerMove(MoveDirection direction)
 		{
-			return new PlayerMoveDownCommand();
-		}
-
-		public static PlayerMoveUpCommand PlayerMoveUp()
-		{
-			return new PlayerMoveUpCommand();
-		}
-
-		public static PlayerMoveLeftCommand PlayerMoveLeft()
-		{
-			return new PlayerMoveLeftCommand();
-		}
-
-		public static PlayerMoveRightCommand PlayerMoveRight()
-		{
-			return new PlayerMoveRightCommand();
+			return new PlayerMoveCommand(direction);
 		}
 
 		public static PlayerTransportCommand PlayerTransport(Coordinate coordinate)
@@ -99,29 +69,9 @@ namespace TextAdventure.Engine.Game.Commands
 			return new MessageCommand(message);
 		}
 
-		public static PauseTimerCommand PauseTimer(Timer timer)
+		public static PerformWorldTimerActionCommand PerformWorldTimerAction(Timer timer, TimerAction action)
 		{
-			return new PauseTimerCommand(timer);
-		}
-
-		public static ResetTimerCommand ResetTimer(Timer timer)
-		{
-			return new ResetTimerCommand(timer);
-		}
-
-		public static RestartTimerCommand RestartTimer(Timer timer)
-		{
-			return new RestartTimerCommand(timer);
-		}
-
-		public static StartTimerCommand StartTimer(Timer timer)
-		{
-			return new StartTimerCommand(timer);
-		}
-
-		public static StopTimerCommand StopTimer(Timer timer)
-		{
-			return new StopTimerCommand(timer);
+			return new PerformWorldTimerActionCommand(timer, action);
 		}
 
 		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect, Volume volume)

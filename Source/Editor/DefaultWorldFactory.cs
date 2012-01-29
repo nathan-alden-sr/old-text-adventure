@@ -10,7 +10,6 @@ namespace TextAdventure.Editor
 	{
 		public static readonly DefaultWorldFactory Instance = new DefaultWorldFactory();
 		private static readonly Size _boardSize = new Size(21, 11);
-		private readonly Guid _boardId = Guid.NewGuid();
 
 		private DefaultWorldFactory()
 		{
@@ -18,54 +17,57 @@ namespace TextAdventure.Editor
 
 		public World CreateWorld(string title = "Untitled")
 		{
+			Guid boardId = Guid.NewGuid();
+
 			return new World(
 				Guid.NewGuid(),
 				1,
 				title,
-				GetStartingPlayer(),
-				GetBoards(),
+				GetStartingPlayer(boardId),
+				GetBoards(boardId),
 				GetActors(),
 				GetMessages(),
-				GetTimers(),
+				GetWorldTimers(),
 				GetSoundEffects(),
 				GetSongs());
 		}
 
-		private Player GetStartingPlayer()
+		private static Player GetStartingPlayer(Guid boardId)
 		{
 			return new Player(
 				Guid.NewGuid(),
-				_boardId,
+				boardId,
 				new Coordinate(_boardSize.Width / 2, _boardSize.Height / 2),
 				new Character(2, Color.White, Color.Blue));
 		}
 
-		private static IEnumerable<Board> GetBoards()
+		private static IEnumerable<Board> GetBoards(Guid boardId)
 		{
 			yield return new Board(
-				Guid.NewGuid(),
+				boardId,
 				"Board",
 				"The default board for a new world.",
 				_boardSize,
-				GetBackgroundLayer(),
-				GetForegroundLayer(),
-				GetActorInstanceLayer(),
-				GetBoardExits());
+				GetBackgroundLayer(boardId),
+				GetForegroundLayer(boardId),
+				GetActorInstanceLayer(boardId),
+				GetBoardExits(),
+				GetBoardTimers());
 		}
 
-		private static SpriteLayer GetBackgroundLayer()
+		private static SpriteLayer GetBackgroundLayer(Guid boardId)
 		{
-			return new SpriteLayer(_boardSize, GetBackgroundLayerSprites());
+			return new SpriteLayer(boardId, _boardSize, GetBackgroundLayerSprites());
 		}
 
-		private static SpriteLayer GetForegroundLayer()
+		private static SpriteLayer GetForegroundLayer(Guid boardId)
 		{
-			return new SpriteLayer(_boardSize, GetForegroundLayerSprites());
+			return new SpriteLayer(boardId, _boardSize, GetForegroundLayerSprites());
 		}
 
-		private static ActorInstanceLayer GetActorInstanceLayer()
+		private static ActorInstanceLayer GetActorInstanceLayer(Guid boardId)
 		{
-			return new ActorInstanceLayer(_boardSize, GetActorInstanceLayerActorInstances());
+			return new ActorInstanceLayer(boardId, _boardSize, GetActorInstanceLayerActorInstances());
 		}
 
 		private static IEnumerable<Sprite> GetBackgroundLayerSprites()
@@ -116,7 +118,12 @@ namespace TextAdventure.Editor
 			yield break;
 		}
 
-		private static IEnumerable<Timer> GetTimers()
+		private static IEnumerable<Timer> GetWorldTimers()
+		{
+			yield break;
+		}
+
+		private static IEnumerable<Timer> GetBoardTimers()
 		{
 			yield break;
 		}

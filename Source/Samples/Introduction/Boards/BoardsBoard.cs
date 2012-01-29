@@ -20,35 +20,22 @@ namespace TextAdventure.Samples.Introduction.Boards
 		public static readonly Size BoardSize = new Size(17, 15);
 		public static readonly Coordinate[] ExitCoordinates = new[]
 		                                                      	{
-		                                                      		new Coordinate(2, 2),
+		                                                      		new Coordinate(2, 3),
 		                                                      		new Coordinate(16, 8)
 		                                                      	};
-		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 2);
+		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 3);
 		private static readonly Size _layerSize = new Size(17, 12);
 
 		public BoardsBoard()
-			: base(BoardId, "Boards", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
+			: base(BoardId, "Boards", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits().ToArray(), GetTimers().ToArray())
 		{
 		}
 
 		protected override EventResult OnEntered(EventContext context, BoardEnteredEvent @event)
 		{
-			Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
-			StartTimerCommand command = Commands.StartTimer(timer);
-
-			context.EnqueueCommand(command);
+			PerformTimerActionOnAllTimers(TimerAction.Start);
 
 			return base.OnEntered(context, @event);
-		}
-
-		protected override EventResult OnExited(EventContext context, BoardExitedEvent @event)
-		{
-			Timer timer = context.GetTimerById(BoardsActorMoveTimer.TimerId);
-			StopTimerCommand command = Commands.StopTimer(timer);
-
-			context.EnqueueCommand(command);
-
-			return base.OnExited(context, @event);
 		}
 
 		private static SpriteLayer GetBackgroundLayer()
@@ -56,24 +43,32 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var character = new Character(Symbol.LightShade, new Color(48, 48, 48), Color.Black);
 			IEnumerable<Sprite> sprites = SpriteFactory.Instance.CreateArea(_layerOriginCoordinate, _layerSize, character);
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static SpriteLayer GetForegroundLayer()
 		{
 			var character = new Character(Symbol.Number, Color.White, Color.TransparentBlack);
 			IEnumerable<Sprite> borderSprites = SpriteFactory.Instance.CreateBorder(_layerOriginCoordinate, _layerSize, character);
-			IEnumerable<Sprite> textLineSprites = SpriteFactory.Instance.CreateCenteredText(
+			IEnumerable<Sprite> textLine1Sprites = SpriteFactory.Instance.CreateCenteredText(
 				"Boards",
 				0,
 				BoardSize.Width,
 				Color.White,
 				Color.TransparentBlack);
-			var sprites = new List<Sprite>(borderSprites.Concat(textLineSprites));
+			IEnumerable<Sprite> textLine2Sprites = SpriteFactory.Instance.CreateCenteredText(
+				"Board Exits",
+				1,
+				BoardSize.Width,
+				Color.White,
+				Color.TransparentBlack);
+			var sprites = new List<Sprite>(borderSprites
+			                               	.Concat(textLine1Sprites)
+			                               	.Concat(textLine2Sprites));
 
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static ActorInstanceLayer GetActorInstanceLayer()
@@ -83,20 +78,52 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			for (int i = 0; i < 5; i++)
 			{
-				ActorInstance actorInstance = boardsActor.CreateActorInstance(
-					new Coordinate(_layerOriginCoordinate.X + (i * 3) + 1, _layerOriginCoordinate.Y + i + 1),
+				ActorInstance boardsActorInstance = boardsActor.CreateActorInstance(
+					BoardId,
+					new Coordinate(_layerOriginCoordinate.X + (i * 3) + 1, _layerOriginCoordinate.Y + (i * 2) + 1),
 					new EventHandlerCollection(new PlayerTouchedBoardsActorInstanceEventHandler()));
 
-				actorInstances.Add(actorInstance);
+				actorInstances.Add(boardsActorInstance);
 			}
 
-			return new ActorInstanceLayer(BoardSize, actorInstances);
+			var boardExitsActor = new BoardExitsActor();
+			ActorInstance boardExitsActorInstance = boardExitsActor.CreateActorInstance(
+				BoardId,
+				new Coordinate(16, 8),
+				new EventHandlerCollection(new PlayerTouchedBoardExitsActorInstanceEventHandler()));
+
+			actorInstances.Add(boardExitsActorInstance);
+
+			return new ActorInstanceLayer(BoardId, BoardSize, actorInstances);
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Up, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[1]);
 			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Right, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[1]);
+		}
+
+		private static IEnumerable<Timer> GetTimers()
+		{
+			yield return new BoardsActorInstancesMoveTimer();
+		}
+
+		private class PlayerTouchedBoardExitsActorInstanceEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
+		{
+			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
+			{
+				Color indent0 = Color.Yellow;
+				Color indent1 = Color.White;
+				MessageBuilder messageBuilder = Message
+					.Build(Color.DarkBlue)
+					.Text(indent0, "Board Exits", 1)
+					.Text(indent1, "  - Travel points to other boards");
+
+				context.EnqueueCommand(Commands.Message(messageBuilder));
+				context.EnqueueCommand(Commands.ActorInstanceDestroy(@event.Target));
+
+				return EventResult.Complete;
+			}
 		}
 
 		private class PlayerTouchedBoardsActorInstanceEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>

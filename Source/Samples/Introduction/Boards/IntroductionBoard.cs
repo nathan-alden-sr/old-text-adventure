@@ -26,7 +26,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static readonly Size _layerSize = new Size(21, 7);
 
 		public IntroductionBoard()
-			: base(BoardId, "Introduction", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
+			: base(BoardId, "Introduction", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits().ToArray(), GetTimers().ToArray())
 		{
 		}
 
@@ -35,7 +35,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var character = new Character(Symbol.LightShade, new Color(14, 119, 11), new Color(9, 80, 8));
 			IEnumerable<Sprite> sprites = SpriteFactory.Instance.CreateArea(_layerOriginCoordinate, _layerSize, character);
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static SpriteLayer GetForegroundLayer()
@@ -75,22 +75,28 @@ namespace TextAdventure.Samples.Introduction.Boards
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 			sprites.Add(new Sprite(ExitCoordinates[0], new Character(Symbol.InverseCircle, Color.Magenta, Color.Black)));
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static ActorInstanceLayer GetActorInstanceLayer()
 		{
 			var welcomeActor = new IntroductionActor();
-			ActorInstance actorInstance = welcomeActor.CreateActorInstance(
+			ActorInstance welcomeActorInstance = welcomeActor.CreateActorInstance(
+				BoardId,
 				new Coordinate(40, 10),
 				new EventHandlerCollection(new PlayerTouchedIntroductionActorEventHandler()));
 
-			return new ActorInstanceLayer(BoardSize, new[] { actorInstance });
+			return new ActorInstanceLayer(BoardId, BoardSize, welcomeActorInstance);
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Right, ObjectsBoard.BoardId, ObjectsBoard.ExitCoordinates[0]);
+		}
+
+		private static IEnumerable<Timer> GetTimers()
+		{
+			yield break;
 		}
 
 		private class PlayerTouchedIntroductionActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
@@ -145,10 +151,10 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 				ChainedCommand moveActorCommand = Commands
 					.Chain(Commands
-					       	.ActorInstanceMoveRight(_actorInstance)
+					       	.ActorInstanceMove(_actorInstance, MoveDirection.Right)
 					       	.Repeat(TimeSpan.FromMilliseconds(100), 9))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(100)))
-					.And(Commands.ActorInstanceMoveDown(_actorInstance))
+					.And(Commands.ActorInstanceMove(_actorInstance, MoveDirection.Down))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(500)))
 					.And(Commands.PlaySoundEffect(context.GetSoundEffectById(ExplodeSoundEffect.SoundEffectId), Volume.Full))
 					.And(Commands.RemoveSprite(context.CurrentBoard.ForegroundLayer, new Coordinate(50, 11)))
@@ -160,7 +166,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 					ChainedCommand command = Commands
 						.Chain(Commands.Delay(TimeSpan.FromSeconds(1)))
 						.And(Commands.PlaySoundEffect(context.GetSoundEffectById(SlapSoundEffect.SoundEffectId), Volume.Full))
-						.And(Commands.PlayerMoveDown())
+						.And(Commands.PlayerMove(MoveDirection.Down))
 						.And(Commands.Message(Message.Build(Color.DarkRed).Text(Color.Yellow, "WHAP!")))
 						.And(Commands.Delay(TimeSpan.FromSeconds(1)))
 						.And(moveActorCommand);

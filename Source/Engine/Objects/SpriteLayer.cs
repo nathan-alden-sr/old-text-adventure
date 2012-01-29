@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 using Junior.Common;
@@ -9,16 +10,18 @@ namespace TextAdventure.Engine.Objects
 	public class SpriteLayer : Layer<Sprite>
 	{
 		public SpriteLayer(
+			Guid boardId,
 			Size size,
 			params Sprite[] sprites)
-			: this(size, (IEnumerable<Sprite>)sprites)
+			: this(boardId, size, (IEnumerable<Sprite>)sprites)
 		{
 		}
 
 		public SpriteLayer(
+			Guid boardId,
 			Size size,
 			IEnumerable<Sprite> sprites)
-			: base(size)
+			: base(boardId, size)
 		{
 			sprites.ThrowIfNull("sprites");
 

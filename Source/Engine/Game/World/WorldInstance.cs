@@ -106,7 +106,8 @@ namespace TextAdventure.Engine.Game.World
 
 		public void ProcessCommandQueue()
 		{
-			UpdateTimers();
+			UpdateTimers(_world.Timers);
+			UpdateTimers(CurrentBoard.Timers);
 
 			_commandQueuesByBoard[CurrentBoard].ProcessQueue();
 		}
@@ -127,9 +128,9 @@ namespace TextAdventure.Engine.Game.World
 			return result;
 		}
 
-		private void UpdateTimers()
+		private void UpdateTimers(IEnumerable<Timer> timers)
 		{
-			foreach (Timer timer in _world.Timers)
+			foreach (Timer timer in timers)
 			{
 				timer.Update(_worldTime.Elapsed);
 
@@ -140,11 +141,11 @@ namespace TextAdventure.Engine.Game.World
 					continue;
 				}
 
-				timer.Stop();
-
 				Timer tempTimer = timer;
 
 				RaiseEvent(tempTimer.OnElapsed, new TimerElapsedEvent(timer));
+
+				timer.Reset();
 			}
 		}
 

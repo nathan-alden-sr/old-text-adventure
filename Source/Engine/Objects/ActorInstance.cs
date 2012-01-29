@@ -11,6 +11,7 @@ namespace TextAdventure.Engine.Objects
 	public class ActorInstance : Sprite, INamedObject, IDescribedObject
 	{
 		private readonly Guid _actorId;
+		private readonly Guid _boardId;
 		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 		private string _description;
@@ -21,6 +22,7 @@ namespace TextAdventure.Engine.Objects
 			string name,
 			string description,
 			Guid actorId,
+			Guid boardId,
 			Coordinate coordinate,
 			Character character,
 			EventHandlerCollection eventHandlerCollection = null)
@@ -33,6 +35,7 @@ namespace TextAdventure.Engine.Objects
 			Name = name;
 			Description = description;
 			_actorId = actorId;
+			_boardId = boardId;
 			_eventHandlerCollection = eventHandlerCollection;
 		}
 
@@ -41,6 +44,14 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _actorId;
+			}
+		}
+
+		public Guid BoardId
+		{
+			get
+			{
+				return _boardId;
 			}
 		}
 
@@ -88,7 +99,7 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		protected internal bool ChangeCoordinate(Board board, Player player, Coordinate newCoordinate)
+		protected internal bool ChangeCoordinate(Board board, Player player, Coordinate destinationCoordinate)
 		{
 			board.ThrowIfNull("board");
 			player.ThrowIfNull("player");
@@ -98,17 +109,17 @@ namespace TextAdventure.Engine.Objects
 				throw new ArgumentException("Board's actor instance layer does not contain this actor instance.", "board");
 			}
 
-			ActorInstance destinationActorInstance = board.ActorInstanceLayer[newCoordinate];
-			Sprite foregroundSprite = board.ForegroundLayer[newCoordinate];
+			ActorInstance destinationActorInstance = board.ActorInstanceLayer[destinationCoordinate];
+			Sprite foregroundSprite = board.ForegroundLayer[destinationCoordinate];
 
-			if (destinationActorInstance != null || foregroundSprite != null || player.Coordinate == newCoordinate)
+			if (destinationActorInstance != null || foregroundSprite != null || player.Coordinate == destinationCoordinate)
 			{
 				return destinationActorInstance == this;
 			}
 
-			board.ActorInstanceLayer.MoveTile(Coordinate, newCoordinate);
+			board.ActorInstanceLayer.MoveTile(Coordinate, destinationCoordinate);
 
-			Coordinate = newCoordinate;
+			Coordinate = destinationCoordinate;
 
 			return true;
 		}

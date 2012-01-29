@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using TextAdventure.Engine.Common;
 
@@ -6,6 +7,15 @@ namespace TextAdventure.Engine.Objects
 {
 	public interface ILayer
 	{
+		Guid BoardId
+		{
+			get;
+		}
+		Size Size
+		{
+			get;
+		}
+
 		IEnumerable<Tile> Tiles
 		{
 			get;
@@ -17,11 +27,6 @@ namespace TextAdventure.Engine.Objects
 		}
 
 		Tile this[Coordinate coordinate]
-		{
-			get;
-		}
-
-		Size Size
 		{
 			get;
 		}

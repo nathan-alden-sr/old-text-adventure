@@ -9,7 +9,7 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Commands
 {
-	public class ActorInstanceRandomMoveCommand : ActorInstanceMoveCommand
+	public class ActorInstanceRandomMoveCommand : ActorInstanceMoveCommandBase
 	{
 		private static readonly Random _random = new Random();
 		private readonly RandomMoveDirection _direction;
@@ -32,7 +32,7 @@ namespace TextAdventure.Engine.Game.Commands
 
 				string directionText = GetDirectionText(_direction);
 
-				yield return "Possible direction: " + directionText;
+				yield return "Possible directions: " + directionText;
 				if (_actualDirection != null)
 				{
 					yield return "Actual direction: " + GetDirectionText(_actualDirection.Value);
@@ -40,28 +40,17 @@ namespace TextAdventure.Engine.Game.Commands
 			}
 		}
 
-		private static string GetDirectionText(RandomMoveDirection direction)
+		protected override Coordinate? GetDestinationCoordinate(CommandContext context)
 		{
-			string directionText;
-
-			switch (direction)
-			{
-				case RandomMoveDirection.AnyUnoccupied:
-					directionText = "Any unoccupied";
-					break;
-				default:
-					directionText = direction.ToString();
-					break;
-			}
-			return directionText;
-		}
-
-		protected override Coordinate? ModifyCoordinate(Board board, Player player, int x, int y)
-		{
-			board.ThrowIfNull("board");
-			player.ThrowIfNull("player");
+			context.ThrowIfNull("context");
 
 			var directions = new List<RandomMoveDirection>();
+			Coordinate coordinate = ActorInstance.Coordinate;
+			var leftCoordinate = new Coordinate(coordinate.X - 1, coordinate.Y);
+			var rightCoordinate = new Coordinate(coordinate.X + 1, coordinate.Y);
+			var upCoordinate = new Coordinate(coordinate.X, coordinate.Y - 1);
+			var downCoordinate = new Coordinate(coordinate.X, coordinate.Y + 1);
+			Board board = context.GetBoardById(ActorInstance.BoardId);
 
 			switch (_direction)
 			{
@@ -72,19 +61,19 @@ namespace TextAdventure.Engine.Game.Commands
 					directions.Add(RandomMoveDirection.Right);
 					break;
 				case RandomMoveDirection.AnyUnoccupied:
-					if (x > 0 && !IsValidCoordinate(board, player, new Coordinate(x - 1, y)))
+					if (coordinate.X > 0 && IsValidDestinationCoordinate(context, leftCoordinate))
 					{
 						directions.Add(RandomMoveDirection.Left);
 					}
-					if (x < board.Size.Width - 1 && !IsValidCoordinate(board, player, new Coordinate(x + 1, y)))
+					if (coordinate.X < board.Size.Width - 1 && IsValidDestinationCoordinate(context, rightCoordinate))
 					{
 						directions.Add(RandomMoveDirection.Right);
 					}
-					if (y > 0 && !IsValidCoordinate(board, player, new Coordinate(x, y - 1)))
+					if (coordinate.Y > 0 && IsValidDestinationCoordinate(context, upCoordinate))
 					{
 						directions.Add(RandomMoveDirection.Up);
 					}
-					if (y < board.Size.Height - 1 && !IsValidCoordinate(board, player, new Coordinate(x, y + 1)))
+					if (coordinate.Y < board.Size.Height - 1 && IsValidDestinationCoordinate(context, downCoordinate))
 					{
 						directions.Add(RandomMoveDirection.Down);
 					}
@@ -104,16 +93,32 @@ namespace TextAdventure.Engine.Game.Commands
 			switch (_actualDirection)
 			{
 				case RandomMoveDirection.Up:
-					return new Coordinate(x, y - 1);
+					return upCoordinate;
 				case RandomMoveDirection.Down:
-					return new Coordinate(x, y + 1);
+					return downCoordinate;
 				case RandomMoveDirection.Left:
-					return new Coordinate(x - 1, y);
+					return leftCoordinate;
 				case RandomMoveDirection.Right:
-					return new Coordinate(x + 1, y);
+					return rightCoordinate;
 				default:
 					throw new Exception(String.Format("Unexpected direction '{0}'.", _actualDirection));
 			}
+		}
+
+		private static string GetDirectionText(RandomMoveDirection direction)
+		{
+			string directionText;
+
+			switch (direction)
+			{
+				case RandomMoveDirection.AnyUnoccupied:
+					directionText = "Any unoccupied";
+					break;
+				default:
+					directionText = direction.ToString();
+					break;
+			}
+			return directionText;
 		}
 	}
 }

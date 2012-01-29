@@ -80,44 +80,44 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public ActorInstance CreateActorInstance(Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid boardId, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(Guid.NewGuid(), _name, _description, _id, coordinate, _character, eventHandlerCollection);
+			return new ActorInstance(Guid.NewGuid(), _name, _description, _id, boardId, coordinate, _character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(string name, string description, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid boardId, string name, string description, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(Guid.NewGuid(), name, description, _id, coordinate, _character, eventHandlerCollection);
+			return new ActorInstance(Guid.NewGuid(), name, description, _id, boardId, coordinate, _character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(string name, string description, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid boardId, string name, string description, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(Guid.NewGuid(), name, description, _id, coordinate, character, eventHandlerCollection);
+			return new ActorInstance(Guid.NewGuid(), name, description, _id, boardId, coordinate, character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid boardId, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(Guid.NewGuid(), _name, _description, _id, coordinate, character, eventHandlerCollection);
+			return new ActorInstance(Guid.NewGuid(), _name, _description, _id, boardId, coordinate, character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(Guid id, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid id, Guid boardId, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(id, _name, _description, _id, coordinate, _character, eventHandlerCollection);
+			return new ActorInstance(id, _name, _description, _id, boardId, coordinate, _character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(Guid id, string name, string description, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid id, Guid boardId, string name, string description, Coordinate coordinate, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(id, name, description, _id, coordinate, _character, eventHandlerCollection);
+			return new ActorInstance(id, name, description, _id, boardId, coordinate, _character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(Guid id, string name, string description, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid id, Guid boardId, string name, string description, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(id, name, description, _id, coordinate, character, eventHandlerCollection);
+			return new ActorInstance(id, name, description, _id, boardId, coordinate, character, eventHandlerCollection);
 		}
 
-		public ActorInstance CreateActorInstance(Guid id, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
+		public ActorInstance CreateActorInstance(Guid id, Guid boardId, Coordinate coordinate, Character character, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new ActorInstance(id, _name, _description, _id, coordinate, character, eventHandlerCollection);
+			return new ActorInstance(id, _name, _description, _id, boardId, coordinate, character, eventHandlerCollection);
 		}
 	}
 }

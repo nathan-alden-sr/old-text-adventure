@@ -13,16 +13,18 @@ namespace TextAdventure.Engine.Objects
 		private readonly Dictionary<Guid, ActorInstance> _actorInstancesById = new Dictionary<Guid, ActorInstance>();
 
 		public ActorInstanceLayer(
+			Guid boardId,
 			Size size,
 			params ActorInstance[] actorInstances)
-			: this(size, (IEnumerable<ActorInstance>)actorInstances)
+			: this(boardId, size, (IEnumerable<ActorInstance>)actorInstances)
 		{
 		}
 
 		public ActorInstanceLayer(
+			Guid boardId,
 			Size size,
 			IEnumerable<ActorInstance> actorInstances)
-			: base(size)
+			: base(boardId, size)
 		{
 			actorInstances.ThrowIfNull("actorInstances");
 
@@ -65,6 +67,11 @@ namespace TextAdventure.Engine.Objects
 		{
 			board.ThrowIfNull("board");
 			actorInstance.ThrowIfNull("actorInstance");
+
+			if (actorInstance.BoardId != board.Id)
+			{
+				throw new ArgumentException("Actor instance does not belong to specified board.", "board");
+			}
 
 			Coordinate coordinate = actorInstance.Coordinate;
 			Sprite foregroundSprite = board.ForegroundLayer[coordinate];

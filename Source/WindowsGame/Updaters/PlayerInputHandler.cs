@@ -54,16 +54,16 @@ namespace TextAdventure.WindowsGame.Updaters
 			switch (_keyboardStateHelper.LastKeyDown)
 			{
 				case Constants.PlayerRenderer.Input.MoveUpKey:
-					command = new PlayerMoveUpCommand();
+					command = Commands.PlayerMove(MoveDirection.Up);
 					break;
 				case Constants.PlayerRenderer.Input.MoveDownKey:
-					command = new PlayerMoveDownCommand();
+					command = Commands.PlayerMove(MoveDirection.Down);
 					break;
 				case Constants.PlayerRenderer.Input.MoveLeftKey:
-					command = new PlayerMoveLeftCommand();
+					command = Commands.PlayerMove(MoveDirection.Left);
 					break;
 				case Constants.PlayerRenderer.Input.MoveRightKey:
-					command = new PlayerMoveRightCommand();
+					command = Commands.PlayerMove(MoveDirection.Right);
 					break;
 			}
 

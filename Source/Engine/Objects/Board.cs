@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Junior.Common;
 
 using TextAdventure.Engine.Common;
+using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.World;
 
@@ -18,6 +20,7 @@ namespace TextAdventure.Engine.Objects
 		private readonly SpriteLayer _foregroundLayer;
 		private readonly Guid _id;
 		private readonly Size _size;
+		private readonly IEnumerable<Timer> _timers;
 		private string _description;
 		private string _name;
 
@@ -30,6 +33,7 @@ namespace TextAdventure.Engine.Objects
 			SpriteLayer foregroundLayer,
 			ActorInstanceLayer actorInstanceLayer,
 			IEnumerable<BoardExit> exits,
+			IEnumerable<Timer> timers,
 			EventHandlerCollection eventHandlerCollection = null)
 		{
 			name.ThrowIfNull("name");
@@ -38,6 +42,20 @@ namespace TextAdventure.Engine.Objects
 			foregroundLayer.ThrowIfNull("foregroundLayer");
 			actorInstanceLayer.ThrowIfNull("actorInstanceLayer");
 			exits.ThrowIfNull("exits");
+			timers.ThrowIfNull("timers");
+
+			if (backgroundLayer.BoardId != id)
+			{
+				throw new ArgumentException("Background layer must belong to board.", "backgroundLayer");
+			}
+			if (foregroundLayer.BoardId != id)
+			{
+				throw new ArgumentException("Foreground layer must belong to board.", "backgroundLayer");
+			}
+			if (actorInstanceLayer.BoardId != id)
+			{
+				throw new ArgumentException("Actor instance layer must belong to board.", "backgroundLayer");
+			}
 
 			_id = id;
 			Name = name;
@@ -47,6 +65,7 @@ namespace TextAdventure.Engine.Objects
 			_foregroundLayer = foregroundLayer;
 			_actorInstanceLayer = actorInstanceLayer;
 			_exits = exits;
+			_timers = timers;
 			_eventHandlerCollection = eventHandlerCollection;
 		}
 
@@ -79,6 +98,14 @@ namespace TextAdventure.Engine.Objects
 			get
 			{
 				return _exits;
+			}
+		}
+
+		public IEnumerable<Timer> Timers
+		{
+			get
+			{
+				return _timers;
 			}
 		}
 
@@ -142,6 +169,42 @@ namespace TextAdventure.Engine.Objects
 		public bool IsCoordinateOccupied(Coordinate coordinate)
 		{
 			return _foregroundLayer[coordinate] != null || _actorInstanceLayer[coordinate] != null;
+		}
+
+		protected void PerformTimerAction(Timer timer, TimerAction action)
+		{
+			timer.ThrowIfNull("timer");
+
+			if (!Timers.Contains(timer))
+			{
+				throw new ArgumentException("Board does not contain the specified timer.", "timer");
+			}
+
+			switch (action)
+			{
+				case TimerAction.Start:
+					timer.Start();
+					break;
+				case TimerAction.Stop:
+					timer.Stop();
+					break;
+				case TimerAction.Reset:
+					timer.Reset();
+					break;
+				case TimerAction.Restart:
+					timer.Restart();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("action");
+			}
+		}
+
+		protected void PerformTimerActionOnAllTimers(TimerAction action)
+		{
+			foreach (Timer timer in Timers)
+			{
+				PerformTimerAction(timer, action);
+			}
 		}
 
 		protected internal virtual EventResult OnEntered(EventContext context, BoardEnteredEvent @event)

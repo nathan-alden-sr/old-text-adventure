@@ -27,6 +27,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				SpriteLayerSerializer.Instance.Serialize(board.ForegroundLayer, "foregroundLayer"),
 				ActorInstanceLayerSerializer.Instance.Serialize(board.ActorInstanceLayer),
 				board.Exits.Select(arg => BoardExitSerializer.Instance.Serialize(arg)),
+				board.Timers.Select(arg => TimerSerializer.Instance.Serialize(arg)),
 				EventHandlerCollectionSerializer.Instance.Serialize(board.EventHandlerCollection),
 				new XAttribute("id", board.Id),
 				new XAttribute("name", board.Name),
@@ -47,6 +48,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				SpriteLayerSerializer.Instance.Deserialize(boardElement.Element("foregroundLayer")),
 				ActorInstanceLayerSerializer.Instance.Deserialize(boardElement.Element("actorInstanceLayer")),
 				boardElement.Elements("boardExit").Select(BoardExitSerializer.Instance.Deserialize),
+				boardElement.Elements("timer").Select(TimerSerializer.Instance.Deserialize),
 				EventHandlerCollectionSerializer.Instance.Deserialize(boardElement));
 		}
 	}

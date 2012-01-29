@@ -41,8 +41,18 @@ namespace TextAdventure.Engine.Serializers.Compact
 				boardExitSerializer[index++] = BoardExitSerializer.Instance.Serialize(boardExit);
 			}
 
+			var timerSerializer = new CompactSerializer();
+
+			index = 0;
+
+			foreach (Timer timer in board.Timers)
+			{
+				timerSerializer[index++] = TimerSerializer.Instance.Serialize(timer);
+			}
+
 			serializer[7] = boardExitSerializer.Serialize();
-			serializer[8] = EventHandlerCollectionSerializer.Instance.Serialize(board.EventHandlerCollection);
+			serializer[8] = timerSerializer.Serialize();
+			serializer[9] = EventHandlerCollectionSerializer.Instance.Serialize(board.EventHandlerCollection);
 
 			return serializer.Serialize();
 		}
@@ -61,9 +71,11 @@ namespace TextAdventure.Engine.Serializers.Compact
 			ActorInstanceLayer actorInstanceLayer = ActorInstanceLayerSerializer.Instance.Deserialize(serializer[6]);
 			var boardExitSerializer = new CompactSerializer(serializer[7]);
 			IEnumerable<BoardExit> exits = boardExitSerializer.FieldIndices.Select(arg => BoardExitSerializer.Instance.Deserialize(boardExitSerializer[arg]));
-			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[8]);
+			var timerSerializer = new CompactSerializer(serializer[8]);
+			IEnumerable<Timer> timers = timerSerializer.FieldIndices.Select(arg => TimerSerializer.Instance.Deserialize(timerSerializer[arg]));
+			EventHandlerCollection eventHandlerCollection = EventHandlerCollectionSerializer.Instance.Deserialize(serializer[9]);
 
-			return new Board(id, name, description, size, backgroundLayer, foregroundLayer, actorInstanceLayer, exits, eventHandlerCollection);
+			return new Board(id, name, description, size, backgroundLayer, foregroundLayer, actorInstanceLayer, exits, timers, eventHandlerCollection);
 		}
 	}
 }

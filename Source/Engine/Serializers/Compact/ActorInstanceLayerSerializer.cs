@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Junior.Common;
@@ -22,7 +23,8 @@ namespace TextAdventure.Engine.Serializers.Compact
 
 			var serializer = new CompactSerializer();
 
-			serializer[0] = SizeSerializer.Instance.Seralize(actorInstanceLayer.Size);
+			serializer[0] = actorInstanceLayer.BoardId.ToByteArray();
+			serializer[1] = SizeSerializer.Instance.Seralize(actorInstanceLayer.Size);
 
 			var actorInstanceSerializer = new CompactSerializer();
 			int index = 0;
@@ -32,7 +34,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 				actorInstanceSerializer[index++] = ActorInstanceSerializer.Instance.Serialize(actorInstance);
 			}
 
-			serializer[1] = actorInstanceSerializer.Serialize();
+			serializer[2] = actorInstanceSerializer.Serialize();
 
 			return serializer.Serialize();
 		}
@@ -42,11 +44,12 @@ namespace TextAdventure.Engine.Serializers.Compact
 			serializedData.ThrowIfNull("serializedData");
 
 			var serializer = new CompactSerializer(serializedData);
-			Size size = SizeSerializer.Instance.Deserialize(serializer[0]);
-			var actorInstanceSerializer = new CompactSerializer(serializer[1]);
+			var boardId = new Guid(serializer[0]);
+			Size size = SizeSerializer.Instance.Deserialize(serializer[1]);
+			var actorInstanceSerializer = new CompactSerializer(serializer[2]);
 			IEnumerable<ActorInstance> actorInstances = actorInstanceSerializer.FieldIndices.Select(arg => ActorInstanceSerializer.Instance.Deserialize(actorInstanceSerializer[arg]));
 
-			return new ActorInstanceLayer(size, actorInstances);
+			return new ActorInstanceLayer(boardId, size, actorInstances);
 		}
 	}
 }

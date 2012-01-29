@@ -135,19 +135,9 @@ namespace TextAdventure.Engine.Objects
 			State = TimerState.Running;
 		}
 
-		protected internal void Restart()
+		protected internal void Stop()
 		{
-			ElapsedTime = TimeSpan.Zero;
-			State = TimerState.Running;
-		}
-
-		protected internal void Pause()
-		{
-			if (State == TimerState.Stopped)
-			{
-				return;
-			}
-			State = TimerState.Paused;
+			State = TimerState.Stopped;
 		}
 
 		protected internal void Reset()
@@ -155,9 +145,10 @@ namespace TextAdventure.Engine.Objects
 			ElapsedTime = TimeSpan.Zero;
 		}
 
-		protected internal void Stop()
+		protected internal void Restart()
 		{
-			State = TimerState.Stopped;
+			ElapsedTime = TimeSpan.Zero;
+			State = TimerState.Running;
 		}
 
 		protected internal void Update(TimeSpan elapsedTime)

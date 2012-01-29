@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Junior.Common;
@@ -22,7 +23,8 @@ namespace TextAdventure.Engine.Serializers.Compact
 
 			var serializer = new CompactSerializer();
 
-			serializer[0] = SizeSerializer.Instance.Seralize(spriteLayer.Size);
+			serializer[0] = spriteLayer.BoardId.ToByteArray();
+			serializer[1] = SizeSerializer.Instance.Seralize(spriteLayer.Size);
 
 			var spriteSerializer = new CompactSerializer();
 			int index = 0;
@@ -32,7 +34,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 				spriteSerializer[index++] = SpriteSerializer.Instance.Serialize(sprite);
 			}
 
-			serializer[1] = spriteSerializer.Serialize();
+			serializer[2] = spriteSerializer.Serialize();
 
 			return serializer.Serialize();
 		}
@@ -42,11 +44,12 @@ namespace TextAdventure.Engine.Serializers.Compact
 			serializedData.ThrowIfNull("serializedData");
 
 			var serializer = new CompactSerializer(serializedData);
-			Size size = SizeSerializer.Instance.Deserialize(serializer[0]);
-			var spriteSerializer = new CompactSerializer(serializer[1]);
+			var boardId = new Guid(serializer[0]);
+			Size size = SizeSerializer.Instance.Deserialize(serializer[1]);
+			var spriteSerializer = new CompactSerializer(serializer[2]);
 			IEnumerable<Sprite> sprites = spriteSerializer.FieldIndices.Select(arg => SpriteSerializer.Instance.Deserialize(spriteSerializer[arg]));
 
-			return new SpriteLayer(size, sprites);
+			return new SpriteLayer(boardId, size, sprites);
 		}
 	}
 }

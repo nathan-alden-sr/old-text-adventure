@@ -10,9 +10,15 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Commands
 {
-	public abstract class PlayerMoveCommand : MoveCommand
+	public class PlayerMoveCommand : MoveCommand
 	{
+		private readonly MoveDirection _direction;
 		private Coordinate? _destinationCoordinate;
+
+		public PlayerMoveCommand(MoveDirection direction)
+		{
+			_direction = direction;
+		}
 
 		public override IEnumerable<string> Details
 		{
@@ -26,14 +32,28 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			context.ThrowIfNull("worldInstance");
 
-			Coordinate playerCoordinate = context.Player.Coordinate;
+			Coordinate coordinate = context.Player.Coordinate;
 
-			_destinationCoordinate = ModifyCoordinate(playerCoordinate.X, playerCoordinate.Y);
+			switch (_direction)
+			{
+				case MoveDirection.Up:
+					_destinationCoordinate = new Coordinate(coordinate.X, coordinate.Y - 1);
+					break;
+				case MoveDirection.Down:
+					_destinationCoordinate = new Coordinate(coordinate.X, coordinate.Y + 1);
+					break;
+				case MoveDirection.Left:
+					_destinationCoordinate = new Coordinate(coordinate.X - 1, coordinate.Y);
+					break;
+				case MoveDirection.Right:
+					_destinationCoordinate = new Coordinate(coordinate.X + 1, coordinate.Y);
+					break;
+				default:
+					throw new Exception(String.Format("Unexpected direction '{0}'", _direction));
+			}
 
 			return ProcessDestinationCoordinate(context, context.CurrentBoard, _destinationCoordinate.Value);
 		}
-
-		protected abstract Coordinate ModifyCoordinate(int x, int y);
 
 		private CommandResult ProcessDestinationCoordinate(Context context, Board board, Coordinate destinationCoordinate)
 		{

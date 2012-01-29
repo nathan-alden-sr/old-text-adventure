@@ -28,6 +28,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				new XAttribute("name", actorInstance.Name),
 				new XAttribute("description", actorInstance.Description),
 				new XAttribute("actorId", actorInstance.ActorId),
+				new XAttribute("boardId", actorInstance.BoardId),
 				new XAttribute("coordinate", CoordinateSerializer.Instance.Serialize(actorInstance.Coordinate)));
 		}
 
@@ -40,6 +41,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 				(string)actorInstanceElement.Attribute("name"),
 				(string)actorInstanceElement.Attribute("description"),
 				(Guid)actorInstanceElement.Attribute("actorId"),
+				(Guid)actorInstanceElement.Attribute("boardId"),
 				CoordinateSerializer.Instance.Deserialize((string)actorInstanceElement.Attribute("coordinate")),
 				CharacterSerializer.Instance.Deserialize(actorInstanceElement.Element("character")),
 				EventHandlerCollectionSerializer.Instance.Deserialize(actorInstanceElement));

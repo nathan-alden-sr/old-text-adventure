@@ -82,6 +82,10 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		private static void AssertBackgroundLayer(Board board)
 		{
 			SpriteLayer backgroundLayer = board.BackgroundLayer;
+
+			NUnit.Framework.Assert.That(backgroundLayer.BoardId, Is.EqualTo(board.Id));
+			NUnit.Framework.Assert.That(backgroundLayer.Size, Is.EqualTo(board.Size));
+
 			Sprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 4);
 
 			NUnit.Framework.Assert.That(sprite1.Character.Symbol, Is.EqualTo(65));
@@ -97,14 +101,18 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 
 		private static void AssertForegroundLayer(Board board)
 		{
-			SpriteLayer backgroundLayer = board.ForegroundLayer;
-			Sprite sprite1 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 5 && arg.Coordinate.Y == 6);
+			SpriteLayer foregroundLayer = board.ForegroundLayer;
+
+			NUnit.Framework.Assert.That(foregroundLayer.BoardId, Is.EqualTo(board.Id));
+			NUnit.Framework.Assert.That(foregroundLayer.Size, Is.EqualTo(board.Size));
+
+			Sprite sprite1 = foregroundLayer.Sprites.Single(arg => arg.Coordinate.X == 5 && arg.Coordinate.Y == 6);
 
 			NUnit.Framework.Assert.That(sprite1.Character.Symbol, Is.EqualTo(70));
 			NUnit.Framework.Assert.That(sprite1.Character.ForegroundColor, Is.EqualTo(new Color(0.9f, 0.8f, 0.7f, 0.6f)));
 			NUnit.Framework.Assert.That(sprite1.Character.BackgroundColor, Is.EqualTo(new Color(0.5f, 0.4f, 0.3f, 0.2f)));
 
-			Sprite sprite2 = backgroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 30);
+			Sprite sprite2 = foregroundLayer.Sprites.Single(arg => arg.Coordinate.X == 10 && arg.Coordinate.Y == 30);
 
 			NUnit.Framework.Assert.That(sprite2.Character.Symbol, Is.EqualTo(71));
 			NUnit.Framework.Assert.That(sprite2.Character.ForegroundColor, Is.EqualTo(new Color(0.2f, 0.4f, 0.6f, 0.8f)));
@@ -114,6 +122,10 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		private static void AssertActorInstanceLayer(Board board)
 		{
 			ActorInstanceLayer actorInstanceLayer = board.ActorInstanceLayer;
+
+			NUnit.Framework.Assert.That(actorInstanceLayer.BoardId, Is.EqualTo(board.Id));
+			NUnit.Framework.Assert.That(actorInstanceLayer.Size, Is.EqualTo(board.Size));
+
 			ActorInstance actor1 = actorInstanceLayer.ActorInstances.Single(arg => arg.Coordinate.X == 11 && arg.Coordinate.Y == 31);
 
 			NUnit.Framework.Assert.That(actor1.Id, Is.EqualTo(Guid.Parse("f5ef050a-cf2a-4d83-b320-75478c77af4f")));

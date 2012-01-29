@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -23,6 +24,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			return new XElement(
 				elementName,
 				actorInstanceLayer.ActorInstances.Select(arg => ActorInstanceSerializer.Instance.Serialize(arg)),
+				new XAttribute("boardId", actorInstanceLayer.BoardId),
 				new XAttribute("size", SizeSerializer.Instance.Serialize(actorInstanceLayer.Size)));
 		}
 
@@ -31,6 +33,7 @@ namespace TextAdventure.Engine.Serializers.Xml
 			actorInstanceLayerElement.ThrowIfNull("actorInstanceLayerElement");
 
 			return new ActorInstanceLayer(
+				(Guid)actorInstanceLayerElement.Attribute("boardId"),
 				SizeSerializer.Instance.Deserialize((string)actorInstanceLayerElement.Attribute("size")),
 				actorInstanceLayerElement.Elements("actorInstance").Select(ActorInstanceSerializer.Instance.Deserialize));
 		}

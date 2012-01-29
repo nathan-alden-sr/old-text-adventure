@@ -27,7 +27,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 		private static readonly Size _layerSize = new Size(7, 7);
 
 		public ObjectsBoard()
-			: base(BoardId, "Objects", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits())
+			: base(BoardId, "Objects", "", BoardSize, GetBackgroundLayer(), GetForegroundLayer(), GetActorInstanceLayer(), GetExits().ToArray(), GetTimers().ToArray())
 		{
 		}
 
@@ -36,7 +36,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var character = new Character(Symbol.LightShade, new Color(116, 90, 60), new Color(152, 118, 79));
 			IEnumerable<Sprite> sprites = SpriteFactory.Instance.CreateArea(_layerOriginCoordinate, _layerSize, character);
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static SpriteLayer GetForegroundLayer()
@@ -52,23 +52,29 @@ namespace TextAdventure.Samples.Introduction.Boards
 			var sprites = new List<Sprite>(borderSprites.Concat(textLineSprites));
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
-			return new SpriteLayer(BoardSize, sprites);
+			return new SpriteLayer(BoardId, BoardSize, sprites);
 		}
 
 		private static ActorInstanceLayer GetActorInstanceLayer()
 		{
 			var objectsActor = new ObjectsActor();
 			ActorInstance objectsActorInstance = objectsActor.CreateActorInstance(
+				BoardId,
 				new Coordinate(3, 4),
 				new EventHandlerCollection(new PlayerTouchedObjectsActorEventHandler()));
 
-			return new ActorInstanceLayer(BoardSize, objectsActorInstance);
+			return new ActorInstanceLayer(BoardId, BoardSize, objectsActorInstance);
 		}
 
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Left, IntroductionBoard.BoardId, IntroductionBoard.ExitCoordinates[0]);
 			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Down, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[0]);
+		}
+
+		private static IEnumerable<Timer> GetTimers()
+		{
+			yield break;
 		}
 
 		private class PlayerTouchedObjectsActorEventHandler : Engine.Game.Events.EventHandler<PlayerTouchedActorInstanceEvent>
