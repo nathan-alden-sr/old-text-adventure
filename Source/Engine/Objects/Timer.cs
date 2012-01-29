@@ -163,6 +163,9 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal virtual EventResult OnElapsed(EventContext context, TimerElapsedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}

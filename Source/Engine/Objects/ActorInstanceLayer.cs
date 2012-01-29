@@ -58,6 +58,11 @@ namespace TextAdventure.Engine.Objects
 			return _actorInstancesById[id];
 		}
 
+		public bool TryGetActorInstanceById(Guid id, out ActorInstance actorInstance)
+		{
+			return _actorInstancesById.TryGetValue(id, out actorInstance);
+		}
+
 		public IEnumerable<ActorInstance> GetActorInstancesByActorId(Guid actorId)
 		{
 			return _actorInstancesById.Values.Where(arg => arg.ActorId == actorId);

@@ -15,7 +15,7 @@ namespace TextAdventure.Samples.Introduction.Timers
 		public static readonly Guid TimerId = Guid.Parse("baaf3527-9f29-4c6c-92fd-66631d08c3f9");
 
 		public BoardsActorInstancesMoveTimer()
-			: base(TimerId, "BoardsActorInstances", "", TimeSpan.FromMilliseconds(500))
+			: base(TimerId, "BoardsActorInstances", "", TimeSpan.FromSeconds(1))
 		{
 		}
 

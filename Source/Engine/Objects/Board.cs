@@ -209,11 +209,17 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal virtual EventResult OnEntered(EventContext context, BoardEnteredEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 
 		protected internal virtual EventResult OnExited(EventContext context, BoardExitedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}

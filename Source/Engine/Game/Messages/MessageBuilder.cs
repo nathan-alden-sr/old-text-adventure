@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Junior.Common;
 
 using TextAdventure.Engine.Common;
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Messages
@@ -12,18 +13,19 @@ namespace TextAdventure.Engine.Game.Messages
 	{
 		private readonly Color _backgroundColor;
 		private readonly string _description;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 		private readonly string _name;
 		private readonly List<IMessagePart> _parts = new List<IMessagePart>();
 
-		public MessageBuilder(Color backgroundColor, string name = "", string description = "")
-			: this(Guid.NewGuid(), backgroundColor, name, description)
+		public MessageBuilder(Color backgroundColor, string name = "", string description = "", EventHandlerCollection eventHandlerCollection = null)
+			: this(Guid.NewGuid(), backgroundColor, name, description, eventHandlerCollection)
 		{
 			_backgroundColor = backgroundColor;
 			_id = Guid.NewGuid();
 		}
 
-		public MessageBuilder(Guid id, Color backgroundColor, string name = "", string description = "")
+		public MessageBuilder(Guid id, Color backgroundColor, string name = "", string description = "", EventHandlerCollection eventHandlerCollection = null)
 		{
 			name.ThrowIfNull("name");
 			description.ThrowIfNull("description");
@@ -32,14 +34,12 @@ namespace TextAdventure.Engine.Game.Messages
 			_backgroundColor = backgroundColor;
 			_name = name;
 			_description = description;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
-		public Message Message
+		public Message GetMessage()
 		{
-			get
-			{
-				return new Message(_id, _name, _description, _backgroundColor, _parts);
-			}
+			return new Message(_id, _name, _description, _backgroundColor, _parts, _eventHandlerCollection);
 		}
 
 		public MessageBuilder Color(Color color)
@@ -95,7 +95,7 @@ namespace TextAdventure.Engine.Game.Messages
 
 		public static implicit operator Message(MessageBuilder builder)
 		{
-			return builder.Message;
+			return builder.GetMessage();
 		}
 	}
 }

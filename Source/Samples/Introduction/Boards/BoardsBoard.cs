@@ -16,6 +16,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 {
 	public class BoardsBoard : Board
 	{
+		public static readonly Guid BoardExitsActorInstanceId = Guid.Parse("83843875-b4df-4932-90a1-d7f22e172d50");
 		public static readonly Guid BoardId = Guid.Parse("001f5ae5-c617-48c9-8afe-19f784740f64");
 		public static readonly Size BoardSize = new Size(17, 15);
 		public static readonly Coordinate[] ExitCoordinates = new[]
@@ -88,6 +89,7 @@ namespace TextAdventure.Samples.Introduction.Boards
 
 			var boardExitsActor = new BoardExitsActor();
 			ActorInstance boardExitsActorInstance = boardExitsActor.CreateActorInstance(
+				BoardExitsActorInstanceId,
 				BoardId,
 				new Coordinate(16, 8),
 				new EventHandlerCollection(new PlayerTouchedBoardExitsActorInstanceEventHandler()));
@@ -115,12 +117,23 @@ namespace TextAdventure.Samples.Introduction.Boards
 				Color indent0 = Color.Yellow;
 				Color indent1 = Color.White;
 				MessageBuilder messageBuilder = Message
-					.Build(Color.DarkBlue)
+					.Build(Color.DarkBlue, new EventHandlerCollection(new PlayerTouchedBoardExitsActorInstanceMessageClosedEventHandler()))
 					.Text(indent0, "Board Exits", 1)
 					.Text(indent1, "  - Travel points to other boards");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
-				context.EnqueueCommand(Commands.ActorInstanceDestroy(@event.Target));
+
+				return EventResult.Complete;
+			}
+		}
+
+		private class PlayerTouchedBoardExitsActorInstanceMessageClosedEventHandler : Engine.Game.Events.EventHandler<MessageClosedEvent>
+		{
+			public override EventResult HandleEvent(EventContext context, MessageClosedEvent @event)
+			{
+				ActorInstance actorInstance = context.GetActorInstanceById(BoardExitsActorInstanceId);
+
+				context.EnqueueCommand(Commands.ActorInstanceDestroy(actorInstance));
 
 				return EventResult.Complete;
 			}

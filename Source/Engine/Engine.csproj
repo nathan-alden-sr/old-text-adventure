@@ -92,6 +92,9 @@
     <Compile Include="Game\Events\ActorInstanceTouchedPlayerEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceCreatedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceMovedEvent.cs" />
+    <Compile Include="Game\Events\MessageAnswerClosedEvent.cs" />
+    <Compile Include="Game\Events\MessageAnswerOpenedEvent.cs" />
+    <Compile Include="Game\Events\MessageOpenedEvent.cs" />
     <Compile Include="Game\Events\EventHandler.cs" />
     <Compile Include="Game\Events\EventHandlerCollectionExtensions.cs" />
     <Compile Include="Game\Events\IEventHandler.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Game\Events\BoardExitedEvent.cs" />
     <Compile Include="Game\Events\BoardEnteredEvent.cs" />
     <Compile Include="Game\Events\Event.cs" />
+    <Compile Include="Game\Events\MessageClosedEvent.cs" />
     <Compile Include="Game\Events\PlayerTouchedActorInstanceEvent.cs" />
     <Compile Include="Game\Events\EventContext.cs" />
     <Compile Include="Game\Commands\ActorInstanceMoveCommand.cs" />

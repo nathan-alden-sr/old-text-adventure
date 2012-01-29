@@ -267,6 +267,8 @@ namespace TextAdventure.WindowsGame.Xna
 
 			_messageInputHandler = new MessageInputHandler(_worldInstance, _messageRendererState, gameTime.TotalGameTime, MessageClosing);
 			_updaterCollection.Add(_messageInputHandler);
+
+			_worldInstance.MessageMananger.MessageOpened(_messageRendererState.Message);
 		}
 
 		private void MessageClosing(IXnaGameTime gameTime)
@@ -280,6 +282,8 @@ namespace TextAdventure.WindowsGame.Xna
 
 		private void MessageClosed()
 		{
+			IMessage message = _messageRendererState.Message;
+
 			_updaterCollection.Remove(_messageFadeOutAndScaleUpdater);
 			_rendererCollection.Remove(_messageRenderer);
 			_messageFadeOutAndScaleUpdater = null;
@@ -287,6 +291,8 @@ namespace TextAdventure.WindowsGame.Xna
 			_messageRendererState = null;
 
 			_inputManager.RelinquishFocus();
+
+			_worldInstance.MessageMananger.MessageClosed(message);
 		}
 
 		#endregion

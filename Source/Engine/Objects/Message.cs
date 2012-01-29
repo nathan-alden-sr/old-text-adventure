@@ -5,13 +5,16 @@ using System.Linq;
 using Junior.Common;
 
 using TextAdventure.Engine.Common;
+using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.Messages;
+using TextAdventure.Engine.Game.World;
 
 namespace TextAdventure.Engine.Objects
 {
 	public class Message : IMessageWithBackgroundColor, INamedObject, IDescribedObject
 	{
 		private readonly Color _backgroundColor;
+		private readonly EventHandlerCollection _eventHandlerCollection;
 		private readonly Guid _id;
 		private readonly IEnumerable<IMessagePart> _parts;
 		private string _description;
@@ -22,7 +25,8 @@ namespace TextAdventure.Engine.Objects
 			string name,
 			string description,
 			Color backgroundColor,
-			IEnumerable<IMessagePart> parts)
+			IEnumerable<IMessagePart> parts,
+			EventHandlerCollection eventHandlerCollection = null)
 		{
 			name.ThrowIfNull("name");
 			description.ThrowIfNull("description");
@@ -42,6 +46,7 @@ namespace TextAdventure.Engine.Objects
 			Description = description;
 			_backgroundColor = backgroundColor;
 			_parts = parts;
+			_eventHandlerCollection = eventHandlerCollection;
 		}
 
 		public string Description
@@ -96,14 +101,30 @@ namespace TextAdventure.Engine.Objects
 			}
 		}
 
-		public static MessageBuilder Build(Color backgroundColor)
+		public static MessageBuilder Build(Color backgroundColor, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new MessageBuilder(backgroundColor);
+			return new MessageBuilder(backgroundColor, eventHandlerCollection:eventHandlerCollection);
 		}
 
-		public static MessageBuilder Build(Guid id, Color backgroundColor)
+		public static MessageBuilder Build(Guid id, Color backgroundColor, EventHandlerCollection eventHandlerCollection = null)
 		{
-			return new MessageBuilder(id, backgroundColor);
+			return new MessageBuilder(id, backgroundColor, eventHandlerCollection:eventHandlerCollection);
+		}
+
+		protected internal virtual EventResult OnOpened(EventContext context, MessageOpenedEvent @event)
+		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnClosed(EventContext context, MessageClosedEvent @event)
+		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
+			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
 }

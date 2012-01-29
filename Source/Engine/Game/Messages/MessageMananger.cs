@@ -61,10 +61,46 @@ namespace TextAdventure.Engine.Game.Messages
 
 		public void SelectAnswer(MessageAnswer answer)
 		{
+			answer.ThrowIfNull("answer");
+
 			_worldInstance.RaiseEvent(answer.OnSelected, new MessageAnswerSelectedEvent(answer));
 			if (answer.Parts.Any())
 			{
 				EnqueueMessage(answer, MessageQueuePosition.First);
+			}
+		}
+
+		public void MessageOpened(IMessage message)
+		{
+			message.ThrowIfNull("message");
+
+			var messageObject = message as Message;
+			var messageAnswerObject = message as MessageAnswer;
+
+			if (messageObject != null)
+			{
+				_worldInstance.RaiseEvent(messageObject.OnOpened, new MessageOpenedEvent(messageObject));
+			}
+			else if (messageAnswerObject != null)
+			{
+				_worldInstance.RaiseEvent(messageAnswerObject.OnOpened, new MessageAnswerOpenedEvent(messageAnswerObject));
+			}
+		}
+
+		public void MessageClosed(IMessage message)
+		{
+			message.ThrowIfNull("message");
+
+			var messageObject = message as Message;
+			var messageAnswerObject = message as MessageAnswer;
+
+			if (messageObject != null)
+			{
+				_worldInstance.RaiseEvent(messageObject.OnClosed, new MessageClosedEvent(messageObject));
+			}
+			else if (messageAnswerObject != null)
+			{
+				_worldInstance.RaiseEvent(messageAnswerObject.OnClosed, new MessageAnswerClosedEvent(messageAnswerObject));
 			}
 		}
 	}

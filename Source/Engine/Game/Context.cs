@@ -175,7 +175,17 @@ namespace TextAdventure.Engine.Game
 
 		public ActorInstance GetActorInstanceById(Guid id)
 		{
-			return CurrentBoard.ActorInstanceLayer.GetActorInstanceById(id);
+			foreach (Board board in _worldInstance.World.Boards)
+			{
+				ActorInstance actorInstance;
+
+				if (board.ActorInstanceLayer.TryGetActorInstanceById(id, out actorInstance))
+				{
+					return actorInstance;
+				}
+			}
+
+			throw new ArgumentException(String.Format("Actor instance with ID '{0}' not found.", id), "id");
 		}
 
 		public IEnumerable<ActorInstance> GetActorInstancesByActorId(Guid actorId)

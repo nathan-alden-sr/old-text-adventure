@@ -126,26 +126,41 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal virtual EventResult OnCreated(EventContext context, ActorInstanceCreatedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 
 		protected internal virtual EventResult OnDestroyed(EventContext context, ActorInstanceDestroyedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 
 		protected internal virtual EventResult OnMoved(EventContext context, ActorInstanceMovedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 
 		protected internal virtual EventResult OnTouchedByActorInstance(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 
 		protected internal virtual EventResult OnTouchedByPlayer(EventContext context, PlayerTouchedActorInstanceEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}

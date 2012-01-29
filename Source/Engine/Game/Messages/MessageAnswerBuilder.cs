@@ -26,12 +26,9 @@ namespace TextAdventure.Engine.Game.Messages
 			_eventHandlerCollection = eventHandlerCollection;
 		}
 
-		public MessageAnswer MessageAnswer
+		public MessageAnswer GetMessageAnswer()
 		{
-			get
-			{
-				return new MessageAnswer(_id, _text, _parts, _eventHandlerCollection);
-			}
+			return new MessageAnswer(_id, _text, _parts, _eventHandlerCollection);
 		}
 
 		public MessageAnswerBuilder Color(Color color)
@@ -80,7 +77,7 @@ namespace TextAdventure.Engine.Game.Messages
 
 		public static implicit operator MessageAnswer(MessageAnswerBuilder builder)
 		{
-			return builder.MessageAnswer;
+			return builder.GetMessageAnswer();
 		}
 	}
 }

@@ -75,6 +75,25 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal virtual EventResult OnSelected(EventContext context, MessageAnswerSelectedEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnOpened(EventContext context, MessageAnswerOpenedEvent @event)
+		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
+			return _eventHandlerCollection.SafeInvoke(context, @event);
+		}
+
+		protected internal virtual EventResult OnClosed(EventContext context, MessageAnswerClosedEvent @event)
+		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}

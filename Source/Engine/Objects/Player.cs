@@ -86,6 +86,9 @@ namespace TextAdventure.Engine.Objects
 
 		protected internal virtual EventResult OnTouchedByActorInstance(EventContext context, ActorInstanceTouchedPlayerEvent @event)
 		{
+			context.ThrowIfNull("context");
+			@event.ThrowIfNull("event");
+
 			return _eventHandlerCollection.SafeInvoke(context, @event);
 		}
 	}
