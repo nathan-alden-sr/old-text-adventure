@@ -70,7 +70,7 @@ namespace TextAdventure.Engine.Objects
 
 			if (actorInstance.BoardId != board.Id)
 			{
-				throw new ArgumentException("Actor instance does not belong to specified board.", "board");
+				return false;
 			}
 
 			Coordinate coordinate = actorInstance.Coordinate;
