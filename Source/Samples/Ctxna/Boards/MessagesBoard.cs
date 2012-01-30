@@ -87,7 +87,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				MessageBuilder messageBuilder = Message
 					.Build(new Color(43, 96, 80))
 					.Text(indent0, "Messages", 1)
-					.Text(indent1, "  - Displays scrollable text to the player", 1)
+					.Text(indent1, "  - Display scrollable text to the player", 1)
 					.Text(indent1, "  - Text, colors, line breaks", 1)
 					.Text(indent1, "  - Questions and answers", 1)
 					.Text(indent1, "L", 1)

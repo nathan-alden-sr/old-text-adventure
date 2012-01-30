@@ -128,7 +128,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 					MessageBuilder messageBuilder = Message
 						.Build(Color.DarkCyan)
 						.Text(indent0, "Songs", 1)
-						.Text(indent1, "  - Uses FMOD instead of XNA's MediaPlayer class");
+						.Text(indent1, "  - Use FMOD instead of XNA's MediaPlayer class");
 
 					context.EnqueueCommand(Commands.Message(messageBuilder));
 				}
@@ -154,7 +154,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				MessageBuilder messageBuilder = Message
 					.Build(Color.DarkCyan)
 					.Text(indent0, "Sound Effects", 1)
-					.Text(indent1, "  - Uses FMOD instead of XNA's SoundEffect class");
+					.Text(indent1, "  - Use FMOD instead of XNA's SoundEffect class");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
