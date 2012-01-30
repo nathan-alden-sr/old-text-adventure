@@ -102,7 +102,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Up, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[1]);
-			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Right, ActorsBoard.BoardId, ActorsBoard.ExitCoordinates[1]);
+			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Right, MessagesBoard.BoardId, MessagesBoard.ExitCoordinates[0]);
 		}
 
 		private static IEnumerable<Timer> GetTimers()

@@ -55,9 +55,11 @@
     <Compile Include="Ctxna\Actors\BoardsActor.cs" />
     <Compile Include="Ctxna\Actors\BoulderActor.cs" />
     <Compile Include="Ctxna\Actors\IntroductionActor.cs" />
+    <Compile Include="Ctxna\Actors\MessagesActor.cs" />
     <Compile Include="Ctxna\Actors\ObjectsActor.cs" />
     <Compile Include="Ctxna\Boards\ActorsBoard.cs" />
     <Compile Include="Ctxna\Boards\BoardsBoard.cs" />
+    <Compile Include="Ctxna\Boards\MessagesBoard.cs" />
     <Compile Include="Ctxna\Boards\ObjectsBoard.cs" />
     <Compile Include="Ctxna\Boards\IntroductionBoard.cs" />
     <Compile Include="Ctxna\Songs\Songs.Designer.cs">
