@@ -50,6 +50,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites.Concat(textLineSprites));
+
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
 			return new SpriteLayer(BoardId, BoardSize, sprites);
@@ -92,7 +93,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 	}

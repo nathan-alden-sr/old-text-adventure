@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Junior.Common;
 
@@ -8,12 +7,12 @@ using TextAdventure.Engine.Objects;
 
 namespace TextAdventure.Engine.Game.Commands
 {
-	public class PerformWorldTimerActionCommand : Command
+	public class PerformTimerActionCommand : Command
 	{
 		private readonly TimerAction _action;
 		private readonly Timer _timer;
 
-		public PerformWorldTimerActionCommand(Timer timer, TimerAction action)
+		public PerformTimerActionCommand(Timer timer, TimerAction action)
 		{
 			timer.ThrowIfNull("timer");
 
@@ -32,11 +31,6 @@ namespace TextAdventure.Engine.Game.Commands
 
 		protected override CommandResult OnExecute(CommandContext context)
 		{
-			if (!context.Timers.Contains(_timer))
-			{
-				return CommandResult.Failed;
-			}
-
 			switch (_action)
 			{
 				case TimerAction.Start:

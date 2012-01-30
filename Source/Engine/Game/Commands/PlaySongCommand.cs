@@ -11,6 +11,11 @@ namespace TextAdventure.Engine.Game.Commands
 		private readonly Song _song;
 		private readonly Volume _volume;
 
+		public PlaySongCommand(Song song)
+			: this(song, Volume.Full)
+		{
+		}
+
 		public PlaySongCommand(Song song, Volume volume)
 		{
 			song.ThrowIfNull("song");

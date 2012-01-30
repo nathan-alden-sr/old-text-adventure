@@ -6,8 +6,6 @@ namespace TextAdventure.Engine.Objects
 {
 	public abstract class Tile
 	{
-		private readonly Character _character;
-
 		protected Tile(
 			Coordinate coordinate,
 			Character character)
@@ -15,7 +13,7 @@ namespace TextAdventure.Engine.Objects
 			character.ThrowIfNull("character");
 
 			Coordinate = coordinate;
-			_character = character;
+			Character = character;
 		}
 
 		public Coordinate Coordinate
@@ -26,10 +24,8 @@ namespace TextAdventure.Engine.Objects
 
 		public Character Character
 		{
-			get
-			{
-				return _character;
-			}
+			get;
+			protected internal set;
 		}
 	}
 }

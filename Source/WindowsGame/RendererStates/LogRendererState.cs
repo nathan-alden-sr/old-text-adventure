@@ -120,7 +120,7 @@ namespace TextAdventure.WindowsGame.RendererStates
 				return;
 			}
 
-			var entry = new LogEntry(loggedTotalWorldTime, @event, result == EventResult.Complete ? LogEntryType.EventComplete : LogEntryType.EventCanceled, LogEntryLifetime);
+			var entry = new LogEntry(loggedTotalWorldTime, @event, result == EventResult.Completed ? LogEntryType.EventComplete : LogEntryType.EventCanceled, LogEntryLifetime);
 
 			EnqueueLogEntry(entry);
 		}

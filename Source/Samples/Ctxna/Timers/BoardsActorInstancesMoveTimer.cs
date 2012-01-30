@@ -28,7 +28,7 @@ namespace TextAdventure.Samples.Ctxna.Timers
 				context.EnqueueCommand(command);
 			}
 
-			return EventResult.Complete;
+			return EventResult.Completed;
 		}
 	}
 }

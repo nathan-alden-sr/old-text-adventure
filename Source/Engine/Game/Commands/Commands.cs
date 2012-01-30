@@ -69,14 +69,24 @@ namespace TextAdventure.Engine.Game.Commands
 			return new MessageCommand(message);
 		}
 
-		public static PerformWorldTimerActionCommand PerformWorldTimerAction(Timer timer, TimerAction action)
+		public static PerformTimerActionCommand PerformTimerAction(Timer timer, TimerAction action)
 		{
-			return new PerformWorldTimerActionCommand(timer, action);
+			return new PerformTimerActionCommand(timer, action);
+		}
+
+		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect)
+		{
+			return new PlaySoundEffectCommand(soundEffect);
 		}
 
 		public static PlaySoundEffectCommand PlaySoundEffect(SoundEffect soundEffect, Volume volume)
 		{
 			return new PlaySoundEffectCommand(soundEffect, volume);
+		}
+
+		public static PlaySongCommand PlaySong(Song song)
+		{
+			return new PlaySongCommand(song);
 		}
 
 		public static PlaySongCommand PlaySong(Song song, Volume volume)
@@ -92,6 +102,11 @@ namespace TextAdventure.Engine.Game.Commands
 		public static SetSpriteCommand SetSprite(SpriteLayer spriteLayer, Sprite sprite)
 		{
 			return new SetSpriteCommand(spriteLayer, sprite);
+		}
+
+		public static SetTileCharacterCommand SetTileCharacter(Tile tile, Character character)
+		{
+			return new SetTileCharacterCommand(tile, character);
 		}
 
 		public static RemoveSpriteCommand RemoveSprite(SpriteLayer spriteLayer, Coordinate coordinate)

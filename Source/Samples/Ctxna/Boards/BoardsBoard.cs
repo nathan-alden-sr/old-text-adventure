@@ -123,7 +123,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -135,7 +135,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				context.EnqueueCommand(Commands.ActorInstanceDestroy(actorInstance));
 
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -158,7 +158,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 	}

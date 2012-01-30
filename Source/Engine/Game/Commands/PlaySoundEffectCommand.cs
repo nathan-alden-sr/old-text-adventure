@@ -11,6 +11,11 @@ namespace TextAdventure.Engine.Game.Commands
 		private readonly SoundEffect _soundEffect;
 		private readonly Volume _volume;
 
+		public PlaySoundEffectCommand(SoundEffect soundEffect)
+			: this(soundEffect, Volume.Full)
+		{
+		}
+
 		public PlaySoundEffectCommand(SoundEffect soundEffect, Volume volume)
 		{
 			soundEffect.ThrowIfNull("soundEffect");

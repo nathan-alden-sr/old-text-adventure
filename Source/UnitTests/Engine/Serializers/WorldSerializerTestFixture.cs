@@ -237,7 +237,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, ActorInstanceCreatedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -245,7 +245,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, ActorInstanceDestroyedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -253,7 +253,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, ActorInstanceMovedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -261,7 +261,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, ActorInstanceTouchedActorInstanceEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -269,7 +269,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, ActorInstanceTouchedPlayerEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -277,7 +277,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, BoardEnteredEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -285,7 +285,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, BoardExitedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -293,7 +293,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, MessageAnswerSelectedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -301,7 +301,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, PlayerTouchedActorInstanceEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 
@@ -309,7 +309,7 @@ namespace TextAdventure.UnitTests.Engine.Serializers
 		{
 			public override EventResult HandleEvent(EventContext context, TimerElapsedEvent @event)
 			{
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 	}

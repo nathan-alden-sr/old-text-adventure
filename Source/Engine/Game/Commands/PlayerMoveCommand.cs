@@ -24,7 +24,10 @@ namespace TextAdventure.Engine.Game.Commands
 		{
 			get
 			{
-				return _destinationCoordinate.IfNotNull<Coordinate, string[]>(arg => new[] { "New coordinate: " + _destinationCoordinate.Value }) ?? base.Details;
+				if (_destinationCoordinate != null)
+				{
+					yield return "Destination coordinate: " + _destinationCoordinate.Value;
+				}
 			}
 		}
 

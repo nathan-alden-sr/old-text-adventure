@@ -59,5 +59,12 @@ namespace TextAdventure.Samples.Ctxna.Songs {
                 resourceCulture = value;
             }
         }
+        
+        internal static byte[] flourish {
+            get {
+                object obj = ResourceManager.GetObject("flourish", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

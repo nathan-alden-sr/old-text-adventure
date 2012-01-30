@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Junior.Common;
 
@@ -200,7 +201,11 @@ namespace TextAdventure.Engine.Game
 
 		public Timer GetTimerById(Guid id)
 		{
-			return _worldInstance.World.GetTimerById(id);
+			Timer timer = _worldInstance.World.Boards
+				.Select(arg1 => arg1.Timers.SingleOrDefault(arg2 => arg2.Id == id))
+				.SingleOrDefault(arg => arg != null);
+
+			return timer ?? _worldInstance.World.GetTimerById(id);
 		}
 
 		public SoundEffect GetSoundEffectById(Guid id)

@@ -19,7 +19,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Size BoardSize = new Size(9, 9);
 		public static readonly Coordinate[] ExitCoordinates = new[]
 		                                                      	{
-		                                                      		new Coordinate(0, 3)
+		                                                      		new Coordinate(0, 3),
+		                                                      		new Coordinate(0, 6)
 		                                                      	};
 
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 2);
@@ -49,6 +50,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites.Concat(textLineSprites));
+
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
 			return new SpriteLayer(BoardId, BoardSize, sprites);
@@ -68,6 +70,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Left, BoardsBoard.BoardId, BoardsBoard.ExitCoordinates[1]);
+			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Left, OtherObjectsBoard.BoardId, OtherObjectsBoard.ExitCoordinates[0]);
 		}
 
 		private static IEnumerable<Timer> GetTimers()
@@ -119,7 +122,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 
-				return EventResult.Complete;
+				return EventResult.Completed;
 			}
 		}
 	}

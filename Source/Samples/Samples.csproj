@@ -54,19 +54,26 @@
     <Compile Include="Ctxna\Actors\BoardExitsActor.cs" />
     <Compile Include="Ctxna\Actors\BoardsActor.cs" />
     <Compile Include="Ctxna\Actors\BoulderActor.cs" />
+    <Compile Include="Ctxna\Actors\SongsActor.cs" />
     <Compile Include="Ctxna\Actors\IntroductionActor.cs" />
     <Compile Include="Ctxna\Actors\MessagesActor.cs" />
     <Compile Include="Ctxna\Actors\ObjectsActor.cs" />
+    <Compile Include="Ctxna\Actors\PlayerActor.cs" />
+    <Compile Include="Ctxna\Actors\SoundEffectsActor.cs" />
+    <Compile Include="Ctxna\Actors\TimerActor.cs" />
     <Compile Include="Ctxna\Boards\ActorsBoard.cs" />
     <Compile Include="Ctxna\Boards\BoardsBoard.cs" />
+    <Compile Include="Ctxna\Boards\OtherObjectsBoard.cs" />
     <Compile Include="Ctxna\Boards\MessagesBoard.cs" />
     <Compile Include="Ctxna\Boards\ObjectsBoard.cs" />
     <Compile Include="Ctxna\Boards\IntroductionBoard.cs" />
+    <Compile Include="Ctxna\Songs\FlourishSong.cs" />
     <Compile Include="Ctxna\Songs\Songs.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Songs.resx</DependentUpon>
     </Compile>
+    <Compile Include="Ctxna\SoundEffects\WindowsUserAccountControlSoundEffect.cs" />
     <Compile Include="Ctxna\SoundEffects\ExplodeSoundEffect.cs" />
     <Compile Include="Ctxna\SoundEffects\SlapSoundEffect.cs" />
     <Compile Include="Ctxna\SoundEffects\SoundEffects.Designer.cs">
@@ -109,8 +116,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ctxna\Songs\flourish.mid" />
     <Content Include="Ctxna\SoundEffects\Explode.mp3" />
     <Content Include="Ctxna\SoundEffects\Slap.mp3" />
+    <Content Include="Ctxna\SoundEffects\Windows User Account Control.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

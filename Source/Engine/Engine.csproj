@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Common\Color.cs" />
     <Compile Include="Common\Coordinate.cs" />
+    <Compile Include="Game\Commands\SetTileCharacterCommand.cs" />
     <Compile Include="Game\Commands\ActorInstanceMoveCommandBase.cs" />
     <Compile Include="Game\Commands\ActorInstanceRandomMoveCommand.cs" />
     <Compile Include="Game\Commands\ChainedCommand.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Game\Commands\TimerAction.cs" />
     <Compile Include="Game\Commands\TotalRepeats.cs" />
     <Compile Include="Game\Commands\Volume.cs" />
-    <Compile Include="Game\Commands\PerformWorldTimerActionCommand.cs" />
+    <Compile Include="Game\Commands\PerformTimerActionCommand.cs" />
     <Compile Include="Game\DetailTextFormatter.cs" />
     <Compile Include="Game\Events\ActorInstanceDestroyedEvent.cs" />
     <Compile Include="Game\Events\ActorInstanceTouchedActorInstanceEvent.cs" />

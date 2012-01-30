@@ -73,5 +73,11 @@ namespace TextAdventure.Samples.Ctxna.SoundEffects {
                 return ((byte[])(obj));
             }
         }
+        
+        internal static System.IO.UnmanagedMemoryStream Windows_User_Account_Control {
+            get {
+                return ResourceManager.GetStream("Windows_User_Account_Control", resourceCulture);
+            }
+        }
     }
 }
