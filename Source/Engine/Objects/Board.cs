@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Junior.Common;
 
 using TextAdventure.Engine.Common;
-using TextAdventure.Engine.Game.Commands;
 using TextAdventure.Engine.Game.Events;
 using TextAdventure.Engine.Game.World;
 
@@ -169,42 +167,6 @@ namespace TextAdventure.Engine.Objects
 		public bool IsCoordinateOccupied(Coordinate coordinate)
 		{
 			return _foregroundLayer[coordinate] != null || _actorInstanceLayer[coordinate] != null;
-		}
-
-		protected void PerformTimerAction(Timer timer, TimerAction action)
-		{
-			timer.ThrowIfNull("timer");
-
-			if (!Timers.Contains(timer))
-			{
-				throw new ArgumentException("Board does not contain the specified timer.", "timer");
-			}
-
-			switch (action)
-			{
-				case TimerAction.Start:
-					timer.Start();
-					break;
-				case TimerAction.Stop:
-					timer.Stop();
-					break;
-				case TimerAction.Reset:
-					timer.Reset();
-					break;
-				case TimerAction.Restart:
-					timer.Restart();
-					break;
-				default:
-					throw new ArgumentOutOfRangeException("action");
-			}
-		}
-
-		protected void PerformTimerActionOnAllTimers(TimerAction action)
-		{
-			foreach (Timer timer in Timers)
-			{
-				PerformTimerAction(timer, action);
-			}
 		}
 
 		protected internal virtual EventResult OnEntered(EventContext context, BoardEnteredEvent @event)

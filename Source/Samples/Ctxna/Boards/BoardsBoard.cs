@@ -34,7 +34,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 		protected override EventResult OnEntered(EventContext context, BoardEnteredEvent @event)
 		{
-			PerformTimerActionOnAllTimers(TimerAction.Start);
+			foreach (Timer timer in Timers)
+			{
+				context.EnqueueCommand(Commands.PerformTimerAction(timer, TimerAction.Start));
+			}
 
 			return base.OnEntered(context, @event);
 		}
@@ -149,11 +152,11 @@ namespace TextAdventure.Samples.Ctxna.Boards
 					.Build(Color.DarkBlue)
 					.Text(indent0, "Boards", 1)
 					.Text(indent1, "  - An area within a world", 1)
-					.Text(indent1, "    - Background", 1)
+					.Text(indent1, "    - Background layer", 1)
 					.Text(indent1, "      - Sprites that can be walked over", 1)
-					.Text(indent1, "    - Foreground", 1)
+					.Text(indent1, "    - Foreground layer", 1)
 					.Text(indent1, "      - Sprites that can't be walked over", 1)
-					.Text(indent1, "    - Actor instance", 1)
+					.Text(indent1, "    - Actor instance layer", 1)
 					.Text(indent1, "      - Player lives here also");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));

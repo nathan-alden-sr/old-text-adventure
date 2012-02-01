@@ -131,7 +131,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				MessageBuilder messageBuilder = Message
 					.Build(Color.DarkBlue)
 					.Text(indent0, "Actors", 1)
-					.Text(indent1, "  - Provide a template for actor instances");
+					.Text(indent1, "  - Provide a template for actor instances", 1)
+					.Text(indent1, "  - Don't have any behavior or event handlers");
 
 				context.EnqueueCommand(Commands.Message(messageBuilder));
 

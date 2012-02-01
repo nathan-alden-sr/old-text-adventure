@@ -88,6 +88,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 					.Build(Color.DarkBlue)
 					.Text(indent0, "Objects", 1)
 					.Text(indent1, "  - Any class that helps compose a world -- actors, boards, timers, etc.", 1)
+					.Text(indent1, "  - Most objects have unique IDs (GUIDs)", 1)
 					.Text(indent1, "  - Some objects can respond to events", 1)
 					.Text(indent1, "  - Serialized and deserialized");
 
