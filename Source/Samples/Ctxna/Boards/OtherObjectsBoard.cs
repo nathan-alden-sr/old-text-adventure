@@ -21,7 +21,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Size BoardSize = new Size(21, 13);
 		public static readonly Coordinate[] ExitCoordinates = new[]
 		                                                      	{
-		                                                      		new Coordinate(20, 3)
+		                                                      		new Coordinate(20, 3),
+		                                                      		new Coordinate(10, 11)
 		                                                      	};
 		public static readonly Guid TimerActorInstanceId = Guid.Parse("e151b505-0ea8-4b5d-b8f3-889ee7041980");
 		public static readonly Guid TimerId = Guid.Parse("dfaed992-cfdd-4702-993f-74cebf2f9a30");
@@ -89,6 +90,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		private static IEnumerable<BoardExit> GetExits()
 		{
 			yield return new BoardExit(ExitCoordinates[0], BoardExitDirection.Right, MessagesBoard.BoardId, MessagesBoard.ExitCoordinates[1]);
+			yield return new BoardExit(ExitCoordinates[1], BoardExitDirection.Down, OtherTopicsBoard.BoardId, OtherTopicsBoard.ExitCoordinates[0]);
 		}
 
 		private static IEnumerable<Timer> GetTimers()
@@ -172,7 +174,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				if (!_running)
 				{
-					context.EnqueueCommand(Commands.PerformTimerAction(timer, TimerAction.Start));
+					context.EnqueueCommand(Commands.PerformTimerAction(timer, TimerAction.Restart));
 
 					Color indent0 = Color.Yellow;
 					Color indent1 = Color.White;
@@ -197,7 +199,7 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		private class TimerElapsedEventHandler : Engine.Game.Events.EventHandler<TimerElapsedEvent>
 		{
 			private static readonly byte[] _symbols = new[] { Symbol.VerticalBar, Symbol.ForwardSlash, Symbol.MinusSign, Symbol.Backslash };
-			private int _symbolIndex;
+			private int _symbolIndex = 1;
 
 			public override EventResult HandleEvent(EventContext context, TimerElapsedEvent @event)
 			{

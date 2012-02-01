@@ -11,7 +11,7 @@ namespace TextAdventure.Samples.Ctxna
 		public static readonly Guid PlayerId = Guid.Parse("65747269-dc21-4c0b-acb4-bb66f3855be3");
 
 		public StartingPlayer()
-			: base(PlayerId, MessagesBoard.BoardId, new Coordinate(0, 6), new Character(Symbol.FilledSmiley, Color.White, Color.DarkBlue))
+			: base(PlayerId, IntroductionBoard.BoardId, new Coordinate(40, 12), new Character(Symbol.FilledSmiley, Color.White, Color.DarkBlue))
 		{
 		}
 	}

@@ -136,6 +136,23 @@ namespace TextAdventure.Samples.Ctxna.Boards
 			}
 		}
 
+		private class SlapMessageClosedEventHandler : Engine.Game.Events.EventHandler<MessageClosedEvent>
+		{
+			private readonly Command _command;
+
+			public SlapMessageClosedEventHandler(Command command)
+			{
+				_command = command;
+			}
+
+			public override EventResult HandleEvent(EventContext context, MessageClosedEvent @event)
+			{
+				context.EnqueueCommand(_command);
+
+				return EventResult.Completed;
+			}
+		}
+
 		private class YesAnswerSelectedEventHandler : Engine.Game.Events.EventHandler<MessageAnswerSelectedEvent>
 		{
 			private readonly ActorInstance _actorInstance;
@@ -167,16 +184,15 @@ namespace TextAdventure.Samples.Ctxna.Boards
 						.Chain(Commands.Delay(TimeSpan.FromSeconds(1)))
 						.And(Commands.PlaySoundEffect(context.GetSoundEffectById(SlapSoundEffect.SoundEffectId), Volume.Full))
 						.And(Commands.PlayerMove(MoveDirection.Down))
-						.And(Commands.Message(Message.Build(Color.DarkRed).Text(Color.Yellow, "WHAP!")))
-						.And(Commands.Delay(TimeSpan.FromSeconds(1)))
-						.And(moveActorCommand);
+						.And(Commands.Message(Message.Build(Color.DarkRed, new EventHandlerCollection(new SlapMessageClosedEventHandler(moveActorCommand))).Text(Color.Yellow, "WHAP!")))
+						.And(Commands.Delay(TimeSpan.FromSeconds(1)));
 
 					context.EnqueueCommand(command);
+
+					return EventResult.Completed;
 				}
-				else
-				{
-					context.EnqueueCommand(moveActorCommand);
-				}
+
+				context.EnqueueCommand(moveActorCommand);
 
 				return EventResult.Completed;
 			}
