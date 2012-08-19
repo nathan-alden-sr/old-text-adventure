@@ -17,8 +17,8 @@ namespace TextAdventure.Engine.Serializers.Xml
 		public IEnumerable<XElement> Serialize(EventHandlerCollection eventHandlerCollection, string elementName = "eventHandler")
 		{
 			return eventHandlerCollection != null
-			       	? eventHandlerCollection.EventHandlers.Select(arg => new XElement("eventHandler", new XAttribute("type", arg.EventHandlerTypeName)))
-			       	: Enumerable.Empty<XElement>();
+				       ? eventHandlerCollection.EventHandlers.Select(arg => new XElement("eventHandler", new XAttribute("type", arg.EventHandlerTypeName)))
+				       : Enumerable.Empty<XElement>();
 		}
 
 		public EventHandlerCollection Deserialize(XContainer eventHandlerContainer, string elementName = "eventHandler")

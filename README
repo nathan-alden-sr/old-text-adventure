@@ -21,7 +21,12 @@ Required and Recommended Tools
 	- Microsoft Visual Studio 2010
 	- Git
 - Recommended
-	- JetBrains ReSharper 5.1 or 6
+	- JetBrains ReSharper 6.1.1+
+
+
+Versioning
+----------
+All Junior projects use Semantic Versioning. Please see http://semver.org for more information.
 
 
 Code Styles
@@ -38,6 +43,6 @@ I think a clean, consistent codebase is of great importance as a project gets bi
 	- Wrapping
 		- All options unchecked
 
-Please read the codebase before	making contributions to familiarize yourself with its patterns, practices and styles.
+Please read the codebase before making contributions to familiarize yourself with its patterns, practices and styles.
 
-ReSharper is not required, but I highly recommend it. Its refactoring tools have saved me hundreds of hours of mundane, boilerplate work over the years. It's worth every penny! For ReSharper users, there are two ReSharper code style XML configuration files in the repository root. Users of ReSharper should import one of these XML files into ReSharper to ensure the 'Cleanup Code' feature does not radically alter styling. Note that I almost always perform a 'Full Cleanup' before checking in changes, so I ask contributors to please do the same. If you have imported the code styles successfully, you shouldn't see radical changes when performing a diff.
+ReSharper is not required, but I highly recommend it. Its refactoring tools have saved me hundreds of hours of mundane, boilerplate work over the years. It's worth every penny! For ReSharper users, a DotSettings file is included with the solution. It contains settings consistent across all Junior projects. Please use the 'Junior' code cleanup profile.

@@ -20,7 +20,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 
 			if (eventHandlerCollection != null)
 			{
-				foreach (var eventHandler in eventHandlerCollection.EventHandlers)
+				foreach (IEventHandler eventHandler in eventHandlerCollection.EventHandlers)
 				{
 					serializer[index++] = Encoding.ASCII.GetBytes(eventHandler.EventHandlerTypeName);
 				}

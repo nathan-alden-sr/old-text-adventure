@@ -160,18 +160,18 @@ namespace TextAdventure.WindowsGame.Xna
 		private void CreateRendererStates()
 		{
 			_logRendererState = new LogRendererState
-			                    	{
-			                    		Visible = _logConfiguration.Visible,
-			                    		MaximumVisibleLogLines = _logConfiguration.MaximumVisibleLogLines,
-			                    		MinimumWindowWidth = _logConfiguration.MinimumWindowWidth,
-			                    		LogEntryLifetime = _logConfiguration.LogEntryLifetime,
-			                    		ShowTimestamps = _logConfiguration.ShowTimestamps,
-										ShowRaisingEvents = _logConfiguration.ShowRaisingEvents
-			                    	};
+				{
+					Visible = _logConfiguration.Visible,
+					MaximumVisibleLogLines = _logConfiguration.MaximumVisibleLogLines,
+					MinimumWindowWidth = _logConfiguration.MinimumWindowWidth,
+					LogEntryLifetime = _logConfiguration.LogEntryLifetime,
+					ShowTimestamps = _logConfiguration.ShowTimestamps,
+					ShowRaisingEvents = _logConfiguration.ShowRaisingEvents
+				};
 			_worldTimeRendererState = new WorldTimeRendererState
-			                          	{
-			                          		Visible = _worldTimeConfiguration.Visible
-			                          	};
+				{
+					Visible = _worldTimeConfiguration.Visible
+				};
 
 			var worldTime = new WorldTime(_worldTimeRendererState);
 			var worldObserver = new WorldObserver(worldTime, _logRendererState);
@@ -180,9 +180,9 @@ namespace TextAdventure.WindowsGame.Xna
 
 			_boardRendererState = new BoardRendererState(_worldInstance.Player);
 			_fpsRendererState = new FpsRendererState
-			                    	{
-			                    		Visible = _fpsConfiguration.Visible
-			                    	};
+				{
+					Visible = _fpsConfiguration.Visible
+				};
 		}
 
 		private void AddRenderers()
@@ -248,9 +248,9 @@ namespace TextAdventure.WindowsGame.Xna
 			}
 
 			_messageRendererState = new MessageRendererState
-			                        	{
-			                        		Message = _worldInstance.MessageMananger.DequeueMessage()
-			                        	};
+				{
+					Message = _worldInstance.MessageMananger.DequeueMessage()
+				};
 			_messageRenderer = new MessageRenderer(_messageRendererState);
 			_messageFadeInAndScaleUpdater = new MessageFadeInAndScaleUpdater(_messageRendererState, totalGameTime, MessageOpened);
 

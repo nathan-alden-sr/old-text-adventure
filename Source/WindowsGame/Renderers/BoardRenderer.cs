@@ -31,11 +31,11 @@ namespace TextAdventure.WindowsGame.Renderers
 			parameters.ThrowIfNull("parameters");
 
 			IEnumerable<ILayer> layers = new ILayer[]
-			                             	{
-			                             		_state.Board.BackgroundLayer,
-			                             		_state.Board.ForegroundLayer,
-			                             		_state.Board.ActorInstanceLayer
-			                             	};
+				{
+					_state.Board.BackgroundLayer,
+					_state.Board.ForegroundLayer,
+					_state.Board.ActorInstanceLayer
+				};
 			Point topLeftPoint;
 			Coordinate topLeftCoordinate;
 			Coordinate bottomRightCoordinate;

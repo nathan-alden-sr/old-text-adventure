@@ -1,1 +1,0 @@
-Binaries\NAnt\NAnt.exe -buildfile:NAnt.xml Build -D:BuildConfiguration=Debug -D:"Platform=x86"

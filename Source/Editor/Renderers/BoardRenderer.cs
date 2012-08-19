@@ -40,11 +40,11 @@ namespace TextAdventure.Editor.Renderers
 			}
 
 			IEnumerable<ILayer> layers = new ILayer[]
-			                             	{
-			                             		_state.Board.BackgroundLayer,
-			                             		_state.Board.ForegroundLayer,
-			                             		_state.Board.ActorInstanceLayer
-			                             	};
+				{
+					_state.Board.BackgroundLayer,
+					_state.Board.ForegroundLayer,
+					_state.Board.ActorInstanceLayer
+				};
 			Coordinate topLeftCoordinate = _editorView.TopLeftCoordinate;
 			var bottomRightCoordinate = new Coordinate(topLeftCoordinate.X + _editorView.ClientSizeInTiles.Width - 1, topLeftCoordinate.Y + _editorView.ClientSizeInTiles.Height - 1);
 

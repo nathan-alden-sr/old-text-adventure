@@ -271,8 +271,8 @@ namespace TextAdventure.WindowsGame.Renderers
 			var downArrowPosition = new Vector2(x, Window.AbsoluteClientRectangle.Bottom - windowTexture.SpriteHeight);
 			Color upArrowColor = (scrollPosition == 0 ? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor : TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
 			Color downArrowColor = (scrollPosition.FloatValue >= _state.MaximumScrollPosition
-			                        	? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor
-			                        	: TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
+				                        ? TextAdventure.Xna.Constants.MessageRenderer.DisabledArrowColor
+				                        : TextAdventure.Xna.Constants.MessageRenderer.ArrowColor) * Alpha;
 
 			parameters.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
 

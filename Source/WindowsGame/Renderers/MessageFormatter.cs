@@ -19,25 +19,25 @@ namespace TextAdventure.WindowsGame.Renderers
 	{
 		private static readonly char[] _wordSeparator = new[] { ' ' };
 		private readonly Dictionary<int, MessageTextAlignment> _alignmentsByLine = new Dictionary<int, MessageTextAlignment>
-		                                                                           	{
-		                                                                           		{ 0, MessageTextAlignment.Left }
-		                                                                           	};
+			{
+				{ 0, MessageTextAlignment.Left }
+			};
 		private readonly Dictionary<Coordinate, Color> _colorsByWordCoordinate = new Dictionary<Coordinate, Color>
-		                                                                         	{
-		                                                                         		{ new Coordinate(0, 0), Color.White }
-		                                                                         	};
+			{
+				{ new Coordinate(0, 0), Color.White }
+			};
 		private readonly SpriteFont _font;
 		private readonly Dictionary<int, Vector2> _lineSizesByLine = new Dictionary<int, Vector2>
-		                                                             	{
-		                                                             		{ 0, Vector2.Zero }
-		                                                             	};
+			{
+				{ 0, Vector2.Zero }
+			};
 		private readonly float _maximumLineWidth;
 		private readonly WindowTexture _selectedAnswerWindowTexture;
 		private readonly MessageTextWord _spaceWord;
 		private readonly Dictionary<int, List<MessageTextWord>> _wordsByLine = new Dictionary<int, List<MessageTextWord>>
-		                                                                       	{
-		                                                                       		{ 0, new List<MessageTextWord>() }
-		                                                                       	};
+			{
+				{ 0, new List<MessageTextWord>() }
+			};
 		private IEnumerable<MessageAnswer> _answers = Enumerable.Empty<MessageAnswer>();
 
 		public MessageFormatter(IMessage message, SpriteFont font, WindowTexture selectedAnswerWindowTexture, float maximumLineWidth)
@@ -208,9 +208,9 @@ namespace TextAdventure.WindowsGame.Renderers
 					lineIndex++;
 					_lineSizesByLine[lineIndex] = new Vector2(wordSize.X, wordSize.Y);
 					_wordsByLine[lineIndex] = new List<MessageTextWord>
-					                          	{
-					                          		new MessageTextWord(word, wordSize, false)
-					                          	};
+						{
+							new MessageTextWord(word, wordSize, false)
+						};
 					_alignmentsByLine[lineIndex] = alignment;
 				}
 			}

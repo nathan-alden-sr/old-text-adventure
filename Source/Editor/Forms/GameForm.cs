@@ -35,9 +35,9 @@ namespace TextAdventure.Editor.Forms
 			_eraserAction = new EraserAction(_boardRendererState, _eraserRendererState);
 
 			_toolSelectionUserControl = new ToolSelectionUserControl(_pencilRendererState, _eraserRendererState)
-			                            	{
-			                            		Dock = DockStyle.Fill
-			                            	};
+				{
+					Dock = DockStyle.Fill
+				};
 			panelTool.Controls.Add(_toolSelectionUserControl);
 		}
 

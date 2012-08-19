@@ -8,9 +8,9 @@ namespace TextAdventure.Xna
 		public ContentManager GetContentManager(GraphicsDevice graphicsDevice)
 		{
 			return new ContentManager(new XnaServiceProvider(graphicsDevice))
-			       	{
-			       		RootDirectory = "Content"
-			       	};
+				{
+					RootDirectory = "Content"
+				};
 		}
 	}
 }

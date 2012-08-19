@@ -33,15 +33,15 @@ namespace TextAdventure.Editor.Tools
 			toolStripButtonEraser.Image = Resources.Eraser;
 
 			_pencilUserControl = new PencilUserControl(pencilRendererState)
-			                     	{
-			                     		Dock = DockStyle.Fill,
-			                     		Visible = false
-			                     	};
+				{
+					Dock = DockStyle.Fill,
+					Visible = false
+				};
 			_eraserUserControl = new EraserUserControl(eraserRendererState)
-			                     	{
-			                     		Dock = DockStyle.Fill,
-			                     		Visible = false
-			                     	};
+				{
+					Dock = DockStyle.Fill,
+					Visible = false
+				};
 
 			AddToolUserControls();
 			SelectPencil();

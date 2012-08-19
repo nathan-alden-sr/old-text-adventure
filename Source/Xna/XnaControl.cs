@@ -35,16 +35,16 @@ namespace TextAdventure.Xna
 		private PresentationParameters GetPresentationParameters()
 		{
 			return new PresentationParameters
-			       	{
-			       		BackBufferFormat = SurfaceFormat.Color,
-			       		BackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
-			       		BackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
-			       		DepthStencilFormat = DepthFormat.Depth24Stencil8,
-			       		DeviceWindowHandle = Handle,
-			       		IsFullScreen = false,
-			       		RenderTargetUsage = RenderTargetUsage.DiscardContents,
-			       		PresentationInterval = PresentInterval.Immediate
-			       	};
+				{
+					BackBufferFormat = SurfaceFormat.Color,
+					BackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+					BackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
+					DepthStencilFormat = DepthFormat.Depth24Stencil8,
+					DeviceWindowHandle = Handle,
+					IsFullScreen = false,
+					RenderTargetUsage = RenderTargetUsage.DiscardContents,
+					PresentationInterval = PresentInterval.Immediate
+				};
 		}
 
 		private void DisposeGraphicsDevice()
@@ -77,7 +77,7 @@ namespace TextAdventure.Xna
 		{
 			if (disposing)
 			{
-			DisposeGraphicsDevice();
+				DisposeGraphicsDevice();
 			}
 
 			base.Dispose(disposing);

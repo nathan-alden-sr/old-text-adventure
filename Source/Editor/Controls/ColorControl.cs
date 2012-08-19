@@ -9,9 +9,9 @@ namespace TextAdventure.Editor.Controls
 	public class ColorControl : Control
 	{
 		private readonly ColorDialog _dialog = new ColorDialog
-		                                       	{
-		                                       		FullOpen = true
-		                                       	};
+			{
+				FullOpen = true
+			};
 
 		[Category("Property Changed")]
 		public event EventHandler SelectedColorChanged;

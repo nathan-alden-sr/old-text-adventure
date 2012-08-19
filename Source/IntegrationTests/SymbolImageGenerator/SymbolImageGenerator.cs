@@ -87,9 +87,9 @@ namespace TextAdventure.IntegrationTests.SymbolImageGenerator
 			fontImage.Dispose();
 
 			var processStartInfo = new ProcessStartInfo(path)
-			                       	{
-			                       		UseShellExecute = true
-			                       	};
+				{
+					UseShellExecute = true
+				};
 
 			Process.Start(processStartInfo);
 

@@ -46,11 +46,11 @@ namespace TextAdventure.WindowsGame
 		{
 			public static readonly Rectangle DestinationRectangle;
 			public static readonly int Height;
-			public static readonly int Width;
 			public static readonly int TilesToBottomExclusive;
 			public static readonly int TilesToLeftInclusive;
 			public static readonly int TilesToRightExclusive;
 			public static readonly int TilesToTopInclusive;
+			public static readonly int Width;
 
 			static GameWindow()
 			{
@@ -78,22 +78,22 @@ namespace TextAdventure.WindowsGame
 				BackgroundColor = Color.Black.WithAlpha(0.25f);
 				FadeDuration = TimeSpan.FromMilliseconds(100);
 				ShadowColors = new Dictionary<LogEntryType, Color>
-				               	{
-				               		{ LogEntryType.CommandExecutedSuccessfully, Color.Black },
-				               		{ LogEntryType.CommandExecutionFailed, Color.Black },
-				               		{ LogEntryType.EventRaising, Color.Black },
-				               		{ LogEntryType.EventComplete, Color.Black },
-				               		{ LogEntryType.EventCanceled, Color.Black }
-				               	};
+					{
+						{ LogEntryType.CommandExecutedSuccessfully, Color.Black },
+						{ LogEntryType.CommandExecutionFailed, Color.Black },
+						{ LogEntryType.EventRaising, Color.Black },
+						{ LogEntryType.EventComplete, Color.Black },
+						{ LogEntryType.EventCanceled, Color.Black }
+					};
 				ShadowOffset = Vector2.One;
 				TextColors = new Dictionary<LogEntryType, Color>
-				             	{
-				             		{ LogEntryType.CommandExecutedSuccessfully, Color.White },
-				             		{ LogEntryType.CommandExecutionFailed, Color.Red },
-				             		{ LogEntryType.EventRaising, Color.LightGreen },
-				             		{ LogEntryType.EventComplete, Color.LightBlue },
-				             		{ LogEntryType.EventCanceled, Color.PaleVioletRed }
-				             	};
+					{
+						{ LogEntryType.CommandExecutedSuccessfully, Color.White },
+						{ LogEntryType.CommandExecutionFailed, Color.Red },
+						{ LogEntryType.EventRaising, Color.LightGreen },
+						{ LogEntryType.EventComplete, Color.LightBlue },
+						{ LogEntryType.EventCanceled, Color.PaleVioletRed }
+					};
 			}
 		}
 

@@ -5,8 +5,6 @@ using FMOD;
 
 using Junior.Common;
 
-using TextAdventure.Engine.Game.Commands;
-
 namespace TextAdventure.WindowsGame.Fmod
 {
 	public class Sound : IDisposable
@@ -21,10 +19,10 @@ namespace TextAdventure.WindowsGame.Fmod
 			data.ThrowIfNull("data");
 
 			var createsoundexinfo = new CREATESOUNDEXINFO
-			                        	{
-			                        		cbsize = Marshal.SizeOf(typeof(CREATESOUNDEXINFO)),
-			                        		length = (uint)data.Length
-			                        	};
+				{
+					cbsize = Marshal.SizeOf(typeof(CREATESOUNDEXINFO)),
+					length = (uint)data.Length
+				};
 			// ReSharper disable BitwiseOperatorOnEnumWihtoutFlags
 			RESULT result = soundSystem.System.createSound(data, MODE.HARDWARE | MODE.OPENMEMORY, ref createsoundexinfo, ref _sound);
 			// ReSharper restore BitwiseOperatorOnEnumWihtoutFlags

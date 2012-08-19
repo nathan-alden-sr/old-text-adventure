@@ -18,11 +18,6 @@ namespace TextAdventure.Engine.Common
 			Height = height;
 		}
 
-		public bool Equals(Size other)
-		{
-			return other.Width == Width && other.Height == Height;
-		}
-
 		public int Width
 		{
 			get
@@ -55,6 +50,11 @@ namespace TextAdventure.Engine.Common
 
 				_height = value;
 			}
+		}
+
+		public bool Equals(Size other)
+		{
+			return other.Width == Width && other.Height == Height;
 		}
 
 		public override bool Equals(object obj)

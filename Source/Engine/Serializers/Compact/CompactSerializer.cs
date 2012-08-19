@@ -68,7 +68,7 @@ namespace TextAdventure.Engine.Serializers.Compact
 			using (var writer = new BinaryWriter(stream))
 			{
 				writer.Write(_dataByFieldIndex.Count);
-				foreach (var pair in _dataByFieldIndex)
+				foreach (KeyValuePair<int, byte[]> pair in _dataByFieldIndex)
 				{
 					writer.Write(pair.Key);
 					writer.Write(pair.Value.Length);

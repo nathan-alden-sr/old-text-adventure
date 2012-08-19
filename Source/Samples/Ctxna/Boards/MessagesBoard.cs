@@ -18,10 +18,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Guid BoardId = Guid.Parse("5eb4bab4-95e6-4fd4-a38a-4245565d3182");
 		public static readonly Size BoardSize = new Size(9, 9);
 		public static readonly Coordinate[] ExitCoordinates = new[]
-		                                                      	{
-		                                                      		new Coordinate(0, 3),
-		                                                      		new Coordinate(0, 6)
-		                                                      	};
+			{
+				new Coordinate(0, 3),
+				new Coordinate(0, 6)
+			};
 
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 2);
 		private static readonly Size _layerSize = new Size(9, 7);

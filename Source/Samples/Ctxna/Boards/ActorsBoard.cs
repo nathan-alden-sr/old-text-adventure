@@ -18,10 +18,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Guid BoardId = Guid.Parse("7f33c23c-58eb-44f5-904f-a7e7e971adb6");
 		public static readonly Size BoardSize = new Size(17, 15);
 		public static readonly Coordinate[] ExitCoordinates = new[]
-		                                                      	{
-		                                                      		new Coordinate(8, 3),
-		                                                      		new Coordinate(13, 14)
-		                                                      	};
+			{
+				new Coordinate(8, 3),
+				new Coordinate(13, 14)
+			};
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 3);
 		private static readonly Size _layerSize = new Size(17, 12);
 
@@ -55,8 +55,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites
-			                               	.Concat(textLine1Sprites)
-			                               	.Concat(textLine2Sprites));
+				                               .Concat(textLine1Sprites)
+				                               .Concat(textLine2Sprites));
 
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 
@@ -152,12 +152,12 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				ChainedCommand chainedCommand = Commands
 					.Chain(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.ActorInstanceMove(actorInstance, MoveDirection.Down)
-					     	.Repeat(TimeSpan.FromMilliseconds(200), 2))
+						     .ActorInstanceMove(actorInstance, MoveDirection.Down)
+						     .Repeat(TimeSpan.FromMilliseconds(200), 2))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(200)))
 					.And(Commands
-					     	.ActorInstanceMove(actorInstance, MoveDirection.Right)
-					     	.Repeat(TimeSpan.FromMilliseconds(200), 5));
+						     .ActorInstanceMove(actorInstance, MoveDirection.Right)
+						     .Repeat(TimeSpan.FromMilliseconds(200), 5));
 
 				context.EnqueueCommand(chainedCommand);
 

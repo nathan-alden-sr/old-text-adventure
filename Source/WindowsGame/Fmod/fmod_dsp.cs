@@ -9,27 +9,34 @@
 /* ========================================================================================== */
 
 using System;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace FMOD
 {
-/*$ preserve end $*/
+	/*$ preserve end $*/
 
-    /* 
+	/* 
         DSP callbacks
     */
-    public delegate RESULT DSP_CREATECALLBACK         (ref DSP_STATE dsp_state);
-    public delegate RESULT DSP_RELEASECALLBACK        (ref DSP_STATE dsp_state);
-    public delegate RESULT DSP_RESETCALLBACK          (ref DSP_STATE dsp_state);
-    public delegate RESULT DSP_READCALLBACK           (ref DSP_STATE dsp_state, IntPtr inbuffer, IntPtr outbuffer, uint length, int inchannels, int outchannels);
-    public delegate RESULT DSP_SETPOSITIONCALLBACK    (ref DSP_STATE dsp_state, uint seeklen);
-    public delegate RESULT DSP_SETPARAMCALLBACK       (ref DSP_STATE dsp_state, int index, float val);
-    public delegate RESULT DSP_GETPARAMCALLBACK       (ref DSP_STATE dsp_state, int index, ref float val, StringBuilder valuestr);
-    public delegate RESULT DSP_DIALOGCALLBACK         (ref DSP_STATE dsp_state, IntPtr hwnd, bool show);
 
+	public delegate RESULT DSP_CREATECALLBACK(ref DSP_STATE dsp_state);
 
-    /*
+	public delegate RESULT DSP_RELEASECALLBACK(ref DSP_STATE dsp_state);
+
+	public delegate RESULT DSP_RESETCALLBACK(ref DSP_STATE dsp_state);
+
+	public delegate RESULT DSP_READCALLBACK(ref DSP_STATE dsp_state, IntPtr inbuffer, IntPtr outbuffer, uint length, int inchannels, int outchannels);
+
+	public delegate RESULT DSP_SETPOSITIONCALLBACK(ref DSP_STATE dsp_state, uint seeklen);
+
+	public delegate RESULT DSP_SETPARAMCALLBACK(ref DSP_STATE dsp_state, int index, float val);
+
+	public delegate RESULT DSP_GETPARAMCALLBACK(ref DSP_STATE dsp_state, int index, ref float val, StringBuilder valuestr);
+
+	public delegate RESULT DSP_DIALOGCALLBACK(ref DSP_STATE dsp_state, IntPtr hwnd, bool show);
+
+	/*
     [ENUM]
     [
         [DESCRIPTION]   
@@ -45,35 +52,35 @@ namespace FMOD
         System::createDSPByType
     ]
     */
-    public enum DSP_TYPE :int
-    {
-        UNKNOWN,            /* This unit was created via a non FMOD plugin so has an unknown purpose */
-        MIXER,              /* This unit does nothing but take inputs and mix them together then feed the result to the soundcard unit. */
-        OSCILLATOR,         /* This unit generates sine/square/saw/triangle or noise tones. */
-        LOWPASS,            /* This unit filters sound using a high quality, resonant lowpass filter algorithm but consumes more CPU time. */
-        ITLOWPASS,          /* This unit filters sound using a resonant lowpass filter algorithm that is used in Impulse Tracker, but with limited cutoff range (0 to 8060hz). */
-        HIGHPASS,           /* This unit filters sound using a resonant highpass filter algorithm. */
-        ECHO,               /* This unit produces an echo on the sound and fades out at the desired rate. */
-        FLANGE,             /* This unit produces a flange effect on the sound. */
-        DISTORTION,         /* This unit distorts the sound. */
-        NORMALIZE,          /* This unit normalizes or amplifies the sound to a certain level. */
-        PARAMEQ,            /* This unit attenuates or amplifies a selected frequency range. */
-        PITCHSHIFT,         /* This unit bends the pitch of a sound without changing the speed of playback. */
-        CHORUS,             /* This unit produces a chorus effect on the sound. */
-        REVERB,             /* This unit produces a reverb effect on the sound. */
-        VSTPLUGIN,          /* This unit allows the use of Steinberg VST plugins */
-        WINAMPPLUGIN,       /* This unit allows the use of Nullsoft Winamp plugins */
-        ITECHO,             /* This unit produces an echo on the sound and fades out at the desired rate as is used in Impulse Tracker. */
-        COMPRESSOR,         /* This unit implements dynamic compression (linked multichannel, wideband) */
-        SFXREVERB,          /* This unit implements SFX reverb */
-        LOWPASS_SIMPLE,     /* This unit filters sound using a simple lowpass with no resonance, but has flexible cutoff and is fast. */
-        DELAY,              /* This unit produces different delays on individual channels of the sound. */
-        TREMOLO,            /* This unit produces a tremolo / chopper effect on the sound. */
-        LADSPAPLUGIN,       /* This unit allows the use of LADSPA standard plugins. */    
-    }
 
+	public enum DSP_TYPE
+	{
+		UNKNOWN, /* This unit was created via a non FMOD plugin so has an unknown purpose */
+		MIXER, /* This unit does nothing but take inputs and mix them together then feed the result to the soundcard unit. */
+		OSCILLATOR, /* This unit generates sine/square/saw/triangle or noise tones. */
+		LOWPASS, /* This unit filters sound using a high quality, resonant lowpass filter algorithm but consumes more CPU time. */
+		ITLOWPASS, /* This unit filters sound using a resonant lowpass filter algorithm that is used in Impulse Tracker, but with limited cutoff range (0 to 8060hz). */
+		HIGHPASS, /* This unit filters sound using a resonant highpass filter algorithm. */
+		ECHO, /* This unit produces an echo on the sound and fades out at the desired rate. */
+		FLANGE, /* This unit produces a flange effect on the sound. */
+		DISTORTION, /* This unit distorts the sound. */
+		NORMALIZE, /* This unit normalizes or amplifies the sound to a certain level. */
+		PARAMEQ, /* This unit attenuates or amplifies a selected frequency range. */
+		PITCHSHIFT, /* This unit bends the pitch of a sound without changing the speed of playback. */
+		CHORUS, /* This unit produces a chorus effect on the sound. */
+		REVERB, /* This unit produces a reverb effect on the sound. */
+		VSTPLUGIN, /* This unit allows the use of Steinberg VST plugins */
+		WINAMPPLUGIN, /* This unit allows the use of Nullsoft Winamp plugins */
+		ITECHO, /* This unit produces an echo on the sound and fades out at the desired rate as is used in Impulse Tracker. */
+		COMPRESSOR, /* This unit implements dynamic compression (linked multichannel, wideband) */
+		SFXREVERB, /* This unit implements SFX reverb */
+		LOWPASS_SIMPLE, /* This unit filters sound using a simple lowpass with no resonance, but has flexible cutoff and is fast. */
+		DELAY, /* This unit produces different delays on individual channels of the sound. */
+		TREMOLO, /* This unit produces a tremolo / chopper effect on the sound. */
+		LADSPAPLUGIN, /* This unit allows the use of LADSPA standard plugins. */
+	}
 
-    /*
+	/*
     [STRUCTURE]
     [
         [DESCRIPTION]   
@@ -97,20 +104,20 @@ namespace FMOD
         System::getDSP
     ]
     */
-    public struct DSP_PARAMETERDESC
-    {
-        public float         min;             /* [in] Minimum value of the parameter (ie 100.0). */
-        public float         max;             /* [in] Maximum value of the parameter (ie 22050.0). */
-        public float         defaultval;      /* [in] Default value of parameter. */
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public char[]        name;            /* [in] Name of the parameter to be displayed (ie "Cutoff frequency"). */
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public char[]        label;           /* [in] Short string to be put next to value to denote the unit type (ie "hz"). */
-        public string        description;     /* [in] Description of the parameter to be displayed as a help item / tooltip for this parameter. */
-    }
 
+	public struct DSP_PARAMETERDESC
+	{
+		public float defaultval; /* [in] Default value of parameter. */
+		public string description; /* [in] Description of the parameter to be displayed as a help item / tooltip for this parameter. */
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public char[] label; /* [in] Short string to be put next to value to denote the unit type (ie "hz"). */
+		public float max; /* [in] Maximum value of the parameter (ie 22050.0). */
+		public float min; /* [in] Minimum value of the parameter (ie 100.0). */
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public char[] name; /* [in] Name of the parameter to be displayed (ie "Cutoff frequency"). */
+	}
 
-    /*
+	/*
     [STRUCTURE] 
     [
         [DESCRIPTION]
@@ -132,30 +139,30 @@ namespace FMOD
         System::getDSP
     ]
     */
-    public struct DSP_DESCRIPTION
-    {
-        [MarshalAs(UnmanagedType.ByValArray,SizeConst=32)]
-        public char[]                      name;               /* [in] Name of the unit to be displayed in the network. */
-        public uint                        version;            /* [in] Plugin writer's version number. */
-        public int                         channels;           /* [in] Number of channels.  Use 0 to process whatever number of channels is currently in the network.  >0 would be mostly used if the unit is a unit that only generates sound. */
-        public DSP_CREATECALLBACK          create;             /* [in] Create callback.  This is called when DSP unit is created.  Can be null. */
-        public DSP_RELEASECALLBACK         release;            /* [in] Release callback.  This is called just before the unit is freed so the user can do any cleanup needed for the unit.  Can be null. */
-        public DSP_RESETCALLBACK           reset;              /* [in] Reset callback.  This is called by the user to reset any history buffers that may need resetting for a filter, when it is to be used or re-used for the first time to its initial clean state.  Use to avoid clicks or artifacts. */
-        public DSP_READCALLBACK            read;               /* [in] Read callback.  Processing is done here.  Can be null. */
-        public DSP_SETPOSITIONCALLBACK     setposition;        /* [in] Setposition callback.  This is called if the unit wants to update its position info but not process data.  Can be null. */
 
-        public int                         numparameters;      /* [in] Number of parameters used in this filter.  The user finds this with DSP::getNumParameters */
-        public DSP_PARAMETERDESC[]         paramdesc;          /* [in] Variable number of parameter structures. */
-        public DSP_SETPARAMCALLBACK        setparameter;       /* [in] This is called when the user calls DSP::setParameter.  Can be null. */
-        public DSP_GETPARAMCALLBACK        getparameter;       /* [in] This is called when the user calls DSP::getParameter.  Can be null. */
-        public DSP_DIALOGCALLBACK          config;             /* [in] This is called when the user calls DSP::showConfigDialog.  Can be used to display a dialog to configure the filter.  Can be null. */
-        public int                         configwidth;        /* [in] Width of config dialog graphic if there is one.  0 otherwise.*/
-        public int                         configheight;       /* [in] Height of config dialog graphic if there is one.  0 otherwise.*/
-        public IntPtr                      userdata;           /* [in] Optional. Specify 0 to ignore. This is user data to be attached to the DSP unit during creation.  Access via DSP::getUserData. */
-    }
+	public struct DSP_DESCRIPTION
+	{
+		public int channels; /* [in] Number of channels.  Use 0 to process whatever number of channels is currently in the network.  >0 would be mostly used if the unit is a unit that only generates sound. */
+		public DSP_DIALOGCALLBACK config; /* [in] This is called when the user calls DSP::showConfigDialog.  Can be used to display a dialog to configure the filter.  Can be null. */
+		public int configheight; /* [in] Height of config dialog graphic if there is one.  0 otherwise.*/
+		public int configwidth; /* [in] Width of config dialog graphic if there is one.  0 otherwise.*/
+		public DSP_CREATECALLBACK create; /* [in] Create callback.  This is called when DSP unit is created.  Can be null. */
+		public DSP_GETPARAMCALLBACK getparameter; /* [in] This is called when the user calls DSP::getParameter.  Can be null. */
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+		public char[] name; /* [in] Name of the unit to be displayed in the network. */
 
+		public int numparameters; /* [in] Number of parameters used in this filter.  The user finds this with DSP::getNumParameters */
+		public DSP_PARAMETERDESC[] paramdesc; /* [in] Variable number of parameter structures. */
+		public DSP_READCALLBACK read; /* [in] Read callback.  Processing is done here.  Can be null. */
+		public DSP_RELEASECALLBACK release; /* [in] Release callback.  This is called just before the unit is freed so the user can do any cleanup needed for the unit.  Can be null. */
+		public DSP_RESETCALLBACK reset; /* [in] Reset callback.  This is called by the user to reset any history buffers that may need resetting for a filter, when it is to be used or re-used for the first time to its initial clean state.  Use to avoid clicks or artifacts. */
+		public DSP_SETPARAMCALLBACK setparameter; /* [in] This is called when the user calls DSP::setParameter.  Can be null. */
+		public DSP_SETPOSITIONCALLBACK setposition; /* [in] Setposition callback.  This is called if the unit wants to update its position info but not process data.  Can be null. */
+		public IntPtr userdata; /* [in] Optional. Specify 0 to ignore. This is user data to be attached to the DSP unit during creation.  Access via DSP::getUserData. */
+		public uint version; /* [in] Plugin writer's version number. */
+	}
 
-    /*
+	/*
     [STRUCTURE] 
     [
         [DESCRIPTION]
@@ -172,15 +179,15 @@ namespace FMOD
         FMOD_DSP_DESCRIPTION
     ]
     */
-    public struct DSP_STATE
-    {
-        public IntPtr   instance;      /* [out] Handle to the DSP hand the user created.  Not to be modified.  C++ users cast to FMOD::DSP to use.  */
-        public IntPtr   plugindata;    /* [in] Plugin writer created data the output author wants to attach to this object. */
-        public ushort   speakermask;   /* Specifies which speakers the DSP effect is active on */
-    };
 
+	public struct DSP_STATE
+	{
+		public IntPtr instance; /* [out] Handle to the DSP hand the user created.  Not to be modified.  C++ users cast to FMOD::DSP to use.  */
+		public IntPtr plugindata; /* [in] Plugin writer created data the output author wants to attach to this object. */
+		public ushort speakermask; /* Specifies which speakers the DSP effect is active on */
+	};
 
-    /*
+	/*
         ==============================================================================================================
 
         FMOD built in effect parameters.  
@@ -189,7 +196,7 @@ namespace FMOD
         ==============================================================================================================
     */
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -206,14 +213,14 @@ namespace FMOD
         FMOD_DSP_TYPE   
     ]
     */
-    public enum DSP_OSCILLATOR
-    {
-        TYPE,   /* Waveform type.  0 = sine.  1 = square. 2 = sawup. 3 = sawdown. 4 = triangle. 5 = noise.  */
-        RATE    /* Frequency of the sinewave in hz.  1.0 to 22000.0.  Default = 220.0. */         
-    }
 
+	public enum DSP_OSCILLATOR
+	{
+		TYPE, /* Waveform type.  0 = sine.  1 = square. 2 = sawup. 3 = sawdown. 4 = triangle. 5 = noise.  */
+		RATE /* Frequency of the sinewave in hz.  1.0 to 22000.0.  Default = 220.0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -230,14 +237,14 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_LOWPASS
-    {
-        CUTOFF,    /* Lowpass cutoff frequency in hz.   1.0 to 22000.0.  Default = 5000.0. */
-        RESONANCE  /* Lowpass resonance Q value. 1.0 to 10.0.  Default = 1.0. */
-    }
 
+	public enum DSP_LOWPASS
+	{
+		CUTOFF, /* Lowpass cutoff frequency in hz.   1.0 to 22000.0.  Default = 5000.0. */
+		RESONANCE /* Lowpass resonance Q value. 1.0 to 10.0.  Default = 1.0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -261,14 +268,14 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_ITLOWPASS
-    {
-        CUTOFF,    /* Lowpass cutoff frequency in hz.  1.0 to 22000.0.  Default = 5000.0/ */
-        RESONANCE  /* Lowpass resonance Q value.  0.0 to 127.0.  Default = 1.0. */
-    }
 
+	public enum DSP_ITLOWPASS
+	{
+		CUTOFF, /* Lowpass cutoff frequency in hz.  1.0 to 22000.0.  Default = 5000.0/ */
+		RESONANCE /* Lowpass resonance Q value.  0.0 to 127.0.  Default = 1.0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -285,14 +292,14 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_HIGHPASS
-    {
-        CUTOFF,    /* Highpass cutoff frequency in hz.  10.0 to output 22000.0.  Default = 5000.0. */
-        RESONANCE  /* Highpass resonance Q value.  1.0 to 10.0.  Default = 1.0. */
-    }
 
+	public enum DSP_HIGHPASS
+	{
+		CUTOFF, /* Highpass cutoff frequency in hz.  10.0 to output 22000.0.  Default = 5000.0. */
+		RESONANCE /* Highpass resonance Q value.  1.0 to 10.0.  Default = 1.0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -316,17 +323,17 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_ECHO
-    {
-        DELAY,       /* Echo delay in ms.  10  to 5000.  Default = 500. */
-        DECAYRATIO,  /* Echo decay per delay.  0 to 1.  1.0 = No decay, 0.0 = total decay.  Default = 0.5. */
-        MAXCHANNELS, /* Maximum channels supported.  0 to 16.  0 = same as fmod's default output polyphony, 1 = mono, 2 = stereo etc.  See remarks for more.  Default = 0.  It is suggested to leave at 0! */
-        DRYMIX,      /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 1.0. */
-        WETMIX       /* Volume of echo signal to pass to output.  0.0 to 1.0. Default = 1.0. */
-    }
 
+	public enum DSP_ECHO
+	{
+		DELAY, /* Echo delay in ms.  10  to 5000.  Default = 500. */
+		DECAYRATIO, /* Echo decay per delay.  0 to 1.  1.0 = No decay, 0.0 = total decay.  Default = 0.5. */
+		MAXCHANNELS, /* Maximum channels supported.  0 to 16.  0 = same as fmod's default output polyphony, 1 = mono, 2 = stereo etc.  See remarks for more.  Default = 0.  It is suggested to leave at 0! */
+		DRYMIX, /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 1.0. */
+		WETMIX /* Volume of echo signal to pass to output.  0.0 to 1.0. Default = 1.0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -347,29 +354,29 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_DELAY
-    {
-        CH0,      /* Channel #0 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH1,      /* Channel #1 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH2,      /* Channel #2 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH3,      /* Channel #3 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH4,      /* Channel #4 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH5,      /* Channel #5 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH6,      /* Channel #6 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH7,      /* Channel #7 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH8,      /* Channel #8 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH9,      /* Channel #9 Delay in ms.   0  to 10000.  Default = 0.  */
-        CH10,     /* Channel #10 Delay in ms.  0  to 10000.  Default = 0.  */
-        CH11,     /* Channel #11 Delay in ms.  0  to 10000.  Default = 0.  */
-        CH12,     /* Channel #12 Delay in ms.  0  to 10000.  Default = 0.  */
-        CH13,     /* Channel #13 Delay in ms.  0  to 10000.  Default = 0.  */
-        CH14,     /* Channel #14 Delay in ms.  0  to 10000.  Default = 0.  */
-        CH15,     /* Channel #15 Delay in ms.  0  to 10000.  Default = 0.  */
-        MAXDELAY, /* Maximum delay in ms.      0  to 1000.   Default = 10. */
-    }
 
+	public enum DSP_DELAY
+	{
+		CH0, /* Channel #0 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH1, /* Channel #1 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH2, /* Channel #2 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH3, /* Channel #3 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH4, /* Channel #4 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH5, /* Channel #5 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH6, /* Channel #6 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH7, /* Channel #7 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH8, /* Channel #8 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH9, /* Channel #9 Delay in ms.   0  to 10000.  Default = 0.  */
+		CH10, /* Channel #10 Delay in ms.  0  to 10000.  Default = 0.  */
+		CH11, /* Channel #11 Delay in ms.  0  to 10000.  Default = 0.  */
+		CH12, /* Channel #12 Delay in ms.  0  to 10000.  Default = 0.  */
+		CH13, /* Channel #13 Delay in ms.  0  to 10000.  Default = 0.  */
+		CH14, /* Channel #14 Delay in ms.  0  to 10000.  Default = 0.  */
+		CH15, /* Channel #15 Delay in ms.  0  to 10000.  Default = 0.  */
+		MAXDELAY, /* Maximum delay in ms.      0  to 1000.   Default = 10. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -390,16 +397,16 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_FLANGE
-    {
-        DRYMIX,      /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 0.45. */
-        WETMIX,      /* Volume of flange signal to pass to output.  0.0 to 1.0. Default = 0.55. */
-        DEPTH,       /* Flange depth.  0.01 to 1.0.  Default = 1.0. */
-        RATE         /* Flange speed in hz.  0.0 to 20.0.  Default = 0.1. */
-    }
 
+	public enum DSP_FLANGE
+	{
+		DRYMIX, /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 0.45. */
+		WETMIX, /* Volume of flange signal to pass to output.  0.0 to 1.0. Default = 0.55. */
+		DEPTH, /* Flange depth.  0.01 to 1.0.  Default = 1.0. */
+		RATE /* Flange speed in hz.  0.0 to 20.0.  Default = 0.1. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -422,20 +429,20 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_TREMOLO
-    {
-        FREQUENCY,     /* LFO frequency in Hz.  0.1 to 20.  Default = 4. */
-        DEPTH,         /* Tremolo depth.  0 to 1.  Default = 0. */
-        SHAPE,         /* LFO shape morph between triangle and sine.  0 to 1.  Default = 0. */
-        SKEW,          /* Time-skewing of LFO cycle.  -1 to 1.  Default = 0. */
-        DUTY,          /* LFO on-time.  0 to 1.  Default = 0.5. */
-        SQUARE,        /* Flatness of the LFO shape.  0 to 1.  Default = 0. */
-        PHASE,         /* Instantaneous LFO phase.  0 to 1.  Default = 0. */
-        SPREAD         /* Rotation / auto-pan effect.  -1 to 1.  Default = 0. */
-    }
 
+	public enum DSP_TREMOLO
+	{
+		FREQUENCY, /* LFO frequency in Hz.  0.1 to 20.  Default = 4. */
+		DEPTH, /* Tremolo depth.  0 to 1.  Default = 0. */
+		SHAPE, /* LFO shape morph between triangle and sine.  0 to 1.  Default = 0. */
+		SKEW, /* Time-skewing of LFO cycle.  -1 to 1.  Default = 0. */
+		DUTY, /* LFO on-time.  0 to 1.  Default = 0.5. */
+		SQUARE, /* Flatness of the LFO shape.  0 to 1.  Default = 0. */
+		PHASE, /* Instantaneous LFO phase.  0 to 1.  Default = 0. */
+		SPREAD /* Rotation / auto-pan effect.  -1 to 1.  Default = 0. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -452,13 +459,13 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_DISTORTION
-    {
-        LEVEL    /* Distortion value.  0.0 to 1.0.  Default = 0.5. */
-    }
 
+	public enum DSP_DISTORTION
+	{
+		LEVEL /* Distortion value.  0.0 to 1.0.  Default = 0.5. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -481,15 +488,15 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_NORMALIZE
-    {
-        FADETIME,    /* Time to ramp the silence to full in ms.  0.0 to 20000.0. Default = 5000.0. */
-        THRESHHOLD,  /* Lower volume range threshold to ignore.  0.0 to 1.0.  Default = 0.1.  Raise higher to stop amplification of very quiet signals. */
-        MAXAMP       /* Maximum amplification allowed.  1.0 to 100000.0.  Default = 20.0.  1.0 = no amplifaction, higher values allow more boost. */
-    }
 
+	public enum DSP_NORMALIZE
+	{
+		FADETIME, /* Time to ramp the silence to full in ms.  0.0 to 20000.0. Default = 5000.0. */
+		THRESHHOLD, /* Lower volume range threshold to ignore.  0.0 to 1.0.  Default = 0.1.  Raise higher to stop amplification of very quiet signals. */
+		MAXAMP /* Maximum amplification allowed.  1.0 to 100000.0.  Default = 20.0.  1.0 = no amplifaction, higher values allow more boost. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -511,16 +518,15 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_PARAMEQ
-    {
-        CENTER,     /* Frequency center.  20.0 to 22000.0.  Default = 8000.0. */
-        BANDWIDTH,  /* Octave range around the center frequency to filter.  0.2 to 5.0.  Default = 1.0. */
-        GAIN        /* Frequency Gain.  0.05 to 3.0.  Default = 1.0.  */
-    }
 
+	public enum DSP_PARAMEQ
+	{
+		CENTER, /* Frequency center.  20.0 to 22000.0.  Default = 8000.0. */
+		BANDWIDTH, /* Octave range around the center frequency to filter.  0.2 to 5.0.  Default = 1.0. */
+		GAIN /* Frequency Gain.  0.05 to 3.0.  Default = 1.0.  */
+	}
 
-
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -551,17 +557,16 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_PITCHSHIFT
-    {
-        PITCH,       /* Pitch value.  0.5 to 2.0.  Default = 1.0. 0.5 = one octave down, 2.0 = one octave up.  1.0 does not change the pitch. */
-        FFTSIZE,     /* FFT window size.  256, 512, 1024, 2048, 4096.  Default = 1024.  Increase this to reduce 'smearing'.  This effect is a warbling sound similar to when an mp3 is encoded at very low bitrates. */
-        OVERLAP,     /* Window overlap.  1 to 32.  Default = 4.  Increase this to reduce 'tremolo' effect.  Increasing it by a factor of 2 doubles the CPU usage. */
-        MAXCHANNELS  /* Maximum channels supported.  0 to 16.  0 = same as fmod's default output polyphony, 1 = mono, 2 = stereo etc.  See remarks for more.  Default = 0.  It is suggested to leave at 0! */
-    }
 
+	public enum DSP_PITCHSHIFT
+	{
+		PITCH, /* Pitch value.  0.5 to 2.0.  Default = 1.0. 0.5 = one octave down, 2.0 = one octave up.  1.0 does not change the pitch. */
+		FFTSIZE, /* FFT window size.  256, 512, 1024, 2048, 4096.  Default = 1024.  Increase this to reduce 'smearing'.  This effect is a warbling sound similar to when an mp3 is encoded at very low bitrates. */
+		OVERLAP, /* Window overlap.  1 to 32.  Default = 4.  Increase this to reduce 'tremolo' effect.  Increasing it by a factor of 2 doubles the CPU usage. */
+		MAXCHANNELS /* Maximum channels supported.  0 to 16.  0 = same as fmod's default output polyphony, 1 = mono, 2 = stereo etc.  See remarks for more.  Default = 0.  It is suggested to leave at 0! */
+	}
 
-
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -581,21 +586,20 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_CHORUS
-    {
-        DRYMIX,   /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 0.5. */
-        WETMIX1,  /* Volume of 1st chorus tap.  0.0 to 1.0.  Default = 0.5. */
-        WETMIX2,  /* Volume of 2nd chorus tap. This tap is 90 degrees out of phase of the first tap.  0.0 to 1.0.  Default = 0.5. */
-        WETMIX3,  /* Volume of 3rd chorus tap. This tap is 90 degrees out of phase of the second tap.  0.0 to 1.0.  Default = 0.5. */
-        DELAY,    /* Chorus delay in ms.  0.1 to 100.0.  Default = 40.0 ms. */
-        RATE,     /* Chorus modulation rate in hz.  0.0 to 20.0.  Default = 0.8 hz. */
-        DEPTH,    /* Chorus modulation depth.  0.0 to 1.0.  Default = 0.03. */
-        FEEDBACK  /* Chorus feedback.  Controls how much of the wet signal gets fed back into the chorus buffer.  0.0 to 1.0.  Default = 0.0. */
-    }
 
+	public enum DSP_CHORUS
+	{
+		DRYMIX, /* Volume of original signal to pass to output.  0.0 to 1.0. Default = 0.5. */
+		WETMIX1, /* Volume of 1st chorus tap.  0.0 to 1.0.  Default = 0.5. */
+		WETMIX2, /* Volume of 2nd chorus tap. This tap is 90 degrees out of phase of the first tap.  0.0 to 1.0.  Default = 0.5. */
+		WETMIX3, /* Volume of 3rd chorus tap. This tap is 90 degrees out of phase of the second tap.  0.0 to 1.0.  Default = 0.5. */
+		DELAY, /* Chorus delay in ms.  0.1 to 100.0.  Default = 40.0 ms. */
+		RATE, /* Chorus modulation rate in hz.  0.0 to 20.0.  Default = 0.8 hz. */
+		DEPTH, /* Chorus modulation depth.  0.0 to 1.0.  Default = 0.03. */
+		FEEDBACK /* Chorus feedback.  Controls how much of the wet signal gets fed back into the chorus buffer.  0.0 to 1.0.  Default = 0.0. */
+	}
 
-
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -612,17 +616,18 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_REVERB
-    {
-        ROOMSIZE, /* Roomsize. 0.0 to 1.0.  Default = 0.5 */
-        DAMP,     /* Damp.     0.0 to 1.0.  Default = 0.5 */
-        WETMIX,   /* Wet mix.  0.0 to 1.0.  Default = 0.33 */
-        DRYMIX,   /* Dry mix.  0.0 to 1.0.  Default = 0.0 */
-        WIDTH,    /* Width.    0.0 to 1.0.  Default = 1.0 */
-        MODE      /* Mode.     0 (normal), 1 (freeze).  Default = 0 */
-    }
 
-    /*
+	public enum DSP_REVERB
+	{
+		ROOMSIZE, /* Roomsize. 0.0 to 1.0.  Default = 0.5 */
+		DAMP, /* Damp.     0.0 to 1.0.  Default = 0.5 */
+		WETMIX, /* Wet mix.  0.0 to 1.0.  Default = 0.33 */
+		DRYMIX, /* Dry mix.  0.0 to 1.0.  Default = 0.0 */
+		WIDTH, /* Width.    0.0 to 1.0.  Default = 1.0 */
+		MODE /* Mode.     0 (normal), 1 (freeze).  Default = 0 */
+	}
+
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -645,17 +650,17 @@ namespace FMOD
         System::addDSP
     ]
     */
-    public enum DSP_ITECHO
-    {
-        WETDRYMIX,      /* Ratio of wet (processed) signal to dry (unprocessed) signal. Must be in the range from 0.0 through 100.0 (all wet). The default value is 50. */
-        FEEDBACK,       /* Percentage of output fed back into input, in the range from 0.0 through 100.0. The default value is 50. */
-        LEFTDELAY,      /* Delay for left channel, in milliseconds, in the range from 1.0 through 2000.0. The default value is 500 ms. */
-        RIGHTDELAY,     /* Delay for right channel, in milliseconds, in the range from 1.0 through 2000.0. The default value is 500 ms. */
-        PANDELAY        /* Value that specifies whether to swap left and right delays with each successive echo. The default value is zero, meaning no swap. Possible values are defined as 0.0 (equivalent to FALSE) and 1.0 (equivalent to TRUE). */
-    }
 
+	public enum DSP_ITECHO
+	{
+		WETDRYMIX, /* Ratio of wet (processed) signal to dry (unprocessed) signal. Must be in the range from 0.0 through 100.0 (all wet). The default value is 50. */
+		FEEDBACK, /* Percentage of output fed back into input, in the range from 0.0 through 100.0. The default value is 50. */
+		LEFTDELAY, /* Delay for left channel, in milliseconds, in the range from 1.0 through 2000.0. The default value is 500 ms. */
+		RIGHTDELAY, /* Delay for right channel, in milliseconds, in the range from 1.0 through 2000.0. The default value is 500 ms. */
+		PANDELAY /* Value that specifies whether to swap left and right delays with each successive echo. The default value is zero, meaning no swap. Possible values are defined as 0.0 (equivalent to FALSE) and 1.0 (equivalent to TRUE). */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -687,16 +692,16 @@ namespace FMOD
         System::addDSP
     ]
     */
-    public enum DSP_COMPRESSOR
-    {
-        THRESHOLD,  /* Threshold level (dB)in the range from -60 through 0. The default value is 50. */ 
-        ATTACK,     /* Gain reduction attack time (milliseconds), in the range from 10 through 200. The default value is 50. */    
-        RELEASE,    /* Gain reduction release time (milliseconds), in the range from 20 through 1000. The default value is 50. */     
-        GAINMAKEUP /* Make-up gain applied after limiting, in the range from 0.0 through 100.0. The default value is 50. */   
-    }
 
+	public enum DSP_COMPRESSOR
+	{
+		THRESHOLD, /* Threshold level (dB)in the range from -60 through 0. The default value is 50. */
+		ATTACK, /* Gain reduction attack time (milliseconds), in the range from 10 through 200. The default value is 50. */
+		RELEASE, /* Gain reduction release time (milliseconds), in the range from 20 through 1000. The default value is 50. */
+		GAINMAKEUP /* Make-up gain applied after limiting, in the range from 0.0 through 100.0. The default value is 50. */
+	}
 
-    /*
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -721,26 +726,27 @@ namespace FMOD
         FMOD_REVERB_PRESETS
     ]
     */
-    public enum DSP_SFXREVERB
-    {
-        DRYLEVEL,            /* Dry Level      : Mix level of dry signal in output in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
-        ROOM,                /* Room           : Room effect level at low frequencies in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
-        ROOMHF,              /* Room HF        : Room effect high-frequency level re. low frequency level in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
-        ROOMROLLOFFFACTOR,   /* Room Rolloff   : Like DS3D flRolloffFactor but for room effect.  Ranges from 0.0 to 10.0. Default is 10.0 */
-        DECAYTIME,           /* Decay Time     : Reverberation decay time at low-frequencies in seconds.  Ranges from 0.1 to 20.0. Default is 1.0. */
-        DECAYHFRATIO,        /* Decay HF Ratio : High-frequency to low-frequency decay time ratio.  Ranges from 0.1 to 2.0. Default is 0.5. */
-        REFLECTIONSLEVEL,    /* Reflections    : Early reflections level relative to room effect in mB.  Ranges from -10000.0 to 1000.0.  Default is -10000.0. */
-        REFLECTIONSDELAY,    /* Reflect Delay  : Delay time of first reflection in seconds.  Ranges from 0.0 to 0.3.  Default is 0.02. */
-        REVERBLEVEL,         /* Reverb         : Late reverberation level relative to room effect in mB.  Ranges from -10000.0 to 2000.0.  Default is 0.0. */
-        REVERBDELAY,         /* Reverb Delay   : Late reverberation delay time relative to first reflection in seconds.  Ranges from 0.0 to 0.1.  Default is 0.04. */
-        DIFFUSION,           /* Diffusion      : Reverberation diffusion (echo density) in percent.  Ranges from 0.0 to 100.0.  Default is 100.0. */
-        DENSITY,             /* Density        : Reverberation density (modal density) in percent.  Ranges from 0.0 to 100.0.  Default is 100.0. */
-        HFREFERENCE,         /* HF Reference   : Reference high frequency in Hz.  Ranges from 20.0 to 20000.0. Default is 5000.0. */
-        ROOMLF,              /* Room LF        : Room effect low-frequency level in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
-        LFREFERENCE          /* LF Reference   : Reference low-frequency in Hz.  Ranges from 20.0 to 1000.0. Default is 250.0. */
-    }
 
-    /*
+	public enum DSP_SFXREVERB
+	{
+		DRYLEVEL, /* Dry Level      : Mix level of dry signal in output in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
+		ROOM, /* Room           : Room effect level at low frequencies in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
+		ROOMHF, /* Room HF        : Room effect high-frequency level re. low frequency level in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
+		ROOMROLLOFFFACTOR, /* Room Rolloff   : Like DS3D flRolloffFactor but for room effect.  Ranges from 0.0 to 10.0. Default is 10.0 */
+		DECAYTIME, /* Decay Time     : Reverberation decay time at low-frequencies in seconds.  Ranges from 0.1 to 20.0. Default is 1.0. */
+		DECAYHFRATIO, /* Decay HF Ratio : High-frequency to low-frequency decay time ratio.  Ranges from 0.1 to 2.0. Default is 0.5. */
+		REFLECTIONSLEVEL, /* Reflections    : Early reflections level relative to room effect in mB.  Ranges from -10000.0 to 1000.0.  Default is -10000.0. */
+		REFLECTIONSDELAY, /* Reflect Delay  : Delay time of first reflection in seconds.  Ranges from 0.0 to 0.3.  Default is 0.02. */
+		REVERBLEVEL, /* Reverb         : Late reverberation level relative to room effect in mB.  Ranges from -10000.0 to 2000.0.  Default is 0.0. */
+		REVERBDELAY, /* Reverb Delay   : Late reverberation delay time relative to first reflection in seconds.  Ranges from 0.0 to 0.1.  Default is 0.04. */
+		DIFFUSION, /* Diffusion      : Reverberation diffusion (echo density) in percent.  Ranges from 0.0 to 100.0.  Default is 100.0. */
+		DENSITY, /* Density        : Reverberation density (modal density) in percent.  Ranges from 0.0 to 100.0.  Default is 100.0. */
+		HFREFERENCE, /* HF Reference   : Reference high frequency in Hz.  Ranges from 20.0 to 20000.0. Default is 5000.0. */
+		ROOMLF, /* Room LF        : Room effect low-frequency level in mB.  Ranges from -10000.0 to 0.0.  Default is 0.0. */
+		LFREFERENCE /* LF Reference   : Reference low-frequency in Hz.  Ranges from 20.0 to 1000.0. Default is 250.0. */
+	}
+
+	/*
     [ENUM]
     [  
         [DESCRIPTION]   
@@ -759,10 +765,13 @@ namespace FMOD
         FMOD_DSP_TYPE
     ]
     */
-    public enum DSP_LOWPASS_SIMPLE
-    {
-        CUTOFF     /* Lowpass cutoff frequency in hz.  10.0 to 22000.0.  Default = 5000.0 */
-    }
-/*$ preserve start $*/
+
+	public enum DSP_LOWPASS_SIMPLE
+	{
+		CUTOFF /* Lowpass cutoff frequency in hz.  10.0 to 22000.0.  Default = 5000.0 */
+	}
+
+	/*$ preserve start $*/
 }
+
 /*$ preserve end $*/

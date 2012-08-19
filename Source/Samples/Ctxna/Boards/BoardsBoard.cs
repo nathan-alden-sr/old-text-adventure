@@ -20,10 +20,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Guid BoardId = Guid.Parse("001f5ae5-c617-48c9-8afe-19f784740f64");
 		public static readonly Size BoardSize = new Size(17, 15);
 		public static readonly Coordinate[] ExitCoordinates = new[]
-		                                                      	{
-		                                                      		new Coordinate(2, 3),
-		                                                      		new Coordinate(16, 8)
-		                                                      	};
+			{
+				new Coordinate(2, 3),
+				new Coordinate(16, 8)
+			};
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(0, 3);
 		private static readonly Size _layerSize = new Size(17, 12);
 
@@ -67,8 +67,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites
-			                               	.Concat(textLine1Sprites)
-			                               	.Concat(textLine2Sprites));
+				                               .Concat(textLine1Sprites)
+				                               .Concat(textLine2Sprites));
 
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 

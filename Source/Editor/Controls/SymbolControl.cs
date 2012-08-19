@@ -156,13 +156,13 @@ namespace TextAdventure.Editor.Controls
 		private static ColorMatrix GetColorMatrix(Color color)
 		{
 			return new ColorMatrix(new[]
-			                       	{
-			                       		new[] { color.R / 255f, 0f, 0f, 0f, 0f },
-			                       		new[] { 0f, color.G / 255f, 0f, 0f, 0f },
-			                       		new[] { 0f, 0f, color.B / 255f, 0f, 0f },
-			                       		new[] { 0f, 0f, 0f, color.A / 255f, 0f },
-			                       		new[] { 0f, 0f, 0f, 0f, 1f }
-			                       	});
+				{
+					new[] { color.R / 255f, 0f, 0f, 0f, 0f },
+					new[] { 0f, color.G / 255f, 0f, 0f, 0f },
+					new[] { 0f, 0f, color.B / 255f, 0f, 0f },
+					new[] { 0f, 0f, 0f, color.A / 255f, 0f },
+					new[] { 0f, 0f, 0f, 0f, 1f }
+				});
 		}
 	}
 }

@@ -19,9 +19,9 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Guid BoardId = Guid.Parse("dae415ca-ca40-4745-8126-217e43530170");
 		public static readonly Size BoardSize = new Size(80, 20);
 		public static readonly Coordinate[] ExitCoordinates = new[]
-		                                                      	{
-		                                                      		new Coordinate(50, 11)
-		                                                      	};
+			{
+				new Coordinate(50, 11)
+			};
 		private static readonly Coordinate _layerOriginCoordinate = new Coordinate(30, 8);
 		private static readonly Size _layerSize = new Size(21, 7);
 
@@ -67,10 +67,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 				Color.White,
 				Color.TransparentBlack);
 			var sprites = new List<Sprite>(borderSprites
-			                               	.Concat(textLine1Sprites)
-			                               	.Concat(textLine2Sprites)
-			                               	.Concat(textLine3Sprites)
-			                               	.Concat(textLine4Sprites));
+				                               .Concat(textLine1Sprites)
+				                               .Concat(textLine2Sprites)
+				                               .Concat(textLine3Sprites)
+				                               .Concat(textLine4Sprites));
 
 			sprites.RemoveAll(arg => ExitCoordinates.Contains(arg.Coordinate));
 			sprites.Add(new Sprite(ExitCoordinates[0], new Character(Symbol.InverseCircle, Color.Magenta, Color.Black)));
@@ -168,8 +168,8 @@ namespace TextAdventure.Samples.Ctxna.Boards
 
 				ChainedCommand moveActorCommand = Commands
 					.Chain(Commands
-					       	.ActorInstanceMove(_actorInstance, MoveDirection.Right)
-					       	.Repeat(TimeSpan.FromMilliseconds(100), 9))
+						       .ActorInstanceMove(_actorInstance, MoveDirection.Right)
+						       .Repeat(TimeSpan.FromMilliseconds(100), 9))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(100)))
 					.And(Commands.ActorInstanceMove(_actorInstance, MoveDirection.Down))
 					.And(Commands.Delay(TimeSpan.FromMilliseconds(500)))

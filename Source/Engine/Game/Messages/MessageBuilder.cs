@@ -83,12 +83,12 @@ namespace TextAdventure.Engine.Game.Messages
 			params MessageAnswer[] answers)
 		{
 			_parts.Add(new MessageQuestion(
-			           	prompt,
-			           	questionForegroundColor,
-			           	unselectedAnswerForegroundColor,
-			           	selectedAnswerForegroundColor,
-			           	selectedAnswerBackgroundColor,
-			           	answers));
+				           prompt,
+				           questionForegroundColor,
+				           unselectedAnswerForegroundColor,
+				           selectedAnswerForegroundColor,
+				           selectedAnswerBackgroundColor,
+				           answers));
 
 			return this;
 		}

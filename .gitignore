@@ -24,22 +24,19 @@
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
-*.cachefile
 ipch/
 obj/
 [Bb]in
 [Dd]ebug*/
-[Rr]elease*/
 Ankh.NoLoad
 
 #Tooling
-[Pp]ackage/
+NuGet Results/
+NuGet Staging/
+NUnit Results/
+NUnit Staging/
 _ReSharper*/
 *.resharper
-[Rr]esults/
-
-#Project files
-[Bb]uildOutput/
 
 #Subversion files
 .svn

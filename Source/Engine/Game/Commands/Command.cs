@@ -211,8 +211,8 @@ namespace TextAdventure.Engine.Game.Commands
 			namedObject.ThrowIfNull("namedObject");
 
 			return namedObject.Name.Length == 0
-			       	? DetailTextFormatter.Instance.FormatUnique(prefix, namedObject)
-			       	: DetailTextFormatter.Instance.FormatNamedObject(prefix, namedObject);
+				       ? DetailTextFormatter.Instance.FormatUnique(prefix, namedObject)
+				       : DetailTextFormatter.Instance.FormatNamedObject(prefix, namedObject);
 		}
 
 		private static void SetPaused(Command command, bool paused)

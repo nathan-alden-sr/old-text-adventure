@@ -29,11 +29,11 @@ namespace TextAdventure.UnitTests.Engine.Serializers.Xml
 				using (var stringWriter = new StringWriter())
 				{
 					var settings = new XmlWriterSettings
-					               	{
-					               		Indent = true,
-					               		IndentChars = "\t",
-					               		OmitXmlDeclaration = true,
-					               	};
+						{
+							Indent = true,
+							IndentChars = "\t",
+							OmitXmlDeclaration = true,
+						};
 
 					using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter, settings))
 					{

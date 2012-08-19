@@ -20,10 +20,10 @@ namespace TextAdventure.Samples.Ctxna.Boards
 		public static readonly Guid BoardId = Guid.Parse("b8bd2e61-5102-499a-bfe0-89254628527b");
 		public static readonly Size BoardSize = new Size(21, 13);
 		public static readonly Coordinate[] ExitCoordinates = new[]
-		                                                      	{
-		                                                      		new Coordinate(20, 3),
-		                                                      		new Coordinate(10, 11)
-		                                                      	};
+			{
+				new Coordinate(20, 3),
+				new Coordinate(10, 11)
+			};
 		public static readonly Guid TimerActorInstanceId = Guid.Parse("e151b505-0ea8-4b5d-b8f3-889ee7041980");
 		public static readonly Guid TimerId = Guid.Parse("dfaed992-cfdd-4702-993f-74cebf2f9a30");
 

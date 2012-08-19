@@ -38,8 +38,8 @@ namespace TextAdventure.Engine.Game.Commands
 			get
 			{
 				return _totalRepeats > MaximumAttempts.Infinite
-				       	? String.Format("Repeated {0} of {1} time{2}", _repeats, _totalRepeats, _totalRepeats == 1 ? "" : "s")
-				       	: String.Format("Repeated {0} time{1}", _repeats, _repeats == 1 ? "" : "s");
+					       ? String.Format("Repeated {0} of {1} time{2}", _repeats, _totalRepeats, _totalRepeats == 1 ? "" : "s")
+					       : String.Format("Repeated {0} time{1}", _repeats, _repeats == 1 ? "" : "s");
 			}
 		}
 

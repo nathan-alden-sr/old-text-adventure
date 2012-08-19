@@ -254,34 +254,26 @@
     </None>
     <None Include="App.config" />
     <None Include="ClickOnce.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Junior.Common">
-      <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
+    <Reference Include="Junior.Common, Version=1.0.6.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\JuniorCommon.1.0.6\lib\net40\Junior.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="mscorlib">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Binaries\XNA\Microsoft.Xna.Framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Binaries\XNA\Microsoft.Xna.Framework.Graphics.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\Binaries\FMOD\fmodex.dll">
-      <Link>fmodex.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Game Thumbnail.png" />
     <Content Include="WindowsGame.ico" />
   </ItemGroup>
@@ -298,8 +290,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>copy /Y "$(SolutionDir)packages\FMOD-4.38\fmodex.dll" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

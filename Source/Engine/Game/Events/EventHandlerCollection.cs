@@ -81,9 +81,9 @@ namespace TextAdventure.Engine.Game.Events
 		protected internal EventResult Invoke<T>(EventContext context, T @event)
 			where T : Event
 		{
-			EventResult result = EventResult.None;
+			var result = EventResult.None;
 
-			foreach (var eventHandler in _eventHandlers.OfType<EventHandler<T>>())
+			foreach (EventHandler<T> eventHandler in _eventHandlers.OfType<EventHandler<T>>())
 			{
 				result = eventHandler.HandleEvent(context, @event);
 
