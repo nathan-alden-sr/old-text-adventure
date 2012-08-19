@@ -7,10 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README = ..\README
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{8D094DEF-8897-4533-899F-E43CFEE2D948}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C6A8C277-E126-47F4-A7E7-11D87E32882D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsGameContent", "WindowsGameContent\WindowsGameContent.contentproj", "{C30AC555-1FF6-4F13-A91A-C28A51402019}"
@@ -31,14 +27,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Debug|x86.Build.0 = Debug|Any CPU
-		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Release|x86.ActiveCfg = Release|Any CPU
-		{8D094DEF-8897-4533-899F-E43CFEE2D948}.Release|x86.Build.0 = Release|Any CPU
-		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Debug|x86.Build.0 = Debug|Any CPU
-		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Release|x86.ActiveCfg = Release|Any CPU
-		{C6A8C277-E126-47F4-A7E7-11D87E32882D}.Release|x86.Build.0 = Release|Any CPU
 		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Debug|x86.Build.0 = Debug|Any CPU
 		{66BBB347-2C6D-4A8E-9DCB-2ADB8A03F745}.Release|x86.ActiveCfg = Release|Any CPU

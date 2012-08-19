@@ -104,6 +104,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TextAdventure.Engine, Version=1.0.3.0, Culture=neutral, PublicKeyToken=183e69a1ef4655ff, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TextAdventure.Engine.1.0.3\lib\net40\TextAdventure.Engine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
@@ -217,10 +221,6 @@
     <ProjectReference Include="..\EditorContent\EditorContent.contentproj">
       <Name>EditorContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{8D094DEF-8897-4533-899F-E43CFEE2D948}</Project>
-      <Name>Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Xna\Xna.csproj">
       <Project>{7D81C75E-752B-46BF-87F4-A584B9B5EA2F}</Project>
