@@ -27,7 +27,7 @@ Required and Recommended Tools
 
 Versioning
 ----------
-All Junior projects use Semantic Versioning. Please see http://semver.org for more information.
+All Text Adventure projects use Semantic Versioning. Please see http://semver.org for more information.
 
 
 Code Styles
@@ -46,4 +46,4 @@ I think a clean, consistent codebase is of great importance as a project gets bi
 
 Please read the codebase before making contributions to familiarize yourself with its patterns, practices and styles.
 
-ReSharper is not required, but I highly recommend it. Its refactoring tools have saved me hundreds of hours of mundane, boilerplate work over the years. It's worth every penny! For ReSharper users, a DotSettings file is included with the solution. It contains settings consistent across all Junior projects. Please use the 'Junior' code cleanup profile.
+ReSharper is not required, but I highly recommend it. Its refactoring tools have saved me hundreds of hours of mundane, boilerplate work over the years. It's worth every penny! For ReSharper users, a DotSettings file is included with the solution. It contains settings consistent across all Text Adventure projects. Please use the 'Text Adventure' code cleanup profile.
